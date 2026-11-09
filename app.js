@@ -555,8 +555,7 @@
       const { error } = await sb.auth.signInWithOtp({ email: signinEmail, options: { emailRedirectTo: location.href.split("#")[0] } });
       $("sendCode").disabled = false;
       if (error) { $("signinMsg").textContent = "Couldn't send the email: " + error.message; return; }
-      $("codeStep").hidden = false; $("code").focus();
-      $("signinMsg").textContent = "Check your email. Type the code here, or tap the link in the email on this device.";
+      $("signinMsg").textContent = "Check your email and tap the Sign in link on this same device. It brings you right back here, signed in.";
     };
     $("verifyCode").onclick = async () => {
       const token = $("code").value.replace(/\D/g, "");
