@@ -1,0 +1,199 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<meta name="referrer" content="no-referrer">
+<title>Kids Tracker Admin</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=Figtree:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="style.css">
+</head>
+<body data-page="admin">
+<div class="page">
+<div class="wrap">
+  <header class="top">
+    <div>
+      <h1>Kids Tracker</h1>
+      <p>Your private page. Anything you change here shows on the family link right away.</p>
+    </div>
+    <div class="btn-row" id="topBtns" hidden>
+      <button class="btn" id="settingsBtn" type="button">Rotation settings</button>
+      <button class="btn" id="signOut" type="button">Sign out</button>
+    </div>
+  </header>
+
+  <section class="panel narrow" id="vLoading"><p class="msg">Loading&hellip;</p></section>
+
+  <section class="panel narrow" id="vSetup" hidden>
+    <h2>Almost there</h2>
+    <p class="msg">Add your Supabase project URL and publishable key to config.js, then reload this page.</p>
+  </section>
+
+  <section class="panel narrow" id="vSignin" hidden>
+    <h2>Sign in</h2>
+    <p class="msg">We'll email you a sign-in code.</p>
+    <div class="field"><label for="email">Email</label><input type="text" inputmode="email" id="email" autocomplete="email"></div>
+    <div><button class="btn primary" id="sendCode" type="button">Email me a code</button></div>
+    <div id="codeStep" hidden style="display:flex;flex-direction:column;gap:10px">
+      <div class="field"><label for="code">Code from the email</label><input type="text" inputmode="numeric" id="code" autocomplete="one-time-code" maxlength="10"></div>
+      <div><button class="btn primary" id="verifyCode" type="button">Sign in</button></div>
+    </div>
+    <p class="hint" id="signinMsg"></p>
+  </section>
+
+  <section class="panel narrow" id="vNotAdmin" hidden>
+    <h2>This account can't make changes</h2>
+    <p class="msg">You're signed in, but this email isn't set up to edit the tracker.</p>
+    <div><button class="btn" id="signOut2" type="button">Sign out</button></div>
+  </section>
+
+  <div id="vApp" hidden style="display:flex;flex-direction:column;gap:18px">
+    <section class="panel totals" aria-labelledby="totT">
+      <div class="panel-head" style="margin:0">
+        <h2 id="totT">Overnights so far</h2>
+        <div class="seg" role="group" aria-label="Period">
+          <button type="button" data-period="month">Month shown</button>
+          <button type="button" data-period="ytd">This year</button>
+          <button type="button" data-period="all">Since start</button>
+        </div>
+      </div>
+      <div class="score">
+        <div class="side me"><span class="lbl" id="meLbl"></span><span class="big num" id="meN">0</span><span class="num" id="mePct"></span></div>
+        <div class="side co"><span class="lbl" id="coLbl"></span><span class="big num" id="coN">0</span><span class="num" id="coPct"></span></div>
+      </div>
+      <div class="bar" aria-hidden="true"><span class="me" id="meBar"></span><span class="ot" id="otBar"></span><span class="co" id="coBar"></span></div>
+      <ul class="facts" id="facts"></ul>
+    </section>
+
+    <div class="main">
+      <section class="panel" aria-labelledby="aMonth">
+        <div class="panel-head">
+          <h2 id="aMonth">Month</h2>
+          <div class="cal-nav">
+            <button class="icon-btn" type="button" data-nav="admin:-1" aria-label="Previous month">&#8249;</button>
+            <button class="btn" type="button" data-nav="admin:0">Today</button>
+            <button class="icon-btn" type="button" data-nav="admin:1" aria-label="Next month">&#8250;</button>
+          </div>
+        </div>
+        <div class="grid" id="aGrid"></div>
+        <div class="legend" id="aLegend"></div>
+        <p class="hint">Tap a day to log a change. Each day counts the overnight that starts that evening.</p>
+      </section>
+
+      <div class="side-col">
+        <section class="panel share" aria-labelledby="shareT">
+          <div class="panel-head" style="margin:0"><h2 id="shareT">Family link</h2><span class="status-on" id="shareStatus"></span></div>
+          <div class="url"><code id="famUrl"></code><button class="btn" type="button" id="copyLink">Copy</button></div>
+          <ul>
+            <li>Shows who has the kids, handoff times, switches with their reason and shared note, holidays and school days.</li>
+            <li>Never shows totals, percentages or private notes.</li>
+          </ul>
+          <div class="btn-row">
+            <a class="btn primary" id="previewFam" href="#" target="_blank" rel="noopener">See what they see</a>
+            <button class="btn" type="button" id="newLink">Make a new link</button>
+            <button class="btn danger" type="button" id="offLink">Turn off</button>
+          </div>
+          <p class="hint" id="newLinkConfirm" hidden>The current link will stop working. <button class="link-btn" type="button" id="newLinkYes">Make a new link</button> <button class="link-btn" type="button" id="newLinkNo">Cancel</button></p>
+        </section>
+
+        <section class="panel" aria-labelledby="logT">
+          <div class="panel-head"><h2 id="logT">Change log</h2><span class="num" style="color:var(--muted);font-size:.86rem" id="logCount"></span></div>
+          <ul class="log" id="log"></ul>
+        </section>
+      </div>
+    </div>
+
+    <section class="panel" aria-labelledby="holT">
+      <div class="panel-head">
+        <h2 id="holT">Holidays and school calendar</h2>
+        <div class="btn-row" style="align-items:center">
+          <button class="icon-btn" type="button" id="holPrev" aria-label="Previous year">&#8249;</button>
+          <span class="num" id="holYear" style="font-weight:700;min-width:3.2em;text-align:center"></span>
+          <button class="icon-btn" type="button" id="holNext" aria-label="Next year">&#8250;</button>
+          <button class="btn" type="button" id="holEdit">Edit dates</button>
+        </div>
+      </div>
+      <ul class="log" id="holList"></ul>
+      <p class="hint" id="sumHint"></p>
+    </section>
+  </div>
+</div>
+</div>
+
+<!-- Day sheet -->
+<div class="scrim" id="dayScrim" hidden>
+  <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="dayTitle">
+    <div><h2 id="dayTitle"></h2><p class="sub" id="daySched"></p></div>
+    <div class="field">
+      <span class="flabel">Who had the kids</span>
+      <div class="pick">
+        <button type="button" class="me" id="pickMe" aria-pressed="false"></button>
+        <button type="button" class="co" id="pickCo" aria-pressed="false"></button>
+        <button type="button" class="ot" id="pickOt" aria-pressed="false">Someone else</button>
+      </div>
+    </div>
+    <div class="field" id="careField" hidden><label for="caregiver">Who kept them</label><input type="text" id="caregiver" maxlength="30" placeholder="e.g. Grandma"></div>
+    <p class="sub" id="sameNote" hidden>That matches the schedule, so there's nothing to log.</p>
+    <div class="field" id="reasonField"><span class="flabel">Reason (shows on the family link)</span><div class="reasons" id="reasons"></div></div>
+    <div class="field" id="thruField"><label for="thru">Through (for more than one day)</label><input type="date" id="thru"></div>
+    <div class="field" id="noteField"><label for="note">Shared note (Brett and Grandma see this)</label><textarea id="note" maxlength="300" placeholder="e.g. Work trip to Charlotte"></textarea></div>
+    <div class="field" id="pnoteField"><label for="pnote">Private note (only you see this)</label><textarea id="pnote" maxlength="500"></textarea></div>
+    <div class="btn-row" style="justify-content:space-between">
+      <button type="button" class="btn danger" id="removeBtn" hidden>Remove change</button>
+      <div class="btn-row" style="margin-left:auto"><button type="button" class="btn" data-close>Cancel</button><button type="button" class="btn primary" id="saveDay">Save</button></div>
+    </div>
+  </div>
+</div>
+
+<!-- Settings -->
+<div class="scrim" id="setScrim" hidden>
+  <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="setTitle">
+    <div><h2 id="setTitle">Rotation settings</h2><p class="sub">Week on, week off. Pick any date that starts one of your weeks.</p></div>
+    <div class="two">
+      <div class="field"><label for="sMy">Your name</label><input type="text" id="sMy" maxlength="20"></div>
+      <div class="field"><label for="sCo">Co-parent</label><input type="text" id="sCo" maxlength="20"></div>
+    </div>
+    <div class="two">
+      <div class="field"><label for="sAnchor">A day your week starts</label><input type="date" id="sAnchor"></div>
+      <div class="field"><label for="sFrom">Count totals from</label><input type="date" id="sFrom"></div>
+    </div>
+    <div class="btn-row" style="justify-content:flex-end"><button type="button" class="btn" data-close>Cancel</button><button type="button" class="btn primary" id="saveSet">Save</button></div>
+  </div>
+</div>
+
+<!-- Dates editor -->
+<div class="scrim" id="brkScrim" hidden>
+  <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="brkTitle">
+    <div><h2 id="brkTitle"></h2><p class="sub">Copy these from the school calendar. Holidays use the break dates; the family page shows the no-school days.</p></div>
+    <fieldset class="brk"><legend>School year</legend><div class="two">
+      <div class="field"><label for="b_first">First day (fall)</label><input type="date" id="b_first"></div>
+      <div class="field"><label for="b_last">Last day (spring)</label><input type="date" id="b_last"></div></div></fieldset>
+    <fieldset class="brk"><legend>Spring break</legend><div class="two">
+      <div class="field"><label for="b_spL">Last day of school</label><input type="date" id="b_spL"></div>
+      <div class="field"><label for="b_spR">First day back</label><input type="date" id="b_spR"></div></div></fieldset>
+    <fieldset class="brk"><legend>Thanksgiving break</legend><div class="two">
+      <div class="field"><label for="b_tgL">Last day of school</label><input type="date" id="b_tgL"></div>
+      <div class="field"><label for="b_tgR">First day back</label><input type="date" id="b_tgR"></div></div></fieldset>
+    <fieldset class="brk"><legend>Christmas break</legend><div class="two">
+      <div class="field"><label for="b_xmL">Last day in December</label><input type="date" id="b_xmL"></div>
+      <div class="field"><label for="b_xmR">First day back in January</label><input type="date" id="b_xmR"></div></div></fieldset>
+    <fieldset class="brk"><legend>No school and half days</legend>
+      <div id="schoolRows" style="display:flex;flex-direction:column;gap:10px"></div>
+      <div><button type="button" class="btn" id="addSchool">Add a day</button></div></fieldset>
+    <fieldset class="brk"><legend>Summer weeks</legend>
+      <div id="sumRows" style="display:flex;flex-direction:column;gap:8px"></div>
+      <div><button type="button" class="btn" id="addSum">Add a week</button></div></fieldset>
+    <div class="btn-row" style="justify-content:flex-end"><button type="button" class="btn" data-close>Cancel</button><button type="button" class="btn primary" id="saveBrk">Save dates</button></div>
+  </div>
+</div>
+
+<div class="toast" id="toast" role="status" hidden></div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.117.3/dist/umd/supabase.js"></script>
+<script src="config.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

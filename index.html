@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<meta name="referrer" content="no-referrer">
+<title>Kids Tracker</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=Figtree:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="style.css">
+</head>
+<body data-page="family">
+<div class="page fam">
+<div class="wrap">
+  <header class="fam-head"><h1>Kids Tracker</h1></header>
+
+  <section class="panel" id="famMsg"><p class="msg" id="famMsgText">Loading the schedule&hellip;</p></section>
+
+  <div id="famContent" hidden style="display:flex;flex-direction:column;gap:18px">
+    <section class="now" id="famNow" aria-live="polite"></section>
+    <section class="panel" aria-labelledby="fMonth">
+      <div class="panel-head">
+        <h2 id="fMonth">Month</h2>
+        <div class="cal-nav">
+          <button class="icon-btn" type="button" data-nav="family:-1" aria-label="Previous month">&#8249;</button>
+          <button class="btn" type="button" data-nav="family:0">Today</button>
+          <button class="icon-btn" type="button" data-nav="family:1" aria-label="Next month">&#8250;</button>
+        </div>
+      </div>
+      <div class="grid" id="fGrid"></div>
+      <div class="legend" id="fLegend"></div>
+      <ul class="month-notes" id="fNotes"></ul>
+    </section>
+    <section class="panel" aria-labelledby="upT">
+      <div class="panel-head"><h2 id="upT">Coming up</h2><span style="color:var(--muted);font-size:.86rem">Next 6 weeks</span></div>
+      <ul class="upcoming" id="fUp"></ul>
+    </section>
+    <p class="updated" id="updated"></p>
+    <p class="foot">Something look off? Text Heather.</p>
+  </div>
+</div>
+</div>
+
+<div class="scrim" id="famDayScrim" hidden>
+  <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="fdTitle">
+    <h2 id="fdTitle"></h2>
+    <div class="infobox" id="fdBody"></div>
+    <div class="btn-row" style="justify-content:flex-end"><button type="button" class="btn" data-close>Close</button></div>
+  </div>
+</div>
+<div class="toast" id="toast" role="status" hidden></div>
+
+<script src="config.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
