@@ -2,7 +2,7 @@
 /* Kids Tracker. Admin page: two-column workspace. Family page: one phone-width column led by a plain "right now" answer. */
 :root {
   --bg: #F4F6F3; --surface: #FFFFFF; --ink: #1E292D; --muted: #5F6D73; --line: #DBE1DC;
-  --me: #B4466C; --me-tint: #F6DDE5; --co: #2A7383; --co-tint: #D3E8EC; --ot: #9A6210; --ot-tint: #F7E6C6;
+  --me: #3F6F14; --me-tint: #E2F0CB; --danger: #B3261E; --co: #2A7383; --co-tint: #D3E8EC; --ot: #9A6210; --ot-tint: #F7E6C6;
   --mock: #E9ECE7; --focus: #1E292D; --shade: #C3CBC7;
   --f-display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
   --f-body: "Figtree", "Segoe UI", system-ui, -apple-system, sans-serif;
@@ -10,13 +10,13 @@
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
     --bg: #121719; --surface: #1A2124; --ink: #E7ECEA; --muted: #9AA7AC; --line: #2B3538;
-    --me: #E68AAA; --me-tint: #3B2530; --co: #63B6C7; --co-tint: #173238; --ot: #E3B263; --ot-tint: #3A2E17;
+    --me: #A6D37A; --me-tint: #2A3518; --danger: #F2A39B; --co: #63B6C7; --co-tint: #173238; --ot: #E3B263; --ot-tint: #3A2E17;
     --mock: #0D1113; --focus: #E7ECEA; --shade: #3E494D; color-scheme: dark;
   }
 }
 :root[data-theme="dark"] {
   --bg: #121719; --surface: #1A2124; --ink: #E7ECEA; --muted: #9AA7AC; --line: #2B3538;
-  --me: #E68AAA; --me-tint: #3B2530; --co: #63B6C7; --co-tint: #173238; --ot: #E3B263; --ot-tint: #3A2E17;
+  --me: #A6D37A; --me-tint: #2A3518; --danger: #F2A39B; --co: #63B6C7; --co-tint: #173238; --ot: #E3B263; --ot-tint: #3A2E17;
   --mock: #0D1113; --focus: #E7ECEA; --shade: #3E494D; color-scheme: dark;
 }
 * { box-sizing: border-box; }
@@ -36,7 +36,7 @@ button { cursor: pointer; }
 .btn { border: 1px solid var(--line); background: var(--surface); border-radius: 8px; padding: 7px 12px; font-weight: 500; }
 .btn:hover { border-color: var(--muted); }
 .btn.primary { background: var(--ink); color: var(--bg); border-color: var(--ink); }
-.btn.danger { color: var(--me); }
+.btn.danger { color: var(--danger); }
 .btn-row { display: flex; flex-wrap: wrap; gap: 8px; }
 .seg { display: inline-flex; border: 1px solid var(--line); border-radius: 999px; padding: 2px; background: var(--bg); }
 .seg button { border: 0; background: transparent; border-radius: 999px; padding: 5px 12px; font-size: 0.86rem; color: var(--muted); font-weight: 600; }
