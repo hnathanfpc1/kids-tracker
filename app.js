@@ -40,7 +40,8 @@
   // One neutral set of reasons, the same wording on both pages.
   const REASONS = { work: "Work", travel: "Travel", coverage: "Coverage requested", other: "Trade or other" };
   const reasonLabel = rec => (rec && REASONS[rec.reason]) || "";
-  const nameOf = (who, rec) => who === "me" ? S().myName : who === "co" ? S().coName : ((rec && rec.with) || "Someone else");
+  const GRANDMA = "Grandma";
+  const nameOf = (who, rec) => who === "me" ? S().myName : who === "co" ? S().coName : who === "grandma" ? GRANDMA : ((rec && rec.with) || "Someone else");
   const famWhy = rec => rec ? [reasonLabel(rec), rec.note].filter(Boolean).join(". ") : "";
 
   // ---------- Holidays from the custody agreement ("me" = Mother/Wife, "co" = Father/Husband) ----------
@@ -184,7 +185,7 @@
     }
     $(mode === "admin" ? "aGrid" : "fGrid").innerHTML = h.join("");
     $(mode === "admin" ? "aLegend" : "fLegend").innerHTML = [
-      `<span><i class="k-me"></i>${esc(S().myName)}</span>`, `<span><i class="k-co"></i>${esc(S().coName)}</span>`, `<span><i class="k-ot"></i>Someone else</span>`,
+      `<span><i class="k-me"></i>${esc(S().myName)}</span>`, `<span><i class="k-co"></i>${esc(S().coName)}</span>`, `<span><i class="k-gm"></i>${GRANDMA}</span>`, `<span><i class="k-ot"></i>Someone else</span>`,
       `<span><span class="sw-k">&#8644;</span>Switched</span>`, `<span><b>&#9733;</b> Holiday schedule</span>`, `<span><i class="k-nos"></i>No school</span>`, `<span><b>&frac12;</b> Half day</span>`,
     ].join("");
   }
@@ -336,20 +337,22 @@
     else if (st.period === "ytd") start = ymd(new Date().getFullYear(), 0, 1);
     else start = from;
     start = Math.max(start, from);
-    let me = 0, co = 0, ot = 0, meCov = 0, coCov = 0; const otBy = new Map();
+    let me = 0, co = 0, gm = 0, ot = 0, meCov = 0, coCov = 0; const otBy = new Map();
     for (let n = start; n <= end; n++) {
       const a = actual(n);
+      if (a === "grandma") { gm++; continue; }
       if (a === "other") { ot++; const nm = nameOf(a, recOf(n)); otBy.set(nm, (otBy.get(nm) || 0) + 1); continue; }
       a === "me" ? me++ : co++;
       if (a !== scheduled(n)) a === "me" ? meCov++ : coCov++;
     }
-    const tot = me + co + ot, pct = x => tot ? Math.round(x / tot * 1000) / 10 : 0;
+    const tot = me + co + gm + ot, pct = x => tot ? Math.round(x / tot * 1000) / 10 : 0;
     $("meLbl").textContent = S().myName; $("coLbl").textContent = S().coName;
     $("meN").textContent = me; $("coN").textContent = co;
     $("mePct").textContent = tot ? pct(me) + "%" : "No nights yet"; $("coPct").textContent = tot ? pct(co) + "%" : "";
-    $("meBar").style.width = (tot ? pct(me) : 50) + "%"; $("otBar").style.width = pct(ot) + "%"; $("coBar").style.width = (tot ? pct(co) : 50) + "%";
+    $("meBar").style.width = (tot ? pct(me) : 50) + "%"; $("gmBar").style.width = pct(gm) + "%"; $("otBar").style.width = pct(ot) + "%"; $("coBar").style.width = (tot ? pct(co) : 50) + "%";
     const net = meCov - coCov, items = [];
     items.push(tot ? `<li>${fmt(start, SD)} to ${fmt(end, { ...SD, year: "numeric" })}, <strong class="num">${tot}</strong> nights</li>` : `<li>Nothing counted in this period yet</li>`);
+    if (gm) items.push(`<li>${GRANDMA} kept them <strong class="num" style="color:var(--gm)">${gm}</strong> (${pct(gm)}%)</li>`);
     if (ot) items.push(`<li>${[...otBy].map(([nm, c]) => `${esc(nm)} kept them <strong class="num" style="color:var(--ot)">${c}</strong>`).join(", ")} (${pct(ot)}%)</li>`);
     items.push(`<li>${esc(S().myName)} covered <strong class="num">${meCov}</strong> for ${esc(S().coName)}</li>`);
     items.push(`<li>${esc(S().coName)} covered <strong class="num">${coCov}</strong> for ${esc(S().myName)}</li>`);
@@ -440,7 +443,7 @@
     $("daySched").textContent = `Scheduled: ${nameOf(sch)}${hol ? " (" + HOL[hol.key].n + ")" : "'s week"}${sc.t === "off" ? ". No school: " + sc.l : ""}`;
     $("pickMe").textContent = S().myName; $("pickCo").textContent = S().coName;
     $("note").value = sw ? sw.note : ""; $("pnote").value = sw ? sw.pnote : "";
-    $("caregiver").value = sw && sw.with ? sw.with : "Grandma";
+    $("caregiver").value = sw && sw.with ? sw.with : "";
     $("removeBtn").hidden = !sw; $("thru").value = toStr(n); $("thru").min = toStr(n);
     $("reasons").innerHTML = "";
     setPick(sw ? sw.had : (sch === "me" ? "co" : "me"), sw && sw.reason);
@@ -448,7 +451,7 @@
   }
   function setPick(who, reason) {
     st.pick = who;
-    [["pickMe", "me"], ["pickCo", "co"], ["pickOt", "other"]].forEach(([id, w]) => $(id).setAttribute("aria-pressed", String(who === w)));
+    [["pickMe", "me"], ["pickCo", "co"], ["pickGm", "grandma"], ["pickOt", "other"]].forEach(([id, w]) => $(id).setAttribute("aria-pressed", String(who === w)));
     $("careField").hidden = who !== "other";
     const same = who === scheduled(st.day) && !recOf(st.day);
     $("sameNote").hidden = !same; ["reasonField", "thruField", "noteField", "pnoteField"].forEach(id => { $(id).hidden = same; }); $("saveDay").disabled = same;
@@ -645,7 +648,7 @@
     $("password").addEventListener("keydown", e => { if (e.key === "Enter") $("pwSignIn").click(); });
     const out = async () => { await sb.auth.signOut(); show("vSignin"); };
     $("signOut").onclick = out; $("signOut2").onclick = out;
-    $("pickMe").onclick = () => setPick("me"); $("pickCo").onclick = () => setPick("co"); $("pickOt").onclick = () => { setPick("other"); $("caregiver").focus(); };
+    $("pickMe").onclick = () => setPick("me"); $("pickCo").onclick = () => setPick("co"); $("pickGm").onclick = () => setPick("grandma"); $("pickOt").onclick = () => { setPick("other"); $("caregiver").focus(); };
     $("saveDay").onclick = saveDay; $("removeBtn").onclick = removeDay;
     $("settingsBtn").onclick = openSettings; $("saveSet").onclick = saveSettings;
     $("holPrev").onclick = () => { st.holYear--; renderHol(); };

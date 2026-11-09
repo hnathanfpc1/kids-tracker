@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=Figtree:wght@400;500;600;700&display=swap">
-<link rel="stylesheet" href="style.css?v=7">
+<link rel="stylesheet" href="style.css?v=9">
 </head>
 <body data-page="admin">
 <div class="page">
@@ -68,7 +68,7 @@
         <div class="side me"><span class="lbl" id="meLbl"></span><span class="big num" id="meN">0</span><span class="num" id="mePct"></span></div>
         <div class="side co"><span class="lbl" id="coLbl"></span><span class="big num" id="coN">0</span><span class="num" id="coPct"></span></div>
       </div>
-      <div class="bar" aria-hidden="true"><span class="me" id="meBar"></span><span class="ot" id="otBar"></span><span class="co" id="coBar"></span></div>
+      <div class="bar" aria-hidden="true"><span class="me" id="meBar"></span><span class="gm" id="gmBar"></span><span class="ot" id="otBar"></span><span class="co" id="coBar"></span></div>
       <ul class="facts" id="facts"></ul>
     </section>
 
@@ -136,10 +136,11 @@
       <div class="pick">
         <button type="button" class="me" id="pickMe" aria-pressed="false"></button>
         <button type="button" class="co" id="pickCo" aria-pressed="false"></button>
+        <button type="button" class="gm" id="pickGm" aria-pressed="false">Grandma</button>
         <button type="button" class="ot" id="pickOt" aria-pressed="false">Someone else</button>
       </div>
     </div>
-    <div class="field" id="careField" hidden><label for="caregiver">Who kept them</label><input type="text" id="caregiver" maxlength="30" placeholder="e.g. Grandma"></div>
+    <div class="field" id="careField" hidden><label for="caregiver">Who kept them</label><input type="text" id="caregiver" maxlength="30" placeholder="e.g. a friend or sitter"></div>
     <p class="sub" id="sameNote" hidden>That matches the schedule, so there's nothing to log.</p>
     <div class="field" id="reasonField"><span class="flabel">Reason (shows on the family link)</span><div class="reasons" id="reasons"></div></div>
     <div class="field" id="thruField"><label for="thru">Through (for more than one day)</label><input type="date" id="thru"></div>
@@ -207,7 +208,7 @@
 <div class="toast" id="toast" role="status" hidden></div>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.117.3/dist/umd/supabase.js"></script>
-<script src="config.js?v=7"></script>
-<script src="app.js?v=7"></script>
+<script src="config.js?v=9"></script>
+<script src="app.js?v=9"></script>
 </body>
 </html>
