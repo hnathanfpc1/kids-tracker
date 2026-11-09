@@ -565,8 +565,17 @@
       $("verifyCode").disabled = false;
       if (error) $("signinMsg").textContent = "That code didn't work. Check it, or send a new one.";
     };
+    $("pwSignIn").onclick = async () => {
+      const email = $("email").value.trim().toLowerCase(), password = $("password").value;
+      if (!email || !password) { $("signinMsg").textContent = "Enter your email and password."; return; }
+      $("pwSignIn").disabled = true;
+      const { error } = await sb.auth.signInWithPassword({ email, password });
+      $("pwSignIn").disabled = false;
+      if (error) $("signinMsg").textContent = "That email and password didn't match. Check them and try again.";
+    };
     $("code").addEventListener("keydown", e => { if (e.key === "Enter") $("verifyCode").click(); });
-    $("email").addEventListener("keydown", e => { if (e.key === "Enter") $("sendCode").click(); });
+    $("email").addEventListener("keydown", e => { if (e.key === "Enter") $("password").focus(); });
+    $("password").addEventListener("keydown", e => { if (e.key === "Enter") $("pwSignIn").click(); });
     const out = async () => { await sb.auth.signOut(); show("vSignin"); };
     $("signOut").onclick = out; $("signOut2").onclick = out;
     $("pickMe").onclick = () => setPick("me"); $("pickCo").onclick = () => setPick("co"); $("pickOt").onclick = () => { setPick("other"); $("caregiver").focus(); };
