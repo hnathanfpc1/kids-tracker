@@ -190,3 +190,9 @@ fieldset.brk legend { font-family: var(--f-display); font-weight: 600; padding: 
 .btn[disabled] { opacity: 0.55; cursor: default; }
 a.btn { text-decoration: none; color: inherit; display: inline-flex; align-items: center; }
 a.btn.primary { color: var(--bg); }
+.newbox { border: 1.5px solid var(--ink); display: flex; flex-direction: column; gap: 10px; }
+.newbox .month-notes { margin: 0; padding: 0; border-top: 0; }
+.day .nw { display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: var(--ink); box-shadow: 0 0 0 2px var(--surface); }
+.chip.new { background: var(--ink); color: var(--surface); }
+.chks { display: flex; flex-wrap: wrap; gap: 8px; }
+.chks label { display: flex; gap: 8px; align-items: center; border: 1px solid var(--line); border-radius: 8px; padding: 8px 12px; cursor: pointer; }

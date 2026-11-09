@@ -32,8 +32,10 @@
     view: { admin: thisMonth(), family: thisMonth() },
     holYear: new Date().getFullYear(),
     day: null, pick: null, draft: null,
+    changedAt: null, seen: null,   // family page: when the schedule last changed / when this phone last looked
   };
   const S = () => st.settings;
+  const isFresh = rec => !!(PAGE === "family" && st.seen && rec && rec.updatedAt && Date.parse(rec.updatedAt) > Date.parse(st.seen));
 
   // One neutral set of reasons, the same wording on both pages.
   const REASONS = { work: "Work", travel: "Travel", coverage: "Coverage requested", other: "Trade or other" };
@@ -175,7 +177,7 @@
         sc.t === "off" ? "No school: " + sc.l : sc.t === "half" ? sc.l : ""].filter(Boolean).join(", ");
       h.push(`<button type="button" class="${cls.join(" ")}" data-n="${n}" data-mode="${mode}" aria-label="${esc(lab)}">
         <span class="top"><span class="d num">${fmt(n, { day: "numeric" })}${hol ? ` <span class="star" aria-hidden="true">&#9733;</span>` : ""}</span>
-          <span class="badges">${sc.t === "half" ? `<span class="half" aria-hidden="true">&frac12;</span>` : ""}${rec ? `<span class="sw" aria-hidden="true">&#8644;</span>` : ""}</span></span>
+          <span class="badges">${sc.t === "half" ? `<span class="half" aria-hidden="true">&frac12;</span>` : ""}${rec ? `<span class="sw" aria-hidden="true">&#8644;</span>` : ""}${isFresh(rec) ? `<span class="nw" title="New"></span>` : ""}</span></span>
         ${hol ? `<span class="hol">${esc(HOL[hol.key].s)}</span>` : ""}
         <span class="who"><span class="wl">${esc(nm)}</span><span class="ws" aria-hidden="true">${esc(nm.charAt(0))}</span></span>
         ${sc.t === "off" ? `<span class="nos" aria-hidden="true"><span class="wl">No school</span><span class="ws">Off</span></span>` : ""}</button>`);
@@ -236,7 +238,7 @@
     }
     switchGroups(T0 + 1, end).forEach(g => {
       const w = famWhy(g.rec);
-      add(g.start, `<p class="sub2">&#8644; Switched${g.end > g.start ? " through " + fmt(g.end, { weekday: "short", ...SD }) : ""}, usually ${esc(nameOf(scheduled(g.start)))}'s${w ? ": " + esc(w) : ""}</p>`);
+      add(g.start, `<p class="sub2">${isFresh(g.rec) ? `<span class="chip new">New</span>` : ""}&#8644; Switched${g.end > g.start ? " through " + fmt(g.end, { weekday: "short", ...SD }) : ""}, usually ${esc(nameOf(scheduled(g.start)))}'s${w ? ": " + esc(w) : ""}</p>`);
     });
     for (let y = yearOf(T0) - 1; y <= yearOf(T0) + 1; y++)
       holidayPeriods(y).filter(p => !p.missing && p.start > T0 && p.start <= end).forEach(p => add(p.start, `<p><strong>&#9733; ${esc(HOL[p.key].n)}</strong> begins, ${esc(nameOf(p.who))}'s year</p>`));
@@ -262,7 +264,32 @@
     $("fdBody").innerHTML = lines.join("");
     $("famDayScrim").hidden = false;
   }
-  function renderFamily() { rebuild(); renderNow(); renderCal("family"); renderNotes(); renderUp(); }
+  // "Updated since you last looked": this phone remembers when it last said "Got it".
+  const SEEN_KEY = "kt-seen";
+  function renderNew() {
+    let seen = null;
+    try { seen = localStorage.getItem(SEEN_KEY); } catch (e) {}
+    if (!st.changedAt) { st.seen = null; $("newBox").hidden = true; return; }
+    if (!seen) {   // first visit: nothing is "new" yet
+      try { localStorage.setItem(SEEN_KEY, st.changedAt); } catch (e) {}
+      st.seen = st.changedAt; $("newBox").hidden = true; return;
+    }
+    st.seen = seen;
+    if (!(Date.parse(st.changedAt) > Date.parse(seen))) { $("newBox").hidden = true; return; }
+    const nums = [...st.swaps.values()].filter(isFresh).map(r => toNum(r.date)).sort((a, b) => a - b);
+    const items = nums.length ? switchGroups(nums[0], nums[nums.length - 1]).filter(g => isFresh(g.rec)).map(g => {
+      const w = famWhy(g.rec);
+      return `<li><span class="dt">${range(g.start, g.end)}</span><span><span class="chip ${g.rec.had}">${esc(nameOf(g.rec.had, g.rec))}</span>${esc(w)}</span></li>`;
+    }) : [];
+    if (!items.length) items.push(`<li style="color:var(--muted)">Some days went back to the regular schedule, or school dates were updated.</li>`);
+    $("newList").innerHTML = items.join("");
+    $("newBox").hidden = false;
+  }
+  function markSeen() {
+    try { localStorage.setItem(SEEN_KEY, st.changedAt); } catch (e) {}
+    st.seen = st.changedAt; renderFamily();
+  }
+  function renderFamily() { rebuild(); renderNew(); renderNow(); renderCal("family"); renderNotes(); renderUp(); }
 
   let lastLoad = 0;
   function famMessage(text) { $("famMsgText").textContent = text; $("famMsg").hidden = false; $("famContent").hidden = true; }
@@ -282,7 +309,8 @@
       st.settings = { myName: s.my_name || "Heather", coName: s.co_name || "Brett", anchor: s.anchor, trackFrom: s.anchor };
       st.breaks = {}; (data.breaks || []).forEach(b => { st.breaks[b.year] = b.data || {}; });
       st.swaps = new Map();
-      (data.swaps || []).forEach(w => { if (isDate(w.day)) st.swaps.set(w.day, { date: w.day, had: w.had, with: w.caregiver || "", reason: w.reason || "", note: w.note || "", pnote: "" }); });
+      (data.swaps || []).forEach(w => { if (isDate(w.day)) st.swaps.set(w.day, { date: w.day, had: w.had, with: w.caregiver || "", reason: w.reason || "", note: w.note || "", pnote: "", updatedAt: w.updated_at || null }); });
+      st.changedAt = data.changed_at || null;
       lastLoad = Date.now();
       renderFamily();
       $("updated").textContent = "Updated " + new Date().toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit" });
@@ -337,7 +365,7 @@
       return `<li><div class="when num">${fmt(n, SD)}<small>${fmt(n, { weekday: "short", year: "numeric" })}</small></div>
         <div class="what"><p><span class="chip ${r.had}">${esc(nameOf(r.had, r))}</span>${n > T0 ? `<span class="chip plain">Upcoming</span>` : ""}</p>
         <p>${esc(reasonLabel(r) || "Change")}</p>${r.note ? `<p class="sub2">${esc(r.note)}</p>` : ""}${r.pnote ? `<p class="sub2"><strong>Private:</strong> ${esc(r.pnote)}</p>` : ""}</div>
-        <button type="button" class="link-btn" data-edit="${n}">Edit</button></li>`;
+        <div style="display:flex;flex-direction:column;gap:2px;align-items:flex-end"><button type="button" class="link-btn" data-edit="${n}">Edit</button><button type="button" class="link-btn" data-text="${n}">Text</button></div></li>`;
     }).join("") : `<li style="display:block"><p class="empty">No changes yet. Tap a day on the calendar to log one.</p></li>`;
   }
   function renderHol() {
@@ -452,6 +480,8 @@
       ups.forEach((u, i) => st.swaps.set(u.day, { date: u.day, had: who, with: w, reason, note, pnote }));
       closeAll(); renderAdmin();
       toast(ups.length ? `Saved ${ups.length} day${ups.length === 1 ? "" : "s"}. The family link shows it now.` : "Back to the regular schedule.");
+      if (ups.length) openText(updateMessage(toNum(ups[0].day), toNum(ups[ups.length - 1].day), false));
+      else if (dels.length) openText(updateMessage(toNum(dels[0]), toNum(dels[dels.length - 1]), true));
     } catch (e) { fail("save", e); }
     finally { $("saveDay").disabled = false; }
   }
@@ -460,7 +490,44 @@
     try {
       const { error } = await sb.from("swaps").delete().eq("day", ds); if (error) throw error;
       st.swaps.delete(ds); closeAll(); renderAdmin(); toast("Change removed.");
+      openText(updateMessage(st.day, st.day, true));
     } catch (e) { fail("remove that change", e); }
+  }
+
+  // Text an update (opens Messages; nothing is sent automatically)
+  const CONTACTS = Array.isArray(CFG.contacts) ? CFG.contacts.filter(c => c && c.phone) : [];
+  const isApple = /iPhone|iPad|iPod|Macintosh/.test(navigator.userAgent);
+  const dayLabel = n => fmt(n, { weekday: "short", ...SD });
+  function updateMessage(a, b, removed) {
+    const span = a === b ? dayLabel(a) : `${dayLabel(a)} to ${dayLabel(b)}`;
+    let msg;
+    if (removed) msg = `Kids Tracker update: ${span} is back to the regular schedule (${nameOf(scheduled(a))}).`;
+    else {
+      const r = recOf(a), w = famWhy(r);
+      msg = `Kids Tracker update: ${nameOf(r.had, r)} has the kids ${span}.${w ? " " + w.replace(/[.!?]?$/, ".") : ""}`;
+    }
+    if (st.link) msg += "\n" + famUrl(st.link.token);
+    return msg;
+  }
+  function smsHref() {
+    const phones = CONTACTS.filter((c, i) => { const el = $("to-" + i); return el && el.checked; }).map(c => c.phone);
+    const body = encodeURIComponent($("txtBody").value);
+    if (!phones.length) return `sms:${isApple ? "&" : "?"}body=${body}`;
+    return isApple ? `sms://open?addresses=${phones.join(",")}&body=${body}` : `sms:${phones.join(",")}?body=${body}`;
+  }
+  function openText(msg) {
+    $("txtBody").value = msg;
+    $("txtTo").innerHTML = CONTACTS.length
+      ? CONTACTS.map((c, i) => `<label><input type="checkbox" id="to-${i}" checked> ${esc(c.name)}</label>`).join("")
+      : `<p class="sub">No contacts set up. Messages will open and you can pick who to send to.</p>`;
+    $("txtGo").href = smsHref();
+    $("txtScrim").hidden = false;
+  }
+  function textForDay(n) {
+    const r = recOf(n); if (!r) return;
+    const k = [r.had, r.with, r.reason, r.note].join("|"), same = x => { const q = recOf(x); return q && [q.had, q.with, q.reason, q.note].join("|") === k; };
+    let a = n, b = n; while (same(a - 1)) a--; while (same(b + 1)) b++;
+    openText(updateMessage(a, b, false));
   }
 
   // Settings
@@ -588,6 +655,9 @@
     $("addSum").onclick = () => { st.draft.sum.push({ start: "", who: st.draft.sum.filter(s => s.who === "me").length < 2 ? "me" : "co" }); renderDraft(); };
     $("copyLink").onclick = copyLink; $("offLink").onclick = turnOff;
     $("newLink").onclick = () => { if (st.link) $("newLinkConfirm").hidden = false; else makeLink(); };
+    $("txtBody").addEventListener("input", () => { $("txtGo").href = smsHref(); });
+    $("txtTo").addEventListener("change", () => { $("txtGo").href = smsHref(); });
+    $("txtGo").addEventListener("click", () => { setTimeout(closeAll, 300); });
     $("newLinkYes").onclick = makeLink; $("newLinkNo").onclick = () => { $("newLinkConfirm").hidden = true; };
     document.addEventListener("input", e => {
       const t = e.target;
@@ -604,6 +674,7 @@
     if (nav) { const [mode, step] = nav.dataset.nav.split(":"); navMonth(mode, Number(step)); mode === "admin" ? renderAdmin() : renderFamily(); return; }
     if (e.target.closest("[data-close]") || e.target.classList.contains("scrim")) { closeAll(); return; }
     if (PAGE !== "admin") return;
+    const tx = e.target.closest("[data-text]"); if (tx) { textForDay(Number(tx.dataset.text)); return; }
     const ed = e.target.closest("[data-edit]");
     if (ed) { const n = Number(ed.dataset.edit), x = new Date(n * DAY); st.view.admin = { y: x.getUTCFullYear(), m: x.getUTCMonth() }; renderAdmin(); openDay(n); return; }
     const rs = e.target.closest("[data-rmsc]"); if (rs) { st.draft.school.splice(Number(rs.dataset.rmsc), 1); renderDraft(); return; }
@@ -613,6 +684,7 @@
   document.addEventListener("keydown", e => { if (e.key === "Escape") closeAll(); });
 
   if (PAGE === "family") {
+    $("gotIt").onclick = markSeen;
     loadFamily();
     window.addEventListener("hashchange", loadFamily);
     document.addEventListener("visibilitychange", () => { if (document.visibilityState === "visible" && Date.now() - lastLoad > 120000) loadFamily(); });

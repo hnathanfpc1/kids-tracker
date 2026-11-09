@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=Figtree:wght@400;500;600;700&display=swap">
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="style.css?v=6">
 </head>
 <body data-page="admin">
 <div class="page">
@@ -194,10 +194,20 @@
   </div>
 </div>
 
+<!-- Text an update -->
+<div class="scrim" id="txtScrim" hidden>
+  <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="txtTitle">
+    <div><h2 id="txtTitle">Text an update?</h2><p class="sub">Opens Messages with this note ready to send. You can still edit it there.</p></div>
+    <div class="field"><label for="txtBody">Message</label><textarea id="txtBody" rows="5"></textarea></div>
+    <div class="field"><span class="flabel">Send to</span><div class="chks" id="txtTo"></div></div>
+    <div class="btn-row" style="justify-content:flex-end"><button type="button" class="btn" data-close>Not now</button><a class="btn primary" id="txtGo" href="#">Open Messages</a></div>
+  </div>
+</div>
+
 <div class="toast" id="toast" role="status" hidden></div>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.117.3/dist/umd/supabase.js"></script>
-<script src="config.js"></script>
-<script src="app.js"></script>
+<script src="config.js?v=6"></script>
+<script src="app.js?v=6"></script>
 </body>
 </html>

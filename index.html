@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=Figtree:wght@400;500;600;700&display=swap">
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="style.css?v=6">
 </head>
 <body data-page="family">
 <div class="page fam">
@@ -19,6 +19,11 @@
   <section class="panel" id="famMsg"><p class="msg" id="famMsgText">Loading the schedule&hellip;</p></section>
 
   <div id="famContent" hidden style="display:flex;flex-direction:column;gap:18px">
+    <section class="panel newbox" id="newBox" hidden aria-labelledby="newT">
+      <h2 id="newT">Updated since you last looked</h2>
+      <ul class="month-notes" id="newList"></ul>
+      <div><button class="btn primary" id="gotIt" type="button">Got it</button></div>
+    </section>
     <section class="now" id="famNow" aria-live="polite"></section>
     <section class="panel" aria-labelledby="fMonth">
       <div class="panel-head">
@@ -52,7 +57,7 @@
 </div>
 <div class="toast" id="toast" role="status" hidden></div>
 
-<script src="config.js"></script>
-<script src="app.js"></script>
+<script src="config.js?v=6"></script>
+<script src="app.js?v=6"></script>
 </body>
 </html>
