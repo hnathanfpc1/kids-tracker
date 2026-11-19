@@ -1,0 +1,53 @@
+# Kids Tracker: keep secrets, personal data and local clutter out of this PUBLIC repo.
+
+# Secrets and local settings
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+.claude/settings.local.json
+supabase/.temp/
+supabase/.branches/
+supabase/.env
+
+# SQL that contains real data (migrations with data, one-off fixes, dumps)
+*.local.sql
+*.dump
+*.backup
+*.bak
+*.sql.gz
+
+# Data exports and anything pulled out of the database
+exports/
+export/
+backups/
+*.csv
+*.tsv
+*.xlsx
+*.xls
+*export*.json
+*backup*.json
+
+# Real schedules used to test importing (screenshots, PDFs, calendar files)
+private/
+import-samples/
+*.ics
+
+# Test tooling and scratch output
+node_modules/
+test-results/
+playwright-report/
+*.log
+
+# Mac clutter
+.DS_Store
+
+# Local-only mockup helpers (real names never go in the repo)
+*.local.js
+
+# Test harness output (screenshots, run results)
+tests/output/
+
+# Screenshots of mockups can show real names when names.local.js is present
+docs/mockups/screens/
