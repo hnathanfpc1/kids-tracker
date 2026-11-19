@@ -1,0 +1,17 @@
+{
+  "name": "kids-tracker-tests",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Headless browser checks for Kids Tracker. Test tooling only, never shipped with the site.",
+  "type": "module",
+  "scripts": {
+    "test": "node run.mjs",
+    "baseline": "node run.mjs --update",
+    "shots:before": "node run.mjs --shots=before",
+    "shots:after": "node run.mjs --shots=after",
+    "check:cdn": "node real-cdn.mjs"
+  },
+  "devDependencies": {
+    "playwright-core": "1.65.1"
+  }
+}

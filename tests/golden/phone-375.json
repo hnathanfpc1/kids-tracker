@@ -1,0 +1,663 @@
+{
+ "family": {
+  "rightNow": {
+   "cls": "me now",
+   "lines": [
+    "RIGHT NOW",
+    "With Heather",
+    "Through Tuesday, Nov 24. Brett picks up Wednesday, Nov 25.",
+    "School today"
+   ]
+  },
+  "november": {
+   "heading": "November 2026",
+   "dow": "Sun Mon Tue Wed Thu Fri Sat",
+   "cells": [
+    {
+     "cls": "day me",
+     "aria": "Sunday, November 1, Heather",
+     "text": "1 H",
+     "date": "2026-11-01"
+    },
+    {
+     "cls": "day me",
+     "aria": "Monday, November 2, Heather",
+     "text": "2 H",
+     "date": "2026-11-02"
+    },
+    {
+     "cls": "day me",
+     "aria": "Tuesday, November 3, Heather",
+     "text": "3 H",
+     "date": "2026-11-03"
+    },
+    {
+     "cls": "day me",
+     "aria": "Wednesday, November 4, Heather",
+     "text": "4 H",
+     "date": "2026-11-04"
+    },
+    {
+     "cls": "day me",
+     "aria": "Thursday, November 5, Heather",
+     "text": "5 H",
+     "date": "2026-11-05"
+    },
+    {
+     "cls": "co day",
+     "aria": "Friday, November 6, Brett",
+     "text": "6 B",
+     "date": "2026-11-06"
+    },
+    {
+     "cls": "co day",
+     "aria": "Saturday, November 7, Brett",
+     "text": "7 B",
+     "date": "2026-11-07"
+    },
+    {
+     "cls": "co day",
+     "aria": "Sunday, November 8, Brett",
+     "text": "8 B",
+     "date": "2026-11-08"
+    },
+    {
+     "cls": "co day",
+     "aria": "Monday, November 9, Brett",
+     "text": "9 B",
+     "date": "2026-11-09"
+    },
+    {
+     "cls": "co day",
+     "aria": "Tuesday, November 10, Brett, No school: Parent conferences",
+     "text": "10 B OFF",
+     "date": "2026-11-10"
+    },
+    {
+     "cls": "co day",
+     "aria": "Wednesday, November 11, Brett",
+     "text": "11 B",
+     "date": "2026-11-11"
+    },
+    {
+     "cls": "co day",
+     "aria": "Thursday, November 12, Brett",
+     "text": "12 B",
+     "date": "2026-11-12"
+    },
+    {
+     "cls": "day me",
+     "aria": "Friday, November 13, Heather",
+     "text": "13 H",
+     "date": "2026-11-13"
+    },
+    {
+     "cls": "day me",
+     "aria": "Saturday, November 14, Heather",
+     "text": "14 H",
+     "date": "2026-11-14"
+    },
+    {
+     "cls": "day me",
+     "aria": "Sunday, November 15, Heather",
+     "text": "15 H",
+     "date": "2026-11-15"
+    },
+    {
+     "cls": "day me",
+     "aria": "Monday, November 16, Heather",
+     "text": "16 H",
+     "date": "2026-11-16"
+    },
+    {
+     "cls": "co day swap",
+     "aria": "Tuesday, November 17, Brett, switched",
+     "text": "17 ⇄ B",
+     "date": "2026-11-17"
+    },
+    {
+     "cls": "day me",
+     "aria": "Wednesday, November 18, Heather",
+     "text": "18 H",
+     "date": "2026-11-18"
+    },
+    {
+     "cls": "day me today",
+     "aria": "Thursday, November 19, Heather",
+     "text": "19 H",
+     "date": "2026-11-19"
+    },
+    {
+     "cls": "day me",
+     "aria": "Friday, November 20, Heather, Thanksgiving",
+     "text": "20 ★ H",
+     "date": "2026-11-20"
+    },
+    {
+     "cls": "day me",
+     "aria": "Saturday, November 21, Heather, Thanksgiving",
+     "text": "21 ★ H",
+     "date": "2026-11-21"
+    },
+    {
+     "cls": "day me",
+     "aria": "Sunday, November 22, Heather, Thanksgiving",
+     "text": "22 ★ H",
+     "date": "2026-11-22"
+    },
+    {
+     "cls": "day me",
+     "aria": "Monday, November 23, Heather, Thanksgiving, No school: Thanksgiving break",
+     "text": "23 ★ H OFF",
+     "date": "2026-11-23"
+    },
+    {
+     "cls": "day me",
+     "aria": "Tuesday, November 24, Heather, Thanksgiving, No school: Thanksgiving break",
+     "text": "24 ★ H OFF",
+     "date": "2026-11-24"
+    },
+    {
+     "cls": "co day swap",
+     "aria": "Wednesday, November 25, Brett, switched, Thanksgiving, No school: Thanksgiving break",
+     "text": "25 ★ ⇄ B OFF",
+     "date": "2026-11-25"
+    },
+    {
+     "cls": "day me",
+     "aria": "Thursday, November 26, Heather, Thanksgiving, No school: Thanksgiving break",
+     "text": "26 ★ H OFF",
+     "date": "2026-11-26"
+    },
+    {
+     "cls": "day me",
+     "aria": "Friday, November 27, Heather, Thanksgiving, No school: Thanksgiving break",
+     "text": "27 ★ H OFF",
+     "date": "2026-11-27"
+    },
+    {
+     "cls": "day me",
+     "aria": "Saturday, November 28, Heather, Thanksgiving",
+     "text": "28 ★ H",
+     "date": "2026-11-28"
+    },
+    {
+     "cls": "day me",
+     "aria": "Sunday, November 29, Heather, Thanksgiving",
+     "text": "29 ★ H",
+     "date": "2026-11-29"
+    },
+    {
+     "cls": "day me",
+     "aria": "Monday, November 30, Heather",
+     "text": "30 H",
+     "date": "2026-11-30"
+    },
+    {
+     "cls": "day me out",
+     "aria": "Tuesday, December 1, Heather",
+     "text": "1 H",
+     "date": "2026-12-01"
+    },
+    {
+     "cls": "day me out",
+     "aria": "Wednesday, December 2, Heather",
+     "text": "2 H",
+     "date": "2026-12-02"
+    },
+    {
+     "cls": "day me out",
+     "aria": "Thursday, December 3, Heather",
+     "text": "3 H",
+     "date": "2026-12-03"
+    },
+    {
+     "cls": "co day out",
+     "aria": "Friday, December 4, Brett",
+     "text": "4 B",
+     "date": "2026-12-04"
+    },
+    {
+     "cls": "day me out swap",
+     "aria": "Saturday, December 5, Heather, switched",
+     "text": "5 ⇄ H",
+     "date": "2026-12-05"
+    }
+   ]
+  },
+  "december": {
+   "heading": "December 2026",
+   "dow": "Sun Mon Tue Wed Thu Fri Sat",
+   "cells": [
+    {
+     "cls": "day me out",
+     "aria": "Sunday, November 29, Heather, Thanksgiving",
+     "text": "29 ★ H",
+     "date": "2026-11-29"
+    },
+    {
+     "cls": "day me out",
+     "aria": "Monday, November 30, Heather",
+     "text": "30 H",
+     "date": "2026-11-30"
+    },
+    {
+     "cls": "day me",
+     "aria": "Tuesday, December 1, Heather",
+     "text": "1 H",
+     "date": "2026-12-01"
+    },
+    {
+     "cls": "day me",
+     "aria": "Wednesday, December 2, Heather",
+     "text": "2 H",
+     "date": "2026-12-02"
+    },
+    {
+     "cls": "day me",
+     "aria": "Thursday, December 3, Heather",
+     "text": "3 H",
+     "date": "2026-12-03"
+    },
+    {
+     "cls": "co day",
+     "aria": "Friday, December 4, Brett",
+     "text": "4 B",
+     "date": "2026-12-04"
+    },
+    {
+     "cls": "day me swap",
+     "aria": "Saturday, December 5, Heather, switched",
+     "text": "5 ⇄ H",
+     "date": "2026-12-05"
+    },
+    {
+     "cls": "co day",
+     "aria": "Sunday, December 6, Brett",
+     "text": "6 B",
+     "date": "2026-12-06"
+    },
+    {
+     "cls": "co day",
+     "aria": "Monday, December 7, Brett",
+     "text": "7 B",
+     "date": "2026-12-07"
+    },
+    {
+     "cls": "co day",
+     "aria": "Tuesday, December 8, Brett",
+     "text": "8 B",
+     "date": "2026-12-08"
+    },
+    {
+     "cls": "co day",
+     "aria": "Wednesday, December 9, Brett",
+     "text": "9 B",
+     "date": "2026-12-09"
+    },
+    {
+     "cls": "co day",
+     "aria": "Thursday, December 10, Brett",
+     "text": "10 B",
+     "date": "2026-12-10"
+    },
+    {
+     "cls": "day me",
+     "aria": "Friday, December 11, Heather",
+     "text": "11 H",
+     "date": "2026-12-11"
+    },
+    {
+     "cls": "day me",
+     "aria": "Saturday, December 12, Heather",
+     "text": "12 H",
+     "date": "2026-12-12"
+    },
+    {
+     "cls": "day me",
+     "aria": "Sunday, December 13, Heather",
+     "text": "13 H",
+     "date": "2026-12-13"
+    },
+    {
+     "cls": "day me",
+     "aria": "Monday, December 14, Heather",
+     "text": "14 H",
+     "date": "2026-12-14"
+    },
+    {
+     "cls": "day me",
+     "aria": "Tuesday, December 15, Heather",
+     "text": "15 H",
+     "date": "2026-12-15"
+    },
+    {
+     "cls": "day me",
+     "aria": "Wednesday, December 16, Heather",
+     "text": "16 H",
+     "date": "2026-12-16"
+    },
+    {
+     "cls": "day me",
+     "aria": "Thursday, December 17, Heather",
+     "text": "17 H",
+     "date": "2026-12-17"
+    },
+    {
+     "cls": "co day",
+     "aria": "Friday, December 18, Brett, Christmas, first part, Half day",
+     "text": "18 ★ ½ B",
+     "date": "2026-12-18"
+    },
+    {
+     "cls": "co day",
+     "aria": "Saturday, December 19, Brett, Christmas, first part",
+     "text": "19 ★ B",
+     "date": "2026-12-19"
+    },
+    {
+     "cls": "co day",
+     "aria": "Sunday, December 20, Brett, Christmas, first part",
+     "text": "20 ★ B",
+     "date": "2026-12-20"
+    },
+    {
+     "cls": "co day",
+     "aria": "Monday, December 21, Brett, Christmas, first part, No school: Winter break",
+     "text": "21 ★ B OFF",
+     "date": "2026-12-21"
+    },
+    {
+     "cls": "day grandma swap",
+     "aria": "Tuesday, December 22, Grandma, switched, Christmas, first part, No school: Winter break",
+     "text": "22 ★ ⇄ G OFF",
+     "date": "2026-12-22"
+    },
+    {
+     "cls": "day grandma swap",
+     "aria": "Wednesday, December 23, Grandma, switched, Christmas, first part, No school: Winter break",
+     "text": "23 ★ ⇄ G OFF",
+     "date": "2026-12-23"
+    },
+    {
+     "cls": "co day",
+     "aria": "Thursday, December 24, Brett, Christmas, first part, No school: Winter break",
+     "text": "24 ★ B OFF",
+     "date": "2026-12-24"
+    },
+    {
+     "cls": "co day",
+     "aria": "Friday, December 25, Brett, Christmas, first part, No school: Winter break",
+     "text": "25 ★ B OFF",
+     "date": "2026-12-25"
+    },
+    {
+     "cls": "day me",
+     "aria": "Saturday, December 26, Heather, Christmas, second part",
+     "text": "26 ★ H",
+     "date": "2026-12-26"
+    },
+    {
+     "cls": "day me",
+     "aria": "Sunday, December 27, Heather, Christmas, second part",
+     "text": "27 ★ H",
+     "date": "2026-12-27"
+    },
+    {
+     "cls": "day me",
+     "aria": "Monday, December 28, Heather, Christmas, second part, No school: Winter break",
+     "text": "28 ★ H OFF",
+     "date": "2026-12-28"
+    },
+    {
+     "cls": "day me",
+     "aria": "Tuesday, December 29, Heather, Christmas, second part, No school: Winter break",
+     "text": "29 ★ H OFF",
+     "date": "2026-12-29"
+    },
+    {
+     "cls": "day me",
+     "aria": "Wednesday, December 30, Heather, Christmas, second part, No school: Winter break",
+     "text": "30 ★ H OFF",
+     "date": "2026-12-30"
+    },
+    {
+     "cls": "day me",
+     "aria": "Thursday, December 31, Heather, Christmas, second part, No school: Winter break",
+     "text": "31 ★ H OFF",
+     "date": "2026-12-31"
+    },
+    {
+     "cls": "day me out",
+     "aria": "Friday, January 1, Heather, Christmas, second part, No school: Winter break",
+     "text": "1 ★ H OFF",
+     "date": "2027-01-01"
+    },
+    {
+     "cls": "day me out",
+     "aria": "Saturday, January 2, Heather, Christmas, second part",
+     "text": "2 ★ H",
+     "date": "2027-01-02"
+    }
+   ]
+  }
+ },
+ "admin": {
+  "november": {
+   "heading": "November 2026",
+   "dow": "Sun Mon Tue Wed Thu Fri Sat",
+   "cells": [
+    {
+     "cls": "day me",
+     "aria": "Sunday, November 1, Heather",
+     "text": "1 H",
+     "date": "2026-11-01"
+    },
+    {
+     "cls": "day me",
+     "aria": "Monday, November 2, Heather",
+     "text": "2 H",
+     "date": "2026-11-02"
+    },
+    {
+     "cls": "day me",
+     "aria": "Tuesday, November 3, Heather",
+     "text": "3 H",
+     "date": "2026-11-03"
+    },
+    {
+     "cls": "day me",
+     "aria": "Wednesday, November 4, Heather",
+     "text": "4 H",
+     "date": "2026-11-04"
+    },
+    {
+     "cls": "day me",
+     "aria": "Thursday, November 5, Heather",
+     "text": "5 H",
+     "date": "2026-11-05"
+    },
+    {
+     "cls": "co day",
+     "aria": "Friday, November 6, Brett",
+     "text": "6 B",
+     "date": "2026-11-06"
+    },
+    {
+     "cls": "co day",
+     "aria": "Saturday, November 7, Brett",
+     "text": "7 B",
+     "date": "2026-11-07"
+    },
+    {
+     "cls": "co day",
+     "aria": "Sunday, November 8, Brett",
+     "text": "8 B",
+     "date": "2026-11-08"
+    },
+    {
+     "cls": "co day",
+     "aria": "Monday, November 9, Brett",
+     "text": "9 B",
+     "date": "2026-11-09"
+    },
+    {
+     "cls": "co day",
+     "aria": "Tuesday, November 10, Brett, No school: Parent conferences",
+     "text": "10 B OFF",
+     "date": "2026-11-10"
+    },
+    {
+     "cls": "co day",
+     "aria": "Wednesday, November 11, Brett",
+     "text": "11 B",
+     "date": "2026-11-11"
+    },
+    {
+     "cls": "co day",
+     "aria": "Thursday, November 12, Brett",
+     "text": "12 B",
+     "date": "2026-11-12"
+    },
+    {
+     "cls": "day me",
+     "aria": "Friday, November 13, Heather",
+     "text": "13 H",
+     "date": "2026-11-13"
+    },
+    {
+     "cls": "day me",
+     "aria": "Saturday, November 14, Heather",
+     "text": "14 H",
+     "date": "2026-11-14"
+    },
+    {
+     "cls": "day me",
+     "aria": "Sunday, November 15, Heather",
+     "text": "15 H",
+     "date": "2026-11-15"
+    },
+    {
+     "cls": "day me",
+     "aria": "Monday, November 16, Heather",
+     "text": "16 H",
+     "date": "2026-11-16"
+    },
+    {
+     "cls": "co day swap",
+     "aria": "Tuesday, November 17, Brett, switched",
+     "text": "17 ⇄ B",
+     "date": "2026-11-17"
+    },
+    {
+     "cls": "day me",
+     "aria": "Wednesday, November 18, Heather",
+     "text": "18 H",
+     "date": "2026-11-18"
+    },
+    {
+     "cls": "day me today",
+     "aria": "Thursday, November 19, Heather",
+     "text": "19 H",
+     "date": "2026-11-19"
+    },
+    {
+     "cls": "day me",
+     "aria": "Friday, November 20, Heather, Thanksgiving",
+     "text": "20 ★ H",
+     "date": "2026-11-20"
+    },
+    {
+     "cls": "day me",
+     "aria": "Saturday, November 21, Heather, Thanksgiving",
+     "text": "21 ★ H",
+     "date": "2026-11-21"
+    },
+    {
+     "cls": "day me",
+     "aria": "Sunday, November 22, Heather, Thanksgiving",
+     "text": "22 ★ H",
+     "date": "2026-11-22"
+    },
+    {
+     "cls": "day me",
+     "aria": "Monday, November 23, Heather, Thanksgiving, No school: Thanksgiving break",
+     "text": "23 ★ H OFF",
+     "date": "2026-11-23"
+    },
+    {
+     "cls": "day me",
+     "aria": "Tuesday, November 24, Heather, Thanksgiving, No school: Thanksgiving break",
+     "text": "24 ★ H OFF",
+     "date": "2026-11-24"
+    },
+    {
+     "cls": "co day swap",
+     "aria": "Wednesday, November 25, Brett, switched, Thanksgiving, No school: Thanksgiving break",
+     "text": "25 ★ ⇄ B OFF",
+     "date": "2026-11-25"
+    },
+    {
+     "cls": "day me",
+     "aria": "Thursday, November 26, Heather, Thanksgiving, No school: Thanksgiving break",
+     "text": "26 ★ H OFF",
+     "date": "2026-11-26"
+    },
+    {
+     "cls": "day me",
+     "aria": "Friday, November 27, Heather, Thanksgiving, No school: Thanksgiving break",
+     "text": "27 ★ H OFF",
+     "date": "2026-11-27"
+    },
+    {
+     "cls": "day me",
+     "aria": "Saturday, November 28, Heather, Thanksgiving",
+     "text": "28 ★ H",
+     "date": "2026-11-28"
+    },
+    {
+     "cls": "day me",
+     "aria": "Sunday, November 29, Heather, Thanksgiving",
+     "text": "29 ★ H",
+     "date": "2026-11-29"
+    },
+    {
+     "cls": "day me",
+     "aria": "Monday, November 30, Heather",
+     "text": "30 H",
+     "date": "2026-11-30"
+    },
+    {
+     "cls": "day me out",
+     "aria": "Tuesday, December 1, Heather",
+     "text": "1 H",
+     "date": "2026-12-01"
+    },
+    {
+     "cls": "day me out",
+     "aria": "Wednesday, December 2, Heather",
+     "text": "2 H",
+     "date": "2026-12-02"
+    },
+    {
+     "cls": "day me out",
+     "aria": "Thursday, December 3, Heather",
+     "text": "3 H",
+     "date": "2026-12-03"
+    },
+    {
+     "cls": "co day out",
+     "aria": "Friday, December 4, Brett",
+     "text": "4 B",
+     "date": "2026-12-04"
+    },
+    {
+     "cls": "day me out swap",
+     "aria": "Saturday, December 5, Heather, switched",
+     "text": "5 ⇄ H",
+     "date": "2026-12-05"
+    }
+   ]
+  }
+ }
+}

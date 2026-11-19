@@ -1,0 +1,129 @@
+{
+ "signedOut": {
+  "shown": [
+   "vSignin"
+  ],
+  "topBtns": false,
+  "toast": null,
+  "sheets": [],
+  "signinMsg": ""
+ },
+ "signedOut_emptySubmit": "Enter your email and password.",
+ "signedOut_wrongPassword": "That email and password didn't match. Check them and try again.",
+ "signedIn_afterPassword": {
+  "shown": [
+   "vApp"
+  ],
+  "topBtns": true,
+  "toast": null,
+  "sheets": [],
+  "signinMsg": "That email and password didn't match. Check them and try again."
+ },
+ "afterSignOut": {
+  "shown": [
+   "vSignin"
+  ],
+  "topBtns": false,
+  "toast": null,
+  "sheets": [],
+  "signinMsg": "That email and password didn't match. Check them and try again."
+ },
+ "notAdmin": {
+  "shown": [
+   "vNotAdmin"
+  ],
+  "topBtns": false,
+  "toast": null,
+  "sheets": [],
+  "signinMsg": ""
+ },
+ "loadFails": {
+  "shown": [
+   "vSignin"
+  ],
+  "topBtns": false,
+  "toast": "Couldn't load your tracker: mock failure.",
+  "sheets": [],
+  "signinMsg": ""
+ },
+ "brandNew": {
+  "views": {
+   "shown": [
+    "vApp"
+   ],
+   "topBtns": true,
+   "toast": null,
+   "sheets": [
+    "setScrim"
+   ],
+   "signinMsg": ""
+  },
+  "settings": {
+   "shown": true,
+   "my": "Heather",
+   "co": "Brett",
+   "anchor": "2026-11-13",
+   "from": "2026-11-19"
+  },
+  "familyLink": {
+   "status": "Off",
+   "url": "No active link. Make one to share.",
+   "copyDisabled": true,
+   "offShown": false,
+   "previewShown": false,
+   "previewHref": "#",
+   "newLabel": "Make a link",
+   "confirmShown": false
+  },
+  "changeLog": {
+   "count": "0 days",
+   "rows": [
+    {
+     "text": "No changes yet. Tap a day on the calendar to log one."
+    }
+   ]
+  },
+  "holidays": {
+   "year": "2026",
+   "rows": [
+    {
+     "text": "May 8 to May 10 ★ Mother's Day weekend 3 nights Heather",
+     "chips": [
+      "chip me | Heather"
+     ]
+    },
+    {
+     "text": "Jun 19 to Jun 21 ★ Father's Day weekend 3 nights Brett",
+     "chips": [
+      "chip co | Brett"
+     ]
+    },
+    {
+     "text": "Dates needed ★ Spring break Add the school dates Brett",
+     "chips": [
+      "chip co | Brett"
+     ]
+    },
+    {
+     "text": "Dates needed ★ Thanksgiving Add the school dates Heather",
+     "chips": [
+      "chip me | Heather"
+     ]
+    },
+    {
+     "text": "Dates needed ★ Christmas, first part Add the school dates Brett",
+     "chips": [
+      "chip co | Brett"
+     ]
+    },
+    {
+     "text": "Dates needed ★ Christmas, second part Add the school dates Heather",
+     "chips": [
+      "chip me | Heather"
+     ]
+    }
+   ],
+   "hint": "Summer 2026: each of you gets two one-week periods. Brett picks first and gives notice by March 1, then Heather by March 15."
+  }
+ }
+}

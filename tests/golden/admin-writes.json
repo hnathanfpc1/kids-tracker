@@ -1,0 +1,651 @@
+{
+ "a_sheetBefore": {
+  "title": "Saturday, November 21, 2026",
+  "sched": "Scheduled: Heather (Thanksgiving)",
+  "picks": [
+   "Heather",
+   "Brett [picked]",
+   "Grandma",
+   "Someone else"
+  ],
+  "careShown": false,
+  "sameNoteShown": false,
+  "detailFieldsShown": [
+   "reasonField",
+   "thruField",
+   "noteField",
+   "pnoteField"
+  ],
+  "reasons": [
+   "Work",
+   "Travel",
+   "Coverage requested [checked]",
+   "Trade or other"
+  ],
+  "thru": "2026-11-21",
+  "thruMin": "2026-11-21",
+  "note": "",
+  "pnote": "",
+  "caregiver": "",
+  "removeShown": false,
+  "saveDisabled": false
+ },
+ "a_saveTwoDaysGrandma": {
+  "calls": [
+   {
+    "table": "swaps",
+    "op": "upsert",
+    "payload": [
+     {
+      "day": "2026-11-21",
+      "had": "grandma",
+      "caregiver": null,
+      "updated_at": "2026-11-19T17:00:00.000Z"
+     },
+     {
+      "day": "2026-11-22",
+      "had": "grandma",
+      "caregiver": null,
+      "updated_at": "2026-11-19T17:00:00.000Z"
+     }
+    ],
+    "filters": [],
+    "sort": null,
+    "limit": null,
+    "one": null,
+    "returning": false
+   },
+   {
+    "table": "swap_details",
+    "op": "upsert",
+    "payload": [
+     {
+      "day": "2026-11-21",
+      "reason": "work",
+      "note": "Test shared note",
+      "pnote": "PRIVATE-TEST private note"
+     },
+     {
+      "day": "2026-11-22",
+      "reason": "work",
+      "note": "Test shared note",
+      "pnote": "PRIVATE-TEST private note"
+     }
+    ],
+    "filters": [],
+    "sort": null,
+    "limit": null,
+    "one": null,
+    "returning": false
+   }
+  ],
+  "toast": "Saved 2 days. The family link shows it now.",
+  "text": {
+   "shown": true,
+   "body": "Kids Tracker update: Grandma has the kids Sat, Nov 21 to Sun, Nov 22. Work. Test shared note.\nhttp://TEST-ORIGIN/#k=TESTTOKEN",
+   "to": [
+    "Mom [checked]",
+    "Brett [checked]"
+   ],
+   "href": "sms://open?addresses=+15555550101,+15555550102&body=Kids%20Tracker%20update%3A%20Grandma%20has%20the%20kids%20Sat%2C%20Nov%2021%20to%20Sun%2C%20Nov%2022.%20Work.%20Test%20shared%20note.%0Ahttp%3A%2F%2FTEST-ORIGIN%2F%23k%3DTESTTOKEN"
+  }
+ },
+ "a_cellsAfter": [
+  {
+   "cls": "day grandma swap",
+   "aria": "Saturday, November 21, Grandma, switched, Thanksgiving",
+   "text": "21 ★ ⇄ Thanksgiving GRANDMA",
+   "date": "2026-11-21"
+  },
+  {
+   "cls": "day grandma swap",
+   "aria": "Sunday, November 22, Grandma, switched, Thanksgiving",
+   "text": "22 ★ ⇄ Thanksgiving GRANDMA",
+   "date": "2026-11-22"
+  }
+ ],
+ "a_logCount": "17 days",
+ "b_scheduledParentPicked": {
+  "shown": true,
+  "title": "Monday, November 23, 2026",
+  "sched": "Scheduled: Heather (Thanksgiving). No school: Thanksgiving break",
+  "picks": [
+   "Heather [picked]",
+   "Brett",
+   "Grandma",
+   "Someone else"
+  ],
+  "careShown": false,
+  "sameNoteShown": true,
+  "detailFieldsShown": [],
+  "reasons": [
+   "Work",
+   "Travel",
+   "Coverage requested [checked]",
+   "Trade or other"
+  ],
+  "thru": "2026-11-23",
+  "thruMin": "2026-11-23",
+  "note": "",
+  "pnote": "",
+  "caregiver": "",
+  "removeShown": false,
+  "saveDisabled": true
+ },
+ "b_calls": [],
+ "c_sheet": {
+  "shown": true,
+  "title": "Tuesday, November 17, 2026",
+  "sched": "Scheduled: Heather's week",
+  "picks": [
+   "Heather",
+   "Brett [picked]",
+   "Grandma",
+   "Someone else"
+  ],
+  "careShown": false,
+  "sameNoteShown": false,
+  "detailFieldsShown": [
+   "reasonField",
+   "thruField",
+   "noteField",
+   "pnoteField"
+  ],
+  "reasons": [
+   "Work",
+   "Travel [checked]",
+   "Coverage requested",
+   "Trade or other"
+  ],
+  "thru": "2026-11-17",
+  "thruMin": "2026-11-17",
+  "note": "Heather away overnight",
+  "pnote": "",
+  "caregiver": "",
+  "removeShown": true,
+  "saveDisabled": false
+ },
+ "c_removeNov17": {
+  "calls": [
+   {
+    "table": "swaps",
+    "op": "delete",
+    "payload": null,
+    "filters": [
+     {
+      "kind": "eq",
+      "col": "day",
+      "val": "2026-11-17"
+     }
+    ],
+    "sort": null,
+    "limit": null,
+    "one": null,
+    "returning": false
+   }
+  ],
+  "toast": "Change removed.",
+  "text": {
+   "shown": true,
+   "body": "Kids Tracker update: Tue, Nov 17 is back to the regular schedule (Heather).\nhttp://TEST-ORIGIN/#k=TESTTOKEN",
+   "to": [
+    "Mom [checked]",
+    "Brett [checked]"
+   ],
+   "href": "sms://open?addresses=+15555550101,+15555550102&body=Kids%20Tracker%20update%3A%20Tue%2C%20Nov%2017%20is%20back%20to%20the%20regular%20schedule%20(Heather).%0Ahttp%3A%2F%2FTEST-ORIGIN%2F%23k%3DTESTTOKEN"
+  }
+ },
+ "c_totalsSinceStartAfter": {
+  "period": "Since start",
+  "me": {
+   "label": "Heather",
+   "nights": "23",
+   "pct": "52.3%"
+  },
+  "co": {
+   "label": "Brett",
+   "nights": "19",
+   "pct": "43.2%"
+  },
+  "bar": "meBar 52.3%, gmBar 2.3%, otBar 2.3%, coBar 43.2%",
+  "facts": [
+   "Oct 7 to Nov 19, 2026, 44 nights",
+   "Grandma kept them 1 (2.3%)",
+   "Babysitter kept them 1 (2.3%)",
+   "Heather covered 2 for Brett",
+   "Brett covered 0 for Heather",
+   "Net +2 to Heather"
+  ]
+ },
+ "d_backToScheduled": {
+  "calls": [
+   {
+    "table": "swaps",
+    "op": "delete",
+    "payload": null,
+    "filters": [
+     {
+      "kind": "in",
+      "col": "day",
+      "val": [
+       "2026-10-13",
+       "2026-10-14"
+      ]
+     }
+    ],
+    "sort": null,
+    "limit": null,
+    "one": null,
+    "returning": false
+   }
+  ],
+  "toast": "Back to the regular schedule.",
+  "text": {
+   "shown": true,
+   "body": "Kids Tracker update: Tue, Oct 13 to Wed, Oct 14 is back to the regular schedule (Brett).\nhttp://TEST-ORIGIN/#k=TESTTOKEN",
+   "to": [
+    "Mom [checked]",
+    "Brett [checked]"
+   ],
+   "href": "sms://open?addresses=+15555550101,+15555550102&body=Kids%20Tracker%20update%3A%20Tue%2C%20Oct%2013%20to%20Wed%2C%20Oct%2014%20is%20back%20to%20the%20regular%20schedule%20(Brett).%0Ahttp%3A%2F%2FTEST-ORIGIN%2F%23k%3DTESTTOKEN"
+  }
+ },
+ "e_someoneElse": {
+  "calls": [
+   {
+    "table": "swaps",
+    "op": "upsert",
+    "payload": [
+     {
+      "day": "2026-11-28",
+      "had": "other",
+      "caregiver": "Sitter",
+      "updated_at": "2026-11-19T17:00:00.000Z"
+     }
+    ],
+    "filters": [],
+    "sort": null,
+    "limit": null,
+    "one": null,
+    "returning": false
+   },
+   {
+    "table": "swap_details",
+    "op": "upsert",
+    "payload": [
+     {
+      "day": "2026-11-28",
+      "reason": "coverage",
+      "note": null,
+      "pnote": null
+     }
+    ],
+    "filters": [],
+    "sort": null,
+    "limit": null,
+    "one": null,
+    "returning": false
+   }
+  ],
+  "toast": "Saved 1 day. The family link shows it now.",
+  "text": {
+   "shown": true,
+   "body": "Kids Tracker update: Sitter has the kids Sat, Nov 28. Coverage requested.\nhttp://TEST-ORIGIN/#k=TESTTOKEN",
+   "to": [
+    "Mom [checked]",
+    "Brett [checked]"
+   ],
+   "href": "sms://open?addresses=+15555550101,+15555550102&body=Kids%20Tracker%20update%3A%20Sitter%20has%20the%20kids%20Sat%2C%20Nov%2028.%20Coverage%20requested.%0Ahttp%3A%2F%2FTEST-ORIGIN%2F%23k%3DTESTTOKEN"
+  }
+ },
+ "f_confirm": {
+  "status": "On",
+  "url": "http://TEST-ORIGIN/#k=TESTTOKEN",
+  "copyDisabled": false,
+  "offShown": true,
+  "previewShown": true,
+  "previewHref": "http://TEST-ORIGIN/#k=TESTTOKEN",
+  "newLabel": "Make a new link",
+  "confirmShown": true
+ },
+ "f_newLink": {
+  "calls": [
+   {
+    "table": "share_links",
+    "op": "update",
+    "payload": {
+     "active": false
+    },
+    "filters": [
+     {
+      "kind": "eq",
+      "col": "active",
+      "val": true
+     }
+    ],
+    "sort": null,
+    "limit": null,
+    "one": null,
+    "returning": false
+   },
+   {
+    "table": "share_links",
+    "op": "insert",
+    "payload": {
+     "label": "Family"
+    },
+    "filters": [],
+    "sort": null,
+    "limit": null,
+    "one": "single",
+    "returning": true
+   }
+  ],
+  "toast": "New link ready. Copy it and send it to your mom and Brett.",
+  "text": {
+   "shown": false,
+   "body": "Kids Tracker update: Sitter has the kids Sat, Nov 28. Coverage requested.\nhttp://TEST-ORIGIN/#k=TESTTOKEN",
+   "to": [
+    "Mom [checked]",
+    "Brett [checked]"
+   ],
+   "href": "sms://open?addresses=+15555550101,+15555550102&body=Kids%20Tracker%20update%3A%20Sitter%20has%20the%20kids%20Sat%2C%20Nov%2028.%20Coverage%20requested.%0Ahttp%3A%2F%2FTEST-ORIGIN%2F%23k%3DTESTTOKEN"
+  },
+  "panel": {
+   "status": "On",
+   "url": "http://TEST-ORIGIN/#k=NEWTOKEN1",
+   "copyDisabled": false,
+   "offShown": true,
+   "previewShown": true,
+   "previewHref": "http://TEST-ORIGIN/#k=NEWTOKEN1",
+   "newLabel": "Make a new link",
+   "confirmShown": false
+  }
+ },
+ "f_turnOff": {
+  "calls": [
+   {
+    "table": "share_links",
+    "op": "update",
+    "payload": {
+     "active": false
+    },
+    "filters": [
+     {
+      "kind": "eq",
+      "col": "active",
+      "val": true
+     }
+    ],
+    "sort": null,
+    "limit": null,
+    "one": null,
+    "returning": false
+   }
+  ],
+  "toast": "Family link is off. Anyone opening it now sees that it's inactive.",
+  "text": {
+   "shown": false,
+   "body": "Kids Tracker update: Sitter has the kids Sat, Nov 28. Coverage requested.\nhttp://TEST-ORIGIN/#k=TESTTOKEN",
+   "to": [
+    "Mom [checked]",
+    "Brett [checked]"
+   ],
+   "href": "sms://open?addresses=+15555550101,+15555550102&body=Kids%20Tracker%20update%3A%20Sitter%20has%20the%20kids%20Sat%2C%20Nov%2028.%20Coverage%20requested.%0Ahttp%3A%2F%2FTEST-ORIGIN%2F%23k%3DTESTTOKEN"
+  },
+  "panel": {
+   "status": "Off",
+   "url": "No active link. Make one to share.",
+   "copyDisabled": true,
+   "offShown": false,
+   "previewShown": false,
+   "previewHref": "http://TEST-ORIGIN/#k=NEWTOKEN1",
+   "newLabel": "Make a link",
+   "confirmShown": false
+  }
+ },
+ "g_datesEditor2026": {
+  "shown": true,
+  "title": "School dates 2026",
+  "fields": {
+   "first": "2026-08-12",
+   "last": "",
+   "spL": "",
+   "spR": "",
+   "tgL": "2026-11-20",
+   "tgR": "2026-11-30",
+   "xmL": "2026-12-18",
+   "xmR": "2027-01-05"
+  },
+  "school": [
+   "2026-09-16 |  | off | Staff training day",
+   "2026-10-16 |  | off | Teacher workday",
+   "2026-11-10 |  | off | Parent conferences",
+   "2026-11-23 | 2026-11-27 | off | Thanksgiving break",
+   "2026-12-18 |  | half | Half day",
+   "2026-12-21 | 2026-12-31 | off | Winter break"
+  ],
+  "summer": [],
+  "schoolEmptyNote": null,
+  "summerEmptyNote": "No summer weeks picked yet.",
+  "addSummerShown": true
+ },
+ "g_saveDates2026": {
+  "calls": [
+   {
+    "table": "breaks",
+    "op": "upsert",
+    "payload": {
+     "year": 2026,
+     "data": {
+      "firstDay": "2026-08-12",
+      "lastDay": "",
+      "spL": "",
+      "spR": "",
+      "tgL": "2026-11-20",
+      "tgR": "2026-11-30",
+      "xmL": "2026-12-18",
+      "xmR": "2027-01-05",
+      "summer": [],
+      "school": [
+       {
+        "s": "2026-09-16",
+        "e": "",
+        "t": "off",
+        "l": "Staff training day"
+       },
+       {
+        "s": "2026-10-16",
+        "e": "",
+        "t": "off",
+        "l": "Teacher workday"
+       },
+       {
+        "s": "2026-11-10",
+        "e": "",
+        "t": "off",
+        "l": "Parent conferences"
+       },
+       {
+        "s": "2026-11-23",
+        "e": "2026-11-27",
+        "t": "off",
+        "l": "Thanksgiving break"
+       },
+       {
+        "s": "2026-12-18",
+        "e": "",
+        "t": "half",
+        "l": "Half day"
+       },
+       {
+        "s": "2026-12-21",
+        "e": "2026-12-31",
+        "t": "off",
+        "l": "Winter break"
+       }
+      ]
+     }
+    },
+    "filters": [],
+    "sort": null,
+    "limit": null,
+    "one": null,
+    "returning": false
+   }
+  ],
+  "toast": "Dates for 2026 saved.",
+  "text": {
+   "shown": false,
+   "body": "Kids Tracker update: Sitter has the kids Sat, Nov 28. Coverage requested.\nhttp://TEST-ORIGIN/#k=TESTTOKEN",
+   "to": [
+    "Mom [checked]",
+    "Brett [checked]"
+   ],
+   "href": "sms://open?addresses=+15555550101,+15555550102&body=Kids%20Tracker%20update%3A%20Sitter%20has%20the%20kids%20Sat%2C%20Nov%2028.%20Coverage%20requested.%0Ahttp%3A%2F%2FTEST-ORIGIN%2F%23k%3DTESTTOKEN"
+  }
+ },
+ "g_datesEditor2027": {
+  "shown": true,
+  "title": "School dates 2027",
+  "fields": {
+   "first": "",
+   "last": "2027-05-28",
+   "spL": "2027-04-02",
+   "spR": "2027-04-12",
+   "tgL": "",
+   "tgR": "",
+   "xmL": "",
+   "xmR": ""
+  },
+  "school": [
+   "2027-01-01 | 2027-01-04 | off | Winter break",
+   "2027-01-27 |  | off | Teacher workday",
+   "2027-02-12 | 2027-02-15 | off | Winter weekend",
+   "2027-04-05 | 2027-04-09 | off | Spring break",
+   "2027-05-28 |  | half | Last day, early release"
+  ],
+  "summer": [
+   "2027-06-18 | me (Heather)",
+   "2027-07-12 | co (Brett)"
+  ],
+  "schoolEmptyNote": null,
+  "summerEmptyNote": null,
+  "addSummerShown": true
+ },
+ "g_saveDates2027": {
+  "calls": [
+   {
+    "table": "breaks",
+    "op": "upsert",
+    "payload": {
+     "year": 2027,
+     "data": {
+      "firstDay": "",
+      "lastDay": "2027-05-28",
+      "spL": "2027-04-02",
+      "spR": "2027-04-12",
+      "tgL": "",
+      "tgR": "",
+      "xmL": "",
+      "xmR": "",
+      "summer": [
+       {
+        "start": "2027-06-18",
+        "who": "me"
+       },
+       {
+        "start": "2027-07-12",
+        "who": "co"
+       }
+      ],
+      "school": [
+       {
+        "s": "2027-01-01",
+        "e": "2027-01-04",
+        "t": "off",
+        "l": "Winter break"
+       },
+       {
+        "s": "2027-01-27",
+        "e": "",
+        "t": "off",
+        "l": "Teacher workday"
+       },
+       {
+        "s": "2027-02-12",
+        "e": "2027-02-15",
+        "t": "off",
+        "l": "Winter weekend"
+       },
+       {
+        "s": "2027-04-05",
+        "e": "2027-04-09",
+        "t": "off",
+        "l": "Spring break"
+       },
+       {
+        "s": "2027-05-28",
+        "e": "",
+        "t": "half",
+        "l": "Last day, early release"
+       }
+      ]
+     }
+    },
+    "filters": [],
+    "sort": null,
+    "limit": null,
+    "one": null,
+    "returning": false
+   }
+  ],
+  "toast": "Dates for 2027 saved.",
+  "text": {
+   "shown": false,
+   "body": "Kids Tracker update: Sitter has the kids Sat, Nov 28. Coverage requested.\nhttp://TEST-ORIGIN/#k=TESTTOKEN",
+   "to": [
+    "Mom [checked]",
+    "Brett [checked]"
+   ],
+   "href": "sms://open?addresses=+15555550101,+15555550102&body=Kids%20Tracker%20update%3A%20Sitter%20has%20the%20kids%20Sat%2C%20Nov%2028.%20Coverage%20requested.%0Ahttp%3A%2F%2FTEST-ORIGIN%2F%23k%3DTESTTOKEN"
+  }
+ },
+ "h_settingsSheet": {
+  "shown": true,
+  "my": "Heather",
+  "co": "Brett",
+  "anchor": "2026-10-02",
+  "from": "2026-10-07"
+ },
+ "h_saveSettings": {
+  "calls": [
+   {
+    "table": "settings",
+    "op": "upsert",
+    "payload": {
+     "id": 1,
+     "my_name": "Heather",
+     "co_name": "Brett",
+     "anchor": "2026-10-02",
+     "track_from": "2026-10-07"
+    },
+    "filters": [],
+    "sort": null,
+    "limit": null,
+    "one": null,
+    "returning": false
+   }
+  ],
+  "toast": "Settings saved.",
+  "text": {
+   "shown": false,
+   "body": "Kids Tracker update: Sitter has the kids Sat, Nov 28. Coverage requested.\nhttp://TEST-ORIGIN/#k=TESTTOKEN",
+   "to": [
+    "Mom [checked]",
+    "Brett [checked]"
+   ],
+   "href": "sms://open?addresses=+15555550101,+15555550102&body=Kids%20Tracker%20update%3A%20Sitter%20has%20the%20kids%20Sat%2C%20Nov%2028.%20Coverage%20requested.%0Ahttp%3A%2F%2FTEST-ORIGIN%2F%23k%3DTESTTOKEN"
+  }
+ }
+}

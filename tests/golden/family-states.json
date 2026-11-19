@@ -1,0 +1,968 @@
+{
+ "noToken": {
+  "msgShown": true,
+  "msg": "Open this page from the link Heather sent you.",
+  "contentShown": false
+ },
+ "inactiveLink": {
+  "msgShown": true,
+  "msg": "This link isn't active anymore. Ask Heather for the new one.",
+  "contentShown": false
+ },
+ "serverError": {
+  "msgShown": true,
+  "msg": "Couldn't load the schedule. Check your connection and refresh the page.",
+  "contentShown": false
+ },
+ "networkDown": {
+  "msgShown": true,
+  "msg": "Couldn't load the schedule. Check your connection and refresh the page.",
+  "contentShown": false
+ },
+ "scheduleNotSetUp": {
+  "msgShown": true,
+  "msg": "The schedule isn't set up yet.",
+  "contentShown": false
+ },
+ "noData": {
+  "rightNow": {
+   "cls": "me now",
+   "lines": [
+    "RIGHT NOW",
+    "With Heather",
+    "Tonight only. Brett picks up tomorrow at 5 p.m.."
+   ]
+  },
+  "november": {
+   "heading": "November 2026",
+   "dow": "Sun Mon Tue Wed Thu Fri Sat",
+   "cells": [
+    {
+     "cls": "day me",
+     "aria": "Sunday, November 1, Heather",
+     "text": "1 HEATHER",
+     "date": "2026-11-01"
+    },
+    {
+     "cls": "day me",
+     "aria": "Monday, November 2, Heather",
+     "text": "2 HEATHER",
+     "date": "2026-11-02"
+    },
+    {
+     "cls": "day me",
+     "aria": "Tuesday, November 3, Heather",
+     "text": "3 HEATHER",
+     "date": "2026-11-03"
+    },
+    {
+     "cls": "day me",
+     "aria": "Wednesday, November 4, Heather",
+     "text": "4 HEATHER",
+     "date": "2026-11-04"
+    },
+    {
+     "cls": "day me",
+     "aria": "Thursday, November 5, Heather",
+     "text": "5 HEATHER",
+     "date": "2026-11-05"
+    },
+    {
+     "cls": "co day",
+     "aria": "Friday, November 6, Brett",
+     "text": "6 BRETT",
+     "date": "2026-11-06"
+    },
+    {
+     "cls": "co day",
+     "aria": "Saturday, November 7, Brett",
+     "text": "7 BRETT",
+     "date": "2026-11-07"
+    },
+    {
+     "cls": "co day",
+     "aria": "Sunday, November 8, Brett",
+     "text": "8 BRETT",
+     "date": "2026-11-08"
+    },
+    {
+     "cls": "co day",
+     "aria": "Monday, November 9, Brett",
+     "text": "9 BRETT",
+     "date": "2026-11-09"
+    },
+    {
+     "cls": "co day",
+     "aria": "Tuesday, November 10, Brett",
+     "text": "10 BRETT",
+     "date": "2026-11-10"
+    },
+    {
+     "cls": "co day",
+     "aria": "Wednesday, November 11, Brett",
+     "text": "11 BRETT",
+     "date": "2026-11-11"
+    },
+    {
+     "cls": "co day",
+     "aria": "Thursday, November 12, Brett",
+     "text": "12 BRETT",
+     "date": "2026-11-12"
+    },
+    {
+     "cls": "day me",
+     "aria": "Friday, November 13, Heather",
+     "text": "13 HEATHER",
+     "date": "2026-11-13"
+    },
+    {
+     "cls": "day me",
+     "aria": "Saturday, November 14, Heather",
+     "text": "14 HEATHER",
+     "date": "2026-11-14"
+    },
+    {
+     "cls": "day me",
+     "aria": "Sunday, November 15, Heather",
+     "text": "15 HEATHER",
+     "date": "2026-11-15"
+    },
+    {
+     "cls": "day me",
+     "aria": "Monday, November 16, Heather",
+     "text": "16 HEATHER",
+     "date": "2026-11-16"
+    },
+    {
+     "cls": "day me",
+     "aria": "Tuesday, November 17, Heather",
+     "text": "17 HEATHER",
+     "date": "2026-11-17"
+    },
+    {
+     "cls": "day me",
+     "aria": "Wednesday, November 18, Heather",
+     "text": "18 HEATHER",
+     "date": "2026-11-18"
+    },
+    {
+     "cls": "day me today",
+     "aria": "Thursday, November 19, Heather",
+     "text": "19 HEATHER",
+     "date": "2026-11-19"
+    },
+    {
+     "cls": "co day",
+     "aria": "Friday, November 20, Brett",
+     "text": "20 BRETT",
+     "date": "2026-11-20"
+    },
+    {
+     "cls": "co day",
+     "aria": "Saturday, November 21, Brett",
+     "text": "21 BRETT",
+     "date": "2026-11-21"
+    },
+    {
+     "cls": "co day",
+     "aria": "Sunday, November 22, Brett",
+     "text": "22 BRETT",
+     "date": "2026-11-22"
+    },
+    {
+     "cls": "co day",
+     "aria": "Monday, November 23, Brett",
+     "text": "23 BRETT",
+     "date": "2026-11-23"
+    },
+    {
+     "cls": "co day",
+     "aria": "Tuesday, November 24, Brett",
+     "text": "24 BRETT",
+     "date": "2026-11-24"
+    },
+    {
+     "cls": "co day",
+     "aria": "Wednesday, November 25, Brett",
+     "text": "25 BRETT",
+     "date": "2026-11-25"
+    },
+    {
+     "cls": "co day",
+     "aria": "Thursday, November 26, Brett",
+     "text": "26 BRETT",
+     "date": "2026-11-26"
+    },
+    {
+     "cls": "day me",
+     "aria": "Friday, November 27, Heather",
+     "text": "27 HEATHER",
+     "date": "2026-11-27"
+    },
+    {
+     "cls": "day me",
+     "aria": "Saturday, November 28, Heather",
+     "text": "28 HEATHER",
+     "date": "2026-11-28"
+    },
+    {
+     "cls": "day me",
+     "aria": "Sunday, November 29, Heather",
+     "text": "29 HEATHER",
+     "date": "2026-11-29"
+    },
+    {
+     "cls": "day me",
+     "aria": "Monday, November 30, Heather",
+     "text": "30 HEATHER",
+     "date": "2026-11-30"
+    },
+    {
+     "cls": "day me out",
+     "aria": "Tuesday, December 1, Heather",
+     "text": "1 HEATHER",
+     "date": "2026-12-01"
+    },
+    {
+     "cls": "day me out",
+     "aria": "Wednesday, December 2, Heather",
+     "text": "2 HEATHER",
+     "date": "2026-12-02"
+    },
+    {
+     "cls": "day me out",
+     "aria": "Thursday, December 3, Heather",
+     "text": "3 HEATHER",
+     "date": "2026-12-03"
+    },
+    {
+     "cls": "co day out",
+     "aria": "Friday, December 4, Brett",
+     "text": "4 BRETT",
+     "date": "2026-12-04"
+    },
+    {
+     "cls": "co day out",
+     "aria": "Saturday, December 5, Brett",
+     "text": "5 BRETT",
+     "date": "2026-12-05"
+    }
+   ],
+   "thisMonthList": [
+    {
+     "text": "No switches, holidays or days off school this month."
+    }
+   ]
+  },
+  "comingUp": [
+   {
+    "text": "Nov 20 Friday Brettpicks up at 5 p.m., through Thu, Nov 26",
+    "chips": [
+     "chip co | Brett"
+    ]
+   },
+   {
+    "text": "Nov 27 Friday Heatherpicks up at 5 p.m., through Thu, Dec 3",
+    "chips": [
+     "chip me | Heather"
+    ]
+   },
+   {
+    "text": "Dec 4 Friday Brettpicks up at 5 p.m., through Thu, Dec 10",
+    "chips": [
+     "chip co | Brett"
+    ]
+   },
+   {
+    "text": "Dec 11 Friday Heatherpicks up at 5 p.m., through Thu, Dec 17",
+    "chips": [
+     "chip me | Heather"
+    ]
+   },
+   {
+    "text": "Dec 18 Friday Brettpicks up at 5 p.m., through Thu, Dec 24",
+    "chips": [
+     "chip co | Brett"
+    ]
+   },
+   {
+    "text": "Dec 25 Friday Heatherpicks up at 5 p.m., through Thu, Dec 31",
+    "chips": [
+     "chip me | Heather"
+    ]
+   }
+  ],
+  "whatsNew": {
+   "shown": false,
+   "items": [],
+   "dots": 0,
+   "newChips": 0,
+   "seen": "2026-11-10T15:00:00+00:00"
+  }
+ },
+ "missingSchoolYear": {
+  "2027-09": {
+   "heading": "September 2027",
+   "dow": "Sun Mon Tue Wed Thu Fri Sat",
+   "cells": [
+    {
+     "cls": "co day out",
+     "aria": "Sunday, August 29, Brett",
+     "text": "29 BRETT",
+     "date": "2027-08-29"
+    },
+    {
+     "cls": "co day out",
+     "aria": "Monday, August 30, Brett",
+     "text": "30 BRETT",
+     "date": "2027-08-30"
+    },
+    {
+     "cls": "co day out",
+     "aria": "Tuesday, August 31, Brett",
+     "text": "31 BRETT",
+     "date": "2027-08-31"
+    },
+    {
+     "cls": "co day",
+     "aria": "Wednesday, September 1, Brett",
+     "text": "1 BRETT",
+     "date": "2027-09-01"
+    },
+    {
+     "cls": "co day",
+     "aria": "Thursday, September 2, Brett",
+     "text": "2 BRETT",
+     "date": "2027-09-02"
+    },
+    {
+     "cls": "day me",
+     "aria": "Friday, September 3, Heather",
+     "text": "3 HEATHER",
+     "date": "2027-09-03"
+    },
+    {
+     "cls": "day me",
+     "aria": "Saturday, September 4, Heather",
+     "text": "4 HEATHER",
+     "date": "2027-09-04"
+    },
+    {
+     "cls": "day me",
+     "aria": "Sunday, September 5, Heather",
+     "text": "5 HEATHER",
+     "date": "2027-09-05"
+    },
+    {
+     "cls": "day me",
+     "aria": "Monday, September 6, Heather",
+     "text": "6 HEATHER",
+     "date": "2027-09-06"
+    },
+    {
+     "cls": "day me",
+     "aria": "Tuesday, September 7, Heather",
+     "text": "7 HEATHER",
+     "date": "2027-09-07"
+    },
+    {
+     "cls": "day me",
+     "aria": "Wednesday, September 8, Heather",
+     "text": "8 HEATHER",
+     "date": "2027-09-08"
+    },
+    {
+     "cls": "day me",
+     "aria": "Thursday, September 9, Heather",
+     "text": "9 HEATHER",
+     "date": "2027-09-09"
+    },
+    {
+     "cls": "co day",
+     "aria": "Friday, September 10, Brett",
+     "text": "10 BRETT",
+     "date": "2027-09-10"
+    },
+    {
+     "cls": "co day",
+     "aria": "Saturday, September 11, Brett",
+     "text": "11 BRETT",
+     "date": "2027-09-11"
+    },
+    {
+     "cls": "co day",
+     "aria": "Sunday, September 12, Brett",
+     "text": "12 BRETT",
+     "date": "2027-09-12"
+    },
+    {
+     "cls": "co day",
+     "aria": "Monday, September 13, Brett",
+     "text": "13 BRETT",
+     "date": "2027-09-13"
+    },
+    {
+     "cls": "co day",
+     "aria": "Tuesday, September 14, Brett",
+     "text": "14 BRETT",
+     "date": "2027-09-14"
+    },
+    {
+     "cls": "co day",
+     "aria": "Wednesday, September 15, Brett",
+     "text": "15 BRETT",
+     "date": "2027-09-15"
+    },
+    {
+     "cls": "co day",
+     "aria": "Thursday, September 16, Brett",
+     "text": "16 BRETT",
+     "date": "2027-09-16"
+    },
+    {
+     "cls": "day me",
+     "aria": "Friday, September 17, Heather",
+     "text": "17 HEATHER",
+     "date": "2027-09-17"
+    },
+    {
+     "cls": "day me",
+     "aria": "Saturday, September 18, Heather",
+     "text": "18 HEATHER",
+     "date": "2027-09-18"
+    },
+    {
+     "cls": "day me",
+     "aria": "Sunday, September 19, Heather",
+     "text": "19 HEATHER",
+     "date": "2027-09-19"
+    },
+    {
+     "cls": "day me",
+     "aria": "Monday, September 20, Heather",
+     "text": "20 HEATHER",
+     "date": "2027-09-20"
+    },
+    {
+     "cls": "day me",
+     "aria": "Tuesday, September 21, Heather",
+     "text": "21 HEATHER",
+     "date": "2027-09-21"
+    },
+    {
+     "cls": "day me",
+     "aria": "Wednesday, September 22, Heather",
+     "text": "22 HEATHER",
+     "date": "2027-09-22"
+    },
+    {
+     "cls": "day me",
+     "aria": "Thursday, September 23, Heather",
+     "text": "23 HEATHER",
+     "date": "2027-09-23"
+    },
+    {
+     "cls": "co day",
+     "aria": "Friday, September 24, Brett",
+     "text": "24 BRETT",
+     "date": "2027-09-24"
+    },
+    {
+     "cls": "co day",
+     "aria": "Saturday, September 25, Brett",
+     "text": "25 BRETT",
+     "date": "2027-09-25"
+    },
+    {
+     "cls": "co day",
+     "aria": "Sunday, September 26, Brett",
+     "text": "26 BRETT",
+     "date": "2027-09-26"
+    },
+    {
+     "cls": "co day",
+     "aria": "Monday, September 27, Brett",
+     "text": "27 BRETT",
+     "date": "2027-09-27"
+    },
+    {
+     "cls": "co day",
+     "aria": "Tuesday, September 28, Brett",
+     "text": "28 BRETT",
+     "date": "2027-09-28"
+    },
+    {
+     "cls": "co day",
+     "aria": "Wednesday, September 29, Brett",
+     "text": "29 BRETT",
+     "date": "2027-09-29"
+    },
+    {
+     "cls": "co day",
+     "aria": "Thursday, September 30, Brett",
+     "text": "30 BRETT",
+     "date": "2027-09-30"
+    },
+    {
+     "cls": "day me out",
+     "aria": "Friday, October 1, Heather",
+     "text": "1 HEATHER",
+     "date": "2027-10-01"
+    },
+    {
+     "cls": "day me out",
+     "aria": "Saturday, October 2, Heather",
+     "text": "2 HEATHER",
+     "date": "2027-10-02"
+    }
+   ],
+   "thisMonthList": [
+    {
+     "text": "No switches, holidays or days off school this month."
+    }
+   ]
+  },
+  "2027-11": {
+   "heading": "November 2027",
+   "dow": "Sun Mon Tue Wed Thu Fri Sat",
+   "cells": [
+    {
+     "cls": "day me out",
+     "aria": "Sunday, October 31, Heather",
+     "text": "31 HEATHER",
+     "date": "2027-10-31"
+    },
+    {
+     "cls": "day me",
+     "aria": "Monday, November 1, Heather",
+     "text": "1 HEATHER",
+     "date": "2027-11-01"
+    },
+    {
+     "cls": "day me",
+     "aria": "Tuesday, November 2, Heather",
+     "text": "2 HEATHER",
+     "date": "2027-11-02"
+    },
+    {
+     "cls": "day me",
+     "aria": "Wednesday, November 3, Heather",
+     "text": "3 HEATHER",
+     "date": "2027-11-03"
+    },
+    {
+     "cls": "day me",
+     "aria": "Thursday, November 4, Heather",
+     "text": "4 HEATHER",
+     "date": "2027-11-04"
+    },
+    {
+     "cls": "co day",
+     "aria": "Friday, November 5, Brett",
+     "text": "5 BRETT",
+     "date": "2027-11-05"
+    },
+    {
+     "cls": "co day",
+     "aria": "Saturday, November 6, Brett",
+     "text": "6 BRETT",
+     "date": "2027-11-06"
+    },
+    {
+     "cls": "co day",
+     "aria": "Sunday, November 7, Brett",
+     "text": "7 BRETT",
+     "date": "2027-11-07"
+    },
+    {
+     "cls": "co day",
+     "aria": "Monday, November 8, Brett",
+     "text": "8 BRETT",
+     "date": "2027-11-08"
+    },
+    {
+     "cls": "co day",
+     "aria": "Tuesday, November 9, Brett",
+     "text": "9 BRETT",
+     "date": "2027-11-09"
+    },
+    {
+     "cls": "co day",
+     "aria": "Wednesday, November 10, Brett",
+     "text": "10 BRETT",
+     "date": "2027-11-10"
+    },
+    {
+     "cls": "co day",
+     "aria": "Thursday, November 11, Brett",
+     "text": "11 BRETT",
+     "date": "2027-11-11"
+    },
+    {
+     "cls": "day me",
+     "aria": "Friday, November 12, Heather",
+     "text": "12 HEATHER",
+     "date": "2027-11-12"
+    },
+    {
+     "cls": "day me",
+     "aria": "Saturday, November 13, Heather",
+     "text": "13 HEATHER",
+     "date": "2027-11-13"
+    },
+    {
+     "cls": "day me",
+     "aria": "Sunday, November 14, Heather",
+     "text": "14 HEATHER",
+     "date": "2027-11-14"
+    },
+    {
+     "cls": "day me",
+     "aria": "Monday, November 15, Heather",
+     "text": "15 HEATHER",
+     "date": "2027-11-15"
+    },
+    {
+     "cls": "day me",
+     "aria": "Tuesday, November 16, Heather",
+     "text": "16 HEATHER",
+     "date": "2027-11-16"
+    },
+    {
+     "cls": "day me",
+     "aria": "Wednesday, November 17, Heather",
+     "text": "17 HEATHER",
+     "date": "2027-11-17"
+    },
+    {
+     "cls": "day me",
+     "aria": "Thursday, November 18, Heather",
+     "text": "18 HEATHER",
+     "date": "2027-11-18"
+    },
+    {
+     "cls": "co day",
+     "aria": "Friday, November 19, Brett",
+     "text": "19 BRETT",
+     "date": "2027-11-19"
+    },
+    {
+     "cls": "co day",
+     "aria": "Saturday, November 20, Brett",
+     "text": "20 BRETT",
+     "date": "2027-11-20"
+    },
+    {
+     "cls": "co day",
+     "aria": "Sunday, November 21, Brett",
+     "text": "21 BRETT",
+     "date": "2027-11-21"
+    },
+    {
+     "cls": "co day",
+     "aria": "Monday, November 22, Brett",
+     "text": "22 BRETT",
+     "date": "2027-11-22"
+    },
+    {
+     "cls": "co day",
+     "aria": "Tuesday, November 23, Brett",
+     "text": "23 BRETT",
+     "date": "2027-11-23"
+    },
+    {
+     "cls": "co day",
+     "aria": "Wednesday, November 24, Brett",
+     "text": "24 BRETT",
+     "date": "2027-11-24"
+    },
+    {
+     "cls": "co day",
+     "aria": "Thursday, November 25, Brett",
+     "text": "25 BRETT",
+     "date": "2027-11-25"
+    },
+    {
+     "cls": "day me",
+     "aria": "Friday, November 26, Heather",
+     "text": "26 HEATHER",
+     "date": "2027-11-26"
+    },
+    {
+     "cls": "day me",
+     "aria": "Saturday, November 27, Heather",
+     "text": "27 HEATHER",
+     "date": "2027-11-27"
+    },
+    {
+     "cls": "day me",
+     "aria": "Sunday, November 28, Heather",
+     "text": "28 HEATHER",
+     "date": "2027-11-28"
+    },
+    {
+     "cls": "day me",
+     "aria": "Monday, November 29, Heather",
+     "text": "29 HEATHER",
+     "date": "2027-11-29"
+    },
+    {
+     "cls": "day me",
+     "aria": "Tuesday, November 30, Heather",
+     "text": "30 HEATHER",
+     "date": "2027-11-30"
+    },
+    {
+     "cls": "day me out",
+     "aria": "Wednesday, December 1, Heather",
+     "text": "1 HEATHER",
+     "date": "2027-12-01"
+    },
+    {
+     "cls": "day me out",
+     "aria": "Thursday, December 2, Heather",
+     "text": "2 HEATHER",
+     "date": "2027-12-02"
+    },
+    {
+     "cls": "co day out",
+     "aria": "Friday, December 3, Brett",
+     "text": "3 BRETT",
+     "date": "2027-12-03"
+    },
+    {
+     "cls": "co day out",
+     "aria": "Saturday, December 4, Brett",
+     "text": "4 BRETT",
+     "date": "2027-12-04"
+    }
+   ],
+   "thisMonthList": [
+    {
+     "text": "No switches, holidays or days off school this month."
+    }
+   ]
+  },
+  "2027-12": {
+   "heading": "December 2027",
+   "dow": "Sun Mon Tue Wed Thu Fri Sat",
+   "cells": [
+    {
+     "cls": "day me out",
+     "aria": "Sunday, November 28, Heather",
+     "text": "28 HEATHER",
+     "date": "2027-11-28"
+    },
+    {
+     "cls": "day me out",
+     "aria": "Monday, November 29, Heather",
+     "text": "29 HEATHER",
+     "date": "2027-11-29"
+    },
+    {
+     "cls": "day me out",
+     "aria": "Tuesday, November 30, Heather",
+     "text": "30 HEATHER",
+     "date": "2027-11-30"
+    },
+    {
+     "cls": "day me",
+     "aria": "Wednesday, December 1, Heather",
+     "text": "1 HEATHER",
+     "date": "2027-12-01"
+    },
+    {
+     "cls": "day me",
+     "aria": "Thursday, December 2, Heather",
+     "text": "2 HEATHER",
+     "date": "2027-12-02"
+    },
+    {
+     "cls": "co day",
+     "aria": "Friday, December 3, Brett",
+     "text": "3 BRETT",
+     "date": "2027-12-03"
+    },
+    {
+     "cls": "co day",
+     "aria": "Saturday, December 4, Brett",
+     "text": "4 BRETT",
+     "date": "2027-12-04"
+    },
+    {
+     "cls": "co day",
+     "aria": "Sunday, December 5, Brett",
+     "text": "5 BRETT",
+     "date": "2027-12-05"
+    },
+    {
+     "cls": "co day",
+     "aria": "Monday, December 6, Brett",
+     "text": "6 BRETT",
+     "date": "2027-12-06"
+    },
+    {
+     "cls": "co day",
+     "aria": "Tuesday, December 7, Brett",
+     "text": "7 BRETT",
+     "date": "2027-12-07"
+    },
+    {
+     "cls": "co day",
+     "aria": "Wednesday, December 8, Brett",
+     "text": "8 BRETT",
+     "date": "2027-12-08"
+    },
+    {
+     "cls": "co day",
+     "aria": "Thursday, December 9, Brett",
+     "text": "9 BRETT",
+     "date": "2027-12-09"
+    },
+    {
+     "cls": "day me",
+     "aria": "Friday, December 10, Heather",
+     "text": "10 HEATHER",
+     "date": "2027-12-10"
+    },
+    {
+     "cls": "day me",
+     "aria": "Saturday, December 11, Heather",
+     "text": "11 HEATHER",
+     "date": "2027-12-11"
+    },
+    {
+     "cls": "day me",
+     "aria": "Sunday, December 12, Heather",
+     "text": "12 HEATHER",
+     "date": "2027-12-12"
+    },
+    {
+     "cls": "day me",
+     "aria": "Monday, December 13, Heather",
+     "text": "13 HEATHER",
+     "date": "2027-12-13"
+    },
+    {
+     "cls": "day me",
+     "aria": "Tuesday, December 14, Heather",
+     "text": "14 HEATHER",
+     "date": "2027-12-14"
+    },
+    {
+     "cls": "day me",
+     "aria": "Wednesday, December 15, Heather",
+     "text": "15 HEATHER",
+     "date": "2027-12-15"
+    },
+    {
+     "cls": "day me",
+     "aria": "Thursday, December 16, Heather",
+     "text": "16 HEATHER",
+     "date": "2027-12-16"
+    },
+    {
+     "cls": "co day",
+     "aria": "Friday, December 17, Brett",
+     "text": "17 BRETT",
+     "date": "2027-12-17"
+    },
+    {
+     "cls": "co day",
+     "aria": "Saturday, December 18, Brett",
+     "text": "18 BRETT",
+     "date": "2027-12-18"
+    },
+    {
+     "cls": "co day",
+     "aria": "Sunday, December 19, Brett",
+     "text": "19 BRETT",
+     "date": "2027-12-19"
+    },
+    {
+     "cls": "co day",
+     "aria": "Monday, December 20, Brett",
+     "text": "20 BRETT",
+     "date": "2027-12-20"
+    },
+    {
+     "cls": "co day",
+     "aria": "Tuesday, December 21, Brett",
+     "text": "21 BRETT",
+     "date": "2027-12-21"
+    },
+    {
+     "cls": "co day",
+     "aria": "Wednesday, December 22, Brett",
+     "text": "22 BRETT",
+     "date": "2027-12-22"
+    },
+    {
+     "cls": "co day",
+     "aria": "Thursday, December 23, Brett",
+     "text": "23 BRETT",
+     "date": "2027-12-23"
+    },
+    {
+     "cls": "day me",
+     "aria": "Friday, December 24, Heather",
+     "text": "24 HEATHER",
+     "date": "2027-12-24"
+    },
+    {
+     "cls": "day me",
+     "aria": "Saturday, December 25, Heather",
+     "text": "25 HEATHER",
+     "date": "2027-12-25"
+    },
+    {
+     "cls": "day me",
+     "aria": "Sunday, December 26, Heather",
+     "text": "26 HEATHER",
+     "date": "2027-12-26"
+    },
+    {
+     "cls": "day me",
+     "aria": "Monday, December 27, Heather",
+     "text": "27 HEATHER",
+     "date": "2027-12-27"
+    },
+    {
+     "cls": "day me",
+     "aria": "Tuesday, December 28, Heather",
+     "text": "28 HEATHER",
+     "date": "2027-12-28"
+    },
+    {
+     "cls": "day me",
+     "aria": "Wednesday, December 29, Heather",
+     "text": "29 HEATHER",
+     "date": "2027-12-29"
+    },
+    {
+     "cls": "day me",
+     "aria": "Thursday, December 30, Heather",
+     "text": "30 HEATHER",
+     "date": "2027-12-30"
+    },
+    {
+     "cls": "co day",
+     "aria": "Friday, December 31, Brett",
+     "text": "31 BRETT",
+     "date": "2027-12-31"
+    },
+    {
+     "cls": "co day out",
+     "aria": "Saturday, January 1, Brett",
+     "text": "1 BRETT",
+     "date": "2028-01-01"
+    }
+   ],
+   "thisMonthList": [
+    {
+     "text": "No switches, holidays or days off school this month."
+    }
+   ]
+  }
+ }
+}

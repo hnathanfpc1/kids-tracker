@@ -1,0 +1,2844 @@
+{
+ "updatedLine": "Updated 12:00 PM",
+ "whatsNew": {
+  "shown": false,
+  "items": [],
+  "dots": 0,
+  "newChips": 0,
+  "seen": "2026-11-10T15:00:00+00:00"
+ },
+ "rightNow": {
+  "cls": "co now",
+  "lines": [
+   "RIGHT NOW",
+   "With Brett",
+   "Through Thursday, Apr 1. Heather picks up Friday, Apr 2 after school.",
+   "School today"
+  ]
+ },
+ "comingUp": [
+  {
+   "text": "Apr 2 Friday Heatherpicks up after school, through Tue, Apr 6 ★ Spring break begins, Heather's year",
+   "chips": [
+    "chip me | Heather"
+   ]
+  },
+  {
+   "text": "Apr 5 Monday No school through Fri, Apr 9: Spring break"
+  },
+  {
+   "text": "Apr 7 Wednesday Grandmafor the night ⇄ Switched, usually Heather's: Work. Heather has a deadline",
+   "chips": [
+    "chip grandma | Grandma"
+   ]
+  },
+  {
+   "text": "Apr 8 Thursday Heatherthrough Sat, Apr 10",
+   "chips": [
+    "chip me | Heather"
+   ]
+  },
+  {
+   "text": "Apr 11 Sunday Brettpicks up at 6 p.m., through Thu, Apr 15",
+   "chips": [
+    "chip co | Brett"
+   ]
+  },
+  {
+   "text": "Apr 16 Friday Heatherpicks up after school, through Thu, Apr 22",
+   "chips": [
+    "chip me | Heather"
+   ]
+  },
+  {
+   "text": "Apr 23 Friday Brettpicks up after school, through Thu, Apr 29",
+   "chips": [
+    "chip co | Brett"
+   ]
+  },
+  {
+   "text": "Apr 30 Friday Heatherpicks up after school, through Sun, May 9",
+   "chips": [
+    "chip me | Heather"
+   ]
+  },
+  {
+   "text": "May 7 Friday ★ Mother's Day weekend begins, Heather's year"
+  },
+  {
+   "text": "May 10 Monday Brettpicks up after school, through Thu, May 13",
+   "chips": [
+    "chip co | Brett"
+   ]
+  }
+ ],
+ "legend": "Heather Brett Grandma Someone else ⇄Switched ★ Holiday schedule No school ½ Half day",
+ "months": {
+  "2026-10": {
+   "heading": "October 2026",
+   "dow": "Sun Mon Tue Wed Thu Fri Sat",
+   "cells": [
+    {
+     "cls": "co day out",
+     "aria": "Sunday, September 27, Brett",
+     "text": "27 BRETT",
+     "date": "2026-09-27"
+    },
+    {
+     "cls": "co day out",
+     "aria": "Monday, September 28, Brett",
+     "text": "28 BRETT",
+     "date": "2026-09-28"
+    },
+    {
+     "cls": "co day out",
+     "aria": "Tuesday, September 29, Brett",
+     "text": "29 BRETT",
+     "date": "2026-09-29"
+    },
+    {
+     "cls": "co day out",
+     "aria": "Wednesday, September 30, Brett",
+     "text": "30 BRETT",
+     "date": "2026-09-30"
+    },
+    {
+     "cls": "co day",
+     "aria": "Thursday, October 1, Brett",
+     "text": "1 BRETT",
+     "date": "2026-10-01"
+    },
+    {
+     "cls": "day me",
+     "aria": "Friday, October 2, Heather",
+     "text": "2 HEATHER",
+     "date": "2026-10-02"
+    },
+    {
+     "cls": "day me",
+     "aria": "Saturday, October 3, Heather",
+     "text": "3 HEATHER",
+     "date": "2026-10-03"
+    },
+    {
+     "cls": "day me",
+     "aria": "Sunday, October 4, Heather",
+     "text": "4 HEATHER",
+     "date": "2026-10-04"
+    },
+    {
+     "cls": "day me",
+     "aria": "Monday, October 5, Heather",
+     "text": "5 HEATHER",
+     "date": "2026-10-05"
+    },
+    {
+     "cls": "day me",
+     "aria": "Tuesday, October 6, Heather",
+     "text": "6 HEATHER",
+     "date": "2026-10-06"
+    },
+    {
+     "cls": "day me",
+     "aria": "Wednesday, October 7, Heather",
+     "text": "7 HEATHER",
+     "date": "2026-10-07"
+    },
+    {
+     "cls": "day me",
+     "aria": "Thursday, October 8, Heather",
+     "text": "8 HEATHER",
+     "date": "2026-10-08"
+    },
+    {
+     "cls": "co day",
+     "aria": "Friday, October 9, Brett",
+     "text": "9 BRETT",
+     "date": "2026-10-09"
+    },
+    {
+     "cls": "co day",
+     "aria": "Saturday, October 10, Brett",
+     "text": "10 BRETT",
+     "date": "2026-10-10"
+    },
+    {
+     "cls": "co day",
+     "aria": "Sunday, October 11, Brett",
+     "text": "11 BRETT",
+     "date": "2026-10-11"
+    },
+    {
+     "cls": "co day",
+     "aria": "Monday, October 12, Brett",
+     "text": "12 BRETT",
+     "date": "2026-10-12"
+    },
+    {
+     "cls": "day me swap",
+     "aria": "Tuesday, October 13, Heather, switched",
+     "text": "13 ⇄ HEATHER",
+     "date": "2026-10-13"
+    },
+    {
+     "cls": "day me swap",
+     "aria": "Wednesday, October 14, Heather, switched",
+     "text": "14 ⇄ HEATHER",
+     "date": "2026-10-14"
+    },
+    {
+     "cls": "co day",
+     "aria": "Thursday, October 15, Brett",
+     "text": "15 BRETT",
+     "date": "2026-10-15"
+    },
+    {
+     "cls": "day me",
+     "aria": "Friday, October 16, Heather, No school: Teacher workday",
+     "text": "16 HEATHER NO SCHOOL",
+     "date": "2026-10-16"
+    },
+    {
+     "cls": "day me",
+     "aria": "Saturday, October 17, Heather",
+     "text": "17 HEATHER",
+     "date": "2026-10-17"
+    },
+    {
+     "cls": "day me",
+     "aria": "Sunday, October 18, Heather",
+     "text": "18 HEATHER",
+     "date": "2026-10-18"
+    },
+    {
+     "cls": "day me",
+     "aria": "Monday, October 19, Heather",
+     "text": "19 HEATHER",
+     "date": "2026-10-19"
+    },
+    {
+     "cls": "day grandma swap",
+     "aria": "Tuesday, October 20, Grandma, switched",
+     "text": "20 ⇄ GRANDMA",
+     "date": "2026-10-20"
+    },
+    {
+     "cls": "day me",
+     "aria": "Wednesday, October 21, Heather",
+     "text": "21 HEATHER",
+     "date": "2026-10-21"
+    },
+    {
+     "cls": "day me",
+     "aria": "Thursday, October 22, Heather",
+     "text": "22 HEATHER",
+     "date": "2026-10-22"
+    },
+    {
+     "cls": "co day",
+     "aria": "Friday, October 23, Brett",
+     "text": "23 BRETT",
+     "date": "2026-10-23"
+    },
+    {
+     "cls": "co day",
+     "aria": "Saturday, October 24, Brett",
+     "text": "24 BRETT",
+     "date": "2026-10-24"
+    },
+    {
+     "cls": "co day",
+     "aria": "Sunday, October 25, Brett",
+     "text": "25 BRETT",
+     "date": "2026-10-25"
+    },
+    {
+     "cls": "co day",
+     "aria": "Monday, October 26, Brett",
+     "text": "26 BRETT",
+     "date": "2026-10-26"
+    },
+    {
+     "cls": "co day",
+     "aria": "Tuesday, October 27, Brett",
+     "text": "27 BRETT",
+     "date": "2026-10-27"
+    },
+    {
+     "cls": "co day",
+     "aria": "Wednesday, October 28, Brett",
+     "text": "28 BRETT",
+     "date": "2026-10-28"
+    },
+    {
+     "cls": "co day",
+     "aria": "Thursday, October 29, Brett",
+     "text": "29 BRETT",
+     "date": "2026-10-29"
+    },
+    {
+     "cls": "day me",
+     "aria": "Friday, October 30, Heather",
+     "text": "30 HEATHER",
+     "date": "2026-10-30"
+    },
+    {
+     "cls": "day other swap",
+     "aria": "Saturday, October 31, Babysitter, switched",
+     "text": "31 ⇄ BABYSITTER",
+     "date": "2026-10-31"
+    }
+   ],
+   "thisMonthList": [
+    {
+     "text": "Oct 13 to Oct 14 ⇄ Switched to HeatherCoverage requested. Brett at a conference",
+     "chips": [
+      "chip me | Heather"
+     ]
+    },
+    {
+     "text": "Fri, Oct 16 No school: Teacher workday"
+    },
+    {
+     "text": "Tue, Oct 20 ⇄ Switched to GrandmaWork. Heather's late client meeting & dinner, home <9 p.m. \"at the latest\"",
+     "chips": [
+      "chip grandma | Grandma"
+     ]
+    },
+    {
+     "text": "Sat, Oct 31 ⇄ Switched to BabysitterTrade or other. Evening out",
+     "chips": [
+      "chip other | Babysitter"
+     ]
+    }
+   ]
+  },
+  "2026-11": {
+   "heading": "November 2026",
+   "dow": "Sun Mon Tue Wed Thu Fri Sat",
+   "cells": [
+    {
+     "cls": "day me",
+     "aria": "Sunday, November 1, Heather",
+     "text": "1 HEATHER",
+     "date": "2026-11-01"
+    },
+    {
+     "cls": "day me",
+     "aria": "Monday, November 2, Heather",
+     "text": "2 HEATHER",
+     "date": "2026-11-02"
+    },
+    {
+     "cls": "day me",
+     "aria": "Tuesday, November 3, Heather",
+     "text": "3 HEATHER",
+     "date": "2026-11-03"
+    },
+    {
+     "cls": "day me",
+     "aria": "Wednesday, November 4, Heather",
+     "text": "4 HEATHER",
+     "date": "2026-11-04"
+    },
+    {
+     "cls": "day me",
+     "aria": "Thursday, November 5, Heather",
+     "text": "5 HEATHER",
+     "date": "2026-11-05"
+    },
+    {
+     "cls": "co day",
+     "aria": "Friday, November 6, Brett",
+     "text": "6 BRETT",
+     "date": "2026-11-06"
+    },
+    {
+     "cls": "co day",
+     "aria": "Saturday, November 7, Brett",
+     "text": "7 BRETT",
+     "date": "2026-11-07"
+    },
+    {
+     "cls": "co day",
+     "aria": "Sunday, November 8, Brett",
+     "text": "8 BRETT",
+     "date": "2026-11-08"
+    },
+    {
+     "cls": "co day",
+     "aria": "Monday, November 9, Brett",
+     "text": "9 BRETT",
+     "date": "2026-11-09"
+    },
+    {
+     "cls": "co day",
+     "aria": "Tuesday, November 10, Brett, No school: Parent conferences",
+     "text": "10 BRETT NO SCHOOL",
+     "date": "2026-11-10"
+    },
+    {
+     "cls": "co day",
+     "aria": "Wednesday, November 11, Brett",
+     "text": "11 BRETT",
+     "date": "2026-11-11"
+    },
+    {
+     "cls": "co day",
+     "aria": "Thursday, November 12, Brett",
+     "text": "12 BRETT",
+     "date": "2026-11-12"
+    },
+    {
+     "cls": "day me",
+     "aria": "Friday, November 13, Heather",
+     "text": "13 HEATHER",
+     "date": "2026-11-13"
+    },
+    {
+     "cls": "day me",
+     "aria": "Saturday, November 14, Heather",
+     "text": "14 HEATHER",
+     "date": "2026-11-14"
+    },
+    {
+     "cls": "day me",
+     "aria": "Sunday, November 15, Heather",
+     "text": "15 HEATHER",
+     "date": "2026-11-15"
+    },
+    {
+     "cls": "day me",
+     "aria": "Monday, November 16, Heather",
+     "text": "16 HEATHER",
+     "date": "2026-11-16"
+    },
+    {
+     "cls": "co day swap",
+     "aria": "Tuesday, November 17, Brett, switched",
+     "text": "17 ⇄ BRETT",
+     "date": "2026-11-17"
+    },
+    {
+     "cls": "day me",
+     "aria": "Wednesday, November 18, Heather",
+     "text": "18 HEATHER",
+     "date": "2026-11-18"
+    },
+    {
+     "cls": "day me",
+     "aria": "Thursday, November 19, Heather",
+     "text": "19 HEATHER",
+     "date": "2026-11-19"
+    },
+    {
+     "cls": "day me",
+     "aria": "Friday, November 20, Heather, Thanksgiving",
+     "text": "20 ★ Thanksgiving HEATHER",
+     "date": "2026-11-20"
+    },
+    {
+     "cls": "day me",
+     "aria": "Saturday, November 21, Heather, Thanksgiving",
+     "text": "21 ★ Thanksgiving HEATHER",
+     "date": "2026-11-21"
+    },
+    {
+     "cls": "day me",
+     "aria": "Sunday, November 22, Heather, Thanksgiving",
+     "text": "22 ★ Thanksgiving HEATHER",
+     "date": "2026-11-22"
+    },
+    {
+     "cls": "day me",
+     "aria": "Monday, November 23, Heather, Thanksgiving, No school: Thanksgiving break",
+     "text": "23 ★ Thanksgiving HEATHER NO SCHOOL",
+     "date": "2026-11-23"
+    },
+    {
+     "cls": "day me",
+     "aria": "Tuesday, November 24, Heather, Thanksgiving, No school: Thanksgiving break",
+     "text": "24 ★ Thanksgiving HEATHER NO SCHOOL",
+     "date": "2026-11-24"
+    },
+    {
+     "cls": "co day swap",
+     "aria": "Wednesday, November 25, Brett, switched, Thanksgiving, No school: Thanksgiving break",
+     "text": "25 ★ ⇄ Thanksgiving BRETT NO SCHOOL",
+     "date": "2026-11-25"
+    },
+    {
+     "cls": "day me",
+     "aria": "Thursday, November 26, Heather, Thanksgiving, No school: Thanksgiving break",
+     "text": "26 ★ Thanksgiving HEATHER NO SCHOOL",
+     "date": "2026-11-26"
+    },
+    {
+     "cls": "day me",
+     "aria": "Friday, November 27, Heather, Thanksgiving, No school: Thanksgiving break",
+     "text": "27 ★ Thanksgiving HEATHER NO SCHOOL",
+     "date": "2026-11-27"
+    },
+    {
+     "cls": "day me",
+     "aria": "Saturday, November 28, Heather, Thanksgiving",
+     "text": "28 ★ Thanksgiving HEATHER",
+     "date": "2026-11-28"
+    },
+    {
+     "cls": "day me",
+     "aria": "Sunday, November 29, Heather, Thanksgiving",
+     "text": "29 ★ Thanksgiving HEATHER",
+     "date": "2026-11-29"
+    },
+    {
+     "cls": "day me",
+     "aria": "Monday, November 30, Heather",
+     "text": "30 HEATHER",
+     "date": "2026-11-30"
+    },
+    {
+     "cls": "day me out",
+     "aria": "Tuesday, December 1, Heather",
+     "text": "1 HEATHER",
+     "date": "2026-12-01"
+    },
+    {
+     "cls": "day me out",
+     "aria": "Wednesday, December 2, Heather",
+     "text": "2 HEATHER",
+     "date": "2026-12-02"
+    },
+    {
+     "cls": "day me out",
+     "aria": "Thursday, December 3, Heather",
+     "text": "3 HEATHER",
+     "date": "2026-12-03"
+    },
+    {
+     "cls": "co day out",
+     "aria": "Friday, December 4, Brett",
+     "text": "4 BRETT",
+     "date": "2026-12-04"
+    },
+    {
+     "cls": "day me out swap",
+     "aria": "Saturday, December 5, Heather, switched",
+     "text": "5 ⇄ HEATHER",
+     "date": "2026-12-05"
+    }
+   ],
+   "thisMonthList": [
+    {
+     "text": "Tue, Nov 10 No school: Parent conferences"
+    },
+    {
+     "text": "Tue, Nov 17 ⇄ Switched to BrettTravel. Heather away overnight",
+     "chips": [
+      "chip co | Brett"
+     ]
+    },
+    {
+     "text": "Nov 20 to Nov 29 ★ Thanksgiving Heather",
+     "chips": [
+      "chip me | Heather"
+     ]
+    },
+    {
+     "text": "Nov 23 to Nov 27 No school: Thanksgiving break"
+    },
+    {
+     "text": "Wed, Nov 25 ⇄ Switched to BrettTrade or other. Traded for Dec 5",
+     "chips": [
+      "chip co | Brett"
+     ]
+    }
+   ]
+  },
+  "2026-12": {
+   "heading": "December 2026",
+   "dow": "Sun Mon Tue Wed Thu Fri Sat",
+   "cells": [
+    {
+     "cls": "day me out",
+     "aria": "Sunday, November 29, Heather, Thanksgiving",
+     "text": "29 ★ Thanksgiving HEATHER",
+     "date": "2026-11-29"
+    },
+    {
+     "cls": "day me out",
+     "aria": "Monday, November 30, Heather",
+     "text": "30 HEATHER",
+     "date": "2026-11-30"
+    },
+    {
+     "cls": "day me",
+     "aria": "Tuesday, December 1, Heather",
+     "text": "1 HEATHER",
+     "date": "2026-12-01"
+    },
+    {
+     "cls": "day me",
+     "aria": "Wednesday, December 2, Heather",
+     "text": "2 HEATHER",
+     "date": "2026-12-02"
+    },
+    {
+     "cls": "day me",
+     "aria": "Thursday, December 3, Heather",
+     "text": "3 HEATHER",
+     "date": "2026-12-03"
+    },
+    {
+     "cls": "co day",
+     "aria": "Friday, December 4, Brett",
+     "text": "4 BRETT",
+     "date": "2026-12-04"
+    },
+    {
+     "cls": "day me swap",
+     "aria": "Saturday, December 5, Heather, switched",
+     "text": "5 ⇄ HEATHER",
+     "date": "2026-12-05"
+    },
+    {
+     "cls": "co day",
+     "aria": "Sunday, December 6, Brett",
+     "text": "6 BRETT",
+     "date": "2026-12-06"
+    },
+    {
+     "cls": "co day",
+     "aria": "Monday, December 7, Brett",
+     "text": "7 BRETT",
+     "date": "2026-12-07"
+    },
+    {
+     "cls": "co day",
+     "aria": "Tuesday, December 8, Brett",
+     "text": "8 BRETT",
+     "date": "2026-12-08"
+    },
+    {
+     "cls": "co day",
+     "aria": "Wednesday, December 9, Brett",
+     "text": "9 BRETT",
+     "date": "2026-12-09"
+    },
+    {
+     "cls": "co day",
+     "aria": "Thursday, December 10, Brett",
+     "text": "10 BRETT",
+     "date": "2026-12-10"
+    },
+    {
+     "cls": "day me",
+     "aria": "Friday, December 11, Heather",
+     "text": "11 HEATHER",
+     "date": "2026-12-11"
+    },
+    {
+     "cls": "day me",
+     "aria": "Saturday, December 12, Heather",
+     "text": "12 HEATHER",
+     "date": "2026-12-12"
+    },
+    {
+     "cls": "day me",
+     "aria": "Sunday, December 13, Heather",
+     "text": "13 HEATHER",
+     "date": "2026-12-13"
+    },
+    {
+     "cls": "day me",
+     "aria": "Monday, December 14, Heather",
+     "text": "14 HEATHER",
+     "date": "2026-12-14"
+    },
+    {
+     "cls": "day me",
+     "aria": "Tuesday, December 15, Heather",
+     "text": "15 HEATHER",
+     "date": "2026-12-15"
+    },
+    {
+     "cls": "day me",
+     "aria": "Wednesday, December 16, Heather",
+     "text": "16 HEATHER",
+     "date": "2026-12-16"
+    },
+    {
+     "cls": "day me",
+     "aria": "Thursday, December 17, Heather",
+     "text": "17 HEATHER",
+     "date": "2026-12-17"
+    },
+    {
+     "cls": "co day",
+     "aria": "Friday, December 18, Brett, Christmas, first part, Half day",
+     "text": "18 ★ ½ Christmas BRETT",
+     "date": "2026-12-18"
+    },
+    {
+     "cls": "co day",
+     "aria": "Saturday, December 19, Brett, Christmas, first part",
+     "text": "19 ★ Christmas BRETT",
+     "date": "2026-12-19"
+    },
+    {
+     "cls": "co day",
+     "aria": "Sunday, December 20, Brett, Christmas, first part",
+     "text": "20 ★ Christmas BRETT",
+     "date": "2026-12-20"
+    },
+    {
+     "cls": "co day",
+     "aria": "Monday, December 21, Brett, Christmas, first part, No school: Winter break",
+     "text": "21 ★ Christmas BRETT NO SCHOOL",
+     "date": "2026-12-21"
+    },
+    {
+     "cls": "day grandma swap",
+     "aria": "Tuesday, December 22, Grandma, switched, Christmas, first part, No school: Winter break",
+     "text": "22 ★ ⇄ Christmas GRANDMA NO SCHOOL",
+     "date": "2026-12-22"
+    },
+    {
+     "cls": "day grandma swap",
+     "aria": "Wednesday, December 23, Grandma, switched, Christmas, first part, No school: Winter break",
+     "text": "23 ★ ⇄ Christmas GRANDMA NO SCHOOL",
+     "date": "2026-12-23"
+    },
+    {
+     "cls": "co day",
+     "aria": "Thursday, December 24, Brett, Christmas, first part, No school: Winter break",
+     "text": "24 ★ Christmas BRETT NO SCHOOL",
+     "date": "2026-12-24"
+    },
+    {
+     "cls": "co day",
+     "aria": "Friday, December 25, Brett, Christmas, first part, No school: Winter break",
+     "text": "25 ★ Christmas BRETT NO SCHOOL",
+     "date": "2026-12-25"
+    },
+    {
+     "cls": "day me",
+     "aria": "Saturday, December 26, Heather, Christmas, second part",
+     "text": "26 ★ Christmas HEATHER",
+     "date": "2026-12-26"
+    },
+    {
+     "cls": "day me",
+     "aria": "Sunday, December 27, Heather, Christmas, second part",
+     "text": "27 ★ Christmas HEATHER",
+     "date": "2026-12-27"
+    },
+    {
+     "cls": "day me",
+     "aria": "Monday, December 28, Heather, Christmas, second part, No school: Winter break",
+     "text": "28 ★ Christmas HEATHER NO SCHOOL",
+     "date": "2026-12-28"
+    },
+    {
+     "cls": "day me",
+     "aria": "Tuesday, December 29, Heather, Christmas, second part, No school: Winter break",
+     "text": "29 ★ Christmas HEATHER NO SCHOOL",
+     "date": "2026-12-29"
+    },
+    {
+     "cls": "day me",
+     "aria": "Wednesday, December 30, Heather, Christmas, second part, No school: Winter break",
+     "text": "30 ★ Christmas HEATHER NO SCHOOL",
+     "date": "2026-12-30"
+    },
+    {
+     "cls": "day me",
+     "aria": "Thursday, December 31, Heather, Christmas, second part, No school: Winter break",
+     "text": "31 ★ Christmas HEATHER NO SCHOOL",
+     "date": "2026-12-31"
+    },
+    {
+     "cls": "day me out",
+     "aria": "Friday, January 1, Heather, Christmas, second part, No school: Winter break",
+     "text": "1 ★ Christmas HEATHER NO SCHOOL",
+     "date": "2027-01-01"
+    },
+    {
+     "cls": "day me out",
+     "aria": "Saturday, January 2, Heather, Christmas, second part",
+     "text": "2 ★ Christmas HEATHER",
+     "date": "2027-01-02"
+    }
+   ],
+   "thisMonthList": [
+    {
+     "text": "Sat, Dec 5 ⇄ Switched to HeatherTrade or other. Traded for Nov 25",
+     "chips": [
+      "chip me | Heather"
+     ]
+    },
+    {
+     "text": "Dec 18 to Dec 25 ★ Christmas, first part Brett",
+     "chips": [
+      "chip co | Brett"
+     ]
+    },
+    {
+     "text": "Fri, Dec 18 Half day"
+    },
+    {
+     "text": "Dec 21 to Dec 31 No school: Winter break"
+    },
+    {
+     "text": "Dec 22 to Dec 23 ⇄ Switched to GrandmaTravel. Brett traveling",
+     "chips": [
+      "chip grandma | Grandma"
+     ]
+    },
+    {
+     "text": "Dec 26 to Jan 4 ★ Christmas, second part Heather",
+     "chips": [
+      "chip me | Heather"
+     ]
+    }
+   ]
+  },
+  "2027-01": {
+   "heading": "January 2027",
+   "dow": "Sun Mon Tue Wed Thu Fri Sat",
+   "cells": [
+    {
+     "cls": "day me out",
+     "aria": "Sunday, December 27, Heather, Christmas, second part",
+     "text": "27 ★ Christmas HEATHER",
+     "date": "2026-12-27"
+    },
+    {
+     "cls": "day me out",
+     "aria": "Monday, December 28, Heather, Christmas, second part, No school: Winter break",
+     "text": "28 ★ Christmas HEATHER NO SCHOOL",
+     "date": "2026-12-28"
+    },
+    {
+     "cls": "day me out",
+     "aria": "Tuesday, December 29, Heather, Christmas, second part, No school: Winter break",
+     "text": "29 ★ Christmas HEATHER NO SCHOOL",
+     "date": "2026-12-29"
+    },
+    {
+     "cls": "day me out",
+     "aria": "Wednesday, December 30, Heather, Christmas, second part, No school: Winter break",
+     "text": "30 ★ Christmas HEATHER NO SCHOOL",
+     "date": "2026-12-30"
+    },
+    {
+     "cls": "day me out",
+     "aria": "Thursday, December 31, Heather, Christmas, second part, No school: Winter break",
+     "text": "31 ★ Christmas HEATHER NO SCHOOL",
+     "date": "2026-12-31"
+    },
+    {
+     "cls": "day me",
+     "aria": "Friday, January 1, Heather, Christmas, second part, No school: Winter break",
+     "text": "1 ★ Christmas HEATHER NO SCHOOL",
+     "date": "2027-01-01"
+    },
+    {
+     "cls": "day me",
+     "aria": "Saturday, January 2, Heather, Christmas, second part",
+     "text": "2 ★ Christmas HEATHER",
+     "date": "2027-01-02"
+    },
+    {
+     "cls": "day me",
+     "aria": "Sunday, January 3, Heather, Christmas, second part",
+     "text": "3 ★ Christmas HEATHER",
+     "date": "2027-01-03"
+    },
+    {
+     "cls": "day me",
+     "aria": "Monday, January 4, Heather, Christmas, second part, No school: Winter break",
+     "text": "4 ★ Christmas HEATHER NO SCHOOL",
+     "date": "2027-01-04"
+    },
+    {
+     "cls": "co day",
+     "aria": "Tuesday, January 5, Brett",
+     "text": "5 BRETT",
+     "date": "2027-01-05"
+    },
+    {
+     "cls": "co day",
+     "aria": "Wednesday, January 6, Brett",
+     "text": "6 BRETT",
+     "date": "2027-01-06"
+    },
+    {
+     "cls": "co day",
+     "aria": "Thursday, January 7, Brett",
+     "text": "7 BRETT",
+     "date": "2027-01-07"
+    },
+    {
+     "cls": "day me",
+     "aria": "Friday, January 8, Heather",
+     "text": "8 HEATHER",
+     "date": "2027-01-08"
+    },
+    {
+     "cls": "day me",
+     "aria": "Saturday, January 9, Heather",
+     "text": "9 HEATHER",
+     "date": "2027-01-09"
+    },
+    {
+     "cls": "day me",
+     "aria": "Sunday, January 10, Heather",
+     "text": "10 HEATHER",
+     "date": "2027-01-10"
+    },
+    {
+     "cls": "day me",
+     "aria": "Monday, January 11, Heather",
+     "text": "11 HEATHER",
+     "date": "2027-01-11"
+    },
+    {
+     "cls": "day me",
+     "aria": "Tuesday, January 12, Heather",
+     "text": "12 HEATHER",
+     "date": "2027-01-12"
+    },
+    {
+     "cls": "day me",
+     "aria": "Wednesday, January 13, Heather",
+     "text": "13 HEATHER",
+     "date": "2027-01-13"
+    },
+    {
+     "cls": "day me",
+     "aria": "Thursday, January 14, Heather",
+     "text": "14 HEATHER",
+     "date": "2027-01-14"
+    },
+    {
+     "cls": "day other swap",
+     "aria": "Friday, January 15, Someone else, switched",
+     "text": "15 ⇄ SOMEONE ELSE",
+     "date": "2027-01-15"
+    },
+    {
+     "cls": "co day",
+     "aria": "Saturday, January 16, Brett",
+     "text": "16 BRETT",
+     "date": "2027-01-16"
+    },
+    {
+     "cls": "co day",
+     "aria": "Sunday, January 17, Brett",
+     "text": "17 BRETT",
+     "date": "2027-01-17"
+    },
+    {
+     "cls": "co day",
+     "aria": "Monday, January 18, Brett",
+     "text": "18 BRETT",
+     "date": "2027-01-18"
+    },
+    {
+     "cls": "co day",
+     "aria": "Tuesday, January 19, Brett",
+     "text": "19 BRETT",
+     "date": "2027-01-19"
+    },
+    {
+     "cls": "co day",
+     "aria": "Wednesday, January 20, Brett",
+     "text": "20 BRETT",
+     "date": "2027-01-20"
+    },
+    {
+     "cls": "co day",
+     "aria": "Thursday, January 21, Brett",
+     "text": "21 BRETT",
+     "date": "2027-01-21"
+    },
+    {
+     "cls": "day me",
+     "aria": "Friday, January 22, Heather",
+     "text": "22 HEATHER",
+     "date": "2027-01-22"
+    },
+    {
+     "cls": "day me",
+     "aria": "Saturday, January 23, Heather",
+     "text": "23 HEATHER",
+     "date": "2027-01-23"
+    },
+    {
+     "cls": "day me",
+     "aria": "Sunday, January 24, Heather",
+     "text": "24 HEATHER",
+     "date": "2027-01-24"
+    },
+    {
+     "cls": "day me",
+     "aria": "Monday, January 25, Heather",
+     "text": "25 HEATHER",
+     "date": "2027-01-25"
+    },
+    {
+     "cls": "day me",
+     "aria": "Tuesday, January 26, Heather",
+     "text": "26 HEATHER",
+     "date": "2027-01-26"
+    },
+    {
+     "cls": "day me",
+     "aria": "Wednesday, January 27, Heather, No school: Teacher workday",
+     "text": "27 HEATHER NO SCHOOL",
+     "date": "2027-01-27"
+    },
+    {
+     "cls": "day me",
+     "aria": "Thursday, January 28, Heather",
+     "text": "28 HEATHER",
+     "date": "2027-01-28"
+    },
+    {
+     "cls": "co day",
+     "aria": "Friday, January 29, Brett",
+     "text": "29 BRETT",
+     "date": "2027-01-29"
+    },
+    {
+     "cls": "co day",
+     "aria": "Saturday, January 30, Brett",
+     "text": "30 BRETT",
+     "date": "2027-01-30"
+    },
+    {
+     "cls": "co day",
+     "aria": "Sunday, January 31, Brett",
+     "text": "31 BRETT",
+     "date": "2027-01-31"
+    },
+    {
+     "cls": "co day out",
+     "aria": "Monday, February 1, Brett",
+     "text": "1 BRETT",
+     "date": "2027-02-01"
+    },
+    {
+     "cls": "co day out",
+     "aria": "Tuesday, February 2, Brett",
+     "text": "2 BRETT",
+     "date": "2027-02-02"
+    },
+    {
+     "cls": "co day out",
+     "aria": "Wednesday, February 3, Brett",
+     "text": "3 BRETT",
+     "date": "2027-02-03"
+    },
+    {
+     "cls": "co day out",
+     "aria": "Thursday, February 4, Brett",
+     "text": "4 BRETT",
+     "date": "2027-02-04"
+    },
+    {
+     "cls": "day me out",
+     "aria": "Friday, February 5, Heather",
+     "text": "5 HEATHER",
+     "date": "2027-02-05"
+    },
+    {
+     "cls": "day me out",
+     "aria": "Saturday, February 6, Heather",
+     "text": "6 HEATHER",
+     "date": "2027-02-06"
+    }
+   ],
+   "thisMonthList": [
+    {
+     "text": "Dec 26 to Jan 4 ★ Christmas, second part Heather",
+     "chips": [
+      "chip me | Heather"
+     ]
+    },
+    {
+     "text": "Jan 1 to Jan 4 No school: Winter break"
+    },
+    {
+     "text": "Fri, Jan 15 ⇄ Switched to Someone elseCoverage requested",
+     "chips": [
+      "chip other | Someone else"
+     ]
+    },
+    {
+     "text": "Wed, Jan 27 No school: Teacher workday"
+    }
+   ]
+  },
+  "2027-02": {
+   "heading": "February 2027",
+   "dow": "Sun Mon Tue Wed Thu Fri Sat",
+   "cells": [
+    {
+     "cls": "co day out",
+     "aria": "Sunday, January 31, Brett",
+     "text": "31 BRETT",
+     "date": "2027-01-31"
+    },
+    {
+     "cls": "co day",
+     "aria": "Monday, February 1, Brett",
+     "text": "1 BRETT",
+     "date": "2027-02-01"
+    },
+    {
+     "cls": "co day",
+     "aria": "Tuesday, February 2, Brett",
+     "text": "2 BRETT",
+     "date": "2027-02-02"
+    },
+    {
+     "cls": "co day",
+     "aria": "Wednesday, February 3, Brett",
+     "text": "3 BRETT",
+     "date": "2027-02-03"
+    },
+    {
+     "cls": "co day",
+     "aria": "Thursday, February 4, Brett",
+     "text": "4 BRETT",
+     "date": "2027-02-04"
+    },
+    {
+     "cls": "day me",
+     "aria": "Friday, February 5, Heather",
+     "text": "5 HEATHER",
+     "date": "2027-02-05"
+    },
+    {
+     "cls": "day me",
+     "aria": "Saturday, February 6, Heather",
+     "text": "6 HEATHER",
+     "date": "2027-02-06"
+    },
+    {
+     "cls": "day me",
+     "aria": "Sunday, February 7, Heather",
+     "text": "7 HEATHER",
+     "date": "2027-02-07"
+    },
+    {
+     "cls": "day me",
+     "aria": "Monday, February 8, Heather",
+     "text": "8 HEATHER",
+     "date": "2027-02-08"
+    },
+    {
+     "cls": "day me",
+     "aria": "Tuesday, February 9, Heather",
+     "text": "9 HEATHER",
+     "date": "2027-02-09"
+    },
+    {
+     "cls": "day me",
+     "aria": "Wednesday, February 10, Heather",
+     "text": "10 HEATHER",
+     "date": "2027-02-10"
+    },
+    {
+     "cls": "day me",
+     "aria": "Thursday, February 11, Heather",
+     "text": "11 HEATHER",
+     "date": "2027-02-11"
+    },
+    {
+     "cls": "co day",
+     "aria": "Friday, February 12, Brett, No school: Winter weekend",
+     "text": "12 BRETT NO SCHOOL",
+     "date": "2027-02-12"
+    },
+    {
+     "cls": "co day",
+     "aria": "Saturday, February 13, Brett",
+     "text": "13 BRETT",
+     "date": "2027-02-13"
+    },
+    {
+     "cls": "co day",
+     "aria": "Sunday, February 14, Brett",
+     "text": "14 BRETT",
+     "date": "2027-02-14"
+    },
+    {
+     "cls": "co day",
+     "aria": "Monday, February 15, Brett, No school: Winter weekend",
+     "text": "15 BRETT NO SCHOOL",
+     "date": "2027-02-15"
+    },
+    {
+     "cls": "co day",
+     "aria": "Tuesday, February 16, Brett",
+     "text": "16 BRETT",
+     "date": "2027-02-16"
+    },
+    {
+     "cls": "co day",
+     "aria": "Wednesday, February 17, Brett",
+     "text": "17 BRETT",
+     "date": "2027-02-17"
+    },
+    {
+     "cls": "co day",
+     "aria": "Thursday, February 18, Brett",
+     "text": "18 BRETT",
+     "date": "2027-02-18"
+    },
+    {
+     "cls": "day me",
+     "aria": "Friday, February 19, Heather",
+     "text": "19 HEATHER",
+     "date": "2027-02-19"
+    },
+    {
+     "cls": "day me",
+     "aria": "Saturday, February 20, Heather",
+     "text": "20 HEATHER",
+     "date": "2027-02-20"
+    },
+    {
+     "cls": "day me",
+     "aria": "Sunday, February 21, Heather",
+     "text": "21 HEATHER",
+     "date": "2027-02-21"
+    },
+    {
+     "cls": "day me",
+     "aria": "Monday, February 22, Heather",
+     "text": "22 HEATHER",
+     "date": "2027-02-22"
+    },
+    {
+     "cls": "day me",
+     "aria": "Tuesday, February 23, Heather",
+     "text": "23 HEATHER",
+     "date": "2027-02-23"
+    },
+    {
+     "cls": "day me",
+     "aria": "Wednesday, February 24, Heather",
+     "text": "24 HEATHER",
+     "date": "2027-02-24"
+    },
+    {
+     "cls": "day me",
+     "aria": "Thursday, February 25, Heather",
+     "text": "25 HEATHER",
+     "date": "2027-02-25"
+    },
+    {
+     "cls": "co day",
+     "aria": "Friday, February 26, Brett",
+     "text": "26 BRETT",
+     "date": "2027-02-26"
+    },
+    {
+     "cls": "day me swap",
+     "aria": "Saturday, February 27, Heather, switched",
+     "text": "27 ⇄ HEATHER",
+     "date": "2027-02-27"
+    },
+    {
+     "cls": "day me swap",
+     "aria": "Sunday, February 28, Heather, switched",
+     "text": "28 ⇄ HEATHER",
+     "date": "2027-02-28"
+    },
+    {
+     "cls": "co day out",
+     "aria": "Monday, March 1, Brett",
+     "text": "1 BRETT",
+     "date": "2027-03-01"
+    },
+    {
+     "cls": "co day out",
+     "aria": "Tuesday, March 2, Brett",
+     "text": "2 BRETT",
+     "date": "2027-03-02"
+    },
+    {
+     "cls": "co day out",
+     "aria": "Wednesday, March 3, Brett",
+     "text": "3 BRETT",
+     "date": "2027-03-03"
+    },
+    {
+     "cls": "co day out",
+     "aria": "Thursday, March 4, Brett",
+     "text": "4 BRETT",
+     "date": "2027-03-04"
+    },
+    {
+     "cls": "day me out",
+     "aria": "Friday, March 5, Heather",
+     "text": "5 HEATHER",
+     "date": "2027-03-05"
+    },
+    {
+     "cls": "day me out",
+     "aria": "Saturday, March 6, Heather",
+     "text": "6 HEATHER",
+     "date": "2027-03-06"
+    }
+   ],
+   "thisMonthList": [
+    {
+     "text": "Feb 12 to Feb 15 No school: Winter weekend"
+    },
+    {
+     "text": "Feb 27 to Feb 28 ⇄ Switched to HeatherCoverage requested. Brett out of town",
+     "chips": [
+      "chip me | Heather"
+     ]
+    }
+   ]
+  },
+  "2027-03": {
+   "heading": "March 2027",
+   "dow": "Sun Mon Tue Wed Thu Fri Sat",
+   "cells": [
+    {
+     "cls": "day me out swap",
+     "aria": "Sunday, February 28, Heather, switched",
+     "text": "28 ⇄ HEATHER",
+     "date": "2027-02-28"
+    },
+    {
+     "cls": "co day",
+     "aria": "Monday, March 1, Brett",
+     "text": "1 BRETT",
+     "date": "2027-03-01"
+    },
+    {
+     "cls": "co day",
+     "aria": "Tuesday, March 2, Brett",
+     "text": "2 BRETT",
+     "date": "2027-03-02"
+    },
+    {
+     "cls": "co day",
+     "aria": "Wednesday, March 3, Brett",
+     "text": "3 BRETT",
+     "date": "2027-03-03"
+    },
+    {
+     "cls": "co day",
+     "aria": "Thursday, March 4, Brett",
+     "text": "4 BRETT",
+     "date": "2027-03-04"
+    },
+    {
+     "cls": "day me",
+     "aria": "Friday, March 5, Heather",
+     "text": "5 HEATHER",
+     "date": "2027-03-05"
+    },
+    {
+     "cls": "day me",
+     "aria": "Saturday, March 6, Heather",
+     "text": "6 HEATHER",
+     "date": "2027-03-06"
+    },
+    {
+     "cls": "day me",
+     "aria": "Sunday, March 7, Heather",
+     "text": "7 HEATHER",
+     "date": "2027-03-07"
+    },
+    {
+     "cls": "day me",
+     "aria": "Monday, March 8, Heather",
+     "text": "8 HEATHER",
+     "date": "2027-03-08"
+    },
+    {
+     "cls": "co day swap",
+     "aria": "Tuesday, March 9, Brett, switched",
+     "text": "9 ⇄ BRETT",
+     "date": "2027-03-09"
+    },
+    {
+     "cls": "day me",
+     "aria": "Wednesday, March 10, Heather",
+     "text": "10 HEATHER",
+     "date": "2027-03-10"
+    },
+    {
+     "cls": "day me",
+     "aria": "Thursday, March 11, Heather",
+     "text": "11 HEATHER",
+     "date": "2027-03-11"
+    },
+    {
+     "cls": "co day",
+     "aria": "Friday, March 12, Brett",
+     "text": "12 BRETT",
+     "date": "2027-03-12"
+    },
+    {
+     "cls": "co day",
+     "aria": "Saturday, March 13, Brett",
+     "text": "13 BRETT",
+     "date": "2027-03-13"
+    },
+    {
+     "cls": "co day",
+     "aria": "Sunday, March 14, Brett",
+     "text": "14 BRETT",
+     "date": "2027-03-14"
+    },
+    {
+     "cls": "co day",
+     "aria": "Monday, March 15, Brett",
+     "text": "15 BRETT",
+     "date": "2027-03-15"
+    },
+    {
+     "cls": "co day",
+     "aria": "Tuesday, March 16, Brett",
+     "text": "16 BRETT",
+     "date": "2027-03-16"
+    },
+    {
+     "cls": "co day",
+     "aria": "Wednesday, March 17, Brett",
+     "text": "17 BRETT",
+     "date": "2027-03-17"
+    },
+    {
+     "cls": "co day",
+     "aria": "Thursday, March 18, Brett",
+     "text": "18 BRETT",
+     "date": "2027-03-18"
+    },
+    {
+     "cls": "day me",
+     "aria": "Friday, March 19, Heather",
+     "text": "19 HEATHER",
+     "date": "2027-03-19"
+    },
+    {
+     "cls": "day me",
+     "aria": "Saturday, March 20, Heather",
+     "text": "20 HEATHER",
+     "date": "2027-03-20"
+    },
+    {
+     "cls": "day me",
+     "aria": "Sunday, March 21, Heather",
+     "text": "21 HEATHER",
+     "date": "2027-03-21"
+    },
+    {
+     "cls": "day me",
+     "aria": "Monday, March 22, Heather",
+     "text": "22 HEATHER",
+     "date": "2027-03-22"
+    },
+    {
+     "cls": "day me",
+     "aria": "Tuesday, March 23, Heather",
+     "text": "23 HEATHER",
+     "date": "2027-03-23"
+    },
+    {
+     "cls": "day me",
+     "aria": "Wednesday, March 24, Heather",
+     "text": "24 HEATHER",
+     "date": "2027-03-24"
+    },
+    {
+     "cls": "day me",
+     "aria": "Thursday, March 25, Heather",
+     "text": "25 HEATHER",
+     "date": "2027-03-25"
+    },
+    {
+     "cls": "co day",
+     "aria": "Friday, March 26, Brett",
+     "text": "26 BRETT",
+     "date": "2027-03-26"
+    },
+    {
+     "cls": "co day",
+     "aria": "Saturday, March 27, Brett",
+     "text": "27 BRETT",
+     "date": "2027-03-27"
+    },
+    {
+     "cls": "co day",
+     "aria": "Sunday, March 28, Brett",
+     "text": "28 BRETT",
+     "date": "2027-03-28"
+    },
+    {
+     "cls": "co day",
+     "aria": "Monday, March 29, Brett",
+     "text": "29 BRETT",
+     "date": "2027-03-29"
+    },
+    {
+     "cls": "co day today",
+     "aria": "Tuesday, March 30, Brett",
+     "text": "30 BRETT",
+     "date": "2027-03-30"
+    },
+    {
+     "cls": "co day",
+     "aria": "Wednesday, March 31, Brett",
+     "text": "31 BRETT",
+     "date": "2027-03-31"
+    },
+    {
+     "cls": "co day out",
+     "aria": "Thursday, April 1, Brett",
+     "text": "1 BRETT",
+     "date": "2027-04-01"
+    },
+    {
+     "cls": "day me out",
+     "aria": "Friday, April 2, Heather, Spring break",
+     "text": "2 ★ Spring break HEATHER",
+     "date": "2027-04-02"
+    },
+    {
+     "cls": "day me out",
+     "aria": "Saturday, April 3, Heather, Spring break",
+     "text": "3 ★ Spring break HEATHER",
+     "date": "2027-04-03"
+    }
+   ],
+   "thisMonthList": [
+    {
+     "text": "Tue, Mar 9 ⇄ Switched to BrettWork. Heather at a board meeting",
+     "chips": [
+      "chip co | Brett"
+     ]
+    }
+   ]
+  },
+  "2027-04": {
+   "heading": "April 2027",
+   "dow": "Sun Mon Tue Wed Thu Fri Sat",
+   "cells": [
+    {
+     "cls": "co day out",
+     "aria": "Sunday, March 28, Brett",
+     "text": "28 BRETT",
+     "date": "2027-03-28"
+    },
+    {
+     "cls": "co day out",
+     "aria": "Monday, March 29, Brett",
+     "text": "29 BRETT",
+     "date": "2027-03-29"
+    },
+    {
+     "cls": "co day out today",
+     "aria": "Tuesday, March 30, Brett",
+     "text": "30 BRETT",
+     "date": "2027-03-30"
+    },
+    {
+     "cls": "co day out",
+     "aria": "Wednesday, March 31, Brett",
+     "text": "31 BRETT",
+     "date": "2027-03-31"
+    },
+    {
+     "cls": "co day",
+     "aria": "Thursday, April 1, Brett",
+     "text": "1 BRETT",
+     "date": "2027-04-01"
+    },
+    {
+     "cls": "day me",
+     "aria": "Friday, April 2, Heather, Spring break",
+     "text": "2 ★ Spring break HEATHER",
+     "date": "2027-04-02"
+    },
+    {
+     "cls": "day me",
+     "aria": "Saturday, April 3, Heather, Spring break",
+     "text": "3 ★ Spring break HEATHER",
+     "date": "2027-04-03"
+    },
+    {
+     "cls": "day me",
+     "aria": "Sunday, April 4, Heather, Spring break",
+     "text": "4 ★ Spring break HEATHER",
+     "date": "2027-04-04"
+    },
+    {
+     "cls": "day me",
+     "aria": "Monday, April 5, Heather, Spring break, No school: Spring break",
+     "text": "5 ★ Spring break HEATHER NO SCHOOL",
+     "date": "2027-04-05"
+    },
+    {
+     "cls": "day me",
+     "aria": "Tuesday, April 6, Heather, Spring break, No school: Spring break",
+     "text": "6 ★ Spring break HEATHER NO SCHOOL",
+     "date": "2027-04-06"
+    },
+    {
+     "cls": "day grandma swap",
+     "aria": "Wednesday, April 7, Grandma, switched, Spring break, No school: Spring break",
+     "text": "7 ★ ⇄ Spring break GRANDMA NO SCHOOL",
+     "date": "2027-04-07"
+    },
+    {
+     "cls": "day me",
+     "aria": "Thursday, April 8, Heather, Spring break, No school: Spring break",
+     "text": "8 ★ Spring break HEATHER NO SCHOOL",
+     "date": "2027-04-08"
+    },
+    {
+     "cls": "day me",
+     "aria": "Friday, April 9, Heather, Spring break, No school: Spring break",
+     "text": "9 ★ Spring break HEATHER NO SCHOOL",
+     "date": "2027-04-09"
+    },
+    {
+     "cls": "day me",
+     "aria": "Saturday, April 10, Heather, Spring break",
+     "text": "10 ★ Spring break HEATHER",
+     "date": "2027-04-10"
+    },
+    {
+     "cls": "co day",
+     "aria": "Sunday, April 11, Brett",
+     "text": "11 BRETT",
+     "date": "2027-04-11"
+    },
+    {
+     "cls": "co day",
+     "aria": "Monday, April 12, Brett",
+     "text": "12 BRETT",
+     "date": "2027-04-12"
+    },
+    {
+     "cls": "co day",
+     "aria": "Tuesday, April 13, Brett",
+     "text": "13 BRETT",
+     "date": "2027-04-13"
+    },
+    {
+     "cls": "co day",
+     "aria": "Wednesday, April 14, Brett",
+     "text": "14 BRETT",
+     "date": "2027-04-14"
+    },
+    {
+     "cls": "co day",
+     "aria": "Thursday, April 15, Brett",
+     "text": "15 BRETT",
+     "date": "2027-04-15"
+    },
+    {
+     "cls": "day me",
+     "aria": "Friday, April 16, Heather",
+     "text": "16 HEATHER",
+     "date": "2027-04-16"
+    },
+    {
+     "cls": "day me",
+     "aria": "Saturday, April 17, Heather",
+     "text": "17 HEATHER",
+     "date": "2027-04-17"
+    },
+    {
+     "cls": "day me",
+     "aria": "Sunday, April 18, Heather",
+     "text": "18 HEATHER",
+     "date": "2027-04-18"
+    },
+    {
+     "cls": "day me",
+     "aria": "Monday, April 19, Heather",
+     "text": "19 HEATHER",
+     "date": "2027-04-19"
+    },
+    {
+     "cls": "day me",
+     "aria": "Tuesday, April 20, Heather",
+     "text": "20 HEATHER",
+     "date": "2027-04-20"
+    },
+    {
+     "cls": "day me",
+     "aria": "Wednesday, April 21, Heather",
+     "text": "21 HEATHER",
+     "date": "2027-04-21"
+    },
+    {
+     "cls": "day me",
+     "aria": "Thursday, April 22, Heather",
+     "text": "22 HEATHER",
+     "date": "2027-04-22"
+    },
+    {
+     "cls": "co day",
+     "aria": "Friday, April 23, Brett",
+     "text": "23 BRETT",
+     "date": "2027-04-23"
+    },
+    {
+     "cls": "co day",
+     "aria": "Saturday, April 24, Brett",
+     "text": "24 BRETT",
+     "date": "2027-04-24"
+    },
+    {
+     "cls": "co day",
+     "aria": "Sunday, April 25, Brett",
+     "text": "25 BRETT",
+     "date": "2027-04-25"
+    },
+    {
+     "cls": "co day",
+     "aria": "Monday, April 26, Brett",
+     "text": "26 BRETT",
+     "date": "2027-04-26"
+    },
+    {
+     "cls": "co day",
+     "aria": "Tuesday, April 27, Brett",
+     "text": "27 BRETT",
+     "date": "2027-04-27"
+    },
+    {
+     "cls": "co day",
+     "aria": "Wednesday, April 28, Brett",
+     "text": "28 BRETT",
+     "date": "2027-04-28"
+    },
+    {
+     "cls": "co day",
+     "aria": "Thursday, April 29, Brett",
+     "text": "29 BRETT",
+     "date": "2027-04-29"
+    },
+    {
+     "cls": "day me",
+     "aria": "Friday, April 30, Heather",
+     "text": "30 HEATHER",
+     "date": "2027-04-30"
+    },
+    {
+     "cls": "day me out",
+     "aria": "Saturday, May 1, Heather",
+     "text": "1 HEATHER",
+     "date": "2027-05-01"
+    }
+   ],
+   "thisMonthList": [
+    {
+     "text": "Apr 2 to Apr 10 ★ Spring break Heather",
+     "chips": [
+      "chip me | Heather"
+     ]
+    },
+    {
+     "text": "Apr 5 to Apr 9 No school: Spring break"
+    },
+    {
+     "text": "Wed, Apr 7 ⇄ Switched to GrandmaWork. Heather has a deadline",
+     "chips": [
+      "chip grandma | Grandma"
+     ]
+    }
+   ]
+  },
+  "2027-05": {
+   "heading": "May 2027",
+   "dow": "Sun Mon Tue Wed Thu Fri Sat",
+   "cells": [
+    {
+     "cls": "co day out",
+     "aria": "Sunday, April 25, Brett",
+     "text": "25 BRETT",
+     "date": "2027-04-25"
+    },
+    {
+     "cls": "co day out",
+     "aria": "Monday, April 26, Brett",
+     "text": "26 BRETT",
+     "date": "2027-04-26"
+    },
+    {
+     "cls": "co day out",
+     "aria": "Tuesday, April 27, Brett",
+     "text": "27 BRETT",
+     "date": "2027-04-27"
+    },
+    {
+     "cls": "co day out",
+     "aria": "Wednesday, April 28, Brett",
+     "text": "28 BRETT",
+     "date": "2027-04-28"
+    },
+    {
+     "cls": "co day out",
+     "aria": "Thursday, April 29, Brett",
+     "text": "29 BRETT",
+     "date": "2027-04-29"
+    },
+    {
+     "cls": "day me out",
+     "aria": "Friday, April 30, Heather",
+     "text": "30 HEATHER",
+     "date": "2027-04-30"
+    },
+    {
+     "cls": "day me",
+     "aria": "Saturday, May 1, Heather",
+     "text": "1 HEATHER",
+     "date": "2027-05-01"
+    },
+    {
+     "cls": "day me",
+     "aria": "Sunday, May 2, Heather",
+     "text": "2 HEATHER",
+     "date": "2027-05-02"
+    },
+    {
+     "cls": "day me",
+     "aria": "Monday, May 3, Heather",
+     "text": "3 HEATHER",
+     "date": "2027-05-03"
+    },
+    {
+     "cls": "day me",
+     "aria": "Tuesday, May 4, Heather",
+     "text": "4 HEATHER",
+     "date": "2027-05-04"
+    },
+    {
+     "cls": "day me",
+     "aria": "Wednesday, May 5, Heather",
+     "text": "5 HEATHER",
+     "date": "2027-05-05"
+    },
+    {
+     "cls": "day me",
+     "aria": "Thursday, May 6, Heather",
+     "text": "6 HEATHER",
+     "date": "2027-05-06"
+    },
+    {
+     "cls": "day me",
+     "aria": "Friday, May 7, Heather, Mother's Day weekend",
+     "text": "7 ★ Mother's Day HEATHER",
+     "date": "2027-05-07"
+    },
+    {
+     "cls": "day me",
+     "aria": "Saturday, May 8, Heather, Mother's Day weekend",
+     "text": "8 ★ Mother's Day HEATHER",
+     "date": "2027-05-08"
+    },
+    {
+     "cls": "day me",
+     "aria": "Sunday, May 9, Heather, Mother's Day weekend",
+     "text": "9 ★ Mother's Day HEATHER",
+     "date": "2027-05-09"
+    },
+    {
+     "cls": "co day",
+     "aria": "Monday, May 10, Brett",
+     "text": "10 BRETT",
+     "date": "2027-05-10"
+    },
+    {
+     "cls": "co day",
+     "aria": "Tuesday, May 11, Brett",
+     "text": "11 BRETT",
+     "date": "2027-05-11"
+    },
+    {
+     "cls": "co day",
+     "aria": "Wednesday, May 12, Brett",
+     "text": "12 BRETT",
+     "date": "2027-05-12"
+    },
+    {
+     "cls": "co day",
+     "aria": "Thursday, May 13, Brett",
+     "text": "13 BRETT",
+     "date": "2027-05-13"
+    },
+    {
+     "cls": "day me",
+     "aria": "Friday, May 14, Heather",
+     "text": "14 HEATHER",
+     "date": "2027-05-14"
+    },
+    {
+     "cls": "day me",
+     "aria": "Saturday, May 15, Heather",
+     "text": "15 HEATHER",
+     "date": "2027-05-15"
+    },
+    {
+     "cls": "day me",
+     "aria": "Sunday, May 16, Heather",
+     "text": "16 HEATHER",
+     "date": "2027-05-16"
+    },
+    {
+     "cls": "day me",
+     "aria": "Monday, May 17, Heather",
+     "text": "17 HEATHER",
+     "date": "2027-05-17"
+    },
+    {
+     "cls": "day me",
+     "aria": "Tuesday, May 18, Heather",
+     "text": "18 HEATHER",
+     "date": "2027-05-18"
+    },
+    {
+     "cls": "co day swap",
+     "aria": "Wednesday, May 19, Brett, switched",
+     "text": "19 ⇄ BRETT",
+     "date": "2027-05-19"
+    },
+    {
+     "cls": "day me",
+     "aria": "Thursday, May 20, Heather",
+     "text": "20 HEATHER",
+     "date": "2027-05-20"
+    },
+    {
+     "cls": "co day",
+     "aria": "Friday, May 21, Brett",
+     "text": "21 BRETT",
+     "date": "2027-05-21"
+    },
+    {
+     "cls": "co day",
+     "aria": "Saturday, May 22, Brett",
+     "text": "22 BRETT",
+     "date": "2027-05-22"
+    },
+    {
+     "cls": "co day",
+     "aria": "Sunday, May 23, Brett",
+     "text": "23 BRETT",
+     "date": "2027-05-23"
+    },
+    {
+     "cls": "co day",
+     "aria": "Monday, May 24, Brett",
+     "text": "24 BRETT",
+     "date": "2027-05-24"
+    },
+    {
+     "cls": "co day",
+     "aria": "Tuesday, May 25, Brett",
+     "text": "25 BRETT",
+     "date": "2027-05-25"
+    },
+    {
+     "cls": "co day",
+     "aria": "Wednesday, May 26, Brett",
+     "text": "26 BRETT",
+     "date": "2027-05-26"
+    },
+    {
+     "cls": "co day",
+     "aria": "Thursday, May 27, Brett",
+     "text": "27 BRETT",
+     "date": "2027-05-27"
+    },
+    {
+     "cls": "day me",
+     "aria": "Friday, May 28, Heather, Last day, early release",
+     "text": "28 ½ HEATHER",
+     "date": "2027-05-28"
+    },
+    {
+     "cls": "day me",
+     "aria": "Saturday, May 29, Heather",
+     "text": "29 HEATHER",
+     "date": "2027-05-29"
+    },
+    {
+     "cls": "day me",
+     "aria": "Sunday, May 30, Heather",
+     "text": "30 HEATHER",
+     "date": "2027-05-30"
+    },
+    {
+     "cls": "day me",
+     "aria": "Monday, May 31, Heather, No school: Summer break",
+     "text": "31 HEATHER NO SCHOOL",
+     "date": "2027-05-31"
+    },
+    {
+     "cls": "day me out",
+     "aria": "Tuesday, June 1, Heather, No school: Summer break",
+     "text": "1 HEATHER NO SCHOOL",
+     "date": "2027-06-01"
+    },
+    {
+     "cls": "day me out",
+     "aria": "Wednesday, June 2, Heather, No school: Summer break",
+     "text": "2 HEATHER NO SCHOOL",
+     "date": "2027-06-02"
+    },
+    {
+     "cls": "day me out",
+     "aria": "Thursday, June 3, Heather, No school: Summer break",
+     "text": "3 HEATHER NO SCHOOL",
+     "date": "2027-06-03"
+    },
+    {
+     "cls": "co day out",
+     "aria": "Friday, June 4, Brett, No school: Summer break",
+     "text": "4 BRETT NO SCHOOL",
+     "date": "2027-06-04"
+    },
+    {
+     "cls": "co day out",
+     "aria": "Saturday, June 5, Brett",
+     "text": "5 BRETT",
+     "date": "2027-06-05"
+    }
+   ],
+   "thisMonthList": [
+    {
+     "text": "May 7 to May 9 ★ Mother's Day weekend Heather",
+     "chips": [
+      "chip me | Heather"
+     ]
+    },
+    {
+     "text": "Wed, May 19 ⇄ Switched to Brett",
+     "chips": [
+      "chip co | Brett"
+     ]
+    },
+    {
+     "text": "Fri, May 28 Last day, early release"
+    }
+   ]
+  },
+  "2027-06": {
+   "heading": "June 2027",
+   "dow": "Sun Mon Tue Wed Thu Fri Sat",
+   "cells": [
+    {
+     "cls": "day me out",
+     "aria": "Sunday, May 30, Heather",
+     "text": "30 HEATHER",
+     "date": "2027-05-30"
+    },
+    {
+     "cls": "day me out",
+     "aria": "Monday, May 31, Heather, No school: Summer break",
+     "text": "31 HEATHER NO SCHOOL",
+     "date": "2027-05-31"
+    },
+    {
+     "cls": "day me",
+     "aria": "Tuesday, June 1, Heather, No school: Summer break",
+     "text": "1 HEATHER NO SCHOOL",
+     "date": "2027-06-01"
+    },
+    {
+     "cls": "day me",
+     "aria": "Wednesday, June 2, Heather, No school: Summer break",
+     "text": "2 HEATHER NO SCHOOL",
+     "date": "2027-06-02"
+    },
+    {
+     "cls": "day me",
+     "aria": "Thursday, June 3, Heather, No school: Summer break",
+     "text": "3 HEATHER NO SCHOOL",
+     "date": "2027-06-03"
+    },
+    {
+     "cls": "co day",
+     "aria": "Friday, June 4, Brett, No school: Summer break",
+     "text": "4 BRETT NO SCHOOL",
+     "date": "2027-06-04"
+    },
+    {
+     "cls": "co day",
+     "aria": "Saturday, June 5, Brett",
+     "text": "5 BRETT",
+     "date": "2027-06-05"
+    },
+    {
+     "cls": "co day",
+     "aria": "Sunday, June 6, Brett",
+     "text": "6 BRETT",
+     "date": "2027-06-06"
+    },
+    {
+     "cls": "co day",
+     "aria": "Monday, June 7, Brett, No school: Summer break",
+     "text": "7 BRETT NO SCHOOL",
+     "date": "2027-06-07"
+    },
+    {
+     "cls": "co day",
+     "aria": "Tuesday, June 8, Brett, No school: Summer break",
+     "text": "8 BRETT NO SCHOOL",
+     "date": "2027-06-08"
+    },
+    {
+     "cls": "co day",
+     "aria": "Wednesday, June 9, Brett, No school: Summer break",
+     "text": "9 BRETT NO SCHOOL",
+     "date": "2027-06-09"
+    },
+    {
+     "cls": "co day",
+     "aria": "Thursday, June 10, Brett, No school: Summer break",
+     "text": "10 BRETT NO SCHOOL",
+     "date": "2027-06-10"
+    },
+    {
+     "cls": "day me",
+     "aria": "Friday, June 11, Heather, No school: Summer break",
+     "text": "11 HEATHER NO SCHOOL",
+     "date": "2027-06-11"
+    },
+    {
+     "cls": "day me",
+     "aria": "Saturday, June 12, Heather",
+     "text": "12 HEATHER",
+     "date": "2027-06-12"
+    },
+    {
+     "cls": "day me",
+     "aria": "Sunday, June 13, Heather",
+     "text": "13 HEATHER",
+     "date": "2027-06-13"
+    },
+    {
+     "cls": "day me",
+     "aria": "Monday, June 14, Heather, No school: Summer break",
+     "text": "14 HEATHER NO SCHOOL",
+     "date": "2027-06-14"
+    },
+    {
+     "cls": "day me",
+     "aria": "Tuesday, June 15, Heather, No school: Summer break",
+     "text": "15 HEATHER NO SCHOOL",
+     "date": "2027-06-15"
+    },
+    {
+     "cls": "day me",
+     "aria": "Wednesday, June 16, Heather, No school: Summer break",
+     "text": "16 HEATHER NO SCHOOL",
+     "date": "2027-06-16"
+    },
+    {
+     "cls": "day me",
+     "aria": "Thursday, June 17, Heather, No school: Summer break",
+     "text": "17 HEATHER NO SCHOOL",
+     "date": "2027-06-17"
+    },
+    {
+     "cls": "co day",
+     "aria": "Friday, June 18, Brett, Father's Day weekend, No school: Summer break",
+     "text": "18 ★ Father's Day BRETT NO SCHOOL",
+     "date": "2027-06-18"
+    },
+    {
+     "cls": "co day",
+     "aria": "Saturday, June 19, Brett, Father's Day weekend",
+     "text": "19 ★ Father's Day BRETT",
+     "date": "2027-06-19"
+    },
+    {
+     "cls": "co day",
+     "aria": "Sunday, June 20, Brett, Father's Day weekend",
+     "text": "20 ★ Father's Day BRETT",
+     "date": "2027-06-20"
+    },
+    {
+     "cls": "day me",
+     "aria": "Monday, June 21, Heather, Summer week, No school: Summer break",
+     "text": "21 ★ Summer week HEATHER NO SCHOOL",
+     "date": "2027-06-21"
+    },
+    {
+     "cls": "day me",
+     "aria": "Tuesday, June 22, Heather, Summer week, No school: Summer break",
+     "text": "22 ★ Summer week HEATHER NO SCHOOL",
+     "date": "2027-06-22"
+    },
+    {
+     "cls": "day me",
+     "aria": "Wednesday, June 23, Heather, Summer week, No school: Summer break",
+     "text": "23 ★ Summer week HEATHER NO SCHOOL",
+     "date": "2027-06-23"
+    },
+    {
+     "cls": "day me",
+     "aria": "Thursday, June 24, Heather, Summer week, No school: Summer break",
+     "text": "24 ★ Summer week HEATHER NO SCHOOL",
+     "date": "2027-06-24"
+    },
+    {
+     "cls": "day me",
+     "aria": "Friday, June 25, Heather, No school: Summer break",
+     "text": "25 HEATHER NO SCHOOL",
+     "date": "2027-06-25"
+    },
+    {
+     "cls": "day me",
+     "aria": "Saturday, June 26, Heather",
+     "text": "26 HEATHER",
+     "date": "2027-06-26"
+    },
+    {
+     "cls": "day me",
+     "aria": "Sunday, June 27, Heather",
+     "text": "27 HEATHER",
+     "date": "2027-06-27"
+    },
+    {
+     "cls": "day me",
+     "aria": "Monday, June 28, Heather, No school: Summer break",
+     "text": "28 HEATHER NO SCHOOL",
+     "date": "2027-06-28"
+    },
+    {
+     "cls": "day me",
+     "aria": "Tuesday, June 29, Heather, No school: Summer break",
+     "text": "29 HEATHER NO SCHOOL",
+     "date": "2027-06-29"
+    },
+    {
+     "cls": "day me",
+     "aria": "Wednesday, June 30, Heather, No school: Summer break",
+     "text": "30 HEATHER NO SCHOOL",
+     "date": "2027-06-30"
+    },
+    {
+     "cls": "day me out",
+     "aria": "Thursday, July 1, Heather, No school: Summer break",
+     "text": "1 HEATHER NO SCHOOL",
+     "date": "2027-07-01"
+    },
+    {
+     "cls": "co day out",
+     "aria": "Friday, July 2, Brett, No school: Summer break",
+     "text": "2 BRETT NO SCHOOL",
+     "date": "2027-07-02"
+    },
+    {
+     "cls": "co day out",
+     "aria": "Saturday, July 3, Brett",
+     "text": "3 BRETT",
+     "date": "2027-07-03"
+    }
+   ],
+   "thisMonthList": [
+    {
+     "text": "Jun 18 to Jun 24 ★ Summer week Heather",
+     "chips": [
+      "chip me | Heather"
+     ]
+    },
+    {
+     "text": "Jun 18 to Jun 20 ★ Father's Day weekend Brett",
+     "chips": [
+      "chip co | Brett"
+     ]
+    }
+   ]
+  },
+  "2027-07": {
+   "heading": "July 2027",
+   "dow": "Sun Mon Tue Wed Thu Fri Sat",
+   "cells": [
+    {
+     "cls": "day me out",
+     "aria": "Sunday, June 27, Heather",
+     "text": "27 HEATHER",
+     "date": "2027-06-27"
+    },
+    {
+     "cls": "day me out",
+     "aria": "Monday, June 28, Heather, No school: Summer break",
+     "text": "28 HEATHER NO SCHOOL",
+     "date": "2027-06-28"
+    },
+    {
+     "cls": "day me out",
+     "aria": "Tuesday, June 29, Heather, No school: Summer break",
+     "text": "29 HEATHER NO SCHOOL",
+     "date": "2027-06-29"
+    },
+    {
+     "cls": "day me out",
+     "aria": "Wednesday, June 30, Heather, No school: Summer break",
+     "text": "30 HEATHER NO SCHOOL",
+     "date": "2027-06-30"
+    },
+    {
+     "cls": "day me",
+     "aria": "Thursday, July 1, Heather, No school: Summer break",
+     "text": "1 HEATHER NO SCHOOL",
+     "date": "2027-07-01"
+    },
+    {
+     "cls": "co day",
+     "aria": "Friday, July 2, Brett, No school: Summer break",
+     "text": "2 BRETT NO SCHOOL",
+     "date": "2027-07-02"
+    },
+    {
+     "cls": "co day",
+     "aria": "Saturday, July 3, Brett",
+     "text": "3 BRETT",
+     "date": "2027-07-03"
+    },
+    {
+     "cls": "co day",
+     "aria": "Sunday, July 4, Brett",
+     "text": "4 BRETT",
+     "date": "2027-07-04"
+    },
+    {
+     "cls": "co day",
+     "aria": "Monday, July 5, Brett, No school: Summer break",
+     "text": "5 BRETT NO SCHOOL",
+     "date": "2027-07-05"
+    },
+    {
+     "cls": "co day",
+     "aria": "Tuesday, July 6, Brett, No school: Summer break",
+     "text": "6 BRETT NO SCHOOL",
+     "date": "2027-07-06"
+    },
+    {
+     "cls": "co day",
+     "aria": "Wednesday, July 7, Brett, No school: Summer break",
+     "text": "7 BRETT NO SCHOOL",
+     "date": "2027-07-07"
+    },
+    {
+     "cls": "co day",
+     "aria": "Thursday, July 8, Brett, No school: Summer break",
+     "text": "8 BRETT NO SCHOOL",
+     "date": "2027-07-08"
+    },
+    {
+     "cls": "day me",
+     "aria": "Friday, July 9, Heather, No school: Summer break",
+     "text": "9 HEATHER NO SCHOOL",
+     "date": "2027-07-09"
+    },
+    {
+     "cls": "day me",
+     "aria": "Saturday, July 10, Heather",
+     "text": "10 HEATHER",
+     "date": "2027-07-10"
+    },
+    {
+     "cls": "day me",
+     "aria": "Sunday, July 11, Heather",
+     "text": "11 HEATHER",
+     "date": "2027-07-11"
+    },
+    {
+     "cls": "co day",
+     "aria": "Monday, July 12, Brett, Summer week, No school: Summer break",
+     "text": "12 ★ Summer week BRETT NO SCHOOL",
+     "date": "2027-07-12"
+    },
+    {
+     "cls": "co day",
+     "aria": "Tuesday, July 13, Brett, Summer week, No school: Summer break",
+     "text": "13 ★ Summer week BRETT NO SCHOOL",
+     "date": "2027-07-13"
+    },
+    {
+     "cls": "co day",
+     "aria": "Wednesday, July 14, Brett, Summer week, No school: Summer break",
+     "text": "14 ★ Summer week BRETT NO SCHOOL",
+     "date": "2027-07-14"
+    },
+    {
+     "cls": "co day",
+     "aria": "Thursday, July 15, Brett, Summer week, No school: Summer break",
+     "text": "15 ★ Summer week BRETT NO SCHOOL",
+     "date": "2027-07-15"
+    },
+    {
+     "cls": "co day",
+     "aria": "Friday, July 16, Brett, Summer week, No school: Summer break",
+     "text": "16 ★ Summer week BRETT NO SCHOOL",
+     "date": "2027-07-16"
+    },
+    {
+     "cls": "co day",
+     "aria": "Saturday, July 17, Brett, Summer week",
+     "text": "17 ★ Summer week BRETT",
+     "date": "2027-07-17"
+    },
+    {
+     "cls": "co day",
+     "aria": "Sunday, July 18, Brett, Summer week",
+     "text": "18 ★ Summer week BRETT",
+     "date": "2027-07-18"
+    },
+    {
+     "cls": "co day",
+     "aria": "Monday, July 19, Brett, No school: Summer break",
+     "text": "19 BRETT NO SCHOOL",
+     "date": "2027-07-19"
+    },
+    {
+     "cls": "co day",
+     "aria": "Tuesday, July 20, Brett, No school: Summer break",
+     "text": "20 BRETT NO SCHOOL",
+     "date": "2027-07-20"
+    },
+    {
+     "cls": "co day",
+     "aria": "Wednesday, July 21, Brett, No school: Summer break",
+     "text": "21 BRETT NO SCHOOL",
+     "date": "2027-07-21"
+    },
+    {
+     "cls": "co day",
+     "aria": "Thursday, July 22, Brett, No school: Summer break",
+     "text": "22 BRETT NO SCHOOL",
+     "date": "2027-07-22"
+    },
+    {
+     "cls": "day me",
+     "aria": "Friday, July 23, Heather, No school: Summer break",
+     "text": "23 HEATHER NO SCHOOL",
+     "date": "2027-07-23"
+    },
+    {
+     "cls": "day me",
+     "aria": "Saturday, July 24, Heather",
+     "text": "24 HEATHER",
+     "date": "2027-07-24"
+    },
+    {
+     "cls": "day me",
+     "aria": "Sunday, July 25, Heather",
+     "text": "25 HEATHER",
+     "date": "2027-07-25"
+    },
+    {
+     "cls": "day me",
+     "aria": "Monday, July 26, Heather, No school: Summer break",
+     "text": "26 HEATHER NO SCHOOL",
+     "date": "2027-07-26"
+    },
+    {
+     "cls": "day me",
+     "aria": "Tuesday, July 27, Heather, No school: Summer break",
+     "text": "27 HEATHER NO SCHOOL",
+     "date": "2027-07-27"
+    },
+    {
+     "cls": "day me",
+     "aria": "Wednesday, July 28, Heather, No school: Summer break",
+     "text": "28 HEATHER NO SCHOOL",
+     "date": "2027-07-28"
+    },
+    {
+     "cls": "day me",
+     "aria": "Thursday, July 29, Heather, No school: Summer break",
+     "text": "29 HEATHER NO SCHOOL",
+     "date": "2027-07-29"
+    },
+    {
+     "cls": "co day",
+     "aria": "Friday, July 30, Brett, No school: Summer break",
+     "text": "30 BRETT NO SCHOOL",
+     "date": "2027-07-30"
+    },
+    {
+     "cls": "co day",
+     "aria": "Saturday, July 31, Brett",
+     "text": "31 BRETT",
+     "date": "2027-07-31"
+    }
+   ],
+   "thisMonthList": [
+    {
+     "text": "Jul 12 to Jul 18 ★ Summer week Brett",
+     "chips": [
+      "chip co | Brett"
+     ]
+    }
+   ]
+  }
+ },
+ "daySheets": {
+  "2026-10-13": {
+   "title": "Tuesday, October 13",
+   "lines": [
+    "Heatherhas the kids that night",
+    "⇄ Switched. Usually Brett's day.",
+    "Why: Coverage requested",
+    "Note: Brett at a conference",
+    "School day",
+    "Handoff: Brett to Heather"
+   ],
+   "chips": [
+    "chip me | Heather"
+   ]
+  },
+  "2026-10-16": {
+   "title": "Friday, October 16",
+   "lines": [
+    "Heatherhas the kids that night",
+    "No school: Teacher workday",
+    "Handoff: Brett to Heather, at 5 p.m."
+   ],
+   "chips": [
+    "chip me | Heather"
+   ]
+  },
+  "2026-10-20": {
+   "title": "Tuesday, October 20",
+   "lines": [
+    "Grandmahas the kids that night",
+    "⇄ Switched. Usually Heather's day.",
+    "Why: Work",
+    "Note: Heather's late client meeting & dinner, home <9 p.m. \"at the latest\"",
+    "School day",
+    "Handoff: Heather to Grandma"
+   ],
+   "chips": [
+    "chip grandma | Grandma"
+   ]
+  },
+  "2026-10-21": {
+   "title": "Wednesday, October 21",
+   "lines": [
+    "Heatherhas the kids that night",
+    "School day",
+    "Handoff: Grandma to Heather"
+   ],
+   "chips": [
+    "chip me | Heather"
+   ]
+  },
+  "2026-10-31": {
+   "title": "Saturday, October 31",
+   "lines": [
+    "Babysitterhas the kids that night",
+    "⇄ Switched. Usually Heather's day.",
+    "Why: Trade or other",
+    "Note: Evening out",
+    "Handoff: Heather to Babysitter"
+   ],
+   "chips": [
+    "chip other | Babysitter"
+   ]
+  },
+  "2026-11-06": {
+   "title": "Friday, November 6",
+   "lines": [
+    "Bretthas the kids that night",
+    "School day",
+    "Handoff: Heather to Brett, after school"
+   ],
+   "chips": [
+    "chip co | Brett"
+   ]
+  },
+  "2026-11-19": {
+   "title": "Thursday, November 19",
+   "lines": [
+    "Heatherhas the kids that night",
+    "School day"
+   ],
+   "chips": [
+    "chip me | Heather"
+   ]
+  },
+  "2026-11-20": {
+   "title": "Friday, November 20",
+   "lines": [
+    "Heatherhas the kids that night",
+    "★ Thanksgiving (Heather's holiday this year)",
+    "School day"
+   ],
+   "chips": [
+    "chip me | Heather"
+   ]
+  },
+  "2026-11-25": {
+   "title": "Wednesday, November 25",
+   "lines": [
+    "Bretthas the kids that night",
+    "⇄ Switched. Usually Heather's day.",
+    "Why: Trade or other",
+    "Note: Traded for Dec 5",
+    "★ Thanksgiving (Heather's holiday this year)",
+    "No school: Thanksgiving break",
+    "Handoff: Heather to Brett"
+   ],
+   "chips": [
+    "chip co | Brett"
+   ]
+  },
+  "2026-11-30": {
+   "title": "Monday, November 30",
+   "lines": [
+    "Heatherhas the kids that night",
+    "School day"
+   ],
+   "chips": [
+    "chip me | Heather"
+   ]
+  },
+  "2026-12-04": {
+   "title": "Friday, December 4",
+   "lines": [
+    "Bretthas the kids that night",
+    "School day",
+    "Handoff: Heather to Brett, after school"
+   ],
+   "chips": [
+    "chip co | Brett"
+   ]
+  },
+  "2026-12-18": {
+   "title": "Friday, December 18",
+   "lines": [
+    "Bretthas the kids that night",
+    "★ Christmas, first part (Brett's holiday this year)",
+    "Half day",
+    "Handoff: Heather to Brett, after school"
+   ],
+   "chips": [
+    "chip co | Brett"
+   ]
+  },
+  "2026-12-22": {
+   "title": "Tuesday, December 22",
+   "lines": [
+    "Grandmahas the kids that night",
+    "⇄ Switched. Usually Brett's day.",
+    "Why: Travel",
+    "Note: Brett traveling",
+    "★ Christmas, first part (Brett's holiday this year)",
+    "No school: Winter break",
+    "Handoff: Brett to Grandma"
+   ],
+   "chips": [
+    "chip grandma | Grandma"
+   ]
+  },
+  "2026-12-26": {
+   "title": "Saturday, December 26",
+   "lines": [
+    "Heatherhas the kids that night",
+    "★ Christmas, second part (Heather's holiday this year)",
+    "Handoff: Brett to Heather, at 2 p.m."
+   ],
+   "chips": [
+    "chip me | Heather"
+   ]
+  },
+  "2027-01-05": {
+   "title": "Tuesday, January 5",
+   "lines": [
+    "Bretthas the kids that night",
+    "School day",
+    "Handoff: Heather to Brett, after school"
+   ],
+   "chips": [
+    "chip co | Brett"
+   ]
+  },
+  "2027-01-15": {
+   "title": "Friday, January 15",
+   "lines": [
+    "Someone elsehas the kids that night",
+    "⇄ Switched. Usually Brett's day.",
+    "Why: Coverage requested",
+    "School day",
+    "Handoff: Heather to Someone else"
+   ],
+   "chips": [
+    "chip other | Someone else"
+   ]
+  },
+  "2027-02-12": {
+   "title": "Friday, February 12",
+   "lines": [
+    "Bretthas the kids that night",
+    "No school: Winter weekend",
+    "Handoff: Heather to Brett, at 5 p.m."
+   ],
+   "chips": [
+    "chip co | Brett"
+   ]
+  },
+  "2027-04-02": {
+   "title": "Friday, April 2",
+   "lines": [
+    "Heatherhas the kids that night",
+    "★ Spring break (Heather's holiday this year)",
+    "School day",
+    "Handoff: Brett to Heather, after school"
+   ],
+   "chips": [
+    "chip me | Heather"
+   ]
+  },
+  "2027-04-07": {
+   "title": "Wednesday, April 7",
+   "lines": [
+    "Grandmahas the kids that night",
+    "⇄ Switched. Usually Heather's day.",
+    "Why: Work",
+    "Note: Heather has a deadline",
+    "★ Spring break (Heather's holiday this year)",
+    "No school: Spring break",
+    "Handoff: Heather to Grandma"
+   ],
+   "chips": [
+    "chip grandma | Grandma"
+   ]
+  },
+  "2027-04-11": {
+   "title": "Sunday, April 11",
+   "lines": [
+    "Bretthas the kids that night",
+    "Handoff: Heather to Brett, at 6 p.m."
+   ],
+   "chips": [
+    "chip co | Brett"
+   ]
+  },
+  "2027-05-07": {
+   "title": "Friday, May 7",
+   "lines": [
+    "Heatherhas the kids that night",
+    "★ Mother's Day weekend (Heather's holiday this year)",
+    "School day"
+   ],
+   "chips": [
+    "chip me | Heather"
+   ]
+  },
+  "2027-05-10": {
+   "title": "Monday, May 10",
+   "lines": [
+    "Bretthas the kids that night",
+    "School day",
+    "Handoff: Heather to Brett, after school"
+   ],
+   "chips": [
+    "chip co | Brett"
+   ]
+  },
+  "2027-05-19": {
+   "title": "Wednesday, May 19",
+   "lines": [
+    "Bretthas the kids that night",
+    "⇄ Switched. Usually Heather's day.",
+    "School day",
+    "Handoff: Heather to Brett"
+   ],
+   "chips": [
+    "chip co | Brett"
+   ]
+  },
+  "2027-05-28": {
+   "title": "Friday, May 28",
+   "lines": [
+    "Heatherhas the kids that night",
+    "Last day, early release",
+    "Handoff: Brett to Heather, after school"
+   ],
+   "chips": [
+    "chip me | Heather"
+   ]
+  },
+  "2027-06-04": {
+   "title": "Friday, June 4",
+   "lines": [
+    "Bretthas the kids that night",
+    "No school: Summer break",
+    "Handoff: Heather to Brett, at 5 p.m."
+   ],
+   "chips": [
+    "chip co | Brett"
+   ]
+  },
+  "2027-06-18": {
+   "title": "Friday, June 18",
+   "lines": [
+    "Bretthas the kids that night",
+    "★ Father's Day weekend (Brett's holiday this year)",
+    "No school: Summer break",
+    "Handoff: Heather to Brett"
+   ],
+   "chips": [
+    "chip co | Brett"
+   ]
+  },
+  "2027-06-21": {
+   "title": "Monday, June 21",
+   "lines": [
+    "Heatherhas the kids that night",
+    "★ Summer week (Heather's holiday this year)",
+    "No school: Summer break",
+    "Handoff: Brett to Heather"
+   ],
+   "chips": [
+    "chip me | Heather"
+   ]
+  },
+  "2027-07-12": {
+   "title": "Monday, July 12",
+   "lines": [
+    "Bretthas the kids that night",
+    "★ Summer week (Brett's holiday this year)",
+    "No school: Summer break",
+    "Handoff: Heather to Brett"
+   ],
+   "chips": [
+    "chip co | Brett"
+   ]
+  },
+  "2027-07-19": {
+   "title": "Monday, July 19",
+   "lines": [
+    "Bretthas the kids that night",
+    "No school: Summer break"
+   ],
+   "chips": [
+    "chip co | Brett"
+   ]
+  }
+ },
+ "todayButtonReturnsTo": "March 2027"
+}

@@ -1,0 +1,83 @@
+{
+  "_about": "Test data in the shape of the Supabase tables. REAL values, approved as public by Heather on 2026-11-19, are exactly these: the rotation anchor (settings.anchor) and the Thanksgiving and Christmas 2026 break dates (tgL, tgR, xmL, xmR in the 2026 row). The Thanksgiving break and Winter break no-school rows are simply the weekdays inside those approved dates. Everything else is made up: the totals start date (track_from), the first day of school, every other school date (no-school days, half days, last day, spring break, summer weeks), the switches and their notes, all timestamps, phone numbers and tokens. No kids' names, places or addresses. The admin fake reads these tables directly. The family response is built from them the same way public.get_schedule does (see familyResponse in run.mjs).",
+  "settings": [
+    { "id": 1, "my_name": "Heather", "co_name": "Brett", "anchor": "2026-10-02", "track_from": "2026-10-07", "changed_at": "2026-11-10T15:00:00+00:00" }
+  ],
+  "breaks": [
+    {
+      "year": 2026,
+      "data": {
+        "firstDay": "2026-08-12", "lastDay": "",
+        "spL": "", "spR": "",
+        "tgL": "2026-11-20", "tgR": "2026-11-30",
+        "xmL": "2026-12-18", "xmR": "2027-01-05",
+        "summer": [],
+        "school": [
+          { "s": "2026-09-16", "e": "", "t": "off", "l": "Staff training day" },
+          { "s": "2026-10-16", "e": "", "t": "off", "l": "Teacher workday" },
+          { "s": "2026-11-10", "e": "", "t": "off", "l": "Parent conferences" },
+          { "s": "2026-11-23", "e": "2026-11-27", "t": "off", "l": "Thanksgiving break" },
+          { "s": "2026-12-18", "e": "", "t": "half", "l": "Half day" },
+          { "s": "2026-12-21", "e": "2026-12-31", "t": "off", "l": "Winter break" }
+        ]
+      }
+    },
+    {
+      "year": 2027,
+      "data": {
+        "firstDay": "", "lastDay": "2027-05-28",
+        "spL": "2027-04-02", "spR": "2027-04-12",
+        "tgL": "", "tgR": "",
+        "xmL": "", "xmR": "",
+        "summer": [
+          { "start": "2027-06-18", "who": "me" },
+          { "start": "2027-07-12", "who": "co" }
+        ],
+        "school": [
+          { "s": "2027-01-01", "e": "2027-01-04", "t": "off", "l": "Winter break" },
+          { "s": "2027-01-27", "e": "", "t": "off", "l": "Teacher workday" },
+          { "s": "2027-02-12", "e": "2027-02-15", "t": "off", "l": "Winter weekend" },
+          { "s": "2027-04-05", "e": "2027-04-09", "t": "off", "l": "Spring break" },
+          { "s": "2027-05-28", "e": "", "t": "half", "l": "Last day, early release" }
+        ]
+      }
+    }
+  ],
+  "swaps": [
+    { "day": "2026-10-13", "had": "me",      "caregiver": null,         "updated_at": "2026-10-09T14:05:00+00:00" },
+    { "day": "2026-10-14", "had": "me",      "caregiver": null,         "updated_at": "2026-10-09T14:05:00+00:00" },
+    { "day": "2026-10-20", "had": "grandma", "caregiver": null,         "updated_at": "2026-10-19T12:30:00+00:00" },
+    { "day": "2026-10-31", "had": "other",   "caregiver": "Babysitter", "updated_at": "2026-10-28T23:10:00+00:00" },
+    { "day": "2026-11-17", "had": "co",      "caregiver": null,         "updated_at": "2026-11-10T15:00:00+00:00" },
+    { "day": "2026-11-25", "had": "co",      "caregiver": null,         "updated_at": "2026-11-02T18:00:00+00:00" },
+    { "day": "2026-12-05", "had": "me",      "caregiver": null,         "updated_at": "2026-11-02T18:00:00+00:00" },
+    { "day": "2026-12-22", "had": "grandma", "caregiver": null,         "updated_at": "2026-11-05T13:00:00+00:00" },
+    { "day": "2026-12-23", "had": "grandma", "caregiver": null,         "updated_at": "2026-11-05T13:00:00+00:00" },
+    { "day": "2027-01-15", "had": "other",   "caregiver": null,         "updated_at": "2026-11-06T16:45:00+00:00" },
+    { "day": "2027-02-27", "had": "me",      "caregiver": null,         "updated_at": "2026-11-07T09:00:00+00:00" },
+    { "day": "2027-02-28", "had": "me",      "caregiver": null,         "updated_at": "2026-11-07T09:00:00+00:00" },
+    { "day": "2027-03-09", "had": "co",      "caregiver": null,         "updated_at": "2026-11-08T20:15:00+00:00" },
+    { "day": "2027-04-07", "had": "grandma", "caregiver": null,         "updated_at": "2026-11-08T20:20:00+00:00" },
+    { "day": "2027-05-19", "had": "co",      "caregiver": null,         "updated_at": "2026-11-09T11:00:00+00:00" }
+  ],
+  "swap_details": [
+    { "day": "2026-10-13", "reason": "coverage", "note": "Brett at a conference", "pnote": "PRIVATE-ALPHA he asked on Oct 9" },
+    { "day": "2026-10-14", "reason": "coverage", "note": "Brett at a conference", "pnote": "PRIVATE-ALPHA he asked on Oct 9" },
+    { "day": "2026-10-20", "reason": "work",     "note": "Heather's late client meeting & dinner, home <9 p.m. \"at the latest\"", "pnote": null },
+    { "day": "2026-10-31", "reason": "other",    "note": "Evening out", "pnote": null },
+    { "day": "2026-11-17", "reason": "travel",   "note": "Heather away overnight", "pnote": null },
+    { "day": "2026-11-25", "reason": "other",    "note": "Traded for Dec 5", "pnote": null },
+    { "day": "2026-12-05", "reason": "other",    "note": "Traded for Nov 25", "pnote": null },
+    { "day": "2026-12-22", "reason": "travel",   "note": "Brett traveling", "pnote": "PRIVATE-BRAVO check flight times" },
+    { "day": "2026-12-23", "reason": "travel",   "note": "Brett traveling", "pnote": "PRIVATE-BRAVO check flight times" },
+    { "day": "2027-01-15", "reason": "coverage", "note": null, "pnote": null },
+    { "day": "2027-02-27", "reason": "coverage", "note": "Brett out of town", "pnote": null },
+    { "day": "2027-02-28", "reason": "coverage", "note": "Brett out of town", "pnote": null },
+    { "day": "2027-03-09", "reason": "work",     "note": "Heather at a board meeting", "pnote": "PRIVATE-CHARLIE second time this quarter" },
+    { "day": "2027-04-07", "reason": "work",     "note": "Heather has a deadline", "pnote": null }
+  ],
+  "share_links": [
+    { "token": "OLDTOKEN",  "label": "Family", "active": false, "created_at": "2026-10-02T12:00:00+00:00" },
+    { "token": "TESTTOKEN", "label": "Family", "active": true,  "created_at": "2026-10-05T12:00:00+00:00" }
+  ]
+}
