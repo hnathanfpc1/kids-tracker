@@ -79,7 +79,7 @@ Full structure is in `supabase/schema.sql`. Summary:
 
 | Table | Columns | Notes |
 |---|---|---|
-| `app_users` | `email` (pk, lowercase), `role` ('admin') | Who can edit. One admin email, listed only in the database |
+| `app_users` | `email` (pk, lowercase), `role` ('admin') | Who can edit. Two admin emails, both Heather's, listed only in the database |
 | `settings` | single row `id=1`: `my_name` ('Heather'), `co_name` ('Brett'), `anchor`, `track_from`, `changed_at` | `changed_at` is bumped by triggers on any change to swaps, swap_details or breaks |
 | `breaks` | `year` (pk), `data` jsonb | School calendar and holiday break dates per calendar year (shape below) |
 | `swaps` | `day` (pk), `had` ('me','co','grandma','other'), `caregiver`, `updated_at` | Days that differ from the schedule |
