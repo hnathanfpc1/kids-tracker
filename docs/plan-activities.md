@@ -1,6 +1,6 @@
 # Plan: Activities (sports, practices, lessons)
 
-Status: Phase 0 is built on branch `feature/activities` and in review. It is not merged and not live. Phases 1 to 4 are not started.
+Status: Phase 0 passed QA, security and executive review and was merged to `main` on 2026-11-19 with Heather's approval. Phases 1 to 4 are not started.
 Branch: `feature/activities`. `main` (the live site) is untouched.
 Mockup: `docs/mockups/activities-mockup.html`, version 3 (sample kids and sample activities only).
 Review round 1 with Heather on 2026-11-19 is folded in. Section 16 lists what changed.
@@ -257,15 +257,15 @@ This feature raises the stakes of the family link. Today the link shows which pa
 
 | # | Finding | Impact | Proposed |
 |---|---|---|---|
-| 1 | `style.css` line 32 is a leftover block of padding rules with no selector. It makes the browser throw away the next rule, the base `.wrap` rule. Verified in a browser: `.wrap` has no max width, no centering and no 18px gap on the live pages | Admin page stretches full width on a desktop and the header sits tight against the first panel. Phone layout mostly unaffected | Done on branch `feature/activities`, not merged. The sign-in and loading cards also got `width: 100%` so they keep their size once the rule is back |
+| 1 | `style.css` line 32 is a leftover block of padding rules with no selector. It makes the browser throw away the next rule, the base `.wrap` rule. Verified in a browser: `.wrap` has no max width, no centering and no 18px gap on the live pages | Admin page stretches full width on a desktop and the header sits tight against the first panel. Phone layout mostly unaffected | Done in Phase 0, merged 2026-11-19. The sign-in and loading cards also got `width: 100%` so they keep their size once the rule is back |
 | 2 | The repo on GitHub only had the five site files. `CLAUDE.md`, `supabase/` and git history from this Mac were not there. This folder was not connected to the repo | Deploys were manual uploads. Now connected, so deploy is a push | Done locally. Nothing pushed yet |
 | 3 | `CLAUDE.md` is not committed. It includes a personal email address and details of how sign-in was set up. The repo is public | Would become public if pushed as is | Done 2026-11-19: email and sign-in setup detail removed, then committed |
-| 4 | In `app.js`, spring break handoff time at the start of the break is "at 6 p.m." in Heather's years and "after school" in Brett's years. `CLAUDE.md` only documents the 6 p.m. end | Wrong. Heather confirmed 2026-11-19 that spring break starts after school in both parents' years | Done on branch `feature/activities`, not merged. Covered by a test |
-| 5 | The admin page loads the Supabase library from a CDN pinned to a version but without an integrity check | Low. A tampered CDN file could act as the signed-in admin | Done on branch `feature/activities`, not merged. Checked against the real library |
-| 6 | The "code from the email" sign-in step in `admin.html` is never shown by any code | Dead markup, harmless | Done on branch `feature/activities`, not merged |
+| 4 | In `app.js`, spring break handoff time at the start of the break is "at 6 p.m." in Heather's years and "after school" in Brett's years. `CLAUDE.md` only documents the 6 p.m. end | Wrong. Heather confirmed 2026-11-19 that spring break starts after school in both parents' years | Done in Phase 0, merged 2026-11-19. Covered by a test |
+| 5 | The admin page loads the Supabase library from a CDN pinned to a version but without an integrity check | Low. A tampered CDN file could act as the signed-in admin | Done in Phase 0, merged 2026-11-19. Checked against the real library |
+| 6 | The "code from the email" sign-in step in `admin.html` is never shown by any code | Dead markup, harmless | Done in Phase 0, merged 2026-11-19 |
 | 7 | Saving a change writes `swaps` then `swap_details` as two separate requests | If the second fails, the day saves without its reason and notes | Wrap in one database function later |
 | 8 | Sign-up settings in Supabase should be confirmed before a second role is added | The database rules protect the data either way. This is a belt-and-braces check | Heather confirms in Supabase: Authentication, Sign In / Providers, "Allow new users to sign up" is off |
-| 9 | GitHub Pages serves the whole repo. Once merged to `main`, `docs/`, `supabase/` and `CLAUDE.md` would be reachable from the site address, not just on GitHub | No secrets in them, but the plan and schema would be one click from the live site | Done on branch `feature/activities`, not merged. Can only be confirmed after the first real GitHub Pages build |
+| 9 | GitHub Pages serves the whole repo. Once merged to `main`, `docs/`, `supabase/` and `CLAUDE.md` would be reachable from the site address, not just on GitHub | No secrets in them, but the plan and schema would be one click from the live site | Done in Phase 0, merged 2026-11-19. Can only be confirmed after the first real GitHub Pages build |
 
 ## 15. Decisions
 
@@ -292,11 +292,11 @@ Decided by Heather on 2026-11-19:
 | 17 | Totals start date and first day of school | Not public. Tests and docs use made-up values |
 | 18 | Commit address | GitHub's private no-reply address for this repo |
 | 19 | Local history | Rebuild the unpushed commits so earlier wording of the notes file is never published |
+| 20 | Merge Phase 0 to `main` and go live | Approved 2026-11-19, after seeing the before and after screenshots |
 
 Still open:
 
 - Which sports apps the teams use. Not known yet. Calendar link import will be built against the standard calendar format and tested on a real link when there is one.
-- Approval to merge Phase 0 to `main`, after Heather has seen the before and after screenshots.
 - Seven smaller things QA found in the existing site, none changed in Phase 0: a double period on the "Right now" card when the pickup has a clock time, the switched badge cut off on phones on holiday days, date fields cut off in the dates editor on phones, no handoff time shown when a holiday starts on a no-school day, a stale error on the sign-in card, a summer week listed in full when another holiday overrides part of it, and small tap targets on phones. Also the password box is not styled like the email box.
 - Whether to push the `feature/activities` branch to GitHub as a backup. It would not change the live site, but the plan and mockup would be visible in the public repo.
 
