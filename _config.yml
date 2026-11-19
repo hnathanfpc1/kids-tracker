@@ -1,0 +1,11 @@
+# Kids Tracker: tells GitHub Pages which project files to leave off the public site. Nothing else belongs in this file.
+exclude:
+  - docs
+  - supabase
+  - tests
+  - private
+  - CLAUDE.md
+  - README.md
+  - package.json
+  - package-lock.json
+  - node_modules

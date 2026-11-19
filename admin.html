@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=Figtree:wght@400;500;600;700&display=swap">
-<link rel="stylesheet" href="style.css?v=9">
+<link rel="stylesheet" href="style.css?v=10">
 </head>
 <body data-page="admin">
 <div class="page">
@@ -40,10 +40,6 @@
     <div class="btn-row">
       <button class="btn primary" id="pwSignIn" type="button">Sign in</button>
       <button class="btn" id="sendCode" type="button">Email me a link instead</button>
-    </div>
-    <div id="codeStep" hidden style="display:flex;flex-direction:column;gap:10px">
-      <div class="field"><label for="code">Code from the email</label><input type="text" inputmode="numeric" id="code" autocomplete="one-time-code" maxlength="10"></div>
-      <div><button class="btn primary" id="verifyCode" type="button">Sign in</button></div>
     </div>
     <p class="hint" id="signinMsg"></p>
   </section>
@@ -207,8 +203,9 @@
 
 <div class="toast" id="toast" role="status" hidden></div>
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.117.3/dist/umd/supabase.js"></script>
-<script src="config.js?v=9"></script>
-<script src="app.js?v=9"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.117.3/dist/umd/supabase.js" integrity="sha384-BWcjm9OdFth9TbhCxZPdm+gAOUMAzQy9nmTs12ioXdCcbVnJaPMn+fMUoQCLt60R" crossorigin="anonymous"></script>
+<script src="config.js?v=10"></script>
+<script src="core.js?v=10"></script>
+<script src="app.js?v=10"></script>
 </body>
 </html>
