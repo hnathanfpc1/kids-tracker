@@ -37,7 +37,8 @@ window.KTEditor = (() => {
     };
     $("email").addEventListener("keydown", e => { if (e.key === "Enter") $("password").focus(); });
     $("password").addEventListener("keydown", e => { if (e.key === "Enter") $("pwSignIn").click(); });
-    const out = async () => { await sb.auth.signOut(); show("vSignin"); };
+    // Reload after signing out so nothing from the session (contacts, phone numbers, the last text) stays in the page.
+    const out = async () => { try { await sb.auth.signOut(); } finally { show("vSignin"); location.replace(location.pathname); } };
     $("signOut").onclick = out; $("signOut2").onclick = out;
   }
 

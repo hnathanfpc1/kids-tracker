@@ -145,7 +145,7 @@
       <div class="field"><label for="tmEarlyG">Early for games (min)</label><input type="number" id="tmEarlyG" min="0" max="240" step="5" inputmode="numeric"></div>
     </div>
     <div class="field"><span class="flabel">Gear</span><div class="gearlist" id="tmGear"></div><p class="hint">Type an item and press return to add it. Tap the &times; to remove it.</p></div>
-    <div class="field"><label for="tmNote">Note</label><textarea id="tmNote" maxlength="2000"></textarea></div>
+    <div class="field"><label for="tmNote">Note (everyone with the family link can see this)</label><textarea id="tmNote" maxlength="2000"></textarea></div>
     <label class="check"><input type="checkbox" id="tmActive"> Active (turn off at the end of a season)</label>
     <div class="btn-row" style="justify-content:space-between">
       <button type="button" class="btn danger" id="tmRemove" hidden>Remove team</button>
@@ -167,7 +167,7 @@
         <div class="field"><label for="plCo" id="plCoL">Brett's</label><input type="number" id="plCo" min="0" max="600" inputmode="numeric"></div>
         <div class="field"><label for="plGm">Angie's</label><input type="number" id="plGm" min="0" max="600" inputmode="numeric"></div>
       </div></div>
-    <div class="field"><label for="plNote">Note</label><textarea id="plNote" maxlength="2000" placeholder="e.g. Park in the back lot"></textarea></div>
+    <div class="field"><label for="plNote">Note (everyone with the family link can see this)</label><textarea id="plNote" maxlength="2000" placeholder="e.g. Park in the back lot"></textarea></div>
     <div class="btn-row" style="justify-content:space-between">
       <button type="button" class="btn danger" id="plRemove" hidden>Remove place</button>
       <div class="btn-row" style="margin-left:auto"><button type="button" class="btn" data-close>Cancel</button><button type="button" class="btn primary" id="plSave">Save</button></div>
@@ -179,7 +179,7 @@
 <!-- A kid -->
 <div class="scrim" id="kidScrim" hidden>
   <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="kdTitle">
-    <div><h2 id="kdTitle"></h2><p class="sub">Names stay in the database only. Kid colors show as dots and initials, never as the day color.</p></div>
+    <div><h2 id="kdTitle"></h2><p class="sub">Names show on the family link and are kept in the database, never in the site's code. Kid colors show as dots and initials, never as the day color.</p></div>
     <div class="field"><label for="kdName">Name</label><input type="text" id="kdName" maxlength="60" autocomplete="off"></div>
     <div class="field"><span class="flabel">Color</span><div class="pick pair" id="kdColor"></div></div>
     <div class="field"><label for="kdSort">Order (lowest first)</label><input type="number" id="kdSort" min="0" max="99" inputmode="numeric"></div>
