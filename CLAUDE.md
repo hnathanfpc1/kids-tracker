@@ -31,7 +31,7 @@ Deploy = push to `main`. GitHub Pages serves the repo root (branch `main`, folde
 | `activities.html` | Activities page markup (`<body data-page="activities">`), signed in as `admin` or `parent`. Loads the same pinned supabase-js script tag as `admin.html` |
 | `activities.js` | Activities page logic: add by hand (with "Repeat weekly until"), upcoming list, edit sheet with comments, teams and gear, places, kids, contacts, change log. Reads through `get_editor_schedule()` plus `contacts`; never reads the custody tables |
 | `style.css` | Shared styles. Color tokens on `:root` with dark mode blocks |
-| `config.js` | Public config: Supabase URL, publishable key, and `contacts` (Mom and Brett phone numbers for the "Text an update" button). Decided 2026-11-19: the numbers move into the database in Phase 1 of the activities work. Until then they stay here, and `config.js` is not touched in Phase 0 |
+| `config.js` | Public config: Supabase URL and publishable key only. The phone numbers for the "Text an update" button moved to the `contacts` table and were removed from this file on 2026-11-20 (they remain in the repo's git history) |
 | `supabase/schema.sql` | Full database structure, no personal data. Reference and disaster recovery |
 | `supabase/migrations/` | Put every future database change here as a new numbered file (see Database changes) |
 | `_config.yml` | Tells GitHub Pages which project files to leave off the public site. Nothing else goes in it |
@@ -40,7 +40,7 @@ Deploy = push to `main`. GitHub Pages serves the repo root (branch `main`, folde
 
 No build step, no framework, no npm. Plain HTML, CSS and JS.
 
-**Cache busting is required.** Every HTML file loads its shared files with `?v=N`: `index.html` loads `style.css`, `config.js`, `core.js`, `acts.js`, `app.js`; `admin.html` loads `style.css`, `config.js`, `core.js`, `acts.js`, `editor.js`, `app.js`; `activities.html` loads `style.css`, `config.js`, `core.js`, `acts.js`, `editor.js`, `activities.js`. GitHub Pages caches for 10 minutes, and a phone once got stuck on an old `app.js`. Whenever you change any of those files, bump `N` everywhere in all three HTML files. Current value: `v=11`.
+**Cache busting is required.** Every HTML file loads its shared files with `?v=N`: `index.html` loads `style.css`, `config.js`, `core.js`, `acts.js`, `app.js`; `admin.html` loads `style.css`, `config.js`, `core.js`, `acts.js`, `editor.js`, `app.js`; `activities.html` loads `style.css`, `config.js`, `core.js`, `acts.js`, `editor.js`, `activities.js`. GitHub Pages caches for 10 minutes, and a phone once got stuck on an old `app.js`. Whenever you change any of those files, bump `N` everywhere in all three HTML files. Current value: `v=12`.
 
 ## How the schedule works
 
@@ -160,7 +160,7 @@ History (already run in her project; do not rerun 03): 01 tables and security, 0
 
 **Logging a change:** pick Heather, Brett, Grandma or Someone else (name required). Reason is one of Work, Travel, Coverage requested, Trade or other. Shared note and private note boxes. "Through" date for multi-day changes. Picking the scheduled parent on an unchanged day logs nothing.
 
-**Text an update:** after saving or removing a change on the admin page, or saving, canceling, removing or commenting with a tag on the Activities page, a sheet opens with a prefilled message and checkboxes in the order Brett, Heather, Angie (Grandma). The person signed in is shown but unchecked and cannot be picked. Numbers come from the `contacts` table; until any number is entered there, the two numbers in `config.js` are used. Activity texts end with a link to that activity: the family link with `&e=<id>` when Angie is ticked and Heather is the one signed in (her sign-in reads the active family link; a parent's never does), otherwise `activities.html#e=<id>`. "Open Messages" uses `sms://open?addresses=...&body=...` on Apple devices and `sms:...?body=...` elsewhere. Nothing is sent automatically.
+**Text an update:** after saving or removing a change on the admin page, or saving, canceling, removing or commenting with a tag on the Activities page, a sheet opens with a prefilled message and checkboxes in the order Brett, Heather, Angie (Grandma). The person signed in is shown but unchecked and cannot be picked. Numbers come from the `contacts` table only (all three are entered as of 2026-11-20); `config.js` no longer holds any. Activity texts end with a link to that activity: the family link with `&e=<id>` when Angie is ticked and Heather is the one signed in (her sign-in reads the active family link; a parent's never does), otherwise `activities.html#e=<id>`. "Open Messages" uses `sms://open?addresses=...&body=...` on Apple devices and `sms:...?body=...` elsewhere. Nothing is sent automatically.
 
 **Rejected:** a shared or subscribed calendar feed (Heather finds calendar update notifications annoying). Push notifications were discussed as a future option and not built.
 
@@ -204,4 +204,4 @@ Run work through these roles, as subagents where possible, and do not hand anyth
 - Summer 2027 weeks: Heather picks first by March 1, 2027.
 - Possible: optional handoff time on one-off switches.
 - Possible: real push notifications for the family page (needs a service worker, VAPID keys and a Supabase Edge Function).
-- Decided, scheduled for Phase 1 of activities: move the phone numbers out of public `config.js` into the database.
+- Done 2026-11-20: the phone numbers moved out of public `config.js` into the `contacts` table. They are still visible in the repo's git history.

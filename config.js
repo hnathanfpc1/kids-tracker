@@ -4,9 +4,5 @@
 window.KT_CONFIG = {
   url: "https://ycckqkbtwncidyejtvil.supabase.co",
   key: "sb_publishable_HEtnGWLJQyIc_8_Dcls98g_ECpwJzko",
-  // Who the "Text an update" button sends to
-  contacts: [
-    { name: "Mom",   phone: "+18649061427" },
-    { name: "Brett", phone: "+13035888862" },
-  ],
+  // Phone numbers for the "Text an update" button are kept in the database (the contacts table), never in this public file.
 };
