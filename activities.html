@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<meta name="referrer" content="no-referrer">
+<title>Kids Tracker Activities</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=Figtree:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="style.css?v=11">
+</head>
+<body data-page="activities">
+<div class="page acts-page">
+<div class="wrap">
+  <header class="top">
+    <div>
+      <h1>Activities</h1>
+      <p>Practices, games and lessons. Everyone with the family link sees them.</p>
+    </div>
+    <div class="btn-row" id="topBtns" hidden>
+      <a class="btn" id="backBtn" href="admin.html" hidden>Back to schedule</a>
+      <button class="btn" id="signOut" type="button">Sign out</button>
+    </div>
+  </header>
+
+  <section class="panel narrow" id="vLoading"><p class="msg">Loading&hellip;</p></section>
+
+  <section class="panel narrow" id="vSetup" hidden>
+    <h2>Almost there</h2>
+    <p class="msg">Add your Supabase project URL and publishable key to config.js, then reload this page.</p>
+  </section>
+
+  <section class="panel narrow" id="vSignin" hidden>
+    <h2>Sign in</h2>
+    <p class="msg">You'll stay signed in on this device.</p>
+    <div class="field"><label for="email">Email</label><input type="text" inputmode="email" id="email" autocomplete="username"></div>
+    <div class="field"><label for="password">Password</label><input type="password" id="password" autocomplete="current-password"></div>
+    <div class="btn-row">
+      <button class="btn primary" id="pwSignIn" type="button">Sign in</button>
+      <button class="btn" id="sendCode" type="button">Email me a link instead</button>
+    </div>
+    <p class="hint" id="signinMsg"></p>
+  </section>
+
+  <section class="panel narrow" id="vNotAdmin" hidden>
+    <h2>This account can't make changes</h2>
+    <p class="msg">You're signed in, but this email isn't set up to edit activities.</p>
+    <div><button class="btn" id="signOut2" type="button">Sign out</button></div>
+  </section>
+
+  <div id="vApp" hidden class="stack">
+    <section class="panel" aria-labelledby="addT">
+      <div class="panel-head" style="margin-bottom:4px"><h2 id="addT">Add activities</h2></div>
+      <p class="lead">Add a practice, game or lesson. If it happens every week, set "Repeat weekly until" and they all go in at once.</p>
+      <div class="opts"><button class="opt wide" type="button" id="addHand">+ Add one by hand</button></div>
+    </section>
+
+    <section class="panel" aria-labelledby="upT">
+      <div class="panel-head"><h2 id="upT">Upcoming</h2><span class="num count" id="upCount"></span></div>
+      <div class="filters" id="upFilter" role="group" aria-label="Show activities for"></div>
+      <ul class="log up-list" id="upList"></ul>
+      <div><button type="button" class="link-btn" id="upMore" hidden>Show more</button></div>
+    </section>
+
+    <section class="panel" aria-labelledby="teamT">
+      <div class="panel-head"><h2 id="teamT">Teams and gear</h2><button class="btn" type="button" id="addTeam">Add a team</button></div>
+      <ul class="log" id="teamList"></ul>
+      <p class="hint">A team sets who it's for, where it usually is, how early to arrive and what to bring. Each activity can change its own gear.</p>
+    </section>
+
+    <section class="panel" aria-labelledby="placeT">
+      <div class="panel-head"><h2 id="placeT">Places</h2><span class="num count" id="placeCount"></span></div>
+      <ul class="log" id="placeList"></ul>
+      <div class="quick"><input type="text" id="quickPlace" maxlength="120" placeholder="New place name" aria-label="New place name" autocomplete="off"><button type="button" class="btn primary" id="quickPlaceAdd">Add</button></div>
+      <p class="hint">Only the name is needed. Address, drive times and a note can be added later. You can also add a place from inside any activity.</p>
+    </section>
+
+    <section class="panel" aria-labelledby="kidT">
+      <div class="panel-head"><h2 id="kidT">Kids</h2><button class="btn" type="button" id="addKid">Add a kid</button></div>
+      <ul class="log" id="kidList"></ul>
+      <p class="hint">Kids can be turned off but not removed, so past activities keep their names.</p>
+    </section>
+
+    <section class="panel" aria-labelledby="conT">
+      <div class="panel-head"><h2 id="conT">Contacts for texting</h2></div>
+      <div id="conBody"></div>
+    </section>
+
+    <section class="panel" aria-labelledby="logT">
+      <div class="panel-head"><h2 id="logT">Change log</h2><span class="num count">Last 90 days</span></div>
+      <ul class="log" id="actLog"></ul>
+      <div><button type="button" class="link-btn" id="logMore" hidden>Show more</button></div>
+    </section>
+  </div>
+</div>
+</div>
+
+<!-- One activity: add or edit, notes and comments -->
+<div class="scrim" id="evScrim" hidden>
+  <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="evTitle">
+    <div><h2 id="evTitle"></h2><p class="sub" id="evSub"></p></div>
+    <div class="field"><span class="flabel">Who it's for</span><div class="pick fit" id="evKids"></div></div>
+    <div class="field"><span class="flabel">Kind</span><div class="pick fit" id="evKind"></div></div>
+    <div class="field"><label for="evTeam">Team</label><select id="evTeam"></select></div>
+    <div class="field"><label for="evName">Title</label><input type="text" id="evName" maxlength="120" autocomplete="off"></div>
+    <div class="field"><label for="evDay">Date</label><input type="date" id="evDay" min="2000-01-01" max="2100-12-31"></div>
+    <div class="two">
+      <div class="field"><label for="evStart">Starts</label><input type="time" id="evStart"></div>
+      <div class="field"><label for="evEnd">Ends</label><input type="time" id="evEnd"></div>
+    </div>
+    <div class="field" id="evRepField"><label for="evRepeat">Repeat weekly until (optional)</label><input type="date" id="evRepeat" min="2000-01-01" max="2100-12-31"></div>
+    <div class="field"><label for="evPlace">Where</label><select id="evPlace"></select>
+      <div class="quick" id="evNewPlace" hidden><input type="text" id="evNewPlaceName" maxlength="120" placeholder="New place name" aria-label="New place name" autocomplete="off"><button type="button" class="btn primary" id="evNewPlaceAdd">Add</button></div></div>
+    <div class="field"><label for="evArrive">Arrive by (optional, overrides the team)</label><input type="time" id="evArrive"></div>
+    <div class="calc num" id="evCalc"></div>
+    <div class="field"><span class="flabel">Gear</span><div class="gearlist" id="evGear"></div><p class="hint" id="evGearHint"></p></div>
+    <div class="field"><label for="evNote">Note (everyone with the link sees this)</label><textarea id="evNote" maxlength="2000"></textarea></div>
+    <div class="btn-row" style="justify-content:space-between">
+      <div class="btn-row"><button type="button" class="btn danger" id="evCancel" hidden></button><button type="button" class="btn danger" id="evRemove" hidden>Remove</button></div>
+      <div class="btn-row" style="margin-left:auto"><button type="button" class="btn" data-close>Close</button><button type="button" class="btn primary" id="evSave">Save</button></div>
+    </div>
+    <p class="hint" id="evRmConfirm" hidden>Remove this activity for everyone? Its comments go too. <button class="link-btn" type="button" id="evRmYes">Remove it</button> <button class="link-btn" type="button" id="evRmNo">Keep it</button></p>
+    <div class="field" id="evCmtField" hidden>
+      <span class="flabel">Comments</span>
+      <div class="cmts" id="evCmts"></div>
+      <textarea id="cmtBody" rows="2" maxlength="2000" placeholder="Add a comment or a question" aria-label="Add a comment"></textarea>
+      <div class="tag-row" id="cmtTags"></div>
+      <p class="hint">Tag Angie to show the comment on the family link. Comments can't be edited, only deleted by whoever wrote them.</p>
+    </div>
+  </div>
+</div>
+
+<!-- A team -->
+<div class="scrim" id="teamScrim" hidden>
+  <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="tmTitle">
+    <div><h2 id="tmTitle"></h2></div>
+    <div class="field"><label for="tmName">Name</label><input type="text" id="tmName" maxlength="120" autocomplete="off" placeholder="e.g. Soccer"></div>
+    <div class="field"><span class="flabel">Who it's for</span><div class="pick fit" id="tmKids"></div></div>
+    <div class="field"><label for="tmPlace">Usual place</label><select id="tmPlace"></select>
+      <div class="quick" id="tmNewPlace" hidden><input type="text" id="tmNewPlaceName" maxlength="120" placeholder="New place name" aria-label="New place name" autocomplete="off"><button type="button" class="btn primary" id="tmNewPlaceAdd">Add</button></div></div>
+    <div class="two">
+      <div class="field"><label for="tmEarlyP">Early for practice (min)</label><input type="number" id="tmEarlyP" min="0" max="240" step="5" inputmode="numeric"></div>
+      <div class="field"><label for="tmEarlyG">Early for games (min)</label><input type="number" id="tmEarlyG" min="0" max="240" step="5" inputmode="numeric"></div>
+    </div>
+    <div class="field"><span class="flabel">Gear</span><div class="gearlist" id="tmGear"></div><p class="hint">Type an item and press return to add it. Tap the &times; to remove it.</p></div>
+    <div class="field"><label for="tmNote">Note</label><textarea id="tmNote" maxlength="2000"></textarea></div>
+    <label class="check"><input type="checkbox" id="tmActive"> Active (turn off at the end of a season)</label>
+    <div class="btn-row" style="justify-content:space-between">
+      <button type="button" class="btn danger" id="tmRemove" hidden>Remove team</button>
+      <div class="btn-row" style="margin-left:auto"><button type="button" class="btn" data-close>Cancel</button><button type="button" class="btn primary" id="tmSave">Save</button></div>
+    </div>
+    <p class="hint" id="tmRmConfirm" hidden>Remove this team? <button class="link-btn" type="button" id="tmRmYes">Remove it</button> <button class="link-btn" type="button" id="tmRmNo">Keep it</button></p>
+  </div>
+</div>
+
+<!-- A place -->
+<div class="scrim" id="placeScrim" hidden>
+  <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="plTitle">
+    <div><h2 id="plTitle"></h2><p class="sub">Drive minutes set the leave-by times. Type a typical drive from each house.</p></div>
+    <div class="field"><label for="plName">Name</label><input type="text" id="plName" maxlength="120" autocomplete="off"></div>
+    <div class="field"><label for="plAddr">Address (the family link shows it as a map link)</label><textarea id="plAddr" maxlength="300" rows="2"></textarea></div>
+    <div class="field"><span class="flabel">Drive minutes from each house</span>
+      <div class="three">
+        <div class="field"><label for="plMe" id="plMeL">Heather's</label><input type="number" id="plMe" min="0" max="600" inputmode="numeric"></div>
+        <div class="field"><label for="plCo" id="plCoL">Brett's</label><input type="number" id="plCo" min="0" max="600" inputmode="numeric"></div>
+        <div class="field"><label for="plGm">Angie's</label><input type="number" id="plGm" min="0" max="600" inputmode="numeric"></div>
+      </div></div>
+    <div class="field"><label for="plNote">Note</label><textarea id="plNote" maxlength="2000" placeholder="e.g. Park in the back lot"></textarea></div>
+    <div class="btn-row" style="justify-content:space-between">
+      <button type="button" class="btn danger" id="plRemove" hidden>Remove place</button>
+      <div class="btn-row" style="margin-left:auto"><button type="button" class="btn" data-close>Cancel</button><button type="button" class="btn primary" id="plSave">Save</button></div>
+    </div>
+    <p class="hint" id="plRmConfirm" hidden>Remove this place? <button class="link-btn" type="button" id="plRmYes">Remove it</button> <button class="link-btn" type="button" id="plRmNo">Keep it</button></p>
+  </div>
+</div>
+
+<!-- A kid -->
+<div class="scrim" id="kidScrim" hidden>
+  <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="kdTitle">
+    <div><h2 id="kdTitle"></h2><p class="sub">Names stay in the database only. Kid colors show as dots and initials, never as the day color.</p></div>
+    <div class="field"><label for="kdName">Name</label><input type="text" id="kdName" maxlength="60" autocomplete="off"></div>
+    <div class="field"><span class="flabel">Color</span><div class="pick pair" id="kdColor"></div></div>
+    <div class="field"><label for="kdSort">Order (lowest first)</label><input type="number" id="kdSort" min="0" max="99" inputmode="numeric"></div>
+    <label class="check"><input type="checkbox" id="kdActive"> Active</label>
+    <div class="btn-row" style="justify-content:flex-end"><button type="button" class="btn" data-close>Cancel</button><button type="button" class="btn primary" id="kdSave">Save</button></div>
+  </div>
+</div>
+
+<!-- Text an update -->
+<div class="scrim" id="txtScrim" hidden>
+  <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="txtTitle">
+    <div><h2 id="txtTitle">Text an update?</h2><p class="sub">Opens Messages with this note ready to send. You can still edit it there.</p></div>
+    <div class="field"><label for="txtBody">Message</label><textarea id="txtBody" rows="5"></textarea></div>
+    <div class="field"><span class="flabel">Send to</span><div class="chks" id="txtTo"></div></div>
+    <div class="btn-row" style="justify-content:flex-end"><button type="button" class="btn" data-close>Not now</button><a class="btn primary" id="txtGo" href="#">Open Messages</a></div>
+  </div>
+</div>
+
+<div class="toast" id="toast" role="status" hidden></div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.117.3/dist/umd/supabase.js" integrity="sha384-BWcjm9OdFth9TbhCxZPdm+gAOUMAzQy9nmTs12ioXdCcbVnJaPMn+fMUoQCLt60R" crossorigin="anonymous"></script>
+<script src="config.js?v=11"></script>
+<script src="core.js?v=11"></script>
+<script src="acts.js?v=11"></script>
+<script src="editor.js?v=11"></script>
+<script src="activities.js?v=11"></script>
+</body>
+</html>

@@ -1,4 +1,5 @@
-/* Kids Tracker: the family page and the admin page. The shared schedule logic is in core.js. */
+/* Kids Tracker: the family page and the admin page. The shared schedule logic is in core.js.
+   Activities are drawn by acts.js. The admin page's sign-in card and text sheet are in editor.js (shared with activities.html). */
 (() => {
   "use strict";
   const PAGE = document.body.dataset.page;          // "family" or "admin"
@@ -22,6 +23,8 @@
     holYear: new Date().getFullYear(),
     day: null, pick: null, draft: null,
     changedAt: null, seen: null,   // family page: when the schedule last changed / when this phone last looked
+    contacts: null,                // admin only: rows from the contacts table, for the text sheet
+    logFilter: "all", logAll: false,   // family page: Recent changes filter
   };
   const S = () => st.settings;
   const isFresh = rec => !!(PAGE === "family" && st.seen && rec && rec.updatedAt && Date.parse(rec.updatedAt) > Date.parse(st.seen));
@@ -29,6 +32,10 @@
   const sched = window.KTCore.schedule(st);
   const { nameOf, holidayPeriods, holOn, scheduled, recOf, actual, holderKey, schoolOn, handoffTime, switchGroups, schoolGroups } = sched;
   function rebuild() { T0 = todayNum(); sched.rebuild(); }
+
+  // Activities (acts.js): read-only here. Day color still means who has the kids; kids show as small initials.
+  const acts = window.KTActs.create(sched, S, { fresh: e => !!(PAGE === "family" && st.seen && e && e.updated_at && Date.parse(e.updated_at) > Date.parse(st.seen)) });
+  const actsOn = () => acts.has() && window.KTActs.pref() !== "off";
 
   // ---------- UI helpers ----------
   let tT;
@@ -39,25 +46,26 @@
   function renderCal(mode) {
     const v = st.view[mode], first = ymd(v.y, v.m, 1), last = ymd(v.y, v.m + 1, 0);
     $(mode === "admin" ? "aMonth" : "fMonth").textContent = fmt(first, { month: "long", year: "numeric" });
-    const h = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].map(d => `<div class="dow">${d}</div>`);
+    const h = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].map(d => `<div class="dow">${d}</div>`), marks = actsOn();
     for (let n = first - wd(first); n <= last + (6 - wd(last)); n++) {
-      const a = actual(n), rec = recOf(n), hol = holOn(n), sc = schoolOn(n), nm = nameOf(a, rec);
+      const a = actual(n), rec = recOf(n), hol = holOn(n), sc = schoolOn(n), nm = nameOf(a, rec), kids = marks ? acts.kidsOn(n) : [];
       const cls = ["day", a];
       if (rec) cls.push("swap");
       if (n < first || n > last) cls.push("out");
       if (n === T0) cls.push("today");
       const lab = [fmt(n, { weekday: "long", month: "long", day: "numeric" }), nm, rec ? "switched" : "", hol ? HOL[hol.key].n : "",
-        sc.t === "off" ? "No school: " + sc.l : sc.t === "half" ? sc.l : ""].filter(Boolean).join(", ");
+        sc.t === "off" ? "No school: " + sc.l : sc.t === "half" ? sc.l : "", kids.length ? `${kids.map(k => k.name).join(" and ")} ${kids.length === 1 ? "has an activity" : "have activities"}` : ""].filter(Boolean).join(", ");
       h.push(`<button type="button" class="${cls.join(" ")}" data-n="${n}" data-mode="${mode}" aria-label="${esc(lab)}">
         <span class="top"><span class="d num">${fmt(n, { day: "numeric" })}${hol ? ` <span class="star" aria-hidden="true">&#9733;</span>` : ""}</span>
           <span class="badges">${sc.t === "half" ? `<span class="half" aria-hidden="true">&frac12;</span>` : ""}${rec ? `<span class="sw" aria-hidden="true">&#8644;</span>` : ""}${isFresh(rec) ? `<span class="nw" title="New"></span>` : ""}</span></span>
-        ${hol ? `<span class="hol">${esc(HOL[hol.key].s)}</span>` : ""}
+        ${hol ? `<span class="hol">${esc(HOL[hol.key].s)}</span>` : ""}${marks ? `<span class="dots">${acts.markers(n)}</span>` : ""}
         <span class="who"><span class="wl">${esc(nm)}</span><span class="ws" aria-hidden="true">${esc(nm.charAt(0))}</span></span>
         ${sc.t === "off" ? `<span class="nos" aria-hidden="true"><span class="wl">No school</span><span class="ws">Off</span></span>` : ""}</button>`);
     }
     $(mode === "admin" ? "aGrid" : "fGrid").innerHTML = h.join("");
     $(mode === "admin" ? "aLegend" : "fLegend").innerHTML = [
       `<span><i class="k-me"></i>${esc(S().myName)}</span>`, `<span><i class="k-co"></i>${esc(S().coName)}</span>`, `<span><i class="k-gm"></i>${GRANDMA}</span>`, `<span><i class="k-ot"></i>Someone else</span>`,
+      marks ? acts.legend() : "",
       `<span><span class="sw-k">&#8644;</span>Switched</span>`, `<span><b>&#9733;</b> Holiday schedule</span>`, `<span><i class="k-nos"></i>No school</span>`, `<span><b>&frac12;</b> Half day</span>`,
     ].join("");
   }
@@ -84,6 +92,7 @@
       <p>${esc(thru)} ${esc(next)}</p>
       ${rec ? `<p><strong>&#8644; Switched</strong> (usually ${esc(nameOf(scheduled(T0)))}'s day)${why ? ": " + esc(why) : ""}</p>` : ""}
       ${hol ? `<p><strong>${esc(HOL[hol.key].n)}</strong> (${esc(nameOf(hol.who))}'s holiday this year)</p>` : ""}
+      ${actsOn() ? acts.todayLine(T0) : ""}
       ${schoolTxt ? `<span class="school">${esc(schoolTxt)}</span>` : ""}`;
   }
   function renderNotes() {
@@ -120,7 +129,7 @@
     $("fUp").innerHTML = days.length ? days.map(n => `<li><div class="when num">${fmt(n, SD)}<small>${fmt(n, { weekday: "long" })}</small></div><div class="lines">${byDay.get(n).join("")}</div></li>`).join("")
       : `<li><p class="empty">Nothing changes in the next six weeks.</p></li>`;
   }
-  function openFamDay(n) {
+  function openFamDay(n, focus) {
     const a = actual(n), rec = recOf(n), hol = holOn(n), sc = schoolOn(n);
     $("fdTitle").textContent = fmt(n, { weekday: "long", month: "long", day: "numeric" });
     const lines = [`<p><span class="chip ${a}">${esc(nameOf(a, rec))}</span>has the kids that night</p>`];
@@ -135,7 +144,12 @@
     else if (sc.t === "school") lines.push(`<p>School day</p>`);
     if (holderKey(n - 1) !== holderKey(n)) { const ht = handoffTime(n); lines.push(`<p>Handoff: ${esc(nameOf(actual(n - 1), recOf(n - 1)))} to ${esc(nameOf(a, rec))}${ht ? ", " + esc(ht) : ""}</p>`); }
     $("fdBody").innerHTML = lines.join("");
+    // That day's activities, under the custody details. Shown even when the Activities switch is off: the day was tapped on purpose.
+    $("fdActs").innerHTML = acts.dayEvents(n, { focus });
+    $("fdActs").hidden = !$("fdActs").innerHTML;
     $("famDayScrim").hidden = false;
+    const f = focus && $("fdActs").querySelector(".ev.focus");
+    if (f) f.scrollIntoView({ block: "nearest" });
   }
   // "Updated since you last looked": this phone remembers when it last said "Got it".
   const SEEN_KEY = "kt-seen";
@@ -154,7 +168,8 @@
       const w = famWhy(g.rec);
       return `<li><span class="dt">${range(g.start, g.end)}</span><span><span class="chip ${g.rec.had}">${esc(nameOf(g.rec.had, g.rec))}</span>${esc(w)}</span></li>`;
     }) : [];
-    if (!items.length) items.push(`<li style="color:var(--muted)">Some days went back to the regular schedule, or school dates were updated.</li>`);
+    items.push(...acts.freshItems(seen).slice(0, 12));   // activity changes and comments shared with the family
+    if (!items.length) items.push(`<li style="color:var(--muted)">Some days went back to the regular schedule, or ${acts.has() ? "school dates or activity details were" : "school dates were"} updated.</li>`);
     $("newList").innerHTML = items.join("");
     $("newBox").hidden = false;
   }
@@ -162,8 +177,39 @@
     try { localStorage.setItem(SEEN_KEY, st.changedAt); } catch (e) {}
     st.seen = st.changedAt; renderFamily();
   }
-  function renderFamily() { rebuild(); renderNew(); renderNow(); renderCal("family"); renderNotes(); renderUp(); }
+  // Activities panel: Off / This week / Next 30 days (remembered on this device). Hidden when there are no kids yet.
+  function renderActs(mode) {
+    const p = mode === "admin" ? "a" : "f", box = $(p + "Acts");
+    box.hidden = !acts.has();
+    if (box.hidden) return;
+    const v = window.KTActs.pref();
+    box.querySelectorAll("[data-act]").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.act === v)));
+    $(p + "ActOff").hidden = v !== "off";
+    $(p + "ActBody").innerHTML = v === "off" ? "" : acts.panel(T0, v);
+  }
+  // Recent changes: activity log lines and switches from the last 30 days, with a filter. Read only.
+  function renderRecent() {
+    const all = acts.recent(st.swaps), f = st.logFilter || "all", pick = all.filter(i => f === "all" || i.type === f), max = st.logAll ? 200 : 12;
+    $("fRecent").hidden = !all.length;
+    $("fRecentSeg").hidden = !acts.has() && !all.some(i => i.type === "act");
+    document.querySelectorAll("[data-log]").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.log === f)));
+    $("fLog").innerHTML = pick.length ? pick.slice(0, max).map(i => i.html).join("") : `<li style="display:block"><p class="empty">Nothing in the last 30 days.</p></li>`;
+    $("fLogMore").hidden = pick.length <= max;
+  }
+  function renderFamily() { rebuild(); renderNew(); renderNow(); renderActs("family"); renderCal("family"); renderNotes(); renderUp(); renderRecent(); }
 
+  // A link ending in &e=<activity id> (from a text) opens straight to that activity's day. Once per link, not on every refresh.
+  let deepDone = "";
+  function openDeepLink() {
+    const m = location.hash.match(/[#&]e=([0-9A-Za-z-]{8,64})/);
+    if (!m || deepDone === location.hash) return;
+    deepDone = location.hash;
+    const ev = acts.data.event.get(m[1]);
+    if (!ev) { toast("That activity isn't on the schedule anymore."); return; }
+    const x = new Date(ev.n * DAY); st.view.family = { y: x.getUTCFullYear(), m: x.getUTCMonth() };
+    renderCal("family"); renderNotes();
+    openFamDay(ev.n, ev.id);
+  }
   let lastLoad = 0;
   function famMessage(text) { $("famMsgText").textContent = text; $("famMsg").hidden = false; $("famContent").hidden = true; }
   async function loadFamily() {
@@ -184,10 +230,12 @@
       st.swaps = new Map();
       (data.swaps || []).forEach(w => { if (isDate(w.day)) st.swaps.set(w.day, { date: w.day, had: w.had, with: w.caregiver || "", reason: w.reason || "", note: w.note || "", pnote: "", updatedAt: w.updated_at || null }); });
       st.changedAt = data.changed_at || null;
+      acts.load(data);
       lastLoad = Date.now();
       renderFamily();
       $("updated").textContent = "Updated " + new Date().toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit" });
       $("famMsg").hidden = true; $("famContent").hidden = false;
+      openDeepLink();
     } catch (e) {
       if (!lastLoad) famMessage("Couldn't load the schedule. Check your connection and refresh the page.");
     }
@@ -196,7 +244,7 @@
   // ======================================================================
   // ADMIN PAGE
   // ======================================================================
-  let sb = null, entering = false, signinEmail = "";
+  let sb = null, entering = false;
   const views = ["vLoading", "vSetup", "vSignin", "vNotAdmin", "vApp"];
   const show = id => { views.forEach(v => { $(v).hidden = v !== id; }); $("topBtns").hidden = id !== "vApp"; };
   const famUrl = tok => new URL("./", location.href).href + "#k=" + tok;
@@ -273,7 +321,18 @@
     $("previewFam").hidden = !tok; if (tok) $("previewFam").href = famUrl(tok);
     $("newLink").textContent = tok ? "Make a new link" : "Make a link";
   }
-  function renderAdmin() { rebuild(); renderCal("admin"); renderTotals(); renderLog(); renderHol(); renderShare(); }
+  function renderAdmin() { rebuild(); renderCal("admin"); renderActs("admin"); renderTotals(); renderLog(); renderHol(); renderShare(); }
+
+  // Activities and text contacts. Loaded after the schedule so the page never waits on them; if they fail, the page works without them.
+  async function loadExtras() {
+    const res = await Promise.all([
+      (async () => { try { const r = await sb.rpc("get_editor_schedule"); return r.error ? null : r.data; } catch (e) { return null; } })(),
+      (async () => { try { const r = await sb.from("contacts").select("*"); return r.error ? null : r.data; } catch (e) { return null; } })(),
+    ]);
+    if (res[0]) acts.load(res[0]);
+    if (res[1]) st.contacts = res[1];
+    if (!$("vApp").hidden) { rebuild(); renderCal("admin"); renderActs("admin"); }
+  }
 
   async function loadAdmin() {
     const res = await Promise.all([
@@ -304,6 +363,7 @@
       const hasSettings = await loadAdmin();
       show("vApp"); renderAdmin();
       if (!hasSettings) openSettings();
+      loadExtras();
     } catch (e) { fail("load your tracker", e); show("vSignin"); }
     finally { entering = false; }
   }
@@ -369,9 +429,8 @@
     } catch (e) { fail("remove that change", e); }
   }
 
-  // Text an update (opens Messages; nothing is sent automatically)
-  const CONTACTS = Array.isArray(CFG.contacts) ? CFG.contacts.filter(c => c && c.phone) : [];
-  const isApple = /iPhone|iPad|iPod|Macintosh/.test(navigator.userAgent);
+  // Text an update (opens Messages; nothing is sent automatically). The sheet itself is in editor.js.
+  // Send-to list: Brett, Heather (you, unchecked), Angie (Grandma), from the contacts table or config.js until numbers are entered.
   const dayLabel = n => fmt(n, { weekday: "short", ...SD });
   function updateMessage(a, b, removed) {
     const span = a === b ? dayLabel(a) : `${dayLabel(a)} to ${dayLabel(b)}`;
@@ -384,19 +443,8 @@
     if (st.link) msg += "\n" + famUrl(st.link.token);
     return msg;
   }
-  function smsHref() {
-    const phones = CONTACTS.filter((c, i) => { const el = $("to-" + i); return el && el.checked; }).map(c => c.phone);
-    const body = encodeURIComponent($("txtBody").value);
-    if (!phones.length) return `sms:${isApple ? "&" : "?"}body=${body}`;
-    return isApple ? `sms://open?addresses=${phones.join(",")}&body=${body}` : `sms:${phones.join(",")}?body=${body}`;
-  }
   function openText(msg) {
-    $("txtBody").value = msg;
-    $("txtTo").innerHTML = CONTACTS.length
-      ? CONTACTS.map((c, i) => `<label><input type="checkbox" id="to-${i}" checked> ${esc(c.name)}</label>`).join("")
-      : `<p class="sub">No contacts set up. Messages will open and you can pick who to send to.</p>`;
-    $("txtGo").href = smsHref();
-    $("txtScrim").hidden = false;
+    window.KTEditor.openText({ body: msg, me: "me", people: window.KTEditor.recipients(st.contacts, CFG, { me: S().myName, co: S().coName }) });
   }
   function textForDay(n) {
     const r = recOf(n); if (!r) return;
@@ -482,35 +530,8 @@
 
   async function bootAdmin() {
     if (!CONFIGURED || !window.supabase) return show("vSetup");
-    sb = window.supabase.createClient(CFG.url, CFG.key, { auth: { persistSession: true, autoRefreshToken: true, detectSessionInUrl: true } });
-    sb.auth.onAuthStateChange((ev, session) => {
-      if (session && (ev === "SIGNED_IN" || ev === "INITIAL_SESSION") && $("vApp").hidden) setTimeout(enter, 0);
-      if (ev === "SIGNED_OUT") show("vSignin");
-    });
-    const { data } = await sb.auth.getSession();
-    if (data && data.session) enter(); else show("vSignin");
-
-    $("sendCode").onclick = async () => {
-      signinEmail = $("email").value.trim().toLowerCase();
-      if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(signinEmail)) { $("signinMsg").textContent = "Enter your email address."; return; }
-      $("sendCode").disabled = true;
-      const { error } = await sb.auth.signInWithOtp({ email: signinEmail, options: { emailRedirectTo: location.href.split("#")[0] } });
-      $("sendCode").disabled = false;
-      if (error) { $("signinMsg").textContent = "Couldn't send the email: " + error.message; return; }
-      $("signinMsg").textContent = "Check your email and tap the Sign in link on this same device. It brings you right back here, signed in.";
-    };
-    $("pwSignIn").onclick = async () => {
-      const email = $("email").value.trim().toLowerCase(), password = $("password").value;
-      if (!email || !password) { $("signinMsg").textContent = "Enter your email and password."; return; }
-      $("pwSignIn").disabled = true;
-      const { error } = await sb.auth.signInWithPassword({ email, password });
-      $("pwSignIn").disabled = false;
-      if (error) $("signinMsg").textContent = "That email and password didn't match. Check them and try again.";
-    };
-    $("email").addEventListener("keydown", e => { if (e.key === "Enter") $("password").focus(); });
-    $("password").addEventListener("keydown", e => { if (e.key === "Enter") $("pwSignIn").click(); });
-    const out = async () => { await sb.auth.signOut(); show("vSignin"); };
-    $("signOut").onclick = out; $("signOut2").onclick = out;
+    sb = window.KTEditor.client(CFG);
+    await window.KTEditor.signin(sb, { show, enter });   // sign-in card, sign-in state and both Sign out buttons (editor.js)
     $("pickMe").onclick = () => setPick("me"); $("pickCo").onclick = () => setPick("co"); $("pickGm").onclick = () => setPick("grandma"); $("pickOt").onclick = () => { setPick("other"); $("caregiver").focus(); };
     $("saveDay").onclick = saveDay; $("removeBtn").onclick = removeDay;
     $("settingsBtn").onclick = openSettings; $("saveSet").onclick = saveSettings;
@@ -521,9 +542,6 @@
     $("addSum").onclick = () => { st.draft.sum.push({ start: "", who: st.draft.sum.filter(s => s.who === "me").length < 2 ? "me" : "co" }); renderDraft(); };
     $("copyLink").onclick = copyLink; $("offLink").onclick = turnOff;
     $("newLink").onclick = () => { if (st.link) $("newLinkConfirm").hidden = false; else makeLink(); };
-    $("txtBody").addEventListener("input", () => { $("txtGo").href = smsHref(); });
-    $("txtTo").addEventListener("change", () => { $("txtGo").href = smsHref(); });
-    $("txtGo").addEventListener("click", () => { setTimeout(closeAll, 300); });
     $("newLinkYes").onclick = makeLink; $("newLinkNo").onclick = () => { $("newLinkConfirm").hidden = true; };
     document.addEventListener("input", e => {
       const t = e.target;
@@ -539,6 +557,10 @@
     const nav = e.target.closest("[data-nav]");
     if (nav) { const [mode, step] = nav.dataset.nav.split(":"); navMonth(mode, Number(step)); mode === "admin" ? renderAdmin() : renderFamily(); return; }
     if (e.target.closest("[data-close]") || e.target.classList.contains("scrim")) { closeAll(); return; }
+    const ac = e.target.closest("[data-act]");
+    if (ac) { window.KTActs.setPref(ac.dataset.act); PAGE === "admin" ? renderAdmin() : renderFamily(); return; }
+    const lg = e.target.closest("[data-log]"); if (lg) { st.logFilter = lg.dataset.log; st.logAll = false; renderRecent(); return; }
+    if (e.target.closest("#fLogMore")) { st.logAll = true; renderRecent(); return; }
     if (PAGE !== "admin") return;
     const tx = e.target.closest("[data-text]"); if (tx) { textForDay(Number(tx.dataset.text)); return; }
     const ed = e.target.closest("[data-edit]");

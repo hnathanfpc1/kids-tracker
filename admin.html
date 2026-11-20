@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=Figtree:wght@400;500;600;700&display=swap">
-<link rel="stylesheet" href="style.css?v=10">
+<link rel="stylesheet" href="style.css?v=11">
 </head>
 <body data-page="admin">
 <div class="page">
@@ -20,6 +20,7 @@
       <p>Your private page. Anything you change here shows on the family link right away.</p>
     </div>
     <div class="btn-row" id="topBtns" hidden>
+      <a class="btn" id="actsBtn" href="activities.html">Activities</a>
       <button class="btn" id="settingsBtn" type="button">Rotation settings</button>
       <button class="btn" id="signOut" type="button">Sign out</button>
     </div>
@@ -69,6 +70,7 @@
     </section>
 
     <div class="main">
+      <div class="main-col">
       <section class="panel" aria-labelledby="aMonth">
         <div class="panel-head">
           <h2 id="aMonth">Month</h2>
@@ -83,12 +85,28 @@
         <p class="hint">Tap a day to log a change. Each day counts the overnight that starts that evening.</p>
       </section>
 
+      <section class="panel" id="aActs" hidden aria-labelledby="aActT">
+        <div class="panel-head">
+          <h2 id="aActT">Activities</h2>
+          <div class="seg" role="group" aria-label="Show activities">
+            <button type="button" data-act="off">Off</button>
+            <button type="button" data-act="week">This week</button>
+            <button type="button" data-act="month">Next 30 days</button>
+          </div>
+        </div>
+        <p class="none" id="aActOff" hidden>Activities are hidden on this device. Everything else stays the same.</p>
+        <div id="aActBody"></div>
+        <p class="hint">To add or change an activity, open <a href="activities.html">Activities</a>.</p>
+      </section>
+      </div>
+
       <div class="side-col">
         <section class="panel share" aria-labelledby="shareT">
           <div class="panel-head" style="margin:0"><h2 id="shareT">Family link</h2><span class="status-on" id="shareStatus"></span></div>
           <div class="url"><code id="famUrl"></code><button class="btn" type="button" id="copyLink">Copy</button></div>
           <ul>
             <li>Shows who has the kids, handoff times, switches with their reason and shared note, holidays and school days.</li>
+            <li>Also shows the kids' names, activities with places and addresses, shared notes, comments that tag Angie, and recent changes.</li>
             <li>Never shows totals, percentages or private notes.</li>
           </ul>
           <div class="btn-row">
@@ -204,8 +222,10 @@
 <div class="toast" id="toast" role="status" hidden></div>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.117.3/dist/umd/supabase.js" integrity="sha384-BWcjm9OdFth9TbhCxZPdm+gAOUMAzQy9nmTs12ioXdCcbVnJaPMn+fMUoQCLt60R" crossorigin="anonymous"></script>
-<script src="config.js?v=10"></script>
-<script src="core.js?v=10"></script>
-<script src="app.js?v=10"></script>
+<script src="config.js?v=11"></script>
+<script src="core.js?v=11"></script>
+<script src="acts.js?v=11"></script>
+<script src="editor.js?v=11"></script>
+<script src="app.js?v=11"></script>
 </body>
 </html>

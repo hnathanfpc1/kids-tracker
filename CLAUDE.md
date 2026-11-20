@@ -26,6 +26,10 @@ Deploy = push to `main`. GitHub Pages serves the repo root (branch `main`, folde
 | `admin.html` | Admin page markup (`<body data-page="admin">`), loads supabase-js 2.117.3 UMD from jsDelivr |
 | `core.js` | Shared schedule logic with no page code: whole-day dates, rotation, holidays, school calendar, who has the kids, handoff times. Exposed as `window.KTCore`; each page calls `KTCore.schedule(st)` with its own state. Loaded before `app.js` |
 | `app.js` | Page logic for both pages: rendering, loading, saving, events. One IIFE; `PAGE` switches family vs admin. Uses `core.js` for the schedule |
+| `acts.js` | Shared read-only activities drawing, exposed as `window.KTActs`: reads the activities part of the payload (kids, places, teams, events, comments, log), arrive-by and leave-by times, calendar markers, the Activities panel, pack lists, Recent changes and "what's new" lines. Loaded after `core.js` on all three pages. Saves nothing |
+| `editor.js` | Shared by the two signed-in pages, exposed as `window.KTEditor`: the email and password sign-in card and the "Text an update?" sheet (send-to list from the `contacts` table, falling back to `config.js`). Loaded on `admin.html` and `activities.html` only |
+| `activities.html` | Activities page markup (`<body data-page="activities">`), signed in as `admin` or `parent`. Loads the same pinned supabase-js script tag as `admin.html` |
+| `activities.js` | Activities page logic: add by hand (with "Repeat weekly until"), upcoming list, edit sheet with comments, teams and gear, places, kids, contacts, change log. Reads through `get_editor_schedule()` plus `contacts`; never reads the custody tables |
 | `style.css` | Shared styles. Color tokens on `:root` with dark mode blocks |
 | `config.js` | Public config: Supabase URL, publishable key, and `contacts` (Mom and Brett phone numbers for the "Text an update" button). Decided 2026-11-19: the numbers move into the database in Phase 1 of the activities work. Until then they stay here, and `config.js` is not touched in Phase 0 |
 | `supabase/schema.sql` | Full database structure, no personal data. Reference and disaster recovery |
@@ -36,7 +40,7 @@ Deploy = push to `main`. GitHub Pages serves the repo root (branch `main`, folde
 
 No build step, no framework, no npm. Plain HTML, CSS and JS.
 
-**Cache busting is required.** Both HTML files load `style.css?v=N`, `config.js?v=N`, `core.js?v=N`, `app.js?v=N`. GitHub Pages caches for 10 minutes, and a phone once got stuck on an old `app.js`. Whenever you change any of those four files, bump `N` in both HTML files. Current value: `v=10`.
+**Cache busting is required.** Every HTML file loads its shared files with `?v=N`: `index.html` loads `style.css`, `config.js`, `core.js`, `acts.js`, `app.js`; `admin.html` loads `style.css`, `config.js`, `core.js`, `acts.js`, `editor.js`, `app.js`; `activities.html` loads `style.css`, `config.js`, `core.js`, `acts.js`, `editor.js`, `activities.js`. GitHub Pages caches for 10 minutes, and a phone once got stuck on an old `app.js`. Whenever you change any of those files, bump `N` everywhere in all three HTML files. Current value: `v=11`.
 
 ## How the schedule works
 
@@ -148,15 +152,15 @@ History (already run in her project; do not rerun 03): 01 tables and security, 0
 
 **Calendar markers:** background color = who has the kids that night. ⇄ badge plus outline = switched from the schedule. ★ = holiday schedule. Gray band at the bottom = no school ("No school" on wide screens, "Off" on phones). ½ = half day. On phones, names collapse to initials.
 
-**Family page:** title "Kids Tracker" with no subheader. Order: "Updated since you last looked" box (only when there are changes), "Right now" card (who has them, through when, next pickup with time, switch reason, holiday, school today), month calendar with a "this month" list of switches, holidays and no-school days, then "Coming up" for the next 6 weeks. Shows reasons and shared notes for switches. Never shows totals, percentages or private notes. Tapping a day shows its details.
+**Family page:** title "Kids Tracker" with no subheader. Order: "Updated since you last looked" box (only when there are changes; lists new switches, activity change log lines and comments that tag Angie), "Right now" card (who has them, through when, next pickup with time, switch reason, holiday, today's activities, school today), Activities panel (Off / This week / Next 30 days, remembered per device in localStorage key `kt-acts`, default This week; hidden when there are no kids; each day shows who has the kids, each activity shows kids, place and tappable address, arrive by, leave by from the house of whoever has the kids, gear, shared note and shared comments; canceled ones crossed out; handoff days get a pack list), month calendar (one kid-initial marker per kid with an activity that day, hidden when the switch is Off) with a "this month" list of switches, holidays and no-school days, "Coming up" for the next 6 weeks, then Recent changes (last 30 days, filter All / Where the kids are / Activities). Shows reasons and shared notes for switches. Never shows totals, percentages or private notes. Tapping a day shows its details and that day's activities. A link ending in `&e=<activity id>` opens that activity's day.
 
 **What's new:** the phone stores the last `changed_at` it acknowledged in localStorage key `kt-seen`. First visit marks everything as seen. Switches with `updated_at` after that get a "New" dot and chip until "Got it".
 
-**Admin page:** totals card, calendar, family link panel (copy, see what they see, make a new link, turn off), change log (Edit and Text per entry, shows private notes labeled "Private"), holidays and school calendar by year with an editor, rotation settings.
+**Admin page:** totals card, calendar (with the same kid markers), the same Activities panel read only under the calendar, family link panel (copy, see what they see, make a new link, turn off), change log (Edit and Text per entry, shows private notes labeled "Private"), holidays and school calendar by year with an editor, rotation settings. An "Activities" button in the header opens `activities.html`, where activities are added and changed.
 
 **Logging a change:** pick Heather, Brett, Grandma or Someone else (name required). Reason is one of Work, Travel, Coverage requested, Trade or other. Shared note and private note boxes. "Through" date for multi-day changes. Picking the scheduled parent on an unchanged day logs nothing.
 
-**Text an update:** after saving or removing a change, a sheet opens with a prefilled message and Mom and Brett checkboxes. "Open Messages" uses `sms://open?addresses=...&body=...` on Apple devices and `sms:...?body=...` elsewhere. Nothing is sent automatically.
+**Text an update:** after saving or removing a change on the admin page, or saving, canceling, removing or commenting with a tag on the Activities page, a sheet opens with a prefilled message and checkboxes in the order Brett, Heather, Angie (Grandma). The person signed in is shown but unchecked and cannot be picked. Numbers come from the `contacts` table; until any number is entered there, the two numbers in `config.js` are used. Activity texts end with a link to that activity: the family link with `&e=<id>` when Angie is ticked and the page has the family link (Heather, arriving from the admin page), otherwise `activities.html#e=<id>`. "Open Messages" uses `sms://open?addresses=...&body=...` on Apple devices and `sms:...?body=...` elsewhere. Nothing is sent automatically.
 
 **Rejected:** a shared or subscribed calendar feed (Heather finds calendar update notifications annoying). Push notifications were discussed as a future option and not built.
 
