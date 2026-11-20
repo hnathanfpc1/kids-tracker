@@ -172,11 +172,22 @@ History (already run in her project; do not rerun 03): 01 tables and security, 0
 - Be direct and lead with the recommendation. Separate what is known from what is assumed.
 - Ask before anything destructive (deleting data, turning off the family link, rewriting history).
 
-### Agent departments (use for every build)
+### Agent departments
 
 The five departments are set up as subagents in `.claude/agents/` (`frontend-dev`, `backend-dev`, `qa`, `security`, `exec-review`).
 
-Run work through these roles, as subagents where possible, and do not hand anything to Heather until all of them sign off:
+**Models (Heather's decision, 2026-11-20, to keep usage within her plan):** front-end, back-end, QA and executive review run on Sonnet 5.5 at medium effort; security runs on Opus 5.5; purely mechanical jobs (copying files, loading staged SQL) go to a general-purpose agent on Haiku 5.5. The model and effort are set in each agent's file in `.claude/agents/`.
+
+**Scale the review to the change (Heather's decision, 2026-11-20):**
+
+- **Database changes, and anything about to go live:** all five departments, as below.
+- **New feature slices on a branch:** front-end (and back-end if needed), then QA, then security. Executive review once, when the slice is ready to go live.
+- **Small fixes** (wording, styling, a bug fix found in review): make the fix directly, then one combined check by a single reviewer. Do not re-run every department.
+- Give reviewers the diff and a short brief, not "read everything". Collect all findings from one review round and fix them together before asking for one re-check.
+- Keep reports short (the agent files cap them). Avoid reading full-page screenshots into the main conversation; look at crops.
+- When the main conversation gets long (roughly a third of the context window), write a handoff note in `private/` and continue in a fresh session.
+
+Run work through these roles, as subagents where possible, and do not hand anything to Heather until the reviews required above sign off:
 
 1. **Front-end dev:** HTML, CSS, JS. Phone first (her mom and Brett use iPhones; the family page is saved to a home screen). Both light and dark mode. No horizontal scroll at 375px.
 2. **Back-end dev:** Supabase schema, RLS, functions, migrations per the rules above.
