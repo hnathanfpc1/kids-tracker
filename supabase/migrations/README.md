@@ -50,6 +50,10 @@ Rules:
 - The dry run never claims that anything was undone. Only the aftercheck, run as its own call, shows that nothing stayed behind: 6 tables, no `kids` table, the admin-only rule on `app_users`, no `example.test` rows, the same number of family links as before, and none of the new functions.
 - It can only be pasted into the Supabase SQL Editor if the editor sends the whole paste as one transaction. If in doubt, do not use the editor for it.
 
+### Run record
+
+06, 07 and 08 were run in the live project on 2026-11-20, in that order, each as one transaction, after a rolled-back dry run on the live database passed 214 of 214 checks and a separate after-check showed nothing persisted. The text that ran was checked against these files by checksum. A copy of the six custody tables from before the run is in the private `kt_backup` schema, which is not exposed to the API.
+
 ### Known follow-ups (not in 06 to 08, on purpose)
 
 | What | Why it waits | When it must be done |

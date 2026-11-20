@@ -1,6 +1,6 @@
 # Plan: Activities (sports, practices, lessons)
 
-Status: Phase 0 passed QA, security and executive review and was merged to `main` on 2026-11-19 with Heather's approval. Phases 1 to 4 are not started.
+Status: Phase 0 passed QA, security and executive review and was merged to `main` on 2026-11-19 with Heather's approval. Phase 1 is in progress: its database changes (migrations 06 to 08) were run on the live database on 2026-11-20; the Activities pages are not built yet. Phases 2 to 4 are not started.
 Branch: `feature/activities`. `main` (the live site) is untouched.
 Mockup: `docs/mockups/activities-mockup.html`, version 3 (sample kids and sample activities only).
 Review round 1 with Heather on 2026-11-19 is folded in. Section 16 lists what changed.
