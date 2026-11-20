@@ -197,7 +197,7 @@ Run work through these roles, as subagents where possible, and do not hand anyth
 
 ## Backlog and open items
 
-- **Activities feature:** plan and Heather's decisions are in `docs/plan-activities.md`, mockup in `docs/mockups/`. Phase 0 (tests, shared `core.js`, bug fixes) is live as of 2026-11-19. Phase 1's database changes (migrations 06 to 08) are in the live database as of 2026-11-20; the Activities pages are not built yet. Phases 2 to 4 are not built. Work happens on a feature branch; merge to `main` only with Heather's approval.
+- **Activities feature:** plan and Heather's decisions are in `docs/plan-activities.md`, mockup in `docs/mockups/`. Phase 0 (tests, shared `core.js`, bug fixes) is live as of 2026-11-19. Phase 1's database changes (migrations 06 to 08) are in the live database as of 2026-11-20. Slice 1A (the Activities page, and activities on the family and admin pages) went live on 2026-11-20; the Activities panel stays hidden until a kid is entered. Slices 1B to 1D and Phases 2 to 4 are not built. Work happens on a feature branch; merge to `main` only with Heather's approval.
 - **Keep the tracker free.** Heather decided on 2026-11-19 not to add paid services. Check cost before proposing anything that needs a paid account.
 - **Kids' names, home addresses, activity locations and calendar links live in the database only.** Never in the repo, mockups, tests or commit messages. Mockups use made-up names; a gitignored `docs/mockups/names.local.js` can show the real ones locally.
 - Enter the 2027-28 school calendar (first and last day, Thanksgiving and Christmas 2027 break dates, no-school days) when published.
