@@ -84,10 +84,11 @@
    "shown": true,
    "body": "Kids Tracker update: Grandma has the kids Sat, Nov 21 to Sun, Nov 22. Work. Test shared note.\nhttp://TEST-ORIGIN/#k=TESTTOKEN",
    "to": [
-    "Mom [checked]",
-    "Brett [checked]"
+    "Brett [checked]",
+    "Heather (you)",
+    "Angie (Grandma) [checked]"
    ],
-   "href": "sms://open?addresses=+15555550101,+15555550102&body=Kids%20Tracker%20update%3A%20Grandma%20has%20the%20kids%20Sat%2C%20Nov%2021%20to%20Sun%2C%20Nov%2022.%20Work.%20Test%20shared%20note.%0Ahttp%3A%2F%2FTEST-ORIGIN%2F%23k%3DTESTTOKEN"
+   "href": "sms://open?addresses=+15555550102,+15555550101&body=Kids%20Tracker%20update%3A%20Grandma%20has%20the%20kids%20Sat%2C%20Nov%2021%20to%20Sun%2C%20Nov%2022.%20Work.%20Test%20shared%20note.%0Ahttp%3A%2F%2FTEST-ORIGIN%2F%23k%3DTESTTOKEN"
   }
  },
  "a_cellsAfter": [
@@ -189,10 +190,11 @@
    "shown": true,
    "body": "Kids Tracker update: Tue, Nov 17 is back to the regular schedule (Heather).\nhttp://TEST-ORIGIN/#k=TESTTOKEN",
    "to": [
-    "Mom [checked]",
-    "Brett [checked]"
+    "Brett [checked]",
+    "Heather (you)",
+    "Angie (Grandma) [checked]"
    ],
-   "href": "sms://open?addresses=+15555550101,+15555550102&body=Kids%20Tracker%20update%3A%20Tue%2C%20Nov%2017%20is%20back%20to%20the%20regular%20schedule%20(Heather).%0Ahttp%3A%2F%2FTEST-ORIGIN%2F%23k%3DTESTTOKEN"
+   "href": "sms://open?addresses=+15555550102,+15555550101&body=Kids%20Tracker%20update%3A%20Tue%2C%20Nov%2017%20is%20back%20to%20the%20regular%20schedule%20(Heather).%0Ahttp%3A%2F%2FTEST-ORIGIN%2F%23k%3DTESTTOKEN"
   }
  },
  "c_totalsSinceStartAfter": {
@@ -244,10 +246,11 @@
    "shown": true,
    "body": "Kids Tracker update: Tue, Oct 13 to Wed, Oct 14 is back to the regular schedule (Brett).\nhttp://TEST-ORIGIN/#k=TESTTOKEN",
    "to": [
-    "Mom [checked]",
-    "Brett [checked]"
+    "Brett [checked]",
+    "Heather (you)",
+    "Angie (Grandma) [checked]"
    ],
-   "href": "sms://open?addresses=+15555550101,+15555550102&body=Kids%20Tracker%20update%3A%20Tue%2C%20Oct%2013%20to%20Wed%2C%20Oct%2014%20is%20back%20to%20the%20regular%20schedule%20(Brett).%0Ahttp%3A%2F%2FTEST-ORIGIN%2F%23k%3DTESTTOKEN"
+   "href": "sms://open?addresses=+15555550102,+15555550101&body=Kids%20Tracker%20update%3A%20Tue%2C%20Oct%2013%20to%20Wed%2C%20Oct%2014%20is%20back%20to%20the%20regular%20schedule%20(Brett).%0Ahttp%3A%2F%2FTEST-ORIGIN%2F%23k%3DTESTTOKEN"
   }
  },
  "e_someoneElse": {
@@ -292,10 +295,11 @@
    "shown": true,
    "body": "Kids Tracker update: Sitter has the kids Sat, Nov 28. Coverage requested.\nhttp://TEST-ORIGIN/#k=TESTTOKEN",
    "to": [
-    "Mom [checked]",
-    "Brett [checked]"
+    "Brett [checked]",
+    "Heather (you)",
+    "Angie (Grandma) [checked]"
    ],
-   "href": "sms://open?addresses=+15555550101,+15555550102&body=Kids%20Tracker%20update%3A%20Sitter%20has%20the%20kids%20Sat%2C%20Nov%2028.%20Coverage%20requested.%0Ahttp%3A%2F%2FTEST-ORIGIN%2F%23k%3DTESTTOKEN"
+   "href": "sms://open?addresses=+15555550102,+15555550101&body=Kids%20Tracker%20update%3A%20Sitter%20has%20the%20kids%20Sat%2C%20Nov%2028.%20Coverage%20requested.%0Ahttp%3A%2F%2FTEST-ORIGIN%2F%23k%3DTESTTOKEN"
   }
  },
  "f_confirm": {
@@ -346,10 +350,11 @@
    "shown": false,
    "body": "Kids Tracker update: Sitter has the kids Sat, Nov 28. Coverage requested.\nhttp://TEST-ORIGIN/#k=TESTTOKEN",
    "to": [
-    "Mom [checked]",
-    "Brett [checked]"
+    "Brett [checked]",
+    "Heather (you)",
+    "Angie (Grandma) [checked]"
    ],
-   "href": "sms://open?addresses=+15555550101,+15555550102&body=Kids%20Tracker%20update%3A%20Sitter%20has%20the%20kids%20Sat%2C%20Nov%2028.%20Coverage%20requested.%0Ahttp%3A%2F%2FTEST-ORIGIN%2F%23k%3DTESTTOKEN"
+   "href": "sms://open?addresses=+15555550102,+15555550101&body=Kids%20Tracker%20update%3A%20Sitter%20has%20the%20kids%20Sat%2C%20Nov%2028.%20Coverage%20requested.%0Ahttp%3A%2F%2FTEST-ORIGIN%2F%23k%3DTESTTOKEN"
   },
   "panel": {
    "status": "On",
@@ -388,10 +393,11 @@
    "shown": false,
    "body": "Kids Tracker update: Sitter has the kids Sat, Nov 28. Coverage requested.\nhttp://TEST-ORIGIN/#k=TESTTOKEN",
    "to": [
-    "Mom [checked]",
-    "Brett [checked]"
+    "Brett [checked]",
+    "Heather (you)",
+    "Angie (Grandma) [checked]"
    ],
-   "href": "sms://open?addresses=+15555550101,+15555550102&body=Kids%20Tracker%20update%3A%20Sitter%20has%20the%20kids%20Sat%2C%20Nov%2028.%20Coverage%20requested.%0Ahttp%3A%2F%2FTEST-ORIGIN%2F%23k%3DTESTTOKEN"
+   "href": "sms://open?addresses=+15555550102,+15555550101&body=Kids%20Tracker%20update%3A%20Sitter%20has%20the%20kids%20Sat%2C%20Nov%2028.%20Coverage%20requested.%0Ahttp%3A%2F%2FTEST-ORIGIN%2F%23k%3DTESTTOKEN"
   },
   "panel": {
    "status": "Off",
@@ -499,10 +505,11 @@
    "shown": false,
    "body": "Kids Tracker update: Sitter has the kids Sat, Nov 28. Coverage requested.\nhttp://TEST-ORIGIN/#k=TESTTOKEN",
    "to": [
-    "Mom [checked]",
-    "Brett [checked]"
+    "Brett [checked]",
+    "Heather (you)",
+    "Angie (Grandma) [checked]"
    ],
-   "href": "sms://open?addresses=+15555550101,+15555550102&body=Kids%20Tracker%20update%3A%20Sitter%20has%20the%20kids%20Sat%2C%20Nov%2028.%20Coverage%20requested.%0Ahttp%3A%2F%2FTEST-ORIGIN%2F%23k%3DTESTTOKEN"
+   "href": "sms://open?addresses=+15555550102,+15555550101&body=Kids%20Tracker%20update%3A%20Sitter%20has%20the%20kids%20Sat%2C%20Nov%2028.%20Coverage%20requested.%0Ahttp%3A%2F%2FTEST-ORIGIN%2F%23k%3DTESTTOKEN"
   }
  },
  "g_datesEditor2027": {
@@ -605,10 +612,11 @@
    "shown": false,
    "body": "Kids Tracker update: Sitter has the kids Sat, Nov 28. Coverage requested.\nhttp://TEST-ORIGIN/#k=TESTTOKEN",
    "to": [
-    "Mom [checked]",
-    "Brett [checked]"
+    "Brett [checked]",
+    "Heather (you)",
+    "Angie (Grandma) [checked]"
    ],
-   "href": "sms://open?addresses=+15555550101,+15555550102&body=Kids%20Tracker%20update%3A%20Sitter%20has%20the%20kids%20Sat%2C%20Nov%2028.%20Coverage%20requested.%0Ahttp%3A%2F%2FTEST-ORIGIN%2F%23k%3DTESTTOKEN"
+   "href": "sms://open?addresses=+15555550102,+15555550101&body=Kids%20Tracker%20update%3A%20Sitter%20has%20the%20kids%20Sat%2C%20Nov%2028.%20Coverage%20requested.%0Ahttp%3A%2F%2FTEST-ORIGIN%2F%23k%3DTESTTOKEN"
   }
  },
  "h_settingsSheet": {
@@ -642,10 +650,11 @@
    "shown": false,
    "body": "Kids Tracker update: Sitter has the kids Sat, Nov 28. Coverage requested.\nhttp://TEST-ORIGIN/#k=TESTTOKEN",
    "to": [
-    "Mom [checked]",
-    "Brett [checked]"
+    "Brett [checked]",
+    "Heather (you)",
+    "Angie (Grandma) [checked]"
    ],
-   "href": "sms://open?addresses=+15555550101,+15555550102&body=Kids%20Tracker%20update%3A%20Sitter%20has%20the%20kids%20Sat%2C%20Nov%2028.%20Coverage%20requested.%0Ahttp%3A%2F%2FTEST-ORIGIN%2F%23k%3DTESTTOKEN"
+   "href": "sms://open?addresses=+15555550102,+15555550101&body=Kids%20Tracker%20update%3A%20Sitter%20has%20the%20kids%20Sat%2C%20Nov%2028.%20Coverage%20requested.%0Ahttp%3A%2F%2FTEST-ORIGIN%2F%23k%3DTESTTOKEN"
   }
  }
 }

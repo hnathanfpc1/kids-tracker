@@ -1,0 +1,16 @@
+{
+ "family": {
+  "bad": [],
+  "panelChip": "chip other | Odd value",
+  "recentChip": "chip other | Odd value",
+  "errors": []
+ },
+ "admin": {
+  "bad": [],
+  "panelChip": "chip other | Odd value"
+ },
+ "activities": {
+  "bad": [],
+  "upChip": "chip other | Odd value"
+ }
+}

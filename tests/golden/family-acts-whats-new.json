@@ -1,0 +1,37 @@
+{
+ "step1_firstVisit": {
+  "shown": false,
+  "items": [],
+  "newChips": [],
+  "seen": "2026-11-30T23:30:00+00:00"
+ },
+ "step2_since": {
+  "shown": true,
+  "items": [
+   "Sat, Dec 5 Brett commented on Basketball game: \"Want to come watch? Tip-off is at 10.\"",
+   "Thu, Dec 17 Heather updated Soccer practice on Thu Dec 17: note",
+   "Mon, Dec 7 Brett canceled Soccer practice on Mon Dec 7 at 5:30 p.m.",
+   "Thu, Dec 17 Heather commented on Soccer practice: \"The pinnie is in the car.\"",
+   "Activity Brett removed Soccer practice on Tue Dec 8 at 5:30 p.m."
+  ],
+  "newChips": [
+   "e0000000-0000-4000-8000-000000000009",
+   "e0000000-0000-4000-8000-000000000015"
+  ],
+  "seen": "2026-11-28T00:00:00+00:00"
+ },
+ "step3_gotIt": {
+  "shown": false,
+  "items": [],
+  "newChips": [],
+  "seen": "2026-11-30T23:30:00+00:00"
+ },
+ "step4_comment": {
+  "shown": true,
+  "items": [
+   "Wed, Dec 2 Brett commented on Basketball practice: \"Running late, Angie can you grab them?\""
+  ],
+  "newChips": [],
+  "seen": "2026-11-30T23:30:00+00:00"
+ }
+}

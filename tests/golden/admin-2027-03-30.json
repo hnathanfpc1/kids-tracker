@@ -3658,58 +3658,65 @@
   "2026-10-13": {
    "body": "Kids Tracker update: Heather has the kids Tue, Oct 13 to Wed, Oct 14. Coverage requested. Brett at a conference.\nhttp://TEST-ORIGIN/#k=TESTTOKEN",
    "to": [
-    "Mom [checked]",
-    "Brett [checked]"
+    "Brett [checked]",
+    "Heather (you)",
+    "Angie (Grandma) [checked]"
    ],
-   "href": "sms://open?addresses=+15555550101,+15555550102&body=Kids%20Tracker%20update%3A%20Heather%20has%20the%20kids%20Tue%2C%20Oct%2013%20to%20Wed%2C%20Oct%2014.%20Coverage%20requested.%20Brett%20at%20a%20conference.%0Ahttp%3A%2F%2FTEST-ORIGIN%2F%23k%3DTESTTOKEN"
+   "href": "sms://open?addresses=+15555550102,+15555550101&body=Kids%20Tracker%20update%3A%20Heather%20has%20the%20kids%20Tue%2C%20Oct%2013%20to%20Wed%2C%20Oct%2014.%20Coverage%20requested.%20Brett%20at%20a%20conference.%0Ahttp%3A%2F%2FTEST-ORIGIN%2F%23k%3DTESTTOKEN"
   },
   "2026-10-20": {
    "body": "Kids Tracker update: Grandma has the kids Tue, Oct 20. Work. Heather's late client meeting & dinner, home <9 p.m. \"at the latest\".\nhttp://TEST-ORIGIN/#k=TESTTOKEN",
    "to": [
-    "Mom [checked]",
-    "Brett [checked]"
+    "Brett [checked]",
+    "Heather (you)",
+    "Angie (Grandma) [checked]"
    ],
-   "href": "sms://open?addresses=+15555550101,+15555550102&body=Kids%20Tracker%20update%3A%20Grandma%20has%20the%20kids%20Tue%2C%20Oct%2020.%20Work.%20Heather's%20late%20client%20meeting%20%26%20dinner%2C%20home%20%3C9%20p.m.%20%22at%20the%20latest%22.%0Ahttp%3A%2F%2FTEST-ORIGIN%2F%23k%3DTESTTOKEN"
+   "href": "sms://open?addresses=+15555550102,+15555550101&body=Kids%20Tracker%20update%3A%20Grandma%20has%20the%20kids%20Tue%2C%20Oct%2020.%20Work.%20Heather's%20late%20client%20meeting%20%26%20dinner%2C%20home%20%3C9%20p.m.%20%22at%20the%20latest%22.%0Ahttp%3A%2F%2FTEST-ORIGIN%2F%23k%3DTESTTOKEN"
   },
   "2026-10-31": {
    "body": "Kids Tracker update: Babysitter has the kids Sat, Oct 31. Trade or other. Evening out.\nhttp://TEST-ORIGIN/#k=TESTTOKEN",
    "to": [
-    "Mom [checked]",
-    "Brett [checked]"
+    "Brett [checked]",
+    "Heather (you)",
+    "Angie (Grandma) [checked]"
    ],
-   "href": "sms://open?addresses=+15555550101,+15555550102&body=Kids%20Tracker%20update%3A%20Babysitter%20has%20the%20kids%20Sat%2C%20Oct%2031.%20Trade%20or%20other.%20Evening%20out.%0Ahttp%3A%2F%2FTEST-ORIGIN%2F%23k%3DTESTTOKEN"
+   "href": "sms://open?addresses=+15555550102,+15555550101&body=Kids%20Tracker%20update%3A%20Babysitter%20has%20the%20kids%20Sat%2C%20Oct%2031.%20Trade%20or%20other.%20Evening%20out.%0Ahttp%3A%2F%2FTEST-ORIGIN%2F%23k%3DTESTTOKEN"
   },
   "2026-11-25": {
    "body": "Kids Tracker update: Brett has the kids Wed, Nov 25. Trade or other. Traded for Dec 5.\nhttp://TEST-ORIGIN/#k=TESTTOKEN",
    "to": [
-    "Mom [checked]",
-    "Brett [checked]"
+    "Brett [checked]",
+    "Heather (you)",
+    "Angie (Grandma) [checked]"
    ],
-   "href": "sms://open?addresses=+15555550101,+15555550102&body=Kids%20Tracker%20update%3A%20Brett%20has%20the%20kids%20Wed%2C%20Nov%2025.%20Trade%20or%20other.%20Traded%20for%20Dec%205.%0Ahttp%3A%2F%2FTEST-ORIGIN%2F%23k%3DTESTTOKEN"
+   "href": "sms://open?addresses=+15555550102,+15555550101&body=Kids%20Tracker%20update%3A%20Brett%20has%20the%20kids%20Wed%2C%20Nov%2025.%20Trade%20or%20other.%20Traded%20for%20Dec%205.%0Ahttp%3A%2F%2FTEST-ORIGIN%2F%23k%3DTESTTOKEN"
   },
   "2026-12-22": {
    "body": "Kids Tracker update: Grandma has the kids Tue, Dec 22 to Wed, Dec 23. Travel. Brett traveling.\nhttp://TEST-ORIGIN/#k=TESTTOKEN",
    "to": [
-    "Mom [checked]",
-    "Brett [checked]"
+    "Brett [checked]",
+    "Heather (you)",
+    "Angie (Grandma) [checked]"
    ],
-   "href": "sms://open?addresses=+15555550101,+15555550102&body=Kids%20Tracker%20update%3A%20Grandma%20has%20the%20kids%20Tue%2C%20Dec%2022%20to%20Wed%2C%20Dec%2023.%20Travel.%20Brett%20traveling.%0Ahttp%3A%2F%2FTEST-ORIGIN%2F%23k%3DTESTTOKEN"
+   "href": "sms://open?addresses=+15555550102,+15555550101&body=Kids%20Tracker%20update%3A%20Grandma%20has%20the%20kids%20Tue%2C%20Dec%2022%20to%20Wed%2C%20Dec%2023.%20Travel.%20Brett%20traveling.%0Ahttp%3A%2F%2FTEST-ORIGIN%2F%23k%3DTESTTOKEN"
   },
   "2027-01-15": {
    "body": "Kids Tracker update: Someone else has the kids Fri, Jan 15. Coverage requested.\nhttp://TEST-ORIGIN/#k=TESTTOKEN",
    "to": [
-    "Mom [checked]",
-    "Brett [checked]"
+    "Brett [checked]",
+    "Heather (you)",
+    "Angie (Grandma) [checked]"
    ],
-   "href": "sms://open?addresses=+15555550101,+15555550102&body=Kids%20Tracker%20update%3A%20Someone%20else%20has%20the%20kids%20Fri%2C%20Jan%2015.%20Coverage%20requested.%0Ahttp%3A%2F%2FTEST-ORIGIN%2F%23k%3DTESTTOKEN"
+   "href": "sms://open?addresses=+15555550102,+15555550101&body=Kids%20Tracker%20update%3A%20Someone%20else%20has%20the%20kids%20Fri%2C%20Jan%2015.%20Coverage%20requested.%0Ahttp%3A%2F%2FTEST-ORIGIN%2F%23k%3DTESTTOKEN"
   },
   "2027-05-19": {
    "body": "Kids Tracker update: Brett has the kids Wed, May 19.\nhttp://TEST-ORIGIN/#k=TESTTOKEN",
    "to": [
-    "Mom [checked]",
-    "Brett [checked]"
+    "Brett [checked]",
+    "Heather (you)",
+    "Angie (Grandma) [checked]"
    ],
-   "href": "sms://open?addresses=+15555550101,+15555550102&body=Kids%20Tracker%20update%3A%20Brett%20has%20the%20kids%20Wed%2C%20May%2019.%0Ahttp%3A%2F%2FTEST-ORIGIN%2F%23k%3DTESTTOKEN"
+   "href": "sms://open?addresses=+15555550102,+15555550101&body=Kids%20Tracker%20update%3A%20Brett%20has%20the%20kids%20Wed%2C%20May%2019.%0Ahttp%3A%2F%2FTEST-ORIGIN%2F%23k%3DTESTTOKEN"
   }
  },
  "changeLog": {

@@ -1,0 +1,2008 @@
+{
+ "order": [
+  "famNow",
+  "fActs",
+  "fMonth",
+  "upT",
+  "fRecent"
+ ],
+ "rightNow": {
+  "cls": "me now",
+  "lines": [
+   "RIGHT NOW",
+   "With Heather",
+   "Through Thursday, Dec 3. Brett picks up Friday, Dec 4 after school.",
+   "Today: AvaSoccer practice 5:30 p.m. Leave by 5:05.",
+   "School today"
+  ]
+ },
+ "today": {
+  "text": "Today: Ava Soccer practice 5:30 p.m. Leave by 5:05.",
+  "struck": []
+ },
+ "panelWeek": {
+  "shown": true,
+  "pressed": [
+   "week"
+  ],
+  "offShown": false,
+  "filters": "Showing Ava Max",
+  "days": [
+   {
+    "date": "Tue, Dec 1 Today",
+    "chip": "chip me | Heather",
+    "handoff": null,
+    "none": null,
+    "events": [
+     {
+      "id": "e0000000-0000-4000-8000-000000000002",
+      "cls": "c-orange ev",
+      "time": "5:30 p.m. to 6:30",
+      "title": "Ava Soccer practice",
+      "kids": [
+       "Ava c-orange"
+      ],
+      "flags": [],
+      "where": "Rec Center Field 3 100 Example Park Rd, Faketown",
+      "map": {
+       "href": "https://maps.apple.com/?q=100%20Example%20Park%20Rd%2C%20Faketown",
+       "target": "_blank",
+       "rel": "noopener noreferrer"
+      },
+      "go": "Arrive 5:20. Leave by 5:05 from Heather's.",
+      "gear": "Bring: cleats, shin guards, water bottle",
+      "note": null,
+      "comments": [],
+      "crossedOut": false
+     }
+    ]
+   },
+   {
+    "date": "Wed, Dec 2",
+    "chip": "chip me | Heather",
+    "handoff": null,
+    "none": null,
+    "events": [
+     {
+      "id": "e0000000-0000-4000-8000-000000000003",
+      "cls": "c-orange ev",
+      "time": "4:15 p.m. to 5:00",
+      "title": "Ava Piano lesson",
+      "kids": [
+       "Ava c-orange"
+      ],
+      "flags": [],
+      "where": "Studio B",
+      "map": null,
+      "go": "Arrive 4:10. Leave by 4:00 from Heather's.",
+      "gear": "Bring: piano book",
+      "note": null,
+      "comments": [],
+      "crossedOut": false
+     },
+     {
+      "id": "e0000000-0000-4000-8000-000000000004",
+      "cls": "b-berry c-orange ev kb",
+      "time": "6:00 p.m. to 7:30",
+      "title": "Ava Max Basketball practice",
+      "kids": [
+       "Ava c-orange",
+       "Max c-berry"
+      ],
+      "flags": [],
+      "where": "Eastside Gym 22 Sample St, Faketown",
+      "map": {
+       "href": "https://maps.apple.com/?q=22%20Sample%20St%2C%20Faketown",
+       "target": "_blank",
+       "rel": "noopener noreferrer"
+      },
+      "go": "Arrive 5:45. Leave by 5:35 from Heather's.",
+      "gear": "Bring: basketball shoes, jersey, water bottle",
+      "note": null,
+      "comments": [],
+      "crossedOut": false
+     }
+    ]
+   },
+   {
+    "date": "Thu, Dec 3",
+    "chip": "chip me | Heather",
+    "handoff": null,
+    "none": null,
+    "events": [
+     {
+      "id": "e0000000-0000-4000-8000-000000000005",
+      "cls": "c-berry ev",
+      "time": "7:00 p.m.",
+      "title": "Max Swim club",
+      "kids": [
+       "Max c-berry"
+      ],
+      "flags": [],
+      "where": "West Pool",
+      "map": null,
+      "go": null,
+      "gear": null,
+      "note": null,
+      "comments": [],
+      "crossedOut": false
+     }
+    ]
+   },
+   {
+    "date": "Fri, Dec 4 Handoff day",
+    "chip": "chip co | Brett",
+    "handoff": {
+     "cls": "co handoff",
+     "head": "⇄ Handoff to Brett after school",
+     "chip": "chip co | Brett",
+     "packTitle": "Pack for Brett's night",
+     "pack": [
+      {
+       "text": "Ava: cleats, shin guards, water bottle",
+       "dots": [
+        "c-orange"
+       ]
+      }
+     ]
+    },
+    "none": null,
+    "events": [
+     {
+      "id": "e0000000-0000-4000-8000-000000000006",
+      "cls": "c-orange ev",
+      "time": "6:00 p.m.",
+      "title": "Ava Soccer game",
+      "kids": [
+       "Ava c-orange"
+      ],
+      "flags": [],
+      "where": "Rec Center Field 3 100 Example Park Rd, Faketown",
+      "map": {
+       "href": "https://maps.apple.com/?q=100%20Example%20Park%20Rd%2C%20Faketown",
+       "target": "_blank",
+       "rel": "noopener noreferrer"
+      },
+      "go": "Arrive 5:30. Leave by 5:05 from Brett's.",
+      "gear": "Bring: cleats, shin guards, water bottle",
+      "note": null,
+      "comments": [],
+      "crossedOut": false
+     }
+    ]
+   },
+   {
+    "date": "Sat, Dec 5 Handoff day",
+    "chip": "chip me | Heather",
+    "handoff": {
+     "cls": "handoff me",
+     "head": "⇄ Handoff to Heather",
+     "chip": "chip me | Heather",
+     "packTitle": "Pack for Heather's night",
+     "pack": [
+      {
+       "text": "Both: basketball shoes, jerseys, knee pads",
+       "dots": [
+        "c-orange",
+        "c-berry"
+       ]
+      }
+     ]
+    },
+    "none": null,
+    "events": [
+     {
+      "id": "e0000000-0000-4000-8000-000000000007",
+      "cls": "b-berry c-orange ev kb",
+      "time": "10:00 a.m. to 11:00",
+      "title": "Ava Max Basketball game",
+      "kids": [
+       "Ava c-orange",
+       "Max c-berry"
+      ],
+      "flags": [],
+      "where": "Eastside Gym 22 Sample St, Faketown",
+      "map": {
+       "href": "https://maps.apple.com/?q=22%20Sample%20St%2C%20Faketown",
+       "target": "_blank",
+       "rel": "noopener noreferrer"
+      },
+      "go": "Arrive 9:40. Leave by 9:30 from Heather's.",
+      "gear": "Bring: basketball shoes, jerseys, knee pads",
+      "note": null,
+      "comments": [
+       "Brett @Angie Want to come watch? Tip-off is at 10."
+      ],
+      "crossedOut": false
+     }
+    ]
+   },
+   {
+    "date": "Sun, Dec 6 Handoff day",
+    "chip": "chip co | Brett",
+    "handoff": {
+     "cls": "co handoff",
+     "head": "⇄ Handoff to Brett",
+     "chip": "chip co | Brett",
+     "packTitle": "Pack for Brett's 5 nights",
+     "pack": [
+      {
+       "text": "Ava: cleats, shin guards, water bottle",
+       "dots": [
+        "c-orange"
+       ]
+      }
+     ]
+    },
+    "none": null,
+    "events": [
+     {
+      "id": "e0000000-0000-4000-8000-000000000008",
+      "cls": "c-berry ev",
+      "time": "2:00 p.m.",
+      "title": "Max Birthday party",
+      "kids": [
+       "Max c-berry"
+      ],
+      "flags": [],
+      "where": "Party barn on Example Rd",
+      "map": null,
+      "go": null,
+      "gear": null,
+      "note": null,
+      "comments": [],
+      "crossedOut": false
+     }
+    ]
+   }
+  ],
+  "editButtons": 0
+ },
+ "legend": "Heather Brett Grandma Someone else A Ava M Max ⇄ Switched ★ Holiday schedule No school ½ Half day",
+ "marksDec": [
+  {
+   "aria": "Sunday, November 29, Heather, Thanksgiving",
+   "out": true,
+   "dots": []
+  },
+  {
+   "aria": "Monday, November 30, Heather",
+   "out": true,
+   "dots": []
+  },
+  {
+   "aria": "Tuesday, December 1, Heather, Ava has an activity",
+   "out": false,
+   "dots": [
+    "A c-orange"
+   ]
+  },
+  {
+   "aria": "Wednesday, December 2, Heather, Ava and Max have activities",
+   "out": false,
+   "dots": [
+    "A c-orange",
+    "M c-berry"
+   ]
+  },
+  {
+   "aria": "Thursday, December 3, Heather, Max has an activity",
+   "out": false,
+   "dots": [
+    "M c-berry"
+   ]
+  },
+  {
+   "aria": "Friday, December 4, Brett, Ava has an activity",
+   "out": false,
+   "dots": [
+    "A c-orange"
+   ]
+  },
+  {
+   "aria": "Saturday, December 5, Heather, switched, Ava and Max have activities",
+   "out": false,
+   "dots": [
+    "A c-orange",
+    "M c-berry"
+   ]
+  },
+  {
+   "aria": "Sunday, December 6, Brett, Max has an activity",
+   "out": false,
+   "dots": [
+    "M c-berry"
+   ]
+  },
+  {
+   "aria": "Monday, December 7, Brett",
+   "out": false,
+   "dots": []
+  },
+  {
+   "aria": "Tuesday, December 8, Brett",
+   "out": false,
+   "dots": []
+  },
+  {
+   "aria": "Wednesday, December 9, Brett, Ava has an activity",
+   "out": false,
+   "dots": [
+    "A c-orange"
+   ]
+  },
+  {
+   "aria": "Thursday, December 10, Brett",
+   "out": false,
+   "dots": []
+  },
+  {
+   "aria": "Friday, December 11, Heather, Ava and Max have activities",
+   "out": false,
+   "dots": [
+    "A c-orange",
+    "M c-berry"
+   ]
+  },
+  {
+   "aria": "Saturday, December 12, Heather, Ava has an activity",
+   "out": false,
+   "dots": [
+    "A c-orange"
+   ]
+  },
+  {
+   "aria": "Sunday, December 13, Heather",
+   "out": false,
+   "dots": []
+  },
+  {
+   "aria": "Monday, December 14, Heather",
+   "out": false,
+   "dots": []
+  },
+  {
+   "aria": "Tuesday, December 15, Heather",
+   "out": false,
+   "dots": []
+  },
+  {
+   "aria": "Wednesday, December 16, Heather, Ava has an activity",
+   "out": false,
+   "dots": [
+    "A c-orange"
+   ]
+  },
+  {
+   "aria": "Thursday, December 17, Heather, Ava has an activity",
+   "out": false,
+   "dots": [
+    "A c-orange"
+   ]
+  },
+  {
+   "aria": "Friday, December 18, Brett, Christmas, first part, Half day, Ava and Max have activities",
+   "out": false,
+   "dots": [
+    "A c-orange",
+    "M c-berry"
+   ]
+  },
+  {
+   "aria": "Saturday, December 19, Brett, Christmas, first part, Ava has an activity",
+   "out": false,
+   "dots": [
+    "A c-orange"
+   ]
+  },
+  {
+   "aria": "Sunday, December 20, Brett, Christmas, first part, Ava and Max have activities",
+   "out": false,
+   "dots": [
+    "A c-orange",
+    "M c-berry"
+   ]
+  },
+  {
+   "aria": "Monday, December 21, Brett, Christmas, first part, No school: Winter break",
+   "out": false,
+   "dots": []
+  },
+  {
+   "aria": "Tuesday, December 22, Grandma, switched, Christmas, first part, No school: Winter break, Ava has an activity",
+   "out": false,
+   "dots": [
+    "A c-orange"
+   ]
+  },
+  {
+   "aria": "Wednesday, December 23, Grandma, switched, Christmas, first part, No school: Winter break, Ava and Max have activities",
+   "out": false,
+   "dots": [
+    "A c-orange",
+    "M c-berry"
+   ]
+  },
+  {
+   "aria": "Thursday, December 24, Brett, Christmas, first part, No school: Winter break",
+   "out": false,
+   "dots": []
+  },
+  {
+   "aria": "Friday, December 25, Brett, Christmas, first part, No school: Winter break",
+   "out": false,
+   "dots": []
+  },
+  {
+   "aria": "Saturday, December 26, Heather, Christmas, second part, Max has an activity",
+   "out": false,
+   "dots": [
+    "M c-berry"
+   ]
+  },
+  {
+   "aria": "Sunday, December 27, Heather, Christmas, second part",
+   "out": false,
+   "dots": []
+  },
+  {
+   "aria": "Monday, December 28, Heather, Christmas, second part, No school: Winter break",
+   "out": false,
+   "dots": []
+  },
+  {
+   "aria": "Tuesday, December 29, Heather, Christmas, second part, No school: Winter break",
+   "out": false,
+   "dots": []
+  },
+  {
+   "aria": "Wednesday, December 30, Heather, Christmas, second part, No school: Winter break",
+   "out": false,
+   "dots": []
+  },
+  {
+   "aria": "Thursday, December 31, Heather, Christmas, second part, No school: Winter break, Max has an activity",
+   "out": false,
+   "dots": [
+    "M c-berry"
+   ]
+  },
+  {
+   "aria": "Friday, January 1, Heather, Christmas, second part, No school: Winter break, Ava has an activity",
+   "out": true,
+   "dots": [
+    "A c-orange"
+   ]
+  },
+  {
+   "aria": "Saturday, January 2, Heather, Christmas, second part",
+   "out": true,
+   "dots": []
+  }
+ ],
+ "marksNov": [
+  {
+   "aria": "Sunday, November 1, Heather",
+   "out": false,
+   "dots": []
+  },
+  {
+   "aria": "Monday, November 2, Heather",
+   "out": false,
+   "dots": []
+  },
+  {
+   "aria": "Tuesday, November 3, Heather",
+   "out": false,
+   "dots": []
+  },
+  {
+   "aria": "Wednesday, November 4, Heather",
+   "out": false,
+   "dots": []
+  },
+  {
+   "aria": "Thursday, November 5, Heather",
+   "out": false,
+   "dots": []
+  },
+  {
+   "aria": "Friday, November 6, Brett",
+   "out": false,
+   "dots": []
+  },
+  {
+   "aria": "Saturday, November 7, Brett",
+   "out": false,
+   "dots": []
+  },
+  {
+   "aria": "Sunday, November 8, Brett",
+   "out": false,
+   "dots": []
+  },
+  {
+   "aria": "Monday, November 9, Brett",
+   "out": false,
+   "dots": []
+  },
+  {
+   "aria": "Tuesday, November 10, Brett, No school: Parent conferences",
+   "out": false,
+   "dots": []
+  },
+  {
+   "aria": "Wednesday, November 11, Brett",
+   "out": false,
+   "dots": []
+  },
+  {
+   "aria": "Thursday, November 12, Brett",
+   "out": false,
+   "dots": []
+  },
+  {
+   "aria": "Friday, November 13, Heather",
+   "out": false,
+   "dots": []
+  },
+  {
+   "aria": "Saturday, November 14, Heather",
+   "out": false,
+   "dots": []
+  },
+  {
+   "aria": "Sunday, November 15, Heather",
+   "out": false,
+   "dots": []
+  },
+  {
+   "aria": "Monday, November 16, Heather",
+   "out": false,
+   "dots": []
+  },
+  {
+   "aria": "Tuesday, November 17, Brett, switched",
+   "out": false,
+   "dots": []
+  },
+  {
+   "aria": "Wednesday, November 18, Heather",
+   "out": false,
+   "dots": []
+  },
+  {
+   "aria": "Thursday, November 19, Heather",
+   "out": false,
+   "dots": []
+  },
+  {
+   "aria": "Friday, November 20, Heather, Thanksgiving",
+   "out": false,
+   "dots": []
+  },
+  {
+   "aria": "Saturday, November 21, Heather, Thanksgiving",
+   "out": false,
+   "dots": []
+  },
+  {
+   "aria": "Sunday, November 22, Heather, Thanksgiving",
+   "out": false,
+   "dots": []
+  },
+  {
+   "aria": "Monday, November 23, Heather, Thanksgiving, No school: Thanksgiving break",
+   "out": false,
+   "dots": []
+  },
+  {
+   "aria": "Tuesday, November 24, Heather, Thanksgiving, No school: Thanksgiving break",
+   "out": false,
+   "dots": []
+  },
+  {
+   "aria": "Wednesday, November 25, Brett, switched, Thanksgiving, No school: Thanksgiving break",
+   "out": false,
+   "dots": []
+  },
+  {
+   "aria": "Thursday, November 26, Heather, Thanksgiving, No school: Thanksgiving break",
+   "out": false,
+   "dots": []
+  },
+  {
+   "aria": "Friday, November 27, Heather, Thanksgiving, No school: Thanksgiving break",
+   "out": false,
+   "dots": []
+  },
+  {
+   "aria": "Saturday, November 28, Heather, Thanksgiving, Ava has an activity",
+   "out": false,
+   "dots": [
+    "A c-orange"
+   ]
+  },
+  {
+   "aria": "Sunday, November 29, Heather, Thanksgiving",
+   "out": false,
+   "dots": []
+  },
+  {
+   "aria": "Monday, November 30, Heather",
+   "out": false,
+   "dots": []
+  },
+  {
+   "aria": "Tuesday, December 1, Heather, Ava has an activity",
+   "out": true,
+   "dots": [
+    "A c-orange"
+   ]
+  },
+  {
+   "aria": "Wednesday, December 2, Heather, Ava and Max have activities",
+   "out": true,
+   "dots": [
+    "A c-orange",
+    "M c-berry"
+   ]
+  },
+  {
+   "aria": "Thursday, December 3, Heather, Max has an activity",
+   "out": true,
+   "dots": [
+    "M c-berry"
+   ]
+  },
+  {
+   "aria": "Friday, December 4, Brett, Ava has an activity",
+   "out": true,
+   "dots": [
+    "A c-orange"
+   ]
+  },
+  {
+   "aria": "Saturday, December 5, Heather, switched, Ava and Max have activities",
+   "out": true,
+   "dots": [
+    "A c-orange",
+    "M c-berry"
+   ]
+  }
+ ],
+ "recentAll": {
+  "shown": true,
+  "segShown": true,
+  "pressed": [
+   "all"
+  ],
+  "rows": [
+   {
+    "type": "act",
+    "text": "Nov 30 4:00 p.m. Heather updated Soccer practice on Thu Dec 17: note",
+    "chips": [
+     "chip me | Heather"
+    ]
+   },
+   {
+    "type": "act",
+    "text": "Nov 30 3:00 p.m. Brett canceled Soccer practice on Mon Dec 7 at 5:30 p.m.",
+    "chips": [
+     "chip co | Brett"
+    ]
+   },
+   {
+    "type": "act",
+    "text": "Nov 29 7:00 a.m. Brett removed Soccer practice on Tue Dec 8 at 5:30 p.m.",
+    "chips": [
+     "chip co | Brett"
+    ]
+   },
+   {
+    "type": "act",
+    "text": "Nov 25 10:00 a.m. Heather added 4 activities Soccer practice, Soccer game, Dec 9 to Dec 22",
+    "chips": [
+     "chip me | Heather"
+    ]
+   },
+   {
+    "type": "act",
+    "text": "Nov 20 10:00 a.m. Heather added the team \"Basketball\"",
+    "chips": [
+     "chip me | Heather"
+    ]
+   },
+   {
+    "type": "kids",
+    "text": "Nov 10 10:00 a.m. Heather switched a night ⇄ Tue, Nov 17: Brett has the kids. Travel. Heather away overnight.",
+    "chips": [
+     "chip me | Heather",
+     "chip co | Brett"
+    ]
+   },
+   {
+    "type": "kids",
+    "text": "Nov 9 6:00 a.m. Heather switched a night ⇄ Wed, May 19: Brett has the kids.",
+    "chips": [
+     "chip me | Heather",
+     "chip co | Brett"
+    ]
+   },
+   {
+    "type": "kids",
+    "text": "Nov 8 3:20 p.m. Heather switched a night ⇄ Wed, Apr 7: Grandma has the kids. Work. Heather has a deadline.",
+    "chips": [
+     "chip me | Heather",
+     "chip grandma | Grandma"
+    ]
+   },
+   {
+    "type": "kids",
+    "text": "Nov 8 3:15 p.m. Heather switched a night ⇄ Tue, Mar 9: Brett has the kids. Work. Heather at a board meeting.",
+    "chips": [
+     "chip me | Heather",
+     "chip co | Brett"
+    ]
+   },
+   {
+    "type": "kids",
+    "text": "Nov 7 4:00 a.m. Heather switched nights ⇄ Feb 27 to Feb 28: Heather has the kids. Coverage requested. Brett out of town.",
+    "chips": [
+     "chip me | Heather",
+     "chip me | Heather"
+    ]
+   },
+   {
+    "type": "kids",
+    "text": "Nov 6 11:45 a.m. Heather switched a night ⇄ Fri, Jan 15: Someone else has the kids. Coverage requested.",
+    "chips": [
+     "chip me | Heather",
+     "chip other | Someone else"
+    ]
+   },
+   {
+    "type": "kids",
+    "text": "Nov 5 8:00 a.m. Heather switched nights ⇄ Dec 22 to Dec 23: Grandma has the kids. Travel. Brett traveling.",
+    "chips": [
+     "chip me | Heather",
+     "chip grandma | Grandma"
+    ]
+   }
+  ],
+  "more": true
+ },
+ "recentAct": {
+  "shown": true,
+  "segShown": true,
+  "pressed": [
+   "act"
+  ],
+  "rows": [
+   {
+    "type": "act",
+    "text": "Nov 30 4:00 p.m. Heather updated Soccer practice on Thu Dec 17: note",
+    "chips": [
+     "chip me | Heather"
+    ]
+   },
+   {
+    "type": "act",
+    "text": "Nov 30 3:00 p.m. Brett canceled Soccer practice on Mon Dec 7 at 5:30 p.m.",
+    "chips": [
+     "chip co | Brett"
+    ]
+   },
+   {
+    "type": "act",
+    "text": "Nov 29 7:00 a.m. Brett removed Soccer practice on Tue Dec 8 at 5:30 p.m.",
+    "chips": [
+     "chip co | Brett"
+    ]
+   },
+   {
+    "type": "act",
+    "text": "Nov 25 10:00 a.m. Heather added 4 activities Soccer practice, Soccer game, Dec 9 to Dec 22",
+    "chips": [
+     "chip me | Heather"
+    ]
+   },
+   {
+    "type": "act",
+    "text": "Nov 20 10:00 a.m. Heather added the team \"Basketball\"",
+    "chips": [
+     "chip me | Heather"
+    ]
+   }
+  ],
+  "more": false
+ },
+ "recentKids": {
+  "shown": true,
+  "segShown": true,
+  "pressed": [
+   "kids"
+  ],
+  "rows": [
+   {
+    "type": "kids",
+    "text": "Nov 10 10:00 a.m. Heather switched a night ⇄ Tue, Nov 17: Brett has the kids. Travel. Heather away overnight.",
+    "chips": [
+     "chip me | Heather",
+     "chip co | Brett"
+    ]
+   },
+   {
+    "type": "kids",
+    "text": "Nov 9 6:00 a.m. Heather switched a night ⇄ Wed, May 19: Brett has the kids.",
+    "chips": [
+     "chip me | Heather",
+     "chip co | Brett"
+    ]
+   },
+   {
+    "type": "kids",
+    "text": "Nov 8 3:20 p.m. Heather switched a night ⇄ Wed, Apr 7: Grandma has the kids. Work. Heather has a deadline.",
+    "chips": [
+     "chip me | Heather",
+     "chip grandma | Grandma"
+    ]
+   },
+   {
+    "type": "kids",
+    "text": "Nov 8 3:15 p.m. Heather switched a night ⇄ Tue, Mar 9: Brett has the kids. Work. Heather at a board meeting.",
+    "chips": [
+     "chip me | Heather",
+     "chip co | Brett"
+    ]
+   },
+   {
+    "type": "kids",
+    "text": "Nov 7 4:00 a.m. Heather switched nights ⇄ Feb 27 to Feb 28: Heather has the kids. Coverage requested. Brett out of town.",
+    "chips": [
+     "chip me | Heather",
+     "chip me | Heather"
+    ]
+   },
+   {
+    "type": "kids",
+    "text": "Nov 6 11:45 a.m. Heather switched a night ⇄ Fri, Jan 15: Someone else has the kids. Coverage requested.",
+    "chips": [
+     "chip me | Heather",
+     "chip other | Someone else"
+    ]
+   },
+   {
+    "type": "kids",
+    "text": "Nov 5 8:00 a.m. Heather switched nights ⇄ Dec 22 to Dec 23: Grandma has the kids. Travel. Brett traveling.",
+    "chips": [
+     "chip me | Heather",
+     "chip grandma | Grandma"
+    ]
+   },
+   {
+    "type": "kids",
+    "text": "Nov 2 1:00 p.m. Heather switched a night ⇄ Wed, Nov 25: Brett has the kids. Trade or other. Traded for Dec 5.",
+    "chips": [
+     "chip me | Heather",
+     "chip co | Brett"
+    ]
+   },
+   {
+    "type": "kids",
+    "text": "Nov 2 1:00 p.m. Heather switched a night ⇄ Sat, Dec 5: Heather has the kids. Trade or other. Traded for Nov 25.",
+    "chips": [
+     "chip me | Heather",
+     "chip me | Heather"
+    ]
+   }
+  ],
+  "more": false
+ },
+ "recentAllMore": {
+  "shown": true,
+  "segShown": true,
+  "pressed": [
+   "all"
+  ],
+  "rows": [
+   {
+    "type": "act",
+    "text": "Nov 30 4:00 p.m. Heather updated Soccer practice on Thu Dec 17: note",
+    "chips": [
+     "chip me | Heather"
+    ]
+   },
+   {
+    "type": "act",
+    "text": "Nov 30 3:00 p.m. Brett canceled Soccer practice on Mon Dec 7 at 5:30 p.m.",
+    "chips": [
+     "chip co | Brett"
+    ]
+   },
+   {
+    "type": "act",
+    "text": "Nov 29 7:00 a.m. Brett removed Soccer practice on Tue Dec 8 at 5:30 p.m.",
+    "chips": [
+     "chip co | Brett"
+    ]
+   },
+   {
+    "type": "act",
+    "text": "Nov 25 10:00 a.m. Heather added 4 activities Soccer practice, Soccer game, Dec 9 to Dec 22",
+    "chips": [
+     "chip me | Heather"
+    ]
+   },
+   {
+    "type": "act",
+    "text": "Nov 20 10:00 a.m. Heather added the team \"Basketball\"",
+    "chips": [
+     "chip me | Heather"
+    ]
+   },
+   {
+    "type": "kids",
+    "text": "Nov 10 10:00 a.m. Heather switched a night ⇄ Tue, Nov 17: Brett has the kids. Travel. Heather away overnight.",
+    "chips": [
+     "chip me | Heather",
+     "chip co | Brett"
+    ]
+   },
+   {
+    "type": "kids",
+    "text": "Nov 9 6:00 a.m. Heather switched a night ⇄ Wed, May 19: Brett has the kids.",
+    "chips": [
+     "chip me | Heather",
+     "chip co | Brett"
+    ]
+   },
+   {
+    "type": "kids",
+    "text": "Nov 8 3:20 p.m. Heather switched a night ⇄ Wed, Apr 7: Grandma has the kids. Work. Heather has a deadline.",
+    "chips": [
+     "chip me | Heather",
+     "chip grandma | Grandma"
+    ]
+   },
+   {
+    "type": "kids",
+    "text": "Nov 8 3:15 p.m. Heather switched a night ⇄ Tue, Mar 9: Brett has the kids. Work. Heather at a board meeting.",
+    "chips": [
+     "chip me | Heather",
+     "chip co | Brett"
+    ]
+   },
+   {
+    "type": "kids",
+    "text": "Nov 7 4:00 a.m. Heather switched nights ⇄ Feb 27 to Feb 28: Heather has the kids. Coverage requested. Brett out of town.",
+    "chips": [
+     "chip me | Heather",
+     "chip me | Heather"
+    ]
+   },
+   {
+    "type": "kids",
+    "text": "Nov 6 11:45 a.m. Heather switched a night ⇄ Fri, Jan 15: Someone else has the kids. Coverage requested.",
+    "chips": [
+     "chip me | Heather",
+     "chip other | Someone else"
+    ]
+   },
+   {
+    "type": "kids",
+    "text": "Nov 5 8:00 a.m. Heather switched nights ⇄ Dec 22 to Dec 23: Grandma has the kids. Travel. Brett traveling.",
+    "chips": [
+     "chip me | Heather",
+     "chip grandma | Grandma"
+    ]
+   },
+   {
+    "type": "kids",
+    "text": "Nov 2 1:00 p.m. Heather switched a night ⇄ Wed, Nov 25: Brett has the kids. Trade or other. Traded for Dec 5.",
+    "chips": [
+     "chip me | Heather",
+     "chip co | Brett"
+    ]
+   },
+   {
+    "type": "kids",
+    "text": "Nov 2 1:00 p.m. Heather switched a night ⇄ Sat, Dec 5: Heather has the kids. Trade or other. Traded for Nov 25.",
+    "chips": [
+     "chip me | Heather",
+     "chip me | Heather"
+    ]
+   }
+  ],
+  "more": false
+ },
+ "panelMonth": {
+  "shown": true,
+  "pressed": [
+   "month"
+  ],
+  "offShown": false,
+  "filters": "Showing Ava Max",
+  "days": [
+   {
+    "date": "Tue, Dec 1 Today",
+    "chip": "chip me | Heather",
+    "handoff": null,
+    "none": null,
+    "events": [
+     {
+      "id": "e0000000-0000-4000-8000-000000000002",
+      "cls": "c-orange ev",
+      "time": "5:30 p.m. to 6:30",
+      "title": "Ava Soccer practice",
+      "kids": [
+       "Ava c-orange"
+      ],
+      "flags": [],
+      "where": "Rec Center Field 3 100 Example Park Rd, Faketown",
+      "map": {
+       "href": "https://maps.apple.com/?q=100%20Example%20Park%20Rd%2C%20Faketown",
+       "target": "_blank",
+       "rel": "noopener noreferrer"
+      },
+      "go": "Arrive 5:20. Leave by 5:05 from Heather's.",
+      "gear": "Bring: cleats, shin guards, water bottle",
+      "note": null,
+      "comments": [],
+      "crossedOut": false
+     }
+    ]
+   },
+   {
+    "date": "Wed, Dec 2",
+    "chip": "chip me | Heather",
+    "handoff": null,
+    "none": null,
+    "events": [
+     {
+      "id": "e0000000-0000-4000-8000-000000000003",
+      "cls": "c-orange ev",
+      "time": "4:15 p.m. to 5:00",
+      "title": "Ava Piano lesson",
+      "kids": [
+       "Ava c-orange"
+      ],
+      "flags": [],
+      "where": "Studio B",
+      "map": null,
+      "go": "Arrive 4:10. Leave by 4:00 from Heather's.",
+      "gear": "Bring: piano book",
+      "note": null,
+      "comments": [],
+      "crossedOut": false
+     },
+     {
+      "id": "e0000000-0000-4000-8000-000000000004",
+      "cls": "b-berry c-orange ev kb",
+      "time": "6:00 p.m. to 7:30",
+      "title": "Ava Max Basketball practice",
+      "kids": [
+       "Ava c-orange",
+       "Max c-berry"
+      ],
+      "flags": [],
+      "where": "Eastside Gym 22 Sample St, Faketown",
+      "map": {
+       "href": "https://maps.apple.com/?q=22%20Sample%20St%2C%20Faketown",
+       "target": "_blank",
+       "rel": "noopener noreferrer"
+      },
+      "go": "Arrive 5:45. Leave by 5:35 from Heather's.",
+      "gear": "Bring: basketball shoes, jersey, water bottle",
+      "note": null,
+      "comments": [],
+      "crossedOut": false
+     }
+    ]
+   },
+   {
+    "date": "Thu, Dec 3",
+    "chip": "chip me | Heather",
+    "handoff": null,
+    "none": null,
+    "events": [
+     {
+      "id": "e0000000-0000-4000-8000-000000000005",
+      "cls": "c-berry ev",
+      "time": "7:00 p.m.",
+      "title": "Max Swim club",
+      "kids": [
+       "Max c-berry"
+      ],
+      "flags": [],
+      "where": "West Pool",
+      "map": null,
+      "go": null,
+      "gear": null,
+      "note": null,
+      "comments": [],
+      "crossedOut": false
+     }
+    ]
+   },
+   {
+    "date": "Fri, Dec 4 Handoff day",
+    "chip": "chip co | Brett",
+    "handoff": {
+     "cls": "co handoff",
+     "head": "⇄ Handoff to Brett after school",
+     "chip": "chip co | Brett",
+     "packTitle": "Pack for Brett's night",
+     "pack": [
+      {
+       "text": "Ava: cleats, shin guards, water bottle",
+       "dots": [
+        "c-orange"
+       ]
+      }
+     ]
+    },
+    "none": null,
+    "events": [
+     {
+      "id": "e0000000-0000-4000-8000-000000000006",
+      "cls": "c-orange ev",
+      "time": "6:00 p.m.",
+      "title": "Ava Soccer game",
+      "kids": [
+       "Ava c-orange"
+      ],
+      "flags": [],
+      "where": "Rec Center Field 3 100 Example Park Rd, Faketown",
+      "map": {
+       "href": "https://maps.apple.com/?q=100%20Example%20Park%20Rd%2C%20Faketown",
+       "target": "_blank",
+       "rel": "noopener noreferrer"
+      },
+      "go": "Arrive 5:30. Leave by 5:05 from Brett's.",
+      "gear": "Bring: cleats, shin guards, water bottle",
+      "note": null,
+      "comments": [],
+      "crossedOut": false
+     }
+    ]
+   },
+   {
+    "date": "Sat, Dec 5 Handoff day",
+    "chip": "chip me | Heather",
+    "handoff": {
+     "cls": "handoff me",
+     "head": "⇄ Handoff to Heather",
+     "chip": "chip me | Heather",
+     "packTitle": "Pack for Heather's night",
+     "pack": [
+      {
+       "text": "Both: basketball shoes, jerseys, knee pads",
+       "dots": [
+        "c-orange",
+        "c-berry"
+       ]
+      }
+     ]
+    },
+    "none": null,
+    "events": [
+     {
+      "id": "e0000000-0000-4000-8000-000000000007",
+      "cls": "b-berry c-orange ev kb",
+      "time": "10:00 a.m. to 11:00",
+      "title": "Ava Max Basketball game",
+      "kids": [
+       "Ava c-orange",
+       "Max c-berry"
+      ],
+      "flags": [],
+      "where": "Eastside Gym 22 Sample St, Faketown",
+      "map": {
+       "href": "https://maps.apple.com/?q=22%20Sample%20St%2C%20Faketown",
+       "target": "_blank",
+       "rel": "noopener noreferrer"
+      },
+      "go": "Arrive 9:40. Leave by 9:30 from Heather's.",
+      "gear": "Bring: basketball shoes, jerseys, knee pads",
+      "note": null,
+      "comments": [
+       "Brett @Angie Want to come watch? Tip-off is at 10."
+      ],
+      "crossedOut": false
+     }
+    ]
+   },
+   {
+    "date": "Sun, Dec 6 Handoff day",
+    "chip": "chip co | Brett",
+    "handoff": {
+     "cls": "co handoff",
+     "head": "⇄ Handoff to Brett",
+     "chip": "chip co | Brett",
+     "packTitle": "Pack for Brett's 5 nights",
+     "pack": [
+      {
+       "text": "Ava: cleats, shin guards, water bottle",
+       "dots": [
+        "c-orange"
+       ]
+      }
+     ]
+    },
+    "none": null,
+    "events": [
+     {
+      "id": "e0000000-0000-4000-8000-000000000008",
+      "cls": "c-berry ev",
+      "time": "2:00 p.m.",
+      "title": "Max Birthday party",
+      "kids": [
+       "Max c-berry"
+      ],
+      "flags": [],
+      "where": "Party barn on Example Rd",
+      "map": null,
+      "go": null,
+      "gear": null,
+      "note": null,
+      "comments": [],
+      "crossedOut": false
+     }
+    ]
+   },
+   {
+    "date": "Mon, Dec 7",
+    "chip": "chip co | Brett",
+    "handoff": null,
+    "none": null,
+    "events": [
+     {
+      "id": "e0000000-0000-4000-8000-000000000009",
+      "cls": "c-orange canceled ev",
+      "time": "5:30 p.m.",
+      "title": "Canceled Ava Soccer practice",
+      "kids": [
+       "Ava c-orange"
+      ],
+      "flags": [
+       "Canceled"
+      ],
+      "where": "Rec Center Field 3 100 Example Park Rd, Faketown",
+      "map": {
+       "href": "https://maps.apple.com/?q=100%20Example%20Park%20Rd%2C%20Faketown",
+       "target": "_blank",
+       "rel": "noopener noreferrer"
+      },
+      "go": null,
+      "gear": null,
+      "note": null,
+      "comments": [],
+      "crossedOut": true
+     }
+    ]
+   },
+   {
+    "date": "Wed, Dec 9",
+    "chip": "chip co | Brett",
+    "handoff": null,
+    "none": null,
+    "events": [
+     {
+      "id": "e0000000-0000-4000-8000-000000000010",
+      "cls": "c-orange ev",
+      "time": "5:30 p.m.",
+      "title": "Ava Soccer practice",
+      "kids": [
+       "Ava c-orange"
+      ],
+      "flags": [],
+      "where": "Rec Center Field 3 100 Example Park Rd, Faketown",
+      "map": {
+       "href": "https://maps.apple.com/?q=100%20Example%20Park%20Rd%2C%20Faketown",
+       "target": "_blank",
+       "rel": "noopener noreferrer"
+      },
+      "go": "Arrive 5:20. Leave by 4:55 from Brett's.",
+      "gear": "Bring: cleats, shin guards, water bottle",
+      "note": null,
+      "comments": [],
+      "crossedOut": false
+     }
+    ]
+   },
+   {
+    "date": "Fri, Dec 11 Handoff day",
+    "chip": "chip me | Heather",
+    "handoff": {
+     "cls": "handoff me",
+     "head": "⇄ Handoff to Heather after school",
+     "chip": "chip me | Heather",
+     "packTitle": "Pack for Heather's week",
+     "pack": [
+      {
+       "text": "Ava: cleats, shin guards, game uniform, piano book, water bottle",
+       "dots": [
+        "c-orange"
+       ]
+      },
+      {
+       "text": "Both: basketball shoes, jersey, water bottle",
+       "dots": [
+        "c-orange",
+        "c-berry"
+       ]
+      }
+     ]
+    },
+    "none": null,
+    "events": [
+     {
+      "id": "e0000000-0000-4000-8000-000000000011",
+      "cls": "b-berry c-orange ev kb",
+      "time": "6:00 p.m.",
+      "title": "Ava Max Basketball practice",
+      "kids": [
+       "Ava c-orange",
+       "Max c-berry"
+      ],
+      "flags": [],
+      "where": "Eastside Gym 22 Sample St, Faketown",
+      "map": {
+       "href": "https://maps.apple.com/?q=22%20Sample%20St%2C%20Faketown",
+       "target": "_blank",
+       "rel": "noopener noreferrer"
+      },
+      "go": "Arrive 5:45. Leave by 5:35 from Heather's.",
+      "gear": "Bring: basketball shoes, jersey, water bottle",
+      "note": null,
+      "comments": [],
+      "crossedOut": false
+     }
+    ]
+   },
+   {
+    "date": "Sat, Dec 12",
+    "chip": "chip me | Heather",
+    "handoff": null,
+    "none": null,
+    "events": [
+     {
+      "id": "e0000000-0000-4000-8000-000000000012",
+      "cls": "c-orange ev",
+      "time": "10:00 a.m.",
+      "title": "Ava Soccer game",
+      "kids": [
+       "Ava c-orange"
+      ],
+      "flags": [],
+      "where": "Rec Center Field 3 100 Example Park Rd, Faketown",
+      "map": {
+       "href": "https://maps.apple.com/?q=100%20Example%20Park%20Rd%2C%20Faketown",
+       "target": "_blank",
+       "rel": "noopener noreferrer"
+      },
+      "go": "Arrive 9:30. Leave by 9:15 from Heather's.",
+      "gear": "Bring: cleats, shin guards, game uniform",
+      "note": null,
+      "comments": [],
+      "crossedOut": false
+     }
+    ]
+   },
+   {
+    "date": "Mon, Dec 14",
+    "chip": "chip me | Heather",
+    "handoff": null,
+    "none": null,
+    "events": [
+     {
+      "id": "e0000000-0000-4000-8000-000000000013",
+      "cls": "b-berry c-orange canceled ev kb",
+      "time": "6:00 p.m.",
+      "title": "Canceled Ava Max Basketball practice",
+      "kids": [
+       "Ava c-orange",
+       "Max c-berry"
+      ],
+      "flags": [
+       "Canceled"
+      ],
+      "where": "Eastside Gym 22 Sample St, Faketown",
+      "map": {
+       "href": "https://maps.apple.com/?q=22%20Sample%20St%2C%20Faketown",
+       "target": "_blank",
+       "rel": "noopener noreferrer"
+      },
+      "go": null,
+      "gear": null,
+      "note": null,
+      "comments": [],
+      "crossedOut": true
+     }
+    ]
+   },
+   {
+    "date": "Wed, Dec 16",
+    "chip": "chip me | Heather",
+    "handoff": null,
+    "none": null,
+    "events": [
+     {
+      "id": "e0000000-0000-4000-8000-000000000014",
+      "cls": "c-orange ev",
+      "time": "4:15 p.m. to 5:00",
+      "title": "Ava Piano lesson",
+      "kids": [
+       "Ava c-orange"
+      ],
+      "flags": [],
+      "where": "Studio B",
+      "map": null,
+      "go": "Arrive 4:10. Leave by 4:00 from Heather's.",
+      "gear": "Bring: piano book",
+      "note": null,
+      "comments": [],
+      "crossedOut": false
+     }
+    ]
+   },
+   {
+    "date": "Thu, Dec 17",
+    "chip": "chip me | Heather",
+    "handoff": null,
+    "none": null,
+    "events": [
+     {
+      "id": "e0000000-0000-4000-8000-000000000015",
+      "cls": "c-orange ev",
+      "time": "5:30 p.m.",
+      "title": "Ava Soccer practice",
+      "kids": [
+       "Ava c-orange"
+      ],
+      "flags": [],
+      "where": "Rec Center Field 3 100 Example Park Rd, Faketown",
+      "map": {
+       "href": "https://maps.apple.com/?q=100%20Example%20Park%20Rd%2C%20Faketown",
+       "target": "_blank",
+       "rel": "noopener noreferrer"
+      },
+      "go": "Arrive 5:20. Leave by 5:05 from Heather's.",
+      "gear": "Bring: cleats, shin guards, water bottle",
+      "note": "Note: Bring the red pinnie.",
+      "comments": [
+       "Heather @Brett @Angie The pinnie is in the car."
+      ],
+      "crossedOut": false
+     }
+    ]
+   },
+   {
+    "date": "Fri, Dec 18 Handoff day",
+    "chip": "chip co | Brett",
+    "handoff": {
+     "cls": "co handoff",
+     "head": "⇄ Handoff to Brett after school",
+     "chip": "chip co | Brett",
+     "packTitle": "Pack for Brett's 4 nights",
+     "pack": [
+      {
+       "text": "Ava: cleats, shin guards, water bottle",
+       "dots": [
+        "c-orange"
+       ]
+      },
+      {
+       "text": "Both: basketball shoes, jerseys, water bottle",
+       "dots": [
+        "c-orange",
+        "c-berry"
+       ]
+      }
+     ]
+    },
+    "none": null,
+    "events": [
+     {
+      "id": "e0000000-0000-4000-8000-000000000016",
+      "cls": "b-berry c-orange ev kb",
+      "time": "1:00 p.m.",
+      "title": "Ava Max Basketball game",
+      "kids": [
+       "Ava c-orange",
+       "Max c-berry"
+      ],
+      "flags": [],
+      "where": "Eastside Gym 22 Sample St, Faketown",
+      "map": {
+       "href": "https://maps.apple.com/?q=22%20Sample%20St%2C%20Faketown",
+       "target": "_blank",
+       "rel": "noopener noreferrer"
+      },
+      "go": "Arrive 12:40. Leave by 12:20 from Brett's.",
+      "gear": "Bring: basketball shoes, jerseys",
+      "note": null,
+      "comments": [],
+      "crossedOut": false
+     }
+    ]
+   },
+   {
+    "date": "Sat, Dec 19",
+    "chip": "chip co | Brett",
+    "handoff": null,
+    "none": null,
+    "events": [
+     {
+      "id": "e0000000-0000-4000-8000-000000000017",
+      "cls": "c-orange ev",
+      "time": "10:00 a.m.",
+      "title": "Ava Soccer game",
+      "kids": [
+       "Ava c-orange"
+      ],
+      "flags": [],
+      "where": "Rec Center Field 3 100 Example Park Rd, Faketown",
+      "map": {
+       "href": "https://maps.apple.com/?q=100%20Example%20Park%20Rd%2C%20Faketown",
+       "target": "_blank",
+       "rel": "noopener noreferrer"
+      },
+      "go": "Arrive 9:15. Leave by 8:50 from Brett's.",
+      "gear": "Bring: cleats, shin guards, water bottle",
+      "note": null,
+      "comments": [],
+      "crossedOut": false
+     }
+    ]
+   },
+   {
+    "date": "Sun, Dec 20",
+    "chip": "chip co | Brett",
+    "handoff": null,
+    "none": null,
+    "events": [
+     {
+      "id": "e0000000-0000-4000-8000-000000000018",
+      "cls": "b-berry c-orange ev kb",
+      "time": "3:00 p.m.",
+      "title": "Ava Max Basketball practice",
+      "kids": [
+       "Ava c-orange",
+       "Max c-berry"
+      ],
+      "flags": [],
+      "where": "Eastside Gym 22 Sample St, Faketown",
+      "map": {
+       "href": "https://maps.apple.com/?q=22%20Sample%20St%2C%20Faketown",
+       "target": "_blank",
+       "rel": "noopener noreferrer"
+      },
+      "go": "Arrive 2:45. Leave by 2:25 from Brett's.",
+      "gear": "Bring: basketball shoes, jersey, water bottle",
+      "note": null,
+      "comments": [],
+      "crossedOut": false
+     }
+    ]
+   },
+   {
+    "date": "Tue, Dec 22 Handoff day",
+    "chip": "chip grandma | Grandma",
+    "handoff": {
+     "cls": "grandma handoff",
+     "head": "⇄ Handoff to Grandma",
+     "chip": "chip grandma | Grandma",
+     "packTitle": "Pack for Grandma's 2 nights",
+     "pack": [
+      {
+       "text": "Ava: cleats, shin guards, water bottle",
+       "dots": [
+        "c-orange"
+       ]
+      },
+      {
+       "text": "Both: basketball shoes, jersey, water bottle",
+       "dots": [
+        "c-orange",
+        "c-berry"
+       ]
+      }
+     ]
+    },
+    "none": null,
+    "events": [
+     {
+      "id": "e0000000-0000-4000-8000-000000000019",
+      "cls": "c-orange ev",
+      "time": "5:30 p.m.",
+      "title": "Ava Soccer practice",
+      "kids": [
+       "Ava c-orange"
+      ],
+      "flags": [],
+      "where": "Rec Center Field 3 100 Example Park Rd, Faketown",
+      "map": {
+       "href": "https://maps.apple.com/?q=100%20Example%20Park%20Rd%2C%20Faketown",
+       "target": "_blank",
+       "rel": "noopener noreferrer"
+      },
+      "go": "Arrive 5:20. Leave by 5:00 from Grandma's.",
+      "gear": "Bring: cleats, shin guards, water bottle",
+      "note": null,
+      "comments": [],
+      "crossedOut": false
+     }
+    ]
+   },
+   {
+    "date": "Wed, Dec 23",
+    "chip": "chip grandma | Grandma",
+    "handoff": null,
+    "none": null,
+    "events": [
+     {
+      "id": "e0000000-0000-4000-8000-000000000020",
+      "cls": "b-berry c-orange ev kb",
+      "time": "6:00 p.m.",
+      "title": "Ava Max Basketball practice",
+      "kids": [
+       "Ava c-orange",
+       "Max c-berry"
+      ],
+      "flags": [],
+      "where": "Eastside Gym 22 Sample St, Faketown",
+      "map": {
+       "href": "https://maps.apple.com/?q=22%20Sample%20St%2C%20Faketown",
+       "target": "_blank",
+       "rel": "noopener noreferrer"
+      },
+      "go": "Arrive 5:45.",
+      "gear": "Bring: basketball shoes, jersey, water bottle",
+      "note": null,
+      "comments": [],
+      "crossedOut": false
+     }
+    ]
+   },
+   {
+    "date": "Thu, Dec 24 Handoff day",
+    "chip": "chip co | Brett",
+    "handoff": {
+     "cls": "co handoff",
+     "head": "⇄ Handoff to Brett",
+     "chip": "chip co | Brett",
+     "packTitle": null,
+     "pack": []
+    },
+    "none": "No activities.",
+    "events": []
+   },
+   {
+    "date": "Sat, Dec 26 Handoff day",
+    "chip": "chip me | Heather",
+    "handoff": {
+     "cls": "handoff me",
+     "head": "⇄ Handoff to Heather at 2 p.m.",
+     "chip": "chip me | Heather",
+     "packTitle": "Pack for Heather's week",
+     "pack": [
+      {
+       "text": "Max: skates, helmet",
+       "dots": [
+        "c-berry"
+       ]
+      }
+     ]
+    },
+    "none": null,
+    "events": [
+     {
+      "id": "e0000000-0000-4000-8000-000000000021",
+      "cls": "c-berry ev",
+      "time": "10:00 a.m. to 11:00",
+      "title": "Max Skating",
+      "kids": [
+       "Max c-berry"
+      ],
+      "flags": [],
+      "where": "West Pool",
+      "map": null,
+      "go": "Arrive 9:45.",
+      "gear": "Bring: skates, helmet",
+      "note": null,
+      "comments": [],
+      "crossedOut": false
+     }
+    ]
+   },
+   {
+    "date": "Thu, Dec 31",
+    "chip": "chip me | Heather",
+    "handoff": null,
+    "none": null,
+    "events": [
+     {
+      "id": "e0000000-0000-4000-8000-000000000024",
+      "cls": "c-berry ev",
+      "time": "7:00 p.m.",
+      "title": "Max Movie night",
+      "kids": [
+       "Max c-berry"
+      ],
+      "flags": [],
+      "where": "Library",
+      "map": null,
+      "go": null,
+      "gear": null,
+      "note": null,
+      "comments": [],
+      "crossedOut": false
+     }
+    ]
+   }
+  ],
+  "editButtons": 0
+ },
+ "daySheets": {
+  "2026-12-04": {
+   "shown": true,
+   "title": "Friday, December 4",
+   "body": [
+    "Brett has the kids that night",
+    "School day",
+    "Handoff: Heather to Brett, after school"
+   ],
+   "chip": "chip co | Brett",
+   "actsShown": true,
+   "events": [
+    {
+     "id": "e0000000-0000-4000-8000-000000000006",
+     "cls": "c-orange ev",
+     "time": "6:00 p.m.",
+     "title": "Ava Soccer game",
+     "kids": [
+      "Ava c-orange"
+     ],
+     "flags": [],
+     "where": "Rec Center Field 3 100 Example Park Rd, Faketown",
+     "map": {
+      "href": "https://maps.apple.com/?q=100%20Example%20Park%20Rd%2C%20Faketown",
+      "target": "_blank",
+      "rel": "noopener noreferrer"
+     },
+     "go": "Arrive 5:30. Leave by 5:05 from Brett's.",
+     "gear": "Bring: cleats, shin guards, water bottle",
+     "note": null,
+     "comments": [],
+     "crossedOut": false
+    }
+   ],
+   "focus": []
+  },
+  "2026-12-05": {
+   "shown": true,
+   "title": "Saturday, December 5",
+   "body": [
+    "Heather has the kids that night",
+    "⇄ Switched. Usually Brett's day.",
+    "Why: Trade or other",
+    "Note: Traded for Nov 25",
+    "Handoff: Brett to Heather"
+   ],
+   "chip": "chip me | Heather",
+   "actsShown": true,
+   "events": [
+    {
+     "id": "e0000000-0000-4000-8000-000000000007",
+     "cls": "b-berry c-orange ev kb",
+     "time": "10:00 a.m. to 11:00",
+     "title": "Ava Max Basketball game",
+     "kids": [
+      "Ava c-orange",
+      "Max c-berry"
+     ],
+     "flags": [],
+     "where": "Eastside Gym 22 Sample St, Faketown",
+     "map": {
+      "href": "https://maps.apple.com/?q=22%20Sample%20St%2C%20Faketown",
+      "target": "_blank",
+      "rel": "noopener noreferrer"
+     },
+     "go": "Arrive 9:40. Leave by 9:30 from Heather's.",
+     "gear": "Bring: basketball shoes, jerseys, knee pads",
+     "note": null,
+     "comments": [
+      "Brett @Angie Want to come watch? Tip-off is at 10."
+     ],
+     "crossedOut": false
+    }
+   ],
+   "focus": []
+  },
+  "2026-12-07": {
+   "shown": true,
+   "title": "Monday, December 7",
+   "body": [
+    "Brett has the kids that night",
+    "School day"
+   ],
+   "chip": "chip co | Brett",
+   "actsShown": true,
+   "events": [
+    {
+     "id": "e0000000-0000-4000-8000-000000000009",
+     "cls": "c-orange canceled ev",
+     "time": "5:30 p.m.",
+     "title": "Canceled Ava Soccer practice",
+     "kids": [
+      "Ava c-orange"
+     ],
+     "flags": [
+      "Canceled"
+     ],
+     "where": "Rec Center Field 3 100 Example Park Rd, Faketown",
+     "map": {
+      "href": "https://maps.apple.com/?q=100%20Example%20Park%20Rd%2C%20Faketown",
+      "target": "_blank",
+      "rel": "noopener noreferrer"
+     },
+     "go": null,
+     "gear": null,
+     "note": null,
+     "comments": [],
+     "crossedOut": true
+    }
+   ],
+   "focus": []
+  },
+  "2026-12-19": {
+   "shown": true,
+   "title": "Saturday, December 19",
+   "body": [
+    "Brett has the kids that night",
+    "★ Christmas, first part (Brett's holiday this year)"
+   ],
+   "chip": "chip co | Brett",
+   "actsShown": true,
+   "events": [
+    {
+     "id": "e0000000-0000-4000-8000-000000000017",
+     "cls": "c-orange ev",
+     "time": "10:00 a.m.",
+     "title": "Ava Soccer game",
+     "kids": [
+      "Ava c-orange"
+     ],
+     "flags": [],
+     "where": "Rec Center Field 3 100 Example Park Rd, Faketown",
+     "map": {
+      "href": "https://maps.apple.com/?q=100%20Example%20Park%20Rd%2C%20Faketown",
+      "target": "_blank",
+      "rel": "noopener noreferrer"
+     },
+     "go": "Arrive 9:15. Leave by 8:50 from Brett's.",
+     "gear": "Bring: cleats, shin guards, water bottle",
+     "note": null,
+     "comments": [],
+     "crossedOut": false
+    }
+   ],
+   "focus": []
+  },
+  "2026-12-22": {
+   "shown": true,
+   "title": "Tuesday, December 22",
+   "body": [
+    "Grandma has the kids that night",
+    "⇄ Switched. Usually Brett's day.",
+    "Why: Travel",
+    "Note: Brett traveling",
+    "★ Christmas, first part (Brett's holiday this year)",
+    "No school: Winter break",
+    "Handoff: Brett to Grandma"
+   ],
+   "chip": "chip grandma | Grandma",
+   "actsShown": true,
+   "events": [
+    {
+     "id": "e0000000-0000-4000-8000-000000000019",
+     "cls": "c-orange ev",
+     "time": "5:30 p.m.",
+     "title": "Ava Soccer practice",
+     "kids": [
+      "Ava c-orange"
+     ],
+     "flags": [],
+     "where": "Rec Center Field 3 100 Example Park Rd, Faketown",
+     "map": {
+      "href": "https://maps.apple.com/?q=100%20Example%20Park%20Rd%2C%20Faketown",
+      "target": "_blank",
+      "rel": "noopener noreferrer"
+     },
+     "go": "Arrive 5:20. Leave by 5:00 from Grandma's.",
+     "gear": "Bring: cleats, shin guards, water bottle",
+     "note": null,
+     "comments": [],
+     "crossedOut": false
+    }
+   ],
+   "focus": []
+  },
+  "2026-12-26": {
+   "shown": true,
+   "title": "Saturday, December 26",
+   "body": [
+    "Heather has the kids that night",
+    "★ Christmas, second part (Heather's holiday this year)",
+    "Handoff: Brett to Heather, at 2 p.m."
+   ],
+   "chip": "chip me | Heather",
+   "actsShown": true,
+   "events": [
+    {
+     "id": "e0000000-0000-4000-8000-000000000021",
+     "cls": "c-berry ev",
+     "time": "10:00 a.m. to 11:00",
+     "title": "Max Skating",
+     "kids": [
+      "Max c-berry"
+     ],
+     "flags": [],
+     "where": "West Pool",
+     "map": null,
+     "go": "Arrive 9:45.",
+     "gear": "Bring: skates, helmet",
+     "note": null,
+     "comments": [],
+     "crossedOut": false
+    }
+   ],
+   "focus": []
+  },
+  "2027-01-15": {
+   "shown": true,
+   "title": "Friday, January 15",
+   "body": [
+    "Someone else has the kids that night",
+    "⇄ Switched. Usually Brett's day.",
+    "Why: Coverage requested",
+    "School day",
+    "Handoff: Heather to Someone else"
+   ],
+   "chip": "chip other | Someone else",
+   "actsShown": true,
+   "events": [
+    {
+     "id": "e0000000-0000-4000-8000-000000000022",
+     "cls": "b-berry c-orange ev kb",
+     "time": "6:00 p.m.",
+     "title": "Ava Max Basketball practice",
+     "kids": [
+      "Ava c-orange",
+      "Max c-berry"
+     ],
+     "flags": [],
+     "where": "Eastside Gym 22 Sample St, Faketown",
+     "map": {
+      "href": "https://maps.apple.com/?q=22%20Sample%20St%2C%20Faketown",
+      "target": "_blank",
+      "rel": "noopener noreferrer"
+     },
+     "go": "Arrive 5:45.",
+     "gear": "Bring: basketball shoes, jersey, water bottle",
+     "note": null,
+     "comments": [],
+     "crossedOut": false
+    }
+   ],
+   "focus": []
+  }
+ },
+ "privacy": [
+  "visible text contains a night count: \"ff to Brett PACK FOR BRETT'S 5 NIGHTS Ava: cleats, shin gu\""
+ ],
+ "phones": [],
+ "errors": []
+}

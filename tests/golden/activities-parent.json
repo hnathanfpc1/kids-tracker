@@ -1,0 +1,92 @@
+{
+ "loadCalls": [
+  "my_role",
+  "get_editor_schedule",
+  "contacts.select"
+ ],
+ "lists": {
+  "teams": [
+   "Ava Max Basketball Eastside Gym. Arrive 15 min early, 20 for games. basketball shoes jersey water bottle Note: Same team this season. Edit",
+   "Ava Soccer Rec Center Field 3. Arrive 10 min early, 30 for games. cleats shin guards water bottle Edit",
+   "Max Chess club Off Arrive 0 min early, 0 for games. No gear yet. Edit"
+  ],
+  "places": [
+   "Eastside Gym 22 Sample St, Faketown 10 min from Heather's, 20 from Brett's. Add drive time from Angie's. Edit",
+   "Rec Center Field 3 100 Example Park Rd, Faketown 15 min from Heather's, 25 from Brett's, 20 from Angie's. Note: Park by the north lot. Edit",
+   "Studio B 10 min from Heather's. Add drive time from Brett's and Angie's. Edit",
+   "Unused Field Add drive time from Heather's, Brett's and Angie's. Edit",
+   "West Pool Add drive time from Heather's, Brett's and Angie's. Edit"
+  ],
+  "placeCount": "5 saved",
+  "kids": [
+   "A Ava Orange. Order 1. Edit",
+   "M Max Berry. Order 2. Edit"
+  ],
+  "contactInputs": [],
+  "contactRows": [
+   "Brett +15555550102",
+   "Heather +15555550103",
+   "Angie (Grandma) 5555550101"
+  ],
+  "contactHint": "Heather keeps these up to date. They are used by the Text an update button.",
+  "contactSave": false,
+  "log": [
+   "Nov 30 4:00 p.m. Heather updated Soccer practice on Thu Dec 17: note",
+   "Nov 30 3:00 p.m. Brett canceled Soccer practice on Mon Dec 7 at 5:30 p.m.",
+   "Nov 29 7:00 a.m. Brett removed Soccer practice on Tue Dec 8 at 5:30 p.m.",
+   "Nov 25 10:00 a.m. Heather added 4 activities Soccer practice, Soccer game, Dec 9 to Dec 22",
+   "Nov 20 10:00 a.m. Heather added the team \"Basketball\"",
+   "Nov 10 7:00 a.m. Heather added Soccer practice on Fri Feb 5 at 5:30 p.m.",
+   "Oct 1 8:00 a.m. Heather added Piano lesson on Wed Dec 2 at 4:15 p.m."
+  ],
+  "back": false,
+  "signOut": true
+ },
+ "e10": [
+  "Delete",
+  null
+ ],
+ "tags": [
+  "Heather",
+  "Angie"
+ ],
+ "cmt": {
+  "calls": [
+   [
+    "event_comments",
+    "insert",
+    {
+     "event_id": "e0000000-0000-4000-8000-000000000007",
+     "body": "Angie, tip-off moved to 10:15.",
+     "tagged": [
+      "grandma"
+     ]
+    }
+   ]
+  ],
+  "text": {
+   "shown": true,
+   "body": "Kids Tracker: Brett commented on Ava and Max's Basketball game on Sat, Dec 5 at 10:00 a.m.:\n\"Angie, tip-off moved to 10:15.\"\nhttp://TEST-ORIGIN/activities.html#e=e0000000-0000-4000-8000-000000000007",
+   "href": "sms://open?addresses=5555550101&body=Kids%20Tracker%3A%20Brett%20commented%20on%20Ava%20and%20Max's%20Basketball%20game%20on%20Sat%2C%20Dec%205%20at%2010%3A00%20a.m.%3A%0A%22Angie%2C%20tip-off%20moved%20to%2010%3A15.%22%0Ahttp%3A%2F%2FTEST-ORIGIN%2Factivities.html%23e%3De0000000-0000-4000-8000-000000000007",
+   "note": null,
+   "to": [
+    "Brett (you) [disabled]",
+    "Heather",
+    "Angie (Grandma) [checked]"
+   ]
+  }
+ },
+ "cancel": {
+  "shown": true,
+  "body": "Kids Tracker: Ava and Max's Basketball practice on Fri, Dec 11 at 6:00 p.m. is canceled.\nhttp://TEST-ORIGIN/activities.html#e=e0000000-0000-4000-8000-000000000011",
+  "href": "sms://open?addresses=+15555550103,5555550101&body=Kids%20Tracker%3A%20Ava%20and%20Max's%20Basketball%20practice%20on%20Fri%2C%20Dec%2011%20at%206%3A00%20p.m.%20is%20canceled.%0Ahttp%3A%2F%2FTEST-ORIGIN%2Factivities.html%23e%3De0000000-0000-4000-8000-000000000011",
+  "note": null,
+  "to": [
+   "Brett (you) [disabled]",
+   "Heather [checked]",
+   "Angie (Grandma) [checked]"
+  ]
+ },
+ "forbidden": [],
+ "serverSet": []
+}

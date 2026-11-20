@@ -52,7 +52,9 @@ import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { spawnSync } from "node:child_process";
+import vm from "node:vm";
 import { chromium } from "playwright-core";
+import { ACTS_LIB, actsStaticChecks, activityChecks } from "./acts.mjs";
 
 // ---------------------------------------------------------------------------
 // Known bugs. Each one has a check below that is expected to fail until the bug is fixed.
@@ -60,9 +62,9 @@ import { chromium } from "playwright-core";
 const KNOWN_BUGS = {
   // Fixed in Phase 0 and removed from this list on 2026-11-19, so their checks are now enforced:
   //   spring break start read "at 6 p.m." in Heather's years (handoffTime, now in core.js), and a stray block in style.css dropped the base .wrap rule.
-  // Found by QA while building this harness on 2026-11-19. Not yet reviewed by Heather. Delete this entry and its check if she does not want it tracked.
-  "phone-badge-cut-off": { given: false, note: "style.css: at phone width the switched badge does not fit in the day cell. It hangs over the right edge, and on a holiday (star plus badge) most of it is hidden." },
-  "right-now-double-period": { given: false, note: "app.js renderNow: the Right now sentence adds a period after a pickup time that already ends in one, so it reads \"p.m..\"" },
+  // Fixed on 2026-11-20 after the slice 1A QA run and removed from this list, so their checks are now enforced:
+  //   the switched badge hanging over a phone day cell (style.css), "p.m.." in the Right now sentence (app.js), an unshared comment row showing on the family page (app.js),
+  //   a raw holder value in class names (app.js), and the config.js numbers not being used once contacts rows exist without numbers (editor.js).
 };
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
@@ -92,8 +94,16 @@ const SHEET_DAYS = ["2026-10-13", "2026-10-16", "2026-10-20", "2026-10-21", "202
 const SB_PINNED = "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.117.3/dist/umd/supabase.js";
 const SB_SHA384 = "sha384-BWcjm9OdFth9TbhCxZPdm+gAOUMAzQy9nmTs12ioXdCcbVnJaPMn+fMUoQCLt60R";
 // The files that make up the site. Each page loads the shared ones with the same ?v= number.
-const SITE_FILES = ["index.html", "admin.html", "app.js", "core.js", "style.css", "config.js"];
-const SHARED = ["style.css", "config.js", "core.js", "app.js"];
+const SITE_FILES = ["index.html", "admin.html", "activities.html", "app.js", "core.js", "acts.js", "editor.js", "activities.js", "style.css", "config.js"];
+// What each page loads with a ?v= number, in this order for the scripts (style.css is the stylesheet).
+const PAGE_FILES = {
+  "index.html": ["style.css", "config.js", "core.js", "acts.js", "app.js"],
+  "admin.html": ["style.css", "config.js", "core.js", "acts.js", "editor.js", "app.js"],
+  "activities.html": ["style.css", "config.js", "core.js", "acts.js", "editor.js", "activities.js"],
+};
+const SHARED_RE = "style\\.css|config\\.js|app\\.js|core\\.js|acts\\.js|editor\\.js|activities\\.js";
+// The cache-bust number main served before this slice. Any shared file changed since then needs a higher one.
+const MAIN_V = 10;
 const UA_MAC = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36";
 const UA_IPHONE = "Mozilla/5.0 (iPhone; CPU iPhone OS 18_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.0 Mobile/15E148 Safari/604.1";
 
@@ -117,27 +127,26 @@ const clone = x => JSON.parse(JSON.stringify(x));
 const BASE_DB = (() => { const d = JSON.parse(fs.readFileSync(path.join(HERE, "fixtures", "db.json"), "utf8")); delete d._about; return d; })();
 const TEST_CONFIG = fs.readFileSync(path.join(HERE, "fixtures", "config.test.js"), "utf8");
 const FAKE_SB = fs.readFileSync(path.join(HERE, "lib", "fake-supabase.js"), "utf8");
+// The payload builder (lib/payload.js) mirrors kt_schedule_core and kt_activities. Node uses it for the family answer,
+// the browser fake uses the same file for get_editor_schedule.
+const PAYLOAD_JS = fs.readFileSync(path.join(HERE, "lib", "payload.js"), "utf8");
+vm.runInThisContext(PAYLOAD_JS);
+const P = globalThis.KTTestPayload;
 const PNOTE_MARK = "PRIVATE-";
 
-// Builds the family page answer the same way public.get_schedule does in supabase/schema.sql:
-// settings (names and anchor only), changed_at, breaks, and swaps with reason, shared note and updated_at.
+// Builds the family page answer the same way public.get_schedule does in supabase/schema.sql (lib/payload.js):
+// settings (names and anchor only), changed_at, breaks, swaps with reason, shared note and updated_at, then the
+// activities part for 7 days back to 60 ahead of "at" (the frozen clock). db.json has no activity rows, so those lists are empty.
 // "leaky" adds fields the real function must never send, to prove the page would not show them anyway.
-function familyResponse(db, { leaky = false } = {}) {
+function familyResponse(db, { leaky = false, at = T19.instant } = {}) {
   const s = db.settings[0];
   if (!s) return { settings: null, changed_at: null, breaks: [], swaps: [] };
   const det = new Map(db.swap_details.map(d => [d.day, d]));
-  const out = {
-    settings: { my_name: s.my_name, co_name: s.co_name, anchor: s.anchor },
-    changed_at: s.changed_at,
-    breaks: db.breaks.map(b => ({ year: b.year, data: b.data })),
-    swaps: db.swaps.slice().sort((a, b) => (a.day < b.day ? -1 : 1)).map(w => {
-      const d = det.get(w.day) || {};
-      const row = { day: w.day, had: w.had, caregiver: w.caregiver, reason: d.reason ?? null, note: d.note ?? null, updated_at: w.updated_at };
-      if (leaky) row.pnote = d.pnote || `${PNOTE_MARK}LEAK for ${w.day}`;
-      return row;
-    }),
-  };
-  if (leaky) { out.settings.track_from = s.track_from; out.totals = { me: 96, co: 74, pct: "54.9%" }; }
+  const out = P.family(db, Date.parse(at));
+  if (leaky) {
+    out.swaps.forEach(row => { const d = det.get(row.day) || {}; row.pnote = d.pnote || `${PNOTE_MARK}LEAK for ${row.day}`; });
+    out.settings.track_from = s.track_from; out.totals = { me: 96, co: 74, pct: "54.9%" };
+  }
   return out;
 }
 const dbScheduleOnly = () => { const d = clone(BASE_DB); d.swaps = []; d.swap_details = []; return d; };
@@ -357,7 +366,7 @@ const q = (page, fn, ...args) => page.evaluate(([f, a]) => window.__ktq[f](...a)
 // ---------------------------------------------------------------------------
 let browser, ORIGIN;
 const sessions = [];
-const SRI = /<script[^>]+supabase[^>]+integrity=/i.test(fs.readFileSync(path.join(ROOT, "admin.html"), "utf8"));
+const SRI = Object.fromEntries(["admin", "activities"].map(k => [k, /<script[^>]+supabase[^>]+integrity=/i.test(fs.readFileSync(path.join(ROOT, k + ".html"), "utf8"))]));
 // The one console error an admin page load is allowed: Chrome refusing the stand-in file because it does not match the integrity hash.
 const sriRefusal = e => e.includes(`Failed to find a valid digest in the 'integrity' attribute for resource '${SB_PINNED}'`);
 const CORS = { "access-control-allow-origin": "*", "access-control-allow-headers": "*", "access-control-allow-methods": "POST, OPTIONS" };
@@ -367,23 +376,27 @@ const CORS = { "access-control-allow-origin": "*", "access-control-allow-headers
    config (text served as config.js instead of the test config), wait (admin only: the id of the card to wait for
    when the page is meant to stay on it, for example "vLoading"),
    expectErrors (console errors are expected in this scenario, for example a failed request). */
+const PAGE_OF = { family: "index.html", admin: "admin.html", activities: "activities.html" };
 async function open(kind, label, o = {}) {
   const instant = (o.at && o.at.instant) || o.at || T19.instant;
   const ctx = await browser.newContext({
     viewport: o.mobile ? { width: o.width || 375, height: 812 } : { width: 1280, height: 900 },
     deviceScaleFactor: o.mobile ? 2 : 1, isMobile: !!o.mobile, hasTouch: !!o.mobile,
     colorScheme: o.dark ? "dark" : "light", timezoneId: "America/New_York", locale: "en-US",
-    userAgent: o.mobile ? UA_IPHONE : UA_MAC, serviceWorkers: "block",
+    userAgent: o.ua || (o.mobile ? UA_IPHONE : UA_MAC), serviceWorkers: "block",
   });
   await ctx.clock.setFixedTime(new Date(instant));
-  const s = { kind, label, ctx, errors: [], unexpected: [], cdn: [], famCalls: [], expectErrors: !!o.expectErrors,
-    respond: o.respond || (body => ({ json: body && body.p_token === "TESTTOKEN" ? familyResponse(BASE_DB) : null })) };
-  await ctx.addInitScript({ content: PAGE_LIB });
-  if (kind === "admin") {
+  const s = { kind, label, ctx, errors: [], unexpected: [], cdn: [], famCalls: [], allCalls: [], expectErrors: !!o.expectErrors,
+    respond: o.respond || (body => ({ json: body && body.p_token === "TESTTOKEN" ? familyResponse(BASE_DB, { at: instant }) : null })) };
+  await ctx.addInitScript({ content: PAGE_LIB + ACTS_LIB });
+  // Extra setup that runs before the page scripts on the FIRST load only (a later reload keeps what the page saved).
+  if (o.init) await ctx.addInitScript({ content: `if (!sessionStorage.getItem("kt-test-init")) { sessionStorage.setItem("kt-test-init", "1"); ${o.init} }` });
+  if (o.everyLoad) await ctx.addInitScript({ content: o.everyLoad });
+  if (kind !== "family") {
     const cfg = { db: BASE_DB, signedIn: true, role: "admin", failAll: false, ...(o.fake || {}) };
     // With an integrity attribute on the script tag the browser would refuse the stand-in file,
     // so in that case the fake is also installed before the page scripts run.
-    await ctx.addInitScript({ content: `window.__KT_FAKE_CFG__ = ${JSON.stringify(cfg)};${SRI ? FAKE_SB : ""}` });
+    await ctx.addInitScript({ content: `window.__KT_FAKE_CFG__ = ${JSON.stringify(cfg)};${PAYLOAD_JS}${SRI[kind] ? FAKE_SB : ""}` });
   }
   await ctx.route("**/*", async route => {
     const req = route.request(), url = new URL(req.url());
@@ -411,15 +424,16 @@ async function open(kind, label, o = {}) {
     return route.abort("blockedbyclient");
   });
   const page = await ctx.newPage();
-  s.page = page;
+  s.page = page; s.loads = 0;
+  page.on("load", () => { s.loads++; });   // reloads are counted: each load asks for supabase-js once
   page.on("console", m => { if (m.type() === "error") s.errors.push(`${m.text()} (${m.location().url || "no url"})`); });
   page.on("pageerror", e => s.errors.push(`Uncaught: ${e.message}`));
   sessions.push(s);
-  await page.goto(`${ORIGIN}/${kind === "admin" ? "admin.html" : "index.html"}${o.hash === undefined ? (kind === "family" ? "#k=TESTTOKEN" : "") : o.hash}`);
+  await page.goto(`${ORIGIN}/${PAGE_OF[kind]}${o.hash === undefined ? (kind === "family" ? "#k=TESTTOKEN" : "") : o.hash}`);
   if (o.wait) await page.waitForFunction(id => window.__KT_FAKE__ && !document.getElementById(id).hidden && window.__KT_FAKE__.calls.length > 0, o.wait, { timeout: 10000 });
   else await ready(s);
   // Proof that an admin page is running on the test fake: not the real library, and not a blocked library either.
-  if (kind === "admin") s.fake = await page.evaluate(() => ({ isFake: !!(window.supabase && window.supabase.__ktFake), hasState: !!window.__KT_FAKE__, client: (window.__KT_FAKE__ && window.__KT_FAKE__.created) || null }));
+  if (kind !== "family") s.fake = await page.evaluate(() => ({ isFake: !!(window.supabase && window.supabase.__ktFake), hasState: !!window.__KT_FAKE__, client: (window.__KT_FAKE__ && window.__KT_FAKE__.created) || null }));
   return s;
 }
 async function ready(s) {
@@ -432,7 +446,8 @@ async function ready(s) {
   }
 }
 const settle = async s => { await s.page.waitForFunction(() => window.__KT_FAKE__.pending === 0); await s.page.waitForTimeout(30); await s.page.waitForFunction(() => window.__KT_FAKE__.pending === 0); };
-const takeCalls = s => s.page.evaluate(() => { const c = window.__KT_FAKE__.calls.slice(); window.__KT_FAKE__.calls.length = 0; return c; });
+// Every call taken is also kept on s.allCalls, so a whole session can be checked for requests it must never make.
+const takeCalls = async s => { const c = await s.page.evaluate(() => { const c = window.__KT_FAKE__.calls.slice(); window.__KT_FAKE__.calls.length = 0; return c; }); s.allCalls.push(...c); return c; };
 const close = async s => { await s.ctx.close(); };
 
 async function gotoMonth(s, ym) {
@@ -578,39 +593,58 @@ function finishGoldens() {
 function staticChecks() {
   const read = f => fs.readFileSync(path.join(ROOT, f), "utf8");
   const htmlFiles = fs.readdirSync(ROOT).filter(f => f.endsWith(".html"));
-  const vs = htmlFiles.flatMap(f => [...read(f).matchAll(/(?:style\.css|config\.js|app\.js|core\.js|activities\.js)\?v=(\w+)/g)].map(m => `${f}: ${m[0]}`));
+  const pages = Object.keys(PAGE_FILES);
+  const vs = htmlFiles.flatMap(f => [...read(f).matchAll(new RegExp(`(?:${SHARED_RE})\\?v=(\\w+)`, "g"))].map(m => `${f}: ${m[0]}`));
   const nums = new Set(vs.map(v => v.split("?v=")[1]));
-  // Each page must load each of the four shared files exactly once, all with the same number.
-  const pages = ["index.html", "admin.html"];
-  const perPage = pages.flatMap(f => SHARED.map(n => { const c = htmlFiles.includes(f) ? [...read(f).matchAll(new RegExp(`(?:href|src)="${n.replace(".", "\\.")}\\?v=\\w+"`, "g"))].length : 0; return c === 1 ? null : `${f}: ${n} is loaded ${c} time(s) with a ?v= number, expected exactly 1`; })).filter(Boolean);
-  check("static", "cache-bust number is the same on every shared file in every HTML file (style.css, config.js, core.js and app.js, once each on both pages)", !perPage.length && nums.size === 1, [`value(s): ${[...nums].join(", ")}`, ...perPage, ...vs]);
-  // Script order matters: app.js reads window.KT_CONFIG and window.KTCore as soon as it runs.
+  // Each page must load each of its shared files exactly once with a ?v= number, all pages with the same number,
+  // and must not load another page's script (app.js stays off the Activities page, activities.js off the other two).
+  const perPage = pages.flatMap(f => {
+    const txt = htmlFiles.includes(f) ? read(f) : "";
+    const count = n => [...txt.matchAll(new RegExp(`(?:href|src)="${n.replace(".", "\\.")}\\?v=\\w+"`, "g"))].length;
+    const all = ["style.css", "config.js", "core.js", "acts.js", "editor.js", "app.js", "activities.js"];
+    return [...PAGE_FILES[f].map(n => (count(n) === 1 ? null : `${f}: ${n} is loaded ${count(n)} time(s) with a ?v= number, expected exactly 1`)),
+      ...all.filter(n => !PAGE_FILES[f].includes(n) && new RegExp(`(?:href|src)="${n.replace(".", "\\.")}`).test(txt)).map(n => `${f}: loads ${n}, which belongs to another page`)];
+  }).filter(Boolean);
+  const v = [...nums][0];
+  check("static", `cache-bust number is the same on every shared file in all three HTML files, and higher than main's v=${MAIN_V}`, !perPage.length && nums.size === 1 && Number(v) > MAIN_V, [`value(s): ${[...nums].join(", ")}`, ...perPage, ...vs]);
+  // Script order matters: each script reads what the ones before it set (KT_CONFIG, KTCore, KTActs, KTEditor).
   const scripts = pages.map(f => { const tags = [...read(f).matchAll(/<script\b[^>]*>/g)].map(m => m[0]); return { f, tags, local: tags.map(t => (t.match(/\ssrc="([^"]+)"/) || [])[1] || "(inline)").filter(x => !/^https?:/.test(x)).map(x => x.replace(/\?.*$/, "")) }; });
   const late = scripts.flatMap(x => x.tags.filter(t => /\s(async|defer)\b|type="module"/.test(t)).map(t => `${x.f}: ${t} would not run in page order`));
-  check("static", "core.js is loaded on both pages, after config.js and before app.js, as plain scripts that run in order", scripts.every(x => eq(x.local, ["config.js", "core.js", "app.js"])) && !late.length,
-    [...scripts.map(x => `${x.f}: ${x.local.join(", then ")}`), ...late]);
+  check("static", "script order on every page: config.js, core.js, acts.js, then editor.js on the two signed-in pages, then the page script (app.js or activities.js), as plain scripts that run in order",
+    scripts.every(x => eq(x.local, PAGE_FILES[x.f].filter(n => n.endsWith(".js")))) && !late.length, [...scripts.map(x => `${x.f}: ${x.local.join(", then ")}`), ...late]);
   // core.js is the shared schedule logic only.
   const coreSrc = read("core.js").replace(/\/\*[\s\S]*?\*\//g, "").replace(/\/\/.*$/gm, "");
   const pageCode = [[/\bdocument\b/, "document"], [/\blocalStorage\b|\bsessionStorage\b/, "browser storage"], [/\bfetch\s*\(|XMLHttpRequest/, "a network call"], [/supabase/i, "supabase"], [/\blocation\b/, "location"],
     [/window\.(?!KTCore\b)/, "window.<something other than KTCore>"]].filter(([re]) => re.test(coreSrc)).map(([, l]) => `core.js uses ${l}`);
   check("static", "core.js is schedule logic only: it sets window.KTCore and uses no page, storage, network or Supabase code", /window\.KTCore\s*=/.test(coreSrc) && !pageCode.length, pageCode);
+  // acts.js draws activities and saves nothing; editor.js only signs in and opens Messages.
+  const strip = f => read(f).replace(/\/\*[\s\S]*?\*\//g, "").replace(/\/\/.*$/gm, "");
+  const actsSrc = strip("acts.js"), edSrc = strip("editor.js");
+  const actsBad = [[/\bfetch\s*\(|XMLHttpRequest/, "a network call"], [/supabase|\bsb\.(?:from|rpc)\(/i, "the database"], [/sessionStorage/, "sessionStorage"], [/\.innerHTML\s*=/, "writes to the page itself (it should only return HTML)"]].filter(([re]) => re.test(actsSrc)).map(([, l]) => `acts.js uses ${l}`);
+  const edBad = [[/\bfetch\s*\(|XMLHttpRequest/, "a network call"], [/\bsb\.(?:from|rpc)\(/, "a table or function call"]].filter(([re]) => re.test(edSrc)).map(([, l]) => `editor.js uses ${l}`);
+  check("static", "acts.js sets window.KTActs and only reads and draws (no network, no database calls); editor.js sets window.KTEditor and makes no table or function calls",
+    /window\.KTActs\s*=/.test(actsSrc) && /window\.KTEditor\s*=/.test(edSrc) && !actsBad.length && !edBad.length, [...actsBad, ...edBad]);
   // The unused code sign-in step was removed in Phase 0. It must not come back half-wired.
-  const leftovers = ["admin.html", "index.html", "app.js", "core.js"].flatMap(f => [[/codeStep/, "codeStep"], [/verifyCode/, "verifyCode"], [/verifyOtp/, "verifyOtp"], [/id="code"/, 'id="code"'], [/\$\("code"\)/, '$("code")'], [/for="code"/, 'for="code"']]
+  const leftovers = ["admin.html", "index.html", "activities.html", "app.js", "core.js", "editor.js", "activities.js"].flatMap(f => [[/codeStep/, "codeStep"], [/verifyCode/, "verifyCode"], [/verifyOtp/, "verifyOtp"], [/id="code"/, 'id="code"'], [/\$\("code"\)/, '$("code")'], [/for="code"/, 'for="code"']]
     .filter(([re]) => re.test(read(f))).map(([, l]) => `${f} still mentions ${l}`));
   check("static", "the unused code sign-in step is gone from the site files (codeStep, code, verifyCode, verifyOtp)", !leftovers.length, leftovers);
-  // The one outside script: exact pinned address, integrity hash, crossorigin. No other outside scripts on either page.
+  // The one outside script: exact pinned address, integrity hash, crossorigin, on each signed-in page. No other outside scripts.
   const attr = (t, n) => (t.match(new RegExp(`\\s${n}="([^"]*)"`)) || [])[1];
   const outside = scripts.flatMap(x => x.tags.filter(t => /^https?:/.test(attr(t, "src") || "")).map(t => ({ f: x.f, t })));
-  const sb = outside.filter(x => x.f === "admin.html" && /supabase/i.test(x.t)), t0 = sb[0] ? sb[0].t : "";
-  const tagProblems = [sb.length !== 1 && `admin.html has ${sb.length} supabase-js script tags, expected 1`, outside.length !== sb.length && `other outside scripts: ${outside.filter(x => !sb.includes(x)).map(x => `${x.f}: ${x.t}`).join(" ")}`,
-    attr(t0, "src") !== SB_PINNED && `src is "${attr(t0, "src")}", expected the pinned address ${SB_PINNED}`,
-    !/^sha384-[A-Za-z0-9+/]{64}$/.test(attr(t0, "integrity") || "") && `integrity is "${attr(t0, "integrity")}", expected sha384- followed by 64 characters`,
-    attr(t0, "integrity") !== SB_SHA384 && `integrity is not the hash QA computed from the real 2.117.3 file (${SB_SHA384}). If the version changed on purpose, run "npm run check:cdn" and update SB_PINNED and SB_SHA384`,
-    attr(t0, "crossorigin") !== "anonymous" && `crossorigin is "${attr(t0, "crossorigin")}", expected "anonymous" (without it the browser cannot check the hash)`,
-    /supabase/i.test(read("index.html")) && "index.html mentions supabase: the family page must not load supabase-js"].filter(Boolean);
-  check("static", "admin.html loads supabase-js once from the exact pinned 2.117.3 address with its integrity hash and crossorigin=\"anonymous\"; the family page does not load it", !tagProblems.length, tagProblems.length ? tagProblems : t0);
+  const tagProblems = ["admin.html", "activities.html"].flatMap(f => {
+    const sb = outside.filter(x => x.f === f && /supabase/i.test(x.t)), t0 = sb[0] ? sb[0].t : "";
+    return [sb.length !== 1 && `${f} has ${sb.length} supabase-js script tags, expected 1`,
+      attr(t0, "src") !== SB_PINNED && `${f}: src is "${attr(t0, "src")}", expected the pinned address ${SB_PINNED}`,
+      !/^sha384-[A-Za-z0-9+/]{64}$/.test(attr(t0, "integrity") || "") && `${f}: integrity is "${attr(t0, "integrity")}", expected sha384- followed by 64 characters`,
+      attr(t0, "integrity") !== SB_SHA384 && `${f}: integrity is not the hash QA computed from the real 2.117.3 file (${SB_SHA384}). If the version changed on purpose, run "npm run check:cdn" and update SB_PINNED and SB_SHA384`,
+      attr(t0, "crossorigin") !== "anonymous" && `${f}: crossorigin is "${attr(t0, "crossorigin")}", expected "anonymous" (without it the browser cannot check the hash)`].filter(Boolean);
+  });
+  const others = outside.filter(x => !/supabase/i.test(x.t) || x.f === "index.html");
+  if (others.length) tagProblems.push(`other outside scripts: ${others.map(x => `${x.f}: ${x.t}`).join(" ")}`);
+  if (/supabase/i.test(read("index.html"))) tagProblems.push("index.html mentions supabase: the family page must not load supabase-js");
+  check("static", "admin.html and activities.html each load supabase-js once from the exact pinned 2.117.3 address with its integrity hash and crossorigin=\"anonymous\"; the family page does not load it", !tagProblems.length, tagProblems.length ? tagProblems : "both tags match");
   configYmlChecks(read);
-  const missing = htmlFiles.flatMap(f => [...read(f).matchAll(/(?:href|src)="((?:style\.css|config\.js|app\.js|core\.js|activities\.js)[^"]*)"/g)].filter(m => !/\?v=\w+/.test(m[1])).map(m => `${f}: ${m[1]}`));
+  const missing = htmlFiles.flatMap(f => [...read(f).matchAll(new RegExp(`(?:href|src)="((?:${SHARED_RE})[^"]*)"`, "g"))].filter(m => !/\?v=\w+/.test(m[1])).map(m => `${f}: ${m[1]}`));
   check("static", "every shared CSS and JS file is loaded with a ?v= number", !missing.length, missing);
 
   // Real config.js: shape only. Values are never printed.
@@ -628,7 +662,7 @@ function staticChecks() {
   const bad = ["pnote", "track_from"].filter(w => body.includes(w));
   check("privacy", "schema.sql: get_schedule never selects pnote or track_from", !!m && !bad.length, m ? bad.map(w => `function body mentions ${w}`) : "get_schedule not found in supabase/schema.sql");
   const mock = JSON.stringify(familyResponse(BASE_DB));
-  const mockKeys = ["settings", "changed_at", "breaks", "swaps"], swapKeys = ["day", "had", "caregiver", "reason", "note", "updated_at"];
+  const mockKeys = ["settings", "changed_at", "breaks", "swaps", "window", "kids", "places", "teams", "events", "comments", "log"], swapKeys = ["day", "had", "caregiver", "reason", "note", "updated_at"];
   const r = familyResponse(BASE_DB);
   check("privacy", "test answer for get_schedule has the same fields as schema.sql and no private ones",
     eq(Object.keys(r), mockKeys) && eq(Object.keys(r.settings), ["my_name", "co_name", "anchor"]) && r.swaps.every(w => eq(Object.keys(w), swapKeys)) && !/pnote|track_from|PRIVATE-/.test(mock),
@@ -636,11 +670,12 @@ function staticChecks() {
 
   // Writing rule: no em or en dashes in anything Heather or the family reads.
   const dashFiles = [...SITE_FILES, "_config.yml", ...fs.readdirSync(HERE).filter(f => /\.(mjs|json)$/.test(f) && f !== "package-lock.json").map(f => "tests/" + f),
-    "tests/fixtures/db.json", "tests/fixtures/config.test.js", "tests/lib/fake-supabase.js"].filter(f => fs.existsSync(path.join(ROOT, f)));
+    "tests/fixtures/db.json", "tests/fixtures/acts.json", "tests/fixtures/config.test.js", "tests/lib/fake-supabase.js", "tests/lib/payload.js"].filter(f => fs.existsSync(path.join(ROOT, f)));
   const DASHES = new RegExp("[" + String.fromCharCode(0x2013, 0x2014) + "]");
   const dashHits = dashFiles.flatMap(f => read(f).split("\n").map((l, i) => (DASHES.test(l) ? `${f}:${i + 1}` : null)).filter(Boolean));
   const dashMissing = [...SITE_FILES, "_config.yml"].filter(f => !dashFiles.includes(f));
-  check("static", `no em dashes or en dashes in site files or test files (${dashFiles.length} files, including core.js and _config.yml)`, !dashHits.length && !dashMissing.length, [...dashHits, ...dashMissing.map(f => `${f} is missing, so it could not be checked`)]);
+  actsStaticChecks({ check, eq, P, sql, base: BASE_DB });
+  check("static", `no em dashes or en dashes in site files or test files (${dashFiles.length} files, including core.js, acts.js, editor.js, activities.js and _config.yml)`, !dashHits.length && !dashMissing.length, [...dashHits, ...dashMissing.map(f => `${f} is missing, so it could not be checked`)]);
 }
 
 // _config.yml tells GitHub Pages what to leave off the public site. It must do that and nothing else,
@@ -667,7 +702,7 @@ function configYmlChecks(read) {
   else { let parsed = null; try { parsed = JSON.parse(rb.stdout); } catch (e) {}
     check("static", "_config.yml parses as YAML and holds exactly the exclude list", rb.status === 0 && eq(parsed, { exclude: excluded }), rb.status === 0 ? `parsed: ${rb.stdout.trim()}` : rb.stderr.trim().split("\n").slice(0, 3)); }
   const needed = excluded.filter(e => SITE_FILES.some(f => f === e || f.startsWith(e + "/")) || e === ".");
-  check("static", "_config.yml does not exclude any file the site needs (index.html, admin.html, app.js, core.js, style.css, config.js)", !needed.length && SITE_FILES.every(f => fs.existsSync(path.join(ROOT, f))),
+  check("static", `_config.yml does not exclude any file the site needs (${SITE_FILES.join(", ")})`, !needed.length && SITE_FILES.every(f => fs.existsSync(path.join(ROOT, f))),
     [...needed.map(e => `"${e}" is excluded but the site needs it`), ...SITE_FILES.filter(f => !fs.existsSync(path.join(ROOT, f))).map(f => `${f} is missing from the repo root`)]);
   // Everything else at the top of the repo should be left off the site. (GitHub Pages already skips names that start with a dot or an underscore.)
   const published = fs.readdirSync(ROOT).filter(n => !/^[._]/.test(n) && !SITE_FILES.includes(n) && !excluded.includes(n));
@@ -862,7 +897,7 @@ async function main() {
       // Thu Oct 15, 2026 with no switches: Brett's last night. Fri Oct 16 is a teacher workday, so Heather picks up at 5 p.m.
       const s = await open("family", "family, pickup with a clock time", { at: "2026-10-15T12:00:00-04:00", respond: () => ({ json: familyResponse(dbScheduleOnly()) }) });
       const now = await q(s.page, "famNow");
-      expectAll("copy", "Right now sentence ends with one period when the pickup time is \"5 p.m.\" (Thu Oct 15, 2026, no switches)", [["who", now.lines[1], "With Brett"], ["sentence", now.lines[2], "Tonight only. Heather picks up tomorrow at 5 p.m."]], { bug: "right-now-double-period" });
+      expectAll("copy", "Right now sentence ends with one period when the pickup time is \"5 p.m.\" (Thu Oct 15, 2026, no switches)", [["who", now.lines[1], "With Brett"], ["sentence", now.lines[2], "Tonight only. Heather picks up tomorrow at 5 p.m."]]);
       await close(s);
     }
 
@@ -1008,7 +1043,8 @@ async function main() {
       await r.s.page.locator("#password").fill("correct-test-password"); await r.s.page.locator("#pwSignIn").click();
       await r.s.page.waitForFunction(() => !document.getElementById("vApp").hidden); await settle(r.s);
       st.signedIn_afterPassword = await q(r.s.page, "views");
-      await r.s.page.locator("#signOut").click(); await r.s.page.waitForFunction(() => !document.getElementById("vSignin").hidden); await settle(r.s);
+      // Sign out reloads the page (editor.js), so nothing from the session stays in memory. The fake remembers the sign-out like the real library.
+      await Promise.all([r.s.page.waitForEvent("load"), r.s.page.locator("#signOut").click()]); await ready(r.s);
       st.afterSignOut = await q(r.s.page, "views");
       await close(r.s);
       r = await view("not an admin", { fake: { role: null } }); st.notAdmin = r.v; await close(r.s);
@@ -1061,7 +1097,7 @@ async function main() {
         ["wrong password: what was sent", wrong.calls, [{ auth: "signInWithPassword", email: "admin@example.test" }]],
         ["wrong password: message and view", [wrong.msg, wrong.shown], ["That email and password didn't match. Check them and try again.", ["vSignin"]]],
         ["right password: first call", right.calls[0], { auth: "signInWithPassword", email: "admin@example.test" }],
-        ["right password: then the role check and the five table reads", right.calls.slice(1).map(c => c.rpc || `${c.table}.${c.op}`), ["my_role", "settings.select", "breaks.select", "swaps.select", "swap_details.select", "share_links.select"]],
+        ["right password: then the role check, the five table reads, and (after the page shows) activities and text contacts", right.calls.slice(1).map(c => c.rpc || `${c.table}.${c.op}`), ["my_role", "settings.select", "breaks.select", "swaps.select", "swap_details.select", "share_links.select", "get_editor_schedule", "contacts.select"]],
         ["right password: view", right.shown, ["vApp"]]]);
       const stray = s.errors.filter(e => !sriRefusal(e));
       check("sign-in", "no console errors anywhere in the sign-in flow (empty link, link sent, wrong password, signed in)", !stray.length, stray);
@@ -1187,7 +1223,7 @@ async function main() {
         check("layout", `${kind} page at 1280px: no sideways scroll`, !badW.length, badW.flatMap(k => [`${k}: content is ${info[k].docScrollWidth}px wide`, ...info[k].wide]));
       }
       check("layout", "at 375px every calendar badge (switched, half day, star) sits inside its day cell, family and admin, November 2026",
-        !info["family-375-light"].badges.length && !info["admin-375-light"].badges.length, [...info["family-375-light"].badges.map(b => "family: " + b), ...info["admin-375-light"].badges.map(b => "admin: " + b)], { bug: "phone-badge-cut-off" });
+        !info["family-375-light"].badges.length && !info["admin-375-light"].badges.length, [...info["family-375-light"].badges.map(b => "family: " + b), ...info["admin-375-light"].badges.map(b => "admin: " + b)]);
       for (const width of [390, 430]) {   // common iPhone widths, for information
         const s = await open("family", `family ${width}px`, { mobile: true, width, fonts: true });
         await s.page.evaluate(async () => { await document.fonts.ready; });
@@ -1243,30 +1279,35 @@ async function main() {
       console.log(`INFO   tap targets under 44px (admin): ${info["admin-375-light"].smallTargets.join("; ") || "none"}`);
     }
 
+    // ---- Activities (slice 1A): family, admin and the Activities page. In tests/acts.mjs ----
+    await activityChecks({ open, close, q, check, expectAll, setGolden, settle, takeCalls, ready, captureMonth, clickDay, gotoMonth, byDate, holderOf, makeOracle,
+      familyResponse, P, BASE_DB, clone, origin: () => ORIGIN, toNum, toStr, wd, fmtUTC, span, SHOT_DIR, PNOTE_MARK, TEST_CONFIG, UA_MAC, UA_IPHONE, T19, sessions });
+
     // ---- Console errors and stray network requests, across every page opened above ----
-    for (const kind of ["family", "admin"]) {
+    for (const kind of ["family", "admin", "activities"]) {
       const mine = sessions.filter(s => s.kind === kind);
       const fontNoise = e => /fonts\.(googleapis|gstatic)\.com/.test(e);
       // Only the one expected refusal of the stand-in file is set aside, and only on the admin page. It is counted in its own check below.
-      const sriNoise = e => SRI && kind === "admin" && sriRefusal(e);
+      const sriNoise = e => SRI[kind] && sriRefusal(e);
       const errs = mine.filter(s => !s.expectErrors).flatMap(s => s.errors.filter(e => !fontNoise(e) && !sriNoise(e)).map(e => `${s.label}: ${e}`));
       check("console", `${kind} page: no console errors (${mine.filter(s => !s.expectErrors).length} page loads)`, !errs.length, errs);
       const expected = mine.filter(s => s.expectErrors).map(s => `${s.label}: ${s.errors.length} error(s)`);
       if (expected.length) console.log(`         (failed-request scenarios log errors on purpose: ${expected.join("; ")})`);
       const stray = mine.flatMap(s => s.unexpected.map(u => `${s.label}: ${u}`));
-      check("console", `${kind} page: no network requests other than the site's own files, fonts${kind === "admin" ? ", supabase-js" : ""} and the mocked data call`, !stray.length, stray);
+      check("console", `${kind} page: no network requests other than the site's own files, fonts${kind !== "family" ? ", supabase-js" : ""} and the mocked data call`, !stray.length, stray);
     }
 
     // ---- The admin tests really ran on the test fake ----
     {
-      const admins = sessions.filter(s => s.kind === "admin");
+      const admins = sessions.filter(s => s.kind !== "family");
       const bad = admins.flatMap(s => { const refusals = s.errors.filter(sriRefusal).length, out = [];
         if (!s.fake || !s.fake.isFake || !s.fake.hasState) out.push("window.supabase was not the test fake");
         if (s.fake && s.label.indexOf("card setup") === -1 && (!s.fake.client || s.fake.client.url !== "https://kt-mock.invalid" || !s.fake.client.hasKey)) out.push(`the page did not create its client on the fake with the test address (${JSON.stringify(s.fake.client)})`);
-        if (s.cdn.length !== 1 || s.cdn[0] !== SB_PINNED) out.push(`asked jsDelivr for: ${s.cdn.join(", ") || "nothing"}`);
-        if (refusals !== (SRI ? 1 : 0)) out.push(`Chrome refused the stand-in file ${refusals} time(s), expected ${SRI ? 1 : 0}`);
+        if (s.cdn.length !== (s.loads || 1) || s.cdn.some(u => u !== SB_PINNED)) out.push(`asked jsDelivr for: ${s.cdn.join(", ") || "nothing"} (${s.loads || 1} page load(s))`);
+        const want = (SRI[s.kind] ? 1 : 0) * (s.loads || 1);   // one refusal per page load (sign out reloads the page)
+        if (refusals !== want) out.push(`Chrome refused the stand-in file ${refusals} time(s), expected ${want}`);
         return out.map(x => `${s.label}: ${x}`); });
-      check("harness", `all ${admins.length} admin page loads ran on the test fake (never the real library, never a blocked one), each asked for the pinned file once, and Chrome refused the stand-in once because of the integrity hash`, admins.length >= 15 && !bad.length, bad);
+      check("harness", `all ${admins.length} admin and Activities page sessions ran on the test fake (never the real library, never a blocked one), each load asked for the pinned file once, and Chrome refused the stand-in once per load because of the integrity hash`, admins.length >= 25 && !bad.length, bad);
     }
 
     finishGoldens();

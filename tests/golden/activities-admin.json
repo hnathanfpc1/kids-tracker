@@ -1,0 +1,898 @@
+{
+ "loadCalls": [
+  {
+   "what": "my_role"
+  },
+  {
+   "what": "get_editor_schedule"
+  },
+  {
+   "what": "contacts.select",
+   "filters": [],
+   "limit": null
+  },
+  {
+   "what": "share_links.select",
+   "columns": "token",
+   "filters": [
+    {
+     "kind": "eq",
+     "col": "active",
+     "val": true
+    }
+   ],
+   "limit": 1
+  }
+ ],
+ "up": {
+  "count": "24 coming up",
+  "filter": [
+   "All [on]",
+   "Ava",
+   "Max"
+  ],
+  "rows": [
+   {
+    "id": "e0000000-0000-4000-8000-000000000002",
+    "canceled": false,
+    "when": "Dec 1 Tue",
+    "what": "Ava Soccer practice",
+    "time": "5:30 to 6:30 p.m., Rec Center Field 3",
+    "who": "Heather has the kids",
+    "chip": "chip me | Heather"
+   },
+   {
+    "id": "e0000000-0000-4000-8000-000000000003",
+    "canceled": false,
+    "when": "Dec 2 Wed",
+    "what": "Ava Piano lesson",
+    "time": "4:15 to 5:00 p.m., Studio B",
+    "who": "Heather has the kids",
+    "chip": "chip me | Heather"
+   },
+   {
+    "id": "e0000000-0000-4000-8000-000000000004",
+    "canceled": false,
+    "when": "Dec 2 Wed",
+    "what": "Ava Max Basketball practice",
+    "time": "6:00 to 7:30 p.m., Eastside Gym",
+    "who": "Heather has the kids",
+    "chip": "chip me | Heather"
+   },
+   {
+    "id": "e0000000-0000-4000-8000-000000000005",
+    "canceled": false,
+    "when": "Dec 3 Thu",
+    "what": "Max Swim club",
+    "time": "7:00 p.m., West Pool",
+    "who": "Heather has the kids",
+    "chip": "chip me | Heather"
+   },
+   {
+    "id": "e0000000-0000-4000-8000-000000000006",
+    "canceled": false,
+    "when": "Dec 4 Fri",
+    "what": "Ava Soccer game",
+    "time": "6:00 p.m., Rec Center Field 3",
+    "who": "Brett Handoff day",
+    "chip": "chip co | Brett"
+   },
+   {
+    "id": "e0000000-0000-4000-8000-000000000007",
+    "canceled": false,
+    "when": "Dec 5 Sat",
+    "what": "Ava Max Basketball game",
+    "time": "10:00 to 11:00 a.m., Eastside Gym",
+    "who": "Heather Handoff day. 1 comment",
+    "chip": "chip me | Heather"
+   },
+   {
+    "id": "e0000000-0000-4000-8000-000000000008",
+    "canceled": false,
+    "when": "Dec 6 Sun",
+    "what": "Max Birthday party",
+    "time": "2:00 p.m., Party barn on Example Rd",
+    "who": "Brett Handoff day",
+    "chip": "chip co | Brett"
+   },
+   {
+    "id": "e0000000-0000-4000-8000-000000000009",
+    "canceled": true,
+    "when": "Dec 7 Mon",
+    "what": "Canceled Ava Soccer practice",
+    "time": "5:30 p.m., Rec Center Field 3",
+    "who": "Brett has the kids",
+    "chip": "chip co | Brett"
+   },
+   {
+    "id": "e0000000-0000-4000-8000-000000000010",
+    "canceled": false,
+    "when": "Dec 9 Wed",
+    "what": "Ava Soccer practice",
+    "time": "5:30 p.m., Rec Center Field 3",
+    "who": "Brett has the kids. 2 comments",
+    "chip": "chip co | Brett"
+   },
+   {
+    "id": "e0000000-0000-4000-8000-000000000011",
+    "canceled": false,
+    "when": "Dec 11 Fri",
+    "what": "Ava Max Basketball practice",
+    "time": "6:00 p.m., Eastside Gym",
+    "who": "Heather Handoff day",
+    "chip": "chip me | Heather"
+   },
+   {
+    "id": "e0000000-0000-4000-8000-000000000012",
+    "canceled": false,
+    "when": "Dec 12 Sat",
+    "what": "Ava Soccer game",
+    "time": "10:00 a.m., Rec Center Field 3",
+    "who": "Heather has the kids",
+    "chip": "chip me | Heather"
+   },
+   {
+    "id": "e0000000-0000-4000-8000-000000000013",
+    "canceled": true,
+    "when": "Dec 14 Mon",
+    "what": "Canceled Ava Max Basketball practice",
+    "time": "6:00 p.m., Eastside Gym",
+    "who": "Heather has the kids",
+    "chip": "chip me | Heather"
+   },
+   {
+    "id": "e0000000-0000-4000-8000-000000000014",
+    "canceled": false,
+    "when": "Dec 16 Wed",
+    "what": "Ava Piano lesson",
+    "time": "4:15 to 5:00 p.m., Studio B",
+    "who": "Heather has the kids",
+    "chip": "chip me | Heather"
+   },
+   {
+    "id": "e0000000-0000-4000-8000-000000000015",
+    "canceled": false,
+    "when": "Dec 17 Thu",
+    "what": "Ava Soccer practice",
+    "time": "5:30 p.m., Rec Center Field 3",
+    "who": "Heather has the kids. 1 comment",
+    "chip": "chip me | Heather"
+   },
+   {
+    "id": "e0000000-0000-4000-8000-000000000016",
+    "canceled": false,
+    "when": "Dec 18 Fri",
+    "what": "Ava Max Basketball game",
+    "time": "1:00 p.m., Eastside Gym",
+    "who": "Brett Handoff day",
+    "chip": "chip co | Brett"
+   },
+   {
+    "id": "e0000000-0000-4000-8000-000000000017",
+    "canceled": false,
+    "when": "Dec 19 Sat",
+    "what": "Ava Soccer game",
+    "time": "10:00 a.m., Rec Center Field 3",
+    "who": "Brett has the kids",
+    "chip": "chip co | Brett"
+   },
+   {
+    "id": "e0000000-0000-4000-8000-000000000018",
+    "canceled": false,
+    "when": "Dec 20 Sun",
+    "what": "Ava Max Basketball practice",
+    "time": "3:00 p.m., Eastside Gym",
+    "who": "Brett has the kids",
+    "chip": "chip co | Brett"
+   },
+   {
+    "id": "e0000000-0000-4000-8000-000000000019",
+    "canceled": false,
+    "when": "Dec 22 Tue",
+    "what": "Ava Soccer practice",
+    "time": "5:30 p.m., Rec Center Field 3",
+    "who": "Grandma Handoff day",
+    "chip": "chip grandma | Grandma"
+   },
+   {
+    "id": "e0000000-0000-4000-8000-000000000020",
+    "canceled": false,
+    "when": "Dec 23 Wed",
+    "what": "Ava Max Basketball practice",
+    "time": "6:00 p.m., Eastside Gym",
+    "who": "Grandma has the kids",
+    "chip": "chip grandma | Grandma"
+   },
+   {
+    "id": "e0000000-0000-4000-8000-000000000021",
+    "canceled": false,
+    "when": "Dec 26 Sat",
+    "what": "Max Skating",
+    "time": "10:00 to 11:00 a.m., West Pool",
+    "who": "Heather Handoff day",
+    "chip": "chip me | Heather"
+   },
+   {
+    "id": "e0000000-0000-4000-8000-000000000024",
+    "canceled": false,
+    "when": "Dec 31 Thu",
+    "what": "Max Movie night",
+    "time": "7:00 p.m., Library",
+    "who": "Heather has the kids",
+    "chip": "chip me | Heather"
+   },
+   {
+    "id": "e0000000-0000-4000-8000-000000000025",
+    "canceled": false,
+    "when": "Jan 1 Fri",
+    "what": "Ava Sledding",
+    "time": "1:00 p.m.",
+    "who": "Heather has the kids",
+    "chip": "chip me | Heather"
+   },
+   {
+    "id": "e0000000-0000-4000-8000-000000000022",
+    "canceled": false,
+    "when": "Jan 15 Fri",
+    "what": "Ava Max Basketball practice",
+    "time": "6:00 p.m., Eastside Gym",
+    "who": "Someone else Handoff day",
+    "chip": "chip other | Someone else"
+   },
+   {
+    "id": "e0000000-0000-4000-8000-000000000023",
+    "canceled": false,
+    "when": "Feb 5 Fri",
+    "what": "Ava Soccer practice",
+    "time": "5:30 p.m., Rec Center Field 3",
+    "who": "Heather Handoff day",
+    "chip": "chip me | Heather"
+   }
+  ],
+  "more": false,
+  "empty": null
+ },
+ "lists": {
+  "teams": [
+   "Ava Max Basketball Eastside Gym. Arrive 15 min early, 20 for games. basketball shoes jersey water bottle Note: Same team this season. Edit",
+   "Ava Soccer Rec Center Field 3. Arrive 10 min early, 30 for games. cleats shin guards water bottle Edit",
+   "Max Chess club Off Arrive 0 min early, 0 for games. No gear yet. Edit"
+  ],
+  "places": [
+   "Eastside Gym 22 Sample St, Faketown 10 min from Heather's, 20 from Brett's. Add drive time from Angie's. Edit",
+   "Rec Center Field 3 100 Example Park Rd, Faketown 15 min from Heather's, 25 from Brett's, 20 from Angie's. Note: Park by the north lot. Edit",
+   "Studio B 10 min from Heather's. Add drive time from Brett's and Angie's. Edit",
+   "Unused Field Add drive time from Heather's, Brett's and Angie's. Edit",
+   "West Pool Add drive time from Heather's, Brett's and Angie's. Edit"
+  ],
+  "placeCount": "5 saved",
+  "kids": [
+   "A Ava Orange. Order 1. Edit",
+   "M Max Berry. Order 2. Edit"
+  ],
+  "contactInputs": [
+   "cl-co=Brett",
+   "cp-co=+1 555 555 0102",
+   "cl-me=Heather",
+   "cp-me=+15555550103",
+   "cl-grandma=",
+   "cp-grandma=(555) 555-0101"
+  ],
+  "contactRows": [],
+  "contactHint": "Only you can change these. Brett sees them.",
+  "contactSave": true,
+  "log": [
+   "Nov 30 4:00 p.m. Heather updated Soccer practice on Thu Dec 17: note",
+   "Nov 30 3:00 p.m. Brett canceled Soccer practice on Mon Dec 7 at 5:30 p.m.",
+   "Nov 29 7:00 a.m. Brett removed Soccer practice on Tue Dec 8 at 5:30 p.m.",
+   "Nov 25 10:00 a.m. Heather added 4 activities Soccer practice, Soccer game, Dec 9 to Dec 22",
+   "Nov 20 10:00 a.m. Heather added the team \"Basketball\"",
+   "Nov 10 7:00 a.m. Heather added Soccer practice on Fri Feb 5 at 5:30 p.m.",
+   "Oct 1 8:00 a.m. Heather added Piano lesson on Wed Dec 2 at 4:15 p.m."
+  ],
+  "back": true,
+  "signOut": true
+ },
+ "editSheet": {
+  "shown": true,
+  "title": "Soccer practice",
+  "sub": "Tuesday, December 1. Heather has the kids that day.",
+  "kids": [
+   "Ava [on]",
+   "Max",
+   "Both"
+  ],
+  "kind": "practice",
+  "team": "c0000000-0000-4000-8000-000000000001",
+  "teamText": "Soccer",
+  "name": "",
+  "day": "2026-12-01",
+  "start": "17:30",
+  "end": "18:30",
+  "repeatShown": false,
+  "place": "",
+  "placeText": "The team's usual place (Rec Center Field 3)",
+  "newPlaceShown": false,
+  "arrive": "",
+  "calc": [
+   "Arrive by 5:20 (10 minutes early)",
+   "Leave by 5:05 from Heather's (15 min drive)",
+   "Leave by 4:55 from Brett's (25 min drive)",
+   "Leave by 5:00 from Angie's (20 min drive)"
+  ],
+  "gear": [
+   "cleats",
+   "shin guards",
+   "water bottle"
+  ],
+  "gearHint": "Same as the Soccer gear list. Changes here are for this activity only.",
+  "note": "",
+  "cancel": "Cancel this practice",
+  "remove": true,
+  "confirm": false,
+  "cmtShown": true,
+  "comments": [],
+  "tags": [
+   "Brett",
+   "Angie"
+  ]
+ },
+ "saveSame": {
+  "calls": [
+   {
+    "table": "events",
+    "op": "update",
+    "payload": {
+     "team_id": "c0000000-0000-4000-8000-000000000001",
+     "kid_ids": [
+      "a0000000-0000-4000-8000-000000000001"
+     ],
+     "kind": "practice",
+     "title": null,
+     "day": "2026-12-01",
+     "start_time": "17:30",
+     "end_time": "18:30",
+     "place_id": null,
+     "place_text": null,
+     "arrive_by": null,
+     "gear": null,
+     "note": null
+    },
+    "filters": [
+     {
+      "kind": "eq",
+      "col": "id",
+      "val": "e0000000-0000-4000-8000-000000000002"
+     }
+    ],
+    "sort": null,
+    "limit": null,
+    "one": null,
+    "returning": false
+   },
+   {
+    "rpc": "get_editor_schedule",
+    "args": null
+   },
+   {
+    "table": "contacts",
+    "op": "select",
+    "payload": null,
+    "filters": [],
+    "sort": null,
+    "limit": null,
+    "one": null,
+    "returning": false
+   }
+  ],
+  "text": {
+   "shown": true,
+   "body": "Kids Tracker: Heather updated Ava's Soccer practice on Tue, Dec 1 at 5:30 p.m.\nhttp://TEST-ORIGIN/#k=TESTTOKEN&e=e0000000-0000-4000-8000-000000000002",
+   "href": "sms://open?addresses=+15555550102,5555550101&body=Kids%20Tracker%3A%20Heather%20updated%20Ava's%20Soccer%20practice%20on%20Tue%2C%20Dec%201%20at%205%3A30%20p.m.%0Ahttp%3A%2F%2FTEST-ORIGIN%2F%23k%3DTESTTOKEN%26e%3De0000000-0000-4000-8000-000000000002",
+   "note": null,
+   "to": [
+    "Brett [checked]",
+    "Heather (you) [disabled]",
+    "Angie (Grandma) [checked]"
+   ]
+  }
+ },
+ "cancel": {
+  "calls": [
+   {
+    "table": "events",
+    "op": "update",
+    "payload": {
+     "status": "canceled"
+    },
+    "filters": [
+     {
+      "kind": "eq",
+      "col": "id",
+      "val": "e0000000-0000-4000-8000-000000000010"
+     }
+    ],
+    "sort": null,
+    "limit": null,
+    "one": null,
+    "returning": false
+   }
+  ],
+  "text": {
+   "shown": true,
+   "body": "Kids Tracker: Ava's Soccer practice on Wed, Dec 9 at 5:30 p.m. is canceled.\nhttp://TEST-ORIGIN/#k=TESTTOKEN&e=e0000000-0000-4000-8000-000000000010",
+   "href": "sms://open?addresses=+15555550102,5555550101&body=Kids%20Tracker%3A%20Ava's%20Soccer%20practice%20on%20Wed%2C%20Dec%209%20at%205%3A30%20p.m.%20is%20canceled.%0Ahttp%3A%2F%2FTEST-ORIGIN%2F%23k%3DTESTTOKEN%26e%3De0000000-0000-4000-8000-000000000010",
+   "note": null,
+   "to": [
+    "Brett [checked]",
+    "Heather (you) [disabled]",
+    "Angie (Grandma) [checked]"
+   ]
+  },
+  "row": {
+   "id": "e0000000-0000-4000-8000-000000000010",
+   "canceled": true,
+   "when": "Dec 9 Wed",
+   "what": "Canceled Ava Soccer practice",
+   "time": "5:30 p.m., Rec Center Field 3",
+   "who": "Brett has the kids. 2 comments",
+   "chip": "chip co | Brett"
+  }
+ },
+ "restoreButton": "Restore",
+ "restore": {
+  "calls": [
+   {
+    "table": "events",
+    "op": "update",
+    "payload": {
+     "status": "on"
+    },
+    "filters": [
+     {
+      "kind": "eq",
+      "col": "id",
+      "val": "e0000000-0000-4000-8000-000000000009"
+     }
+    ],
+    "sort": null,
+    "limit": null,
+    "one": null,
+    "returning": false
+   }
+  ],
+  "text": {
+   "shown": true,
+   "body": "Kids Tracker: Ava's Soccer practice on Mon, Dec 7 at 5:30 p.m. is back on.\nhttp://TEST-ORIGIN/#k=TESTTOKEN&e=e0000000-0000-4000-8000-000000000009",
+   "href": "sms://open?addresses=+15555550102,5555550101&body=Kids%20Tracker%3A%20Ava's%20Soccer%20practice%20on%20Mon%2C%20Dec%207%20at%205%3A30%20p.m.%20is%20back%20on.%0Ahttp%3A%2F%2FTEST-ORIGIN%2F%23k%3DTESTTOKEN%26e%3De0000000-0000-4000-8000-000000000009",
+   "note": null,
+   "to": [
+    "Brett [checked]",
+    "Heather (you) [disabled]",
+    "Angie (Grandma) [checked]"
+   ]
+  }
+ },
+ "removeConfirm": true,
+ "remove": {
+  "calls": [
+   {
+    "table": "events",
+    "op": "delete",
+    "payload": null,
+    "filters": [
+     {
+      "kind": "eq",
+      "col": "id",
+      "val": "e0000000-0000-4000-8000-000000000024"
+     }
+    ],
+    "sort": null,
+    "limit": null,
+    "one": null,
+    "returning": false
+   }
+  ],
+  "text": {
+   "shown": true,
+   "body": "Kids Tracker: Heather removed Max's Movie night on Thu, Dec 31 at 7:00 p.m.",
+   "href": "sms://open?addresses=+15555550102,5555550101&body=Kids%20Tracker%3A%20Heather%20removed%20Max's%20Movie%20night%20on%20Thu%2C%20Dec%2031%20at%207%3A00%20p.m.",
+   "note": null,
+   "to": [
+    "Brett [checked]",
+    "Heather (you) [disabled]",
+    "Angie (Grandma) [checked]"
+   ]
+  },
+  "stillListed": false
+ },
+ "cmtBrett": {
+  "calls": [
+   {
+    "table": "event_comments",
+    "op": "insert",
+    "payload": {
+     "event_id": "e0000000-0000-4000-8000-000000000002",
+     "body": "Can you take her? <b>bold</b>",
+     "tagged": [
+      "co"
+     ]
+    },
+    "filters": [],
+    "sort": null,
+    "limit": null,
+    "one": null,
+    "returning": false
+   }
+  ],
+  "text": {
+   "shown": true,
+   "body": "Kids Tracker: Heather commented on Ava's Soccer practice on Tue, Dec 1 at 5:30 p.m.:\n\"Can you take her? <b>bold</b>\"\nhttp://TEST-ORIGIN/activities.html#e=e0000000-0000-4000-8000-000000000002",
+   "href": "sms://open?addresses=+15555550102&body=Kids%20Tracker%3A%20Heather%20commented%20on%20Ava's%20Soccer%20practice%20on%20Tue%2C%20Dec%201%20at%205%3A30%20p.m.%3A%0A%22Can%20you%20take%20her%3F%20%3Cb%3Ebold%3C%2Fb%3E%22%0Ahttp%3A%2F%2FTEST-ORIGIN%2Factivities.html%23e%3De0000000-0000-4000-8000-000000000002",
+   "note": null,
+   "to": [
+    "Brett [checked]",
+    "Heather (you) [disabled]",
+    "Angie (Grandma)"
+   ]
+  }
+ },
+ "cmtAngie": {
+  "calls": [
+   {
+    "table": "event_comments",
+    "op": "insert",
+    "payload": {
+     "event_id": "e0000000-0000-4000-8000-000000000002",
+     "body": "Angie, want to watch?",
+     "tagged": [
+      "grandma"
+     ]
+    },
+    "filters": [],
+    "sort": null,
+    "limit": null,
+    "one": null,
+    "returning": false
+   }
+  ],
+  "text": {
+   "shown": true,
+   "body": "Kids Tracker: Heather commented on Ava's Soccer practice on Tue, Dec 1 at 5:30 p.m.:\n\"Angie, want to watch?\"\nhttp://TEST-ORIGIN/#k=TESTTOKEN&e=e0000000-0000-4000-8000-000000000002",
+   "href": "sms://open?addresses=5555550101&body=Kids%20Tracker%3A%20Heather%20commented%20on%20Ava's%20Soccer%20practice%20on%20Tue%2C%20Dec%201%20at%205%3A30%20p.m.%3A%0A%22Angie%2C%20want%20to%20watch%3F%22%0Ahttp%3A%2F%2FTEST-ORIGIN%2F%23k%3DTESTTOKEN%26e%3De0000000-0000-4000-8000-000000000002",
+   "note": null,
+   "to": [
+    "Brett",
+    "Heather (you) [disabled]",
+    "Angie (Grandma) [checked]"
+   ]
+  }
+ },
+ "cmtAngieUnticked": {
+  "shown": true,
+  "body": "Kids Tracker: Heather commented on Ava's Soccer practice on Tue, Dec 1 at 5:30 p.m.:\n\"Angie, want to watch?\"\nhttp://TEST-ORIGIN/activities.html#e=e0000000-0000-4000-8000-000000000002",
+  "href": "sms:&body=Kids%20Tracker%3A%20Heather%20commented%20on%20Ava's%20Soccer%20practice%20on%20Tue%2C%20Dec%201%20at%205%3A30%20p.m.%3A%0A%22Angie%2C%20want%20to%20watch%3F%22%0Ahttp%3A%2F%2FTEST-ORIGIN%2Factivities.html%23e%3De0000000-0000-4000-8000-000000000002",
+  "note": null,
+  "to": [
+   "Brett",
+   "Heather (you) [disabled]",
+   "Angie (Grandma)"
+  ]
+ },
+ "cmtAngieTicked": {
+  "shown": true,
+  "body": "Kids Tracker: Heather commented on Ava's Soccer practice on Tue, Dec 1 at 5:30 p.m.:\n\"Angie, want to watch?\"\nhttp://TEST-ORIGIN/#k=TESTTOKEN&e=e0000000-0000-4000-8000-000000000002",
+  "href": "sms://open?addresses=5555550101&body=Kids%20Tracker%3A%20Heather%20commented%20on%20Ava's%20Soccer%20practice%20on%20Tue%2C%20Dec%201%20at%205%3A30%20p.m.%3A%0A%22Angie%2C%20want%20to%20watch%3F%22%0Ahttp%3A%2F%2FTEST-ORIGIN%2F%23k%3DTESTTOKEN%26e%3De0000000-0000-4000-8000-000000000002",
+  "note": null,
+  "to": [
+   "Brett",
+   "Heather (you) [disabled]",
+   "Angie (Grandma) [checked]"
+  ]
+ },
+ "e10comments": [
+  {
+   "text": "Brett Nov 30, 5:15 p.m. @Heather UNSHARED-ONE can you take her to practice?",
+   "del": null
+  },
+  {
+   "text": "Heather Nov 30, 5:40 p.m. Delete UNSHARED-TWO yes, I have it.",
+   "del": "Delete"
+  }
+ ],
+ "delArmed": [
+  "Tap again to delete"
+ ],
+ "delCalls": [
+  {
+   "table": "event_comments",
+   "op": "delete",
+   "payload": null,
+   "filters": [
+    {
+     "kind": "eq",
+     "col": "id",
+     "val": "d0000000-0000-4000-8000-000000000003"
+    }
+   ],
+   "sort": null,
+   "limit": null,
+   "one": null,
+   "returning": false
+  }
+ ],
+ "e10after": 1,
+ "newSheet": {
+  "shown": true,
+  "title": "New activity",
+  "sub": "Tuesday, December 1. Heather has the kids that day.",
+  "kids": [
+   "Ava",
+   "Max",
+   "Both"
+  ],
+  "kind": "practice",
+  "team": "",
+  "teamText": "No team",
+  "name": "",
+  "day": "2026-12-01",
+  "start": "",
+  "end": "",
+  "repeatShown": true,
+  "place": "",
+  "placeText": "No place",
+  "newPlaceShown": false,
+  "arrive": "",
+  "calc": [
+   "Pick a start time to see when to arrive and leave."
+  ],
+  "gear": [],
+  "gearHint": "Type an item and press return to add it. Tap the × to remove it.",
+  "note": "",
+  "cancel": null,
+  "remove": false,
+  "confirm": false,
+  "cmtShown": false,
+  "comments": [
+   {
+    "text": "Brett Nov 30, 5:15 p.m. @Heather UNSHARED-ONE can you take her to practice?",
+    "del": null
+   }
+  ],
+  "tags": [
+   "Brett",
+   "Angie"
+  ]
+ },
+ "newSheetFilled": {
+  "shown": true,
+  "title": "New activity",
+  "sub": "Wednesday, December 2. Heather has the kids that day.",
+  "kids": [
+   "Ava [on]",
+   "Max",
+   "Both"
+  ],
+  "kind": "practice",
+  "team": "c0000000-0000-4000-8000-000000000001",
+  "teamText": "Soccer",
+  "name": "",
+  "day": "2026-12-02",
+  "start": "17:30",
+  "end": "",
+  "repeatShown": true,
+  "place": "b0000000-0000-4000-8000-000000000001",
+  "placeText": "Rec Center Field 3",
+  "newPlaceShown": false,
+  "arrive": "",
+  "calc": [
+   "Arrive by 5:20 (10 minutes early)",
+   "Leave by 5:05 from Heather's (15 min drive)",
+   "Leave by 4:55 from Brett's (25 min drive)",
+   "Leave by 5:00 from Angie's (20 min drive)"
+  ],
+  "gear": [
+   "cleats",
+   "shin guards",
+   "water bottle"
+  ],
+  "gearHint": "Same as the Soccer gear list. Changes here are for this activity only.",
+  "note": "",
+  "cancel": null,
+  "remove": false,
+  "confirm": false,
+  "cmtShown": false,
+  "comments": [
+   {
+    "text": "Brett Nov 30, 5:15 p.m. @Heather UNSHARED-ONE can you take her to practice?",
+    "del": null
+   }
+  ],
+  "tags": [
+   "Brett",
+   "Angie"
+  ]
+ },
+ "repeat": {
+  "inserts": [
+   {
+    "rows": 10,
+    "days": [
+     "2026-12-02",
+     "2026-12-09",
+     "2026-12-16",
+     "2026-12-23",
+     "2026-12-30",
+     "2027-01-06",
+     "2027-01-13",
+     "2027-01-20",
+     "2027-01-27",
+     "2027-02-03"
+    ],
+    "keys": [
+     "arrive_by",
+     "day",
+     "end_time",
+     "gear",
+     "kid_ids",
+     "kind",
+     "note",
+     "place_id",
+     "place_text",
+     "start_time",
+     "team_id",
+     "title"
+    ],
+    "returning": true
+   }
+  ],
+  "text": {
+   "shown": true,
+   "body": "Kids Tracker: Heather added Ava's Soccer practice on Wed, Dec 2 at 5:30 p.m., then every week through Wed, Feb 3 (10 in all).\nhttp://TEST-ORIGIN/#k=TESTTOKEN&e=e1111111-1111-4111-9111-000000000015",
+   "href": "sms://open?addresses=+15555550102,5555550101&body=Kids%20Tracker%3A%20Heather%20added%20Ava's%20Soccer%20practice%20on%20Wed%2C%20Dec%202%20at%205%3A30%20p.m.%2C%20then%20every%20week%20through%20Wed%2C%20Feb%203%20(10%20in%20all).%0Ahttp%3A%2F%2FTEST-ORIGIN%2F%23k%3DTESTTOKEN%26e%3De1111111-1111-4111-9111-000000000015",
+   "note": null,
+   "to": [
+    "Brett [checked]",
+    "Heather (you) [disabled]",
+    "Angie (Grandma) [checked]"
+   ]
+  },
+  "toast": "Added 10 activities."
+ },
+ "cap61": {
+  "toast": "That is 61 weeks. Add up to 60 at a time.",
+  "calls": [],
+  "open": true
+ },
+ "cap60": [
+  [
+   60,
+   "2026-12-02",
+   "2028-01-19"
+  ]
+ ],
+ "newPlaceRow": true,
+ "newPlace": {
+  "calls": [
+   [
+    "places",
+    "insert",
+    {
+     "name": "North Court"
+    },
+    true,
+    "single"
+   ]
+  ],
+  "sheet": {
+   "shown": true,
+   "title": "New activity",
+   "sub": "Tuesday, December 1. Heather has the kids that day.",
+   "kids": [
+    "Ava",
+    "Max",
+    "Both"
+   ],
+   "kind": "practice",
+   "team": "",
+   "teamText": "No team",
+   "name": "",
+   "day": "2026-12-01",
+   "start": "",
+   "end": "",
+   "repeatShown": true,
+   "place": "p1111111-1111-4111-9111-000000000157",
+   "placeText": "North Court",
+   "newPlaceShown": false,
+   "arrive": "",
+   "calc": [
+    "Pick a start time to see when to arrive and leave."
+   ],
+   "gear": [],
+   "gearHint": "Type an item and press return to add it. Tap the × to remove it.",
+   "note": "",
+   "cancel": null,
+   "remove": false,
+   "confirm": false,
+   "cmtShown": false,
+   "comments": [
+    {
+     "text": "Brett Nov 30, 5:15 p.m. @Heather UNSHARED-ONE can you take her to practice?",
+     "del": null
+    }
+   ],
+   "tags": [
+    "Brett",
+    "Angie"
+   ]
+  }
+ },
+ "lists2": {
+  "teams": [
+   "Ava Max Basketball Eastside Gym. Arrive 15 min early, 20 for games. basketball shoes jersey water bottle Note: Same team this season. Edit",
+   "Ava Soccer Rec Center Field 3. Arrive 10 min early, 30 for games. cleats shin guards water bottle Edit",
+   "Max Chess club Off Arrive 0 min early, 0 for games. No gear yet. Edit"
+  ],
+  "places": [
+   "Eastside Gym 22 Sample St, Faketown 10 min from Heather's, 20 from Brett's. Add drive time from Angie's. Edit",
+   "Rec Center Field 3 100 Example Park Rd, Faketown 15 min from Heather's, 25 from Brett's, 20 from Angie's. Note: Park by the north lot. Edit",
+   "Studio B 10 min from Heather's. Add drive time from Brett's and Angie's. Edit",
+   "Unused Field Add drive time from Heather's, Brett's and Angie's. Edit",
+   "West Pool Add drive time from Heather's, Brett's and Angie's. Edit"
+  ],
+  "placeCount": "5 saved",
+  "kids": [
+   "A Ava Orange. Order 1. Edit",
+   "M Max Berry. Order 2. Edit"
+  ],
+  "contactInputs": [
+   "cl-co=Brett",
+   "cp-co=+1 555 555 0102",
+   "cl-me=Heather",
+   "cp-me=+15555550103",
+   "cl-grandma=",
+   "cp-grandma=(555) 555-0101"
+  ],
+  "contactRows": [],
+  "contactHint": "Only you can change these. Brett sees them.",
+  "contactSave": true,
+  "log": [
+   "Dec 1 12:00 p.m. Heather added 60 activities Cap test, Dec 2 to Jan 19",
+   "Dec 1 12:00 p.m. Heather added 10 activities Soccer practice, Dec 2 to Feb 3",
+   "Dec 1 12:00 p.m. Heather canceled Soccer practice on Wed Dec 9 at 5:30 p.m.",
+   "Dec 1 12:00 p.m. Heather put Soccer practice back on for Mon Dec 7 at 5:30 p.m.",
+   "Dec 1 12:00 p.m. Heather removed Movie night on Thu Dec 31 at 7:00 p.m.",
+   "Dec 1 12:00 p.m. Heather updated Soccer practice on Tue Dec 1: details",
+   "Nov 30 4:00 p.m. Heather updated Soccer practice on Thu Dec 17: note",
+   "Nov 30 3:00 p.m. Brett canceled Soccer practice on Mon Dec 7 at 5:30 p.m.",
+   "Nov 29 7:00 a.m. Brett removed Soccer practice on Tue Dec 8 at 5:30 p.m.",
+   "Nov 25 10:00 a.m. Heather added 4 activities Soccer practice, Soccer game, Dec 9 to Dec 22",
+   "Nov 20 10:00 a.m. Heather added the team \"Basketball\"",
+   "Nov 10 7:00 a.m. Heather added Soccer practice on Fri Feb 5 at 5:30 p.m.",
+   "Oct 1 8:00 a.m. Heather added Piano lesson on Wed Dec 2 at 4:15 p.m."
+  ],
+  "back": true,
+  "signOut": true
+ },
+ "deepUnknown": {
+  "toast": "That activity isn't on the tracker anymore.",
+  "sheet": false
+ },
+ "serverSet": [],
+ "logWrites": 0,
+ "custodyReads": [],
+ "shareReads": [
+  [
+   "select",
+   "token"
+  ]
+ ],
+ "afterSignOut": {
+  "views": [
+   "vSignin"
+  ],
+  "phones": [],
+  "top": false
+ },
+ "errors": []
+}

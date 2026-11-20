@@ -1,0 +1,171 @@
+{
+ "Tuesday": {
+  "week": [
+   "Tue, Dec 1",
+   "Wed, Dec 2",
+   "Thu, Dec 3",
+   "Fri, Dec 4",
+   "Sat, Dec 5",
+   "Sun, Dec 6"
+  ],
+  "monthFirst": "Tue, Dec 1 Today",
+  "monthLast": "Thu, Dec 31"
+ },
+ "Saturday": {
+  "week": [
+   "Sat, Dec 5",
+   "Sun, Dec 6",
+   "Mon, Dec 7",
+   "Tue, Dec 8",
+   "Wed, Dec 9",
+   "Thu, Dec 10",
+   "Fri, Dec 11",
+   "Sat, Dec 12",
+   "Sun, Dec 13"
+  ],
+  "monthFirst": "Sat, Dec 5 Today Handoff day",
+  "monthLast": "Fri, Jan 1"
+ },
+ "Sunday": {
+  "week": [
+   "Sun, Dec 6",
+   "Mon, Dec 7",
+   "Tue, Dec 8",
+   "Wed, Dec 9",
+   "Thu, Dec 10",
+   "Fri, Dec 11",
+   "Sat, Dec 12",
+   "Sun, Dec 13"
+  ],
+  "monthFirst": "Sun, Dec 6 Today Handoff day",
+  "monthLast": "Tue, Jan 5"
+ },
+ "off": {
+  "panel": {
+   "shown": true,
+   "pressed": [
+    "off"
+   ],
+   "offShown": true,
+   "filters": null,
+   "days": [],
+   "editButtons": 0
+  },
+  "today": null,
+  "legend": "Heather Brett Grandma Someone else ⇄ Switched ★ Holiday schedule No school ½ Half day",
+  "marks": 0
+ },
+ "offAfterReload": {
+  "panel": {
+   "shown": true,
+   "pressed": [
+    "off"
+   ],
+   "offShown": true,
+   "filters": null,
+   "days": [],
+   "editButtons": 0
+  },
+  "stored": "off",
+  "marks": 0,
+  "sheet": [
+   "03",
+   "04"
+  ]
+ },
+ "jan13": {
+  "shown": true,
+  "pressed": [
+   "week"
+  ],
+  "offShown": false,
+  "filters": "Showing Ava Max",
+  "days": [
+   {
+    "date": "Wed, Jan 13 Today",
+    "chip": "chip me | Heather",
+    "handoff": null,
+    "none": "No activities.",
+    "events": []
+   },
+   {
+    "date": "Thu, Jan 14",
+    "chip": "chip me | Heather",
+    "handoff": null,
+    "none": "No activities.",
+    "events": []
+   },
+   {
+    "date": "Fri, Jan 15 Handoff day",
+    "chip": "chip other | Someone else",
+    "handoff": {
+     "cls": "handoff other",
+     "head": "⇄ Handoff to Someone else",
+     "chip": "chip other | Someone else",
+     "packTitle": "Pack for Someone else's night",
+     "pack": [
+      {
+       "text": "Both: basketball shoes, jersey, water bottle",
+       "dots": [
+        "c-orange",
+        "c-berry"
+       ]
+      }
+     ]
+    },
+    "none": null,
+    "events": [
+     {
+      "id": "e0000000-0000-4000-8000-000000000022",
+      "cls": "b-berry c-orange ev kb",
+      "time": "6:00 p.m.",
+      "title": "Ava Max Basketball practice",
+      "kids": [
+       "Ava c-orange",
+       "Max c-berry"
+      ],
+      "flags": [],
+      "where": "Eastside Gym 22 Sample St, Faketown",
+      "map": {
+       "href": "https://maps.apple.com/?q=22%20Sample%20St%2C%20Faketown",
+       "target": "_blank",
+       "rel": "noopener noreferrer"
+      },
+      "go": "Arrive 5:45.",
+      "gear": "Bring: basketball shoes, jersey, water bottle",
+      "note": null,
+      "comments": [],
+      "crossedOut": false
+     }
+    ]
+   },
+   {
+    "date": "Sat, Jan 16 Handoff day",
+    "chip": "chip co | Brett",
+    "handoff": {
+     "cls": "co handoff",
+     "head": "⇄ Handoff to Brett",
+     "chip": "chip co | Brett",
+     "packTitle": null,
+     "pack": []
+    },
+    "none": "No activities.",
+    "events": []
+   },
+   {
+    "date": "Sun, Jan 17",
+    "chip": "chip co | Brett",
+    "handoff": null,
+    "none": "No activities.",
+    "events": []
+   }
+  ],
+  "editButtons": 0
+ },
+ "dec7today": {
+  "text": "Today: Ava Soccer practice 5:30 p.m. Canceled.",
+  "struck": [
+   "Soccer practice 5:30 p.m."
+  ]
+ }
+}
