@@ -27,6 +27,8 @@
     logFilter: "all", logAll: false,   // family page: Recent changes filter
   };
   const S = () => st.settings;
+  // A holder is always one of me, co, grandma, other. Anything else read from the database is treated as "other", so it can never land in a class name.
+  const holderOf = window.KTActs.holderClass;
   const isFresh = rec => !!(PAGE === "family" && st.seen && rec && rec.updatedAt && Date.parse(rec.updatedAt) > Date.parse(st.seen));
 
   const sched = window.KTCore.schedule(st);
@@ -83,7 +85,7 @@
     const nx = end + 1, nName = nameOf(actual(nx), recOf(nx)), ht = handoffTime(nx);
     const hol = holOn(T0), sc = schoolOn(T0), why = famWhy(rec);
     const thru = end === T0 ? "Tonight only." : `Through ${fmt(end, { weekday: "long", month: "short", day: "numeric" })}.`;
-    const next = `${nName} picks up ${nx === T0 + 1 ? "tomorrow" : fmt(nx, { weekday: "long", month: "short", day: "numeric" })}${ht ? " " + ht : ""}.`;
+    const next = `${nName} picks up ${nx === T0 + 1 ? "tomorrow" : fmt(nx, { weekday: "long", month: "short", day: "numeric" })}${ht ? " " + ht : ""}`.replace(/\.?$/, ".");   // a pickup time can already end in a period ("5 p.m.")
     const schoolTxt = sc.t === "school" ? "School today" : sc.t === "half" ? sc.l + " today" : sc.t === "off" ? "No school today: " + sc.l : sc.t === "weekend" ? "Weekend" : "";
     const box = $("famNow");
     box.className = "now " + a;
@@ -228,9 +230,10 @@
       st.settings = { myName: s.my_name || "Heather", coName: s.co_name || "Brett", anchor: s.anchor, trackFrom: s.anchor };
       st.breaks = {}; (data.breaks || []).forEach(b => { st.breaks[b.year] = b.data || {}; });
       st.swaps = new Map();
-      (data.swaps || []).forEach(w => { if (isDate(w.day)) st.swaps.set(w.day, { date: w.day, had: w.had, with: w.caregiver || "", reason: w.reason || "", note: w.note || "", pnote: "", updatedAt: w.updated_at || null }); });
+      (data.swaps || []).forEach(w => { if (isDate(w.day)) st.swaps.set(w.day, { date: w.day, had: holderOf(w.had), with: w.caregiver || "", reason: w.reason || "", note: w.note || "", pnote: "", updatedAt: w.updated_at || null }); });
       st.changedAt = data.changed_at || null;
-      acts.load(data);
+      // The family link only ever gets shared comments. Drop anything else, the same way pnote is blanked above.
+      acts.load({ ...data, comments: (Array.isArray(data.comments) ? data.comments : []).filter(c => c && c.share_family === true) });
       lastLoad = Date.now();
       renderFamily();
       $("updated").textContent = "Updated " + new Date().toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit" });
@@ -349,7 +352,7 @@
     st.breaks = {}; (b || []).forEach(r => { st.breaks[r.year] = r.data || {}; });
     const det = new Map((d || []).map(r => [r.day, r]));
     st.swaps = new Map();
-    (w || []).forEach(r => { const x = det.get(r.day) || {}; st.swaps.set(r.day, { date: r.day, had: r.had, with: r.caregiver || "", reason: x.reason || "", note: x.note || "", pnote: x.pnote || "" }); });
+    (w || []).forEach(r => { const x = det.get(r.day) || {}; st.swaps.set(r.day, { date: r.day, had: holderOf(r.had), with: r.caregiver || "", reason: x.reason || "", note: x.note || "", pnote: x.pnote || "" }); });
     st.link = (l && l[0]) || null;
     return !!s;
   }

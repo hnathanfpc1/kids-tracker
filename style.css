@@ -104,6 +104,9 @@ header.top p { margin: 4px 0 0; color: var(--muted); }
   .day .ws { display: inline; }
   .day .who .ws { font-size: 0.8rem; }
   .day { min-height: 58px; }
+  /* Phone cells are about 33px wide inside. Let the badges drop under the date instead of hanging over the edge. */
+  .day .top { flex-wrap: wrap; row-gap: 1px; }
+  .day .sw { font-size: 0.6rem; padding: 0 2px; }
 }
 .legend { display: flex; flex-wrap: wrap; gap: 8px 16px; margin-top: 12px; font-size: 0.82rem; color: var(--muted); }
 .legend i { display: inline-block; width: 14px; height: 14px; border-radius: 4px; vertical-align: -2px; margin-right: 6px; }

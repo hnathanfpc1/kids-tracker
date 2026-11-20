@@ -60,7 +60,7 @@ window.KTEditor = (() => {
     const by = {};
     (Array.isArray(rows) ? rows : []).forEach(r => { if (r && ORDER.includes(r.who)) by[r.who] = { label: r.label, phone: r.phone }; });
     if (!ORDER.some(w => by[w] && phoneOk(by[w].phone))) {
-      (cfg && Array.isArray(cfg.contacts) ? cfg.contacts : []).forEach(c => { const w = c && whoFromName(c.name, names); if (w && !by[w]) by[w] = { label: "", phone: c.phone }; });
+      (cfg && Array.isArray(cfg.contacts) ? cfg.contacts : []).forEach(c => { const w = c && whoFromName(c.name, names); if (w && !(by[w] && phoneOk(by[w].phone))) by[w] = { label: (by[w] && by[w].label) || "", phone: c.phone }; });
     }
     const fallback = { me: names.me || "Heather", co: names.co || "Brett", grandma: GRANDMA_LABEL };
     return ORDER.map(w => ({ who: w, label: String((by[w] && by[w].label) || "").trim() || fallback[w], phone: phoneOk(by[w] && by[w].phone) }));
