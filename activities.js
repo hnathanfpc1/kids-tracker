@@ -118,7 +118,7 @@
       <span class="when num">${fmt(e.n, SD)}<small>${fmt(e.n, { weekday: "short" })}</small></span>
       <span class="what"><span class="ln">${e.canceled ? `<span class="chip plain">Canceled</span>` : ""}${acts.kidsOf(e.kid_ids).map(acts.kchip).join("")}<strong class="ev-name">${esc(acts.label(e))}</strong></span>
         <span class="ln sub2 num">${K.timeSpan(e.start, e.end)}${p ? ", " + esc(p.name) : e.place_text ? ", " + esc(e.place_text) : ""}</span>
-        <span class="ln sub2"><span class="chip ${K.holderKey(h)}">${esc(sched.nameOf(h, sched.recOf(e.n)))}</span>${acts.isHandoff(e.n) ? "Handoff day" : "has the kids"}${n ? `. ${n} comment${n === 1 ? "" : "s"}` : ""}</span></span>
+        <span class="ln sub2"><span class="chip ${K.holderClass(h)}">${esc(sched.nameOf(h, sched.recOf(e.n)))}</span>${acts.isHandoff(e.n) ? "Handoff day" : "has the kids"}${n ? `. ${n} comment${n === 1 ? "" : "s"}` : ""}</span></span>
       <span class="go" aria-hidden="true">Edit</span></button></li>`;
   }
 

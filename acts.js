@@ -13,7 +13,7 @@ window.KTActs = (() => {
   const COLORS = { orange: "Orange", berry: "Berry", navy: "Navy", charcoal: "Charcoal" };
   const colorKey = c => (COLORS[c] ? c : "charcoal");
   // Who has the kids, as a CSS class: only the four known holders, whatever the data says.
-  const holderKey = k => (k === "me" || k === "co" || k === "grandma" ? k : "other");
+  const holderClass = k => (k === "me" || k === "co" || k === "grandma" ? k : "other");
   const KINDS = { practice: "Practice", game: "Game", lesson: "Lesson", other: "Other" };
   const ANGIE = "Angie";   // how a tag for Heather's mom reads in a comment
   const isApple = /iPhone|iPad|iPod|Macintosh/.test(navigator.userAgent);
@@ -160,12 +160,12 @@ window.KTActs = (() => {
       const a = actual(n), nm = nameOf(a, recOf(n)), ht = handoffTime(n);
       let end = n; while (end < n + 60 && holderKey(end + 1) === holderKey(n)) end++;
       const len = end - n + 1, groups = pack(n, end);
-      return `<div class="handoff ${holderKey(a)}"><p><strong>&#8644; Handoff to</strong> <span class="chip ${holderKey(a)}">${esc(nm)}</span>${ht ? esc(ht) : ""}</p>${groups.length
+      return `<div class="handoff ${holderClass(a)}"><p><strong>&#8644; Handoff to</strong> <span class="chip ${holderClass(a)}">${esc(nm)}</span>${ht ? esc(ht) : ""}</p>${groups.length
         ? `<p class="pack-title">Pack for ${esc(nm)}'s ${len >= 7 ? "week" : len === 1 ? "night" : len + " nights"}</p><ul class="pack">${groups.map(g => `<li>${g.kids.map(kdot).join("")}<strong>${esc(g.name)}:</strong> ${esc(g.items.join(", "))}</li>`).join("")}</ul>` : ""}</div>`;
     }
     function dayBlock(n, today, o) {
       const a = actual(n), evs = on(n), ho = isHandoff(n);
-      return `<div class="aday"><div class="aday-head"><span class="dt">${dayText(n)}${n === today ? "<small>Today</small>" : ""}${ho ? "<small>Handoff day</small>" : ""}</span><span class="chip ${holderKey(a)}">${esc(nameOf(a, recOf(n)))}</span></div>
+      return `<div class="aday"><div class="aday-head"><span class="dt">${dayText(n)}${n === today ? "<small>Today</small>" : ""}${ho ? "<small>Handoff day</small>" : ""}</span><span class="chip ${holderClass(a)}">${esc(nameOf(a, recOf(n)))}</span></div>
         ${ho ? handoffBox(n) : ""}${evs.length ? evs.map(e => evHtml(e, o)).join("") : `<p class="none">No activities.</p>`}</div>`;
     }
     // The Activities panel body for "week" or "month". Next 30 days skips days with nothing on them.
@@ -229,7 +229,7 @@ window.KTActs = (() => {
         const r = g.rec, why = famWhy(r);
         items.push({ at: Date.parse(r.updatedAt), type: "kids",
           html: `<li class="rc" data-type="kids"><div class="when num">${esc(stampDay(r.updatedAt))}<small>${esc(stampTime(r.updatedAt))}</small></div>
-            <div class="what"><p>${whoChip("me")}switched ${g.end > g.start ? "nights" : "a night"}</p><p class="sub2">&#8644; ${range(g.start, g.end)}: <span class="chip ${holderKey(r.had)}">${esc(nameOf(r.had, r))}</span>has the kids.${why ? " " + esc(sentence(why)) : ""}</p></div></li>` });
+            <div class="what"><p>${whoChip("me")}switched ${g.end > g.start ? "nights" : "a night"}</p><p class="sub2">&#8644; ${range(g.start, g.end)}: <span class="chip ${holderClass(r.had)}">${esc(nameOf(r.had, r))}</span>has the kids.${why ? " " + esc(sentence(why)) : ""}</p></div></li>` });
       });
       return items.sort((a, b) => b.at - a.at);
     }
@@ -259,5 +259,5 @@ window.KTActs = (() => {
     };
   }
 
-  return { create, parse, esc, COLORS, colorKey, holderKey, KINDS, ANGIE, mins, clock, half, timeText, timeSpan, hhmm, stampDay, stampTime, dayText, initial, pref, setPref, rangeFor };
+  return { create, parse, esc, COLORS, colorKey, holderClass, KINDS, ANGIE, mins, clock, half, timeText, timeSpan, hhmm, stampDay, stampTime, dayText, initial, pref, setPref, rangeFor };
 })();
