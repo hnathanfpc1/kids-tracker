@@ -262,7 +262,30 @@ export function importUnitChecks({ check, expectAll, ROOT }) {
       ["1 game", KT.headline(rows(["game"])), "I found 1 game"], ["all four kinds", KT.headline(rows(["practice"], ["game"], ["lesson"], ["other"], ["other"])), "I found 1 practice, 1 game, 1 lesson and 2 other activities"],
       ["other only, 1", KT.headline(rows(["other"])), "I found 1 activity"], ["other only, 3", KT.headline(rows(["other"], ["other"], ["other"])), "I found 3 activities"],
       ["practice and other", KT.headline(rows(["practice"], ["practice"], ["other"])), "I found 2 practices and 1 other activity"],
-      ["gone rows are not counted", KT.headline(rows(["practice"], ["game", "gone"])), "I found 1 practice"], ["nothing", KT.headline(rows(["game", "gone"])), "I couldn't find any activities"]]);
+      ["gone rows are not counted", KT.headline(rows(["practice"], ["game", "gone"])), "I found 1 practice"], ["only canceled events that were never on the tracker", KT.headline(rows(["game", "gone"])), "Nothing to add or change"], ["no rows at all", KT.headline([]), "I couldn't find any activities"]]);
+    // Fixed 2026-11-21 (executive review): the same new line listed twice in one paste is flagged, and a file holding only a canceled event that
+    // was never on the tracker no longer says "Everything looks clear".
+    const tw = t => run("Date\tTime\tWhat\tKid\n" + t.map(x => `2026-12-03\t${x[0]}\t${x[1] || "Soccer practice"}\t${x[2] || "Ava"}`).join("\n"), []);
+    const tws = t => tw(t).map(it => [it.status, !!it.checked]);
+    const t3 = tw([["5:30 pm"], ["5:30 pm"], ["5:30 pm"]]);
+    const fix = tw([["5:30 pm"], ["5:30 pm"]]); fix[1].start = 1110; KT.classify(fix, [], { kids: [] }, LK, toNum("2026-12-01"));
+    const onTracker = run("Date\tTime\tWhat\tKid\n2026-12-03\t5:30-6:30 pm\tSoccer practice\tAva\n2026-12-03\t5:30-6:30 pm\tSoccer practice\tAva", [exist()]).map(st);
+    const flagged = t3.map(it => ({ ...it, flags: [] }));
+    expectAll("import dupes", "the same new row listed twice in one paste: the first is new and checked, each later copy is 'twice' and unchecked; a different time, kid or name is not a copy; changing the copy's time makes it new and checked again; a second copy of a row that is already on the tracker, or that moves one, is also 'twice'", [
+      ["same line twice", tws([["5:30 pm"], ["5:30 pm"]]), [["new", true], ["twice", false]]],
+      ["same line three times", t3.map(st), [["new", true], ["twice", false], ["twice", false]]],
+      ["with and without an end time", tws([["5:30-6:30 pm"], ["5:30 pm"]]), [["new", true], ["twice", false]]],
+      ["different time", tws([["5:30 pm"], ["6:30 pm"]]), [["new", true], ["new", true]]],
+      ["different kid", tws([["5:30 pm"], ["5:30 pm", "Soccer practice", "Max"]]), [["new", true], ["new", true]]],
+      ["different name", tws([["5:30 pm"], ["5:30 pm", "Piano lesson"]]), [["new", true], ["new", true]]],
+      ["copy edited to another time", fix.map(st), [["new", true], ["new", true]]],
+      ["already on the tracker, pasted twice", onTracker, [["dup", false], ["twice", false]]],
+      ["moved, pasted twice", run("Date\tTime\tWhat\tKid\n2026-12-03\t6:30 pm\tSoccer practice\tAva\n2026-12-03\t6:30 pm\tSoccer practice\tAva", [exist()]).map(st), [["moved", true], ["twice", false]]],
+      ["summary", KT.summary(flagged, "the list you pasted"), "From the list you pasted. 2 are listed twice."],
+      ["summary, one copy", KT.summary(flagged.slice(0, 2), "the list you pasted"), "From the list you pasted. 1 is listed twice."],
+      ["headline still counts every row", KT.headline(t3), "I found 3 practices"],
+      ["summary, only a canceled event that was never on the tracker", KT.summary(can2, "the calendar file Team.ics"), "From the calendar file Team.ics."],
+      ["headline for the same", KT.headline(can2), "Nothing to add or change"]]);
     const dt = n => KT.str(n);
     const A = (day, kind, ...kids) => ({ n: toNum(day), kind, kidNames: kids });
     expectAll("import wording", "the text for a whole import: adds with kinds, kids and the date span; one day says 'on'; moved and canceled counts; singular and plural", [
@@ -370,6 +393,22 @@ async function importPageChecks2(h) {
   // =========================================================================
   // 1. Paste a list: limits, review screen, apply to all, editing, saving
   // =========================================================================
+  {
+    // Fixed 2026-11-21 (executive review): the same line pasted twice. Not part of the golden snapshot.
+    const s = await go("import twice"); await lib(s); const p = s.page, L = ["2027-02-09", "5-6 pm", "Soccer practice", "Ava", "", ""];
+    await pasteIn(s, tsv(HEAD, L, L));
+    const rv = await R(s, "rv");
+    fs.mkdirSync(SHOT_DIR, { recursive: true }); await p.setViewportSize({ width: 375, height: 800 }); await settle(s);
+    await p.locator("#rvHead").locator("xpath=..").screenshot({ path: path.join(SHOT_DIR, "import-twice-head-375-light.png") }); await p.locator("#rvList").screenshot({ path: path.join(SHOT_DIR, "import-twice-375-light.png") });
+    await takeCalls(s); await p.locator("#rvAdd").click(); await waitTxt(s);
+    const calls = writes(await takeCalls(s));
+    expectAll("import page", "the same line pasted twice: the second row is dimmed, unticked and says 'Same as a row above', the summary says '1 is listed twice', and Add saves one activity, not two", [
+      ["rows (ticked, dimmed, says same as above)", rv.rows.map(x => [x.checked, x.dup, /Same as a row above/.test(x.text)]), [[true, false, false], [false, true, true]]],
+      ["summary", rv.sub, "From the list you pasted. 1 is listed twice."], ["button", rv.add, "Add 1 to the tracker"],
+      ["saved", calls.map(c => [`${c.table}.${c.op}`, Array.isArray(c.payload) ? c.payload.length : 1]), [["events.insert", 1]]],
+      ["no page errors", s.errors.filter(e => !/integrity/.test(e)), []]]);
+    await close(s);
+  }
   {
     const s = await go("import paste"); await lib(s); const p = s.page, r = golden.paste = {};
     await takeCalls(s);
