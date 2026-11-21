@@ -477,7 +477,7 @@
     return cands.some(c => exs.some(x => x === c || (c.length >= 3 && x.length >= 3 && (x.includes(c) || c.includes(x))) || (c === ex.kind)));
   }
   // existing: [{ id, day, start, end, kid_ids, title, kind, team_id, place_id, place_text, status, source_uid, label }]
-  // Sets r.status ("new", "dup", "moved", "cancel", "gone"), r.target, r.changes (text lines), r.patch (columns to update) and r.checked on a change of status.
+  // Sets r.status ("new", "dup", "twice", "moved", "cancel", "gone"), r.target, r.changes (text lines), r.patch (columns to update) and r.checked on a change of status.
   function classify(rows, existing, all, lk, today) {
     const claimed = new Set(), nowStr = str(today), found = new Map();
     rows.forEach(r => { r.eff = effective(r, all, lk); });
@@ -519,6 +519,15 @@
         }
         e.problems = [];      // nothing is added for this row: the activity already on the tracker keeps its own kids and name
       } else if (r.canceled) r.status = "gone";
+    });
+    // 4. The same row listed twice in one paste or file (same kids, date, start time and name): a later copy that would be added as new
+    //    is "twice" and starts unticked. It can still be ticked and added. Rows matched to the tracker above keep their status.
+    const seen = new Set();
+    rows.forEach(r => {
+      if (r.day && (r.status === "new" || r.status === "dup" || r.status === "moved")) {
+        const e = r.eff, key = [r.day, r.start, e.kids.slice().sort().join(","), e.team_id || "", norm(e.title || ""), e.kind].join("|");
+        if (!seen.has(key)) seen.add(key); else if (r.status === "new") r.status = "twice";
+      }
       if (r.prevStatus !== r.status) { r.checked = (r.status === "new" || r.status === "moved" || r.status === "cancel") && !(r.day && r.day < nowStr); r.prevStatus = r.status; }
     });
     return rows;
@@ -529,7 +538,7 @@
   function headline(rows) {
     const live = rows.filter(r => r.status !== "gone"), c = { practice: 0, game: 0, lesson: 0, other: 0 };
     live.forEach(r => { c[r.kind] = (c[r.kind] || 0) + 1; });
-    if (!live.length) return "I couldn't find any activities";
+    if (!live.length) return rows.length ? "Nothing to add or change" : "I couldn't find any activities";
     const parts = [];
     if (c.practice) parts.push(plural(c.practice, "practice", "practices"));
     if (c.game) parts.push(plural(c.game, "game", "games"));
@@ -537,14 +546,16 @@
     if (c.other) parts.push(parts.length ? plural(c.other, "other activity", "other activities") : plural(c.other, "activity", "activities"));
     return "I found " + (parts.length > 1 ? parts.slice(0, -1).join(", ") + " and " + parts[parts.length - 1] : parts[0]);
   }
-  const needsLook = r => r.status === "moved" || r.status === "cancel" || (r.status !== "dup" && (r.flags.some(f => !f.soft) || (r.eff && r.eff.problems.length > 0)));
+  const needsLook = r => r.status === "moved" || r.status === "cancel" || (r.status !== "dup" && r.status !== "twice" && (r.flags.some(f => !f.soft) || (r.eff && r.eff.problems.length > 0)));
   // srcText: "the list you pasted", "the file Team.ics" and so on.
   function summary(rows, srcText) {
     const live = rows.filter(r => r.status !== "gone"), dup = live.filter(r => r.status === "dup").length, look = live.filter(needsLook).length;
-    const bits = [`From ${srcText}.`];
+    const twice = live.filter(r => r.status === "twice").length, bits = [`From ${srcText}.`];
+    if (rows.length && !live.length) return bits[0];      // only canceled events that were never on the tracker: the note under this says so
     if (dup) bits.push(`${dup} ${dup === 1 ? "is" : "are"} already on the tracker.`);
+    if (twice) bits.push(`${twice} ${twice === 1 ? "is" : "are"} listed twice.`);
     if (look) bits.push(`${look} ${look === 1 ? "needs" : "need"} a quick look.`);
-    if (!dup && !look) bits.push("Everything looks clear.");
+    if (!dup && !twice && !look) bits.push("Everything looks clear.");
     return bits.join(" ");
   }
   // The one text for a whole import. o = { me, adds: [{ n, kind, kidNames: [] }], moved: count, canceled: count, dayText: fn(day number) }

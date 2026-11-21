@@ -657,7 +657,7 @@
   function rowMain(r, i) {
     const e = r.eff, ks = acts.kidsOf(e.kids).map(acts.kchip).join(""), pl = e.place_id && A().place.get(e.place_id);
     const where = pl ? pl.name : e.place_text ? e.place_text : e.new_place ? "New place: " + e.new_place : "";
-    const chips = (r.status === "dup" ? `<span class="chip plain">Already on the tracker</span>` : "") + r.changes.map(c => `<span class="chip plain">${esc(c)}</span>`).join("");
+    const chips = (r.status === "dup" ? `<span class="chip plain">Already on the tracker</span>` : r.status === "twice" ? `<span class="chip plain">Same as a row above</span>` : "") + r.changes.map(c => `<span class="chip plain">${esc(c)}</span>`).join("");
     const flags = r.flags.map(f => `<span class="flag${f.soft ? " soft" : ""}">${esc(f.t)}</span>`).join("") + e.problems.map(p => `<span class="flag prob">${esc(p)}</span>`).join("");
     const tl = targetLine(r);
     const split = r.canSplit ? `<p><button type="button" class="link-btn rv-split" data-asnew="${i}">Not a move? Add it as its own activity</button></p>`
@@ -686,7 +686,7 @@
   function renderRow(i) {
     const li = $("rvList").children[i], r = imp.rows[i]; if (!li) return;
     li.hidden = r.status === "gone";
-    li.className = "rv" + (r.status === "dup" ? " dup" : "");
+    li.className = "rv" + (r.status === "dup" || r.status === "twice" ? " dup" : "");
     const open = imp.open.has(i);
     li.innerHTML = `<label class="rv-ck"><input type="checkbox" data-ck="${i}"${r.checked ? " checked" : ""} aria-label="Add ${esc(rowLabel(r))}, ${esc(dateLabel(r))}"></label>
       <div class="rv-main">${rowMain(r, i)}</div><button type="button" class="link-btn" data-edit="${i}" aria-expanded="${open}">${open ? "Done" : "Edit"}</button>${open ? editHtml(r, i) : ""}`;
@@ -702,7 +702,7 @@
     imp.rows.forEach((r, i) => {
       const li = $("rvList").children[i];
       if (full || !imp.open.has(i)) renderRow(i);
-      else { li.hidden = r.status === "gone"; li.className = "rv" + (r.status === "dup" ? " dup" : ""); li.querySelector(".rv-main").innerHTML = rowMain(r, i); li.querySelector("[data-ck]").checked = r.checked; }
+      else { li.hidden = r.status === "gone"; li.className = "rv" + (r.status === "dup" || r.status === "twice" ? " dup" : ""); li.querySelector(".rv-main").innerHTML = rowMain(r, i); li.querySelector("[data-ck]").checked = r.checked; }
     });
     const n = imp.rows.filter(r => r.checked && r.status !== "gone").length;
     $("rvAdd").textContent = n ? `Add ${n} to the tracker` : "Nothing selected"; $("rvAdd").disabled = !n;
@@ -735,10 +735,10 @@
       toast(`Fix ${plural(bad.length, "row", "rows")} marked in red first, or untick ${bad.length === 1 ? "it" : "them"}.`); return;
     }
     $("rvAdd").disabled = true;
-    const adds = picked.filter(x => x.r.status === "new"), ups = picked.filter(x => x.r.status === "moved" || x.r.status === "cancel"), me = acts.who(st.me);
+    const adds = picked.filter(x => x.r.status === "new" || x.r.status === "twice"), ups = picked.filter(x => x.r.status === "moved" || x.r.status === "cancel"), me = acts.who(st.me);
     let step = "add them";
     try {
-      const np = picked.find(x => x.r.eff.new_place && x.r.status === "new");
+      const np = picked.find(x => x.r.eff.new_place && (x.r.status === "new" || x.r.status === "twice"));
       let newPlace = np && imp.madePlace && imp.madePlace.asked === np.r.eff.new_place ? imp.madePlace.row : null;
       if (newPlace && !A().place.get(newPlace.id)) { A().places.push(newPlace); A().place.set(newPlace.id, newPlace); }
       if (np && !newPlace) {
@@ -750,9 +750,10 @@
       }
       if (adds.length) {
         // Every new row in one request, so they share one line in the change log (same fields as adding by hand).
+        const usedUid = new Set(), uidOnce = u => { if (!u || usedUid.has(u)) return null; usedUid.add(u); return u; };   // a calendar id can be stored once
         const rows = adds.map(({ r }) => { const e = r.eff; return { team_id: e.team_id, kid_ids: e.kids.slice(), kind: e.kind, title: e.title, day: r.day, start_time: K.hhmm(r.start),
           end_time: r.end == null ? null : K.hhmm(r.end), place_id: e.place_id || (e.new_place && newPlace ? newPlace.id : null), place_text: e.place_text, arrive_by: null, gear: null, note: null,
-          source: imp.src, source_uid: r.uid || null }; });
+          source: imp.src, source_uid: uidOnce(r.uid) }; });
         const { error } = await sb.from("events").insert(rows); if (error) throw error;
       }
       step = "update the ones that changed";
