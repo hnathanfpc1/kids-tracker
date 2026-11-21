@@ -576,9 +576,16 @@
 
   // ---------- A link from a text: activities.html#e=<id> opens that activity ----------
   function openFromHash() {
+    if ($("vApp").hidden) return;
     const m = location.hash.match(/[#&]e=([0-9A-Za-z-]{8,64})/);
-    if (!m || $("vApp").hidden) return;
-    if (A().event.has(m[1])) openEv(m[1]); else toast("That activity isn't on the tracker anymore.");
+    let id = m && m[1], kept = null;
+    try { kept = localStorage.getItem("kt-open"); if (kept) localStorage.removeItem("kt-open"); } catch (e) {}
+    if (!id && kept) {   // back from an emailed sign-in link: editor.js remembered the activity before the email went out
+      const v = kept.split("|");
+      if (/^[0-9A-Za-z-]{8,64}$/.test(v[0]) && Date.now() - Number(v[1]) < 3600000) id = v[0];
+    }
+    if (!id) return;
+    if (A().event.has(id)) openEv(id); else toast("That activity isn't on the tracker anymore.");
   }
 
   // ---------- Getting activities in: paste a list, calendar file, photo helper. All end at one review screen ----------

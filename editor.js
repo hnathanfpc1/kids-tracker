@@ -22,6 +22,8 @@ window.KTEditor = (() => {
       const email = $("email").value.trim().toLowerCase();
       if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) { $("signinMsg").textContent = "Enter your email address."; return; }
       $("sendCode").disabled = true;
+      const dl = location.hash.match(/[#&]e=([0-9A-Za-z-]{8,64})/);   // the emailed link comes back without the #e= part, so remember the activity (good for an hour)
+      try { if (dl) localStorage.setItem("kt-open", dl[1] + "|" + Date.now()); } catch (e) {}
       const { error } = await sb.auth.signInWithOtp({ email, options: { emailRedirectTo: location.href.split("#")[0] } });
       $("sendCode").disabled = false;
       if (error) { $("signinMsg").textContent = "Couldn't send the email: " + error.message; return; }

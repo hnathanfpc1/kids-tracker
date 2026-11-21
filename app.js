@@ -362,7 +362,13 @@
       show("vLoading");
       const { data: role, error } = await sb.rpc("my_role");
       if (error) throw error;
-      if (role !== "admin") { show("vNotAdmin"); return; }
+      if (role !== "admin") {   // a parent sign-in is fine, it just belongs on the Activities page
+        const par = role === "parent";
+        $("naT").textContent = par ? "This page is for the tracker's owner" : "This account can't make changes";
+        $("naMsg").textContent = par ? "You're signed in. Activities is your page: that is where you add and change things." : "You're signed in, but this email isn't set up to edit the tracker.";
+        $("naActs").hidden = !par;
+        show("vNotAdmin"); return;
+      }
       const hasSettings = await loadAdmin();
       show("vApp"); renderAdmin();
       if (!hasSettings) openSettings();

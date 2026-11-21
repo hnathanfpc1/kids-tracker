@@ -41,7 +41,7 @@ Deploy = push to `main`. GitHub Pages serves the repo root (branch `main`, folde
 
 No build step, no framework, no npm. Plain HTML, CSS and JS.
 
-**Cache busting is required.** Every HTML file loads its shared files with `?v=N`: `index.html` loads `style.css`, `config.js`, `core.js`, `acts.js`, `app.js`; `admin.html` loads `style.css`, `config.js`, `core.js`, `acts.js`, `editor.js`, `app.js`; `activities.html` loads `style.css`, `config.js`, `core.js`, `acts.js`, `editor.js`, `import.js`, `activities.js`. GitHub Pages caches for 10 minutes, and a phone once got stuck on an old `app.js`. Whenever you change any of those files, bump `N` everywhere in all three HTML files. Current value: `v=14`.
+**Cache busting is required.** Every HTML file loads its shared files with `?v=N`: `index.html` loads `style.css`, `config.js`, `core.js`, `acts.js`, `app.js`; `admin.html` loads `style.css`, `config.js`, `core.js`, `acts.js`, `editor.js`, `app.js`; `activities.html` loads `style.css`, `config.js`, `core.js`, `acts.js`, `editor.js`, `import.js`, `activities.js`. GitHub Pages caches for 10 minutes, and a phone once got stuck on an old `app.js`. Whenever you change any of those files, bump `N` everywhere in all three HTML files. Current value: `v=15`.
 
 ## How the schedule works
 
@@ -84,7 +84,7 @@ Full structure is in `supabase/schema.sql`. Summary:
 
 | Table | Columns | Notes |
 |---|---|---|
-| `app_users` | `email` (pk, lowercase), `role` ('admin' or 'parent') | Who can edit. Two admin emails, both Heather's, listed only in the database |
+| `app_users` | `email` (pk, lowercase), `role` ('admin' or 'parent'), `user_id` (the Supabase account the row is pinned to) | Who can edit. Two admin emails, both Heather's, listed only in the database. A row with no `user_id` grants nothing |
 | `settings` | single row `id=1`: `my_name` ('Heather'), `co_name` ('Brett'), `anchor`, `track_from`, `changed_at` | `changed_at` is bumped by triggers on any change to swaps, swap_details or breaks |
 | `breaks` | `year` (pk), `data` jsonb | School calendar and holiday break dates per calendar year (shape below) |
 | `swaps` | `day` (pk), `had` ('me','co','grandma','other'), `caregiver`, `updated_at` | Days that differ from the schedule |
@@ -109,9 +109,9 @@ Full structure is in `supabase/schema.sql`. Summary:
 
 ### Security model (do not weaken)
 
-- Row level security is on for every table. All direct table access is admin-only via `public.my_role()`, which matches the signed-in email against `app_users`.
+- Row level security is on for every table. All direct table access is admin-only via `public.my_role()`. Since migration 09 it finds the signed-in person in Supabase's account list by user id and counts them only if their `app_users` row is pinned to that same account, the email matches, and the account is confirmed and not deleted, banned, anonymous or SSO. It never trusts the email written in the sign-in token.
 - The family page never reads tables. It calls `public.get_schedule(p_token)`, a `security definer` function granted to `anon`, which returns data only if the token is active. It returns settings (names, anchor), `changed_at`, breaks, and swaps with `caregiver`, `reason`, shared `note` and `updated_at`, plus activities for a rolling window (7 days back, 60 ahead): `window`, `kids`, `places`, `teams`, `events`, shared `comments` and `log` summaries. **It must never return `pnote`, `track_from`, totals, `ical_url`, phone numbers, home addresses, `lat`/`lng`, unshared comments or the log's before and after detail.**
-- A second role, `parent` (Brett's sign-in, not yet added), may edit activities only. It must never be able to read or change `settings`, `breaks`, `swaps`, `swap_details`, `share_links` or `app_users`. Signed-in editors read the schedule through `public.get_editor_schedule()`, which returns the same family-safe custody data. **No `parent` row may be added until `my_role()` is hardened (see the follow-ups in `supabase/migrations/README.md`) and public sign-ups are confirmed off.**
+- A second role, `parent` (Brett's sign-in, not yet added), may edit activities only. It must never be able to read or change `settings`, `breaks`, `swaps`, `swap_details`, `share_links` or `app_users`. Signed-in editors read the schedule through `public.get_editor_schedule()`, which returns the same family-safe custody data. `my_role()` was hardened by migration 09 on 2026-11-21. **No `parent` row may be added until Heather has finished the Supabase checklist in `supabase/migrations/RUN-09.md` (public sign-ups off, confirm email on, secure email change on, only the Email provider, expected account count), and the row must be added with the statement there, which pins it to his account.**
 - The publishable key in `config.js` is meant to be public. **Never commit the secret (service_role) key, a share token, or any SQL that contains Heather's data.** The repo is public.
 - Verified: anon requests to tables get "permission denied"; a fake token gets `null`.
 
@@ -127,12 +127,12 @@ Heather connected the Supabase connector on 2026-11-19, so database changes can 
 
 For any change:
 
-1. Write a new numbered file in `supabase/migrations/` (next is `09_...sql`). Make it safe to re-run (`if not exists`, `create or replace`, `drop ... if exists`). No personal data, no destructive deletes unless Heather explicitly asks.
+1. Write a new numbered file in `supabase/migrations/` (next is `10_...sql`). Make it safe to re-run (`if not exists`, `create or replace`, `drop ... if exists`). No personal data, no destructive deletes unless Heather explicitly asks.
 2. Update `supabase/schema.sql` so it stays the full current picture.
 3. Tell Heather in plain steps: Supabase, then SQL Editor, then New query, paste, Run, and what result she should see.
 4. Ship database changes **before** the code that depends on them, and say so.
 
-History (already run in her project; do not rerun 03): 01 tables and security, 02 initial data load, 03 private note column and data sync, 04 what's new (`changed_at`, triggers), 05 Grandma as a holder, 06 activities tables and the `parent` role, 07 editor schedule function, 08 family link returns activities (06 to 08 run on 2026-11-20 after a rolled-back dry run passed 214 of 214 checks).
+History (already run in her project; do not rerun 03): 01 tables and security, 02 initial data load, 03 private note column and data sync, 04 what's new (`changed_at`, triggers), 05 Grandma as a holder, 06 activities tables and the `parent` role, 07 editor schedule function, 08 family link returns activities (06 to 08 run on 2026-11-20 after a rolled-back dry run passed 214 of 214 checks), 09 hardened sign-in check: `app_users.user_id` pin, strict `my_role()`, `maintain` revoked (run on 2026-11-21 after a rolled-back dry run passed 109 of 109 checks).
 
 ### Sign-in
 
@@ -198,7 +198,7 @@ Run work through these roles, as subagents where possible, and do not hand anyth
 
 ## Backlog and open items
 
-- **Activities feature:** plan and Heather's decisions are in `docs/plan-activities.md`, mockup in `docs/mockups/`. Phase 0 (tests, shared `core.js`, bug fixes) is live as of 2026-11-19. Phase 1's database changes (migrations 06 to 08) are in the live database as of 2026-11-20. Slice 1A (the Activities page, and activities on the family and admin pages) went live on 2026-11-20; the Activities panel stays hidden until a kid is entered. Slice 1B (Paste a list, Calendar file, the Photo or PDF helper and the review screen on the Activities page; no database change) went live on 2026-11-21. Two small items from its executive review were fixed on 2026-11-21 (`v=14`): a line listed twice in one paste or file now shows "Same as a row above" and starts unticked, and a file holding only canceled events that were never on the tracker says "Nothing to add or change". Slices 1C and 1D and Phases 2 to 4 are not built. Work happens on a feature branch; merge to `main` only with Heather's approval.
+- **Activities feature:** plan and Heather's decisions are in `docs/plan-activities.md`, mockup in `docs/mockups/`. Phase 0 (tests, shared `core.js`, bug fixes) is live as of 2026-11-19. Phase 1's database changes (migrations 06 to 08) are in the live database as of 2026-11-20. Slice 1A (the Activities page, and activities on the family and admin pages) went live on 2026-11-20; the Activities panel stays hidden until a kid is entered. Slice 1B (Paste a list, Calendar file, the Photo or PDF helper and the review screen on the Activities page; no database change) went live on 2026-11-21. Two small items from its executive review were fixed on 2026-11-21 (`v=14`): a line listed twice in one paste or file now shows "Same as a row above" and starts unticked, and a file holding only canceled events that were never on the tracker says "Nothing to add or change". Slice 1C (Brett's sign-in): migration 09 is live and the page side went live on 2026-11-21 (`v=15`: a parent who opens the admin page is pointed to Activities, and an emailed sign-in link keeps a `#e=<id>` deep link by remembering it for an hour in localStorage key `kt-open`). Still to do, by Heather: the Supabase checklist, creating Brett's account and adding his `parent` row, all in `supabase/migrations/RUN-09.md`. As built and confirmed by Heather on 2026-11-21, a parent may add and edit kids, teams and places as well as activities; there is no forgot-password screen (the emailed link is the fallback). Slice 1D and Phases 2 to 4 are not built. Work happens on a feature branch; merge to `main` only with Heather's approval.
 - **Keep the tracker free.** Heather decided on 2026-11-19 not to add paid services. Check cost before proposing anything that needs a paid account.
 - **Kids' names, home addresses, activity locations and calendar links live in the database only.** Never in the repo, mockups, tests or commit messages. Mockups use made-up names; a gitignored `docs/mockups/names.local.js` can show the real ones locally.
 - Enter the 2027-28 school calendar (first and last day, Thanksgiving and Christmas 2027 break dates, no-school days) when published.
