@@ -1,6 +1,6 @@
 -- Kids Tracker: full database structure (no personal data)
--- This is the combined result of migrations 01, 03, 04, 05, 06, 07 and 08.
--- 01 to 05 are live. 06 to 08 (activities) are in supabase/migrations; the README there says which have been run.
+-- This is the combined result of migrations 01, 03, 04, 05, 06, 07, 08 and 09.
+-- 01 to 08 are live. 09 (hardened sign-in check) is in supabase/migrations; the README there says which have been run.
 -- Use it as the reference for how the database works, or to rebuild a fresh Supabase project.
 -- Everything here is safe to re-run: it creates what is missing and replaces functions and policies.
 -- It never deletes or loads schedule data.
@@ -18,6 +18,7 @@
 create table if not exists public.app_users (
   email text primary key,                       -- always lowercase
   role  text not null,
+  user_id uuid,                                 -- the person's Supabase account id; pinned when added (migration 09)
   constraint app_users_role_check check (role in ('admin', 'parent'))
 );
 -- On a project that still has the old admin-only rule, replace it. Existing rows are not touched.
@@ -39,14 +40,30 @@ $$;
 alter table public.app_users
   add constraint app_users_role_check check (role in ('admin', 'parent'));
 
+-- Pin each person to their account id. Nullable; unique when set. A row with no user_id grants nothing.
+-- On a fresh rebuild there are no rows to backfill. (On the live project 09 pins the admin rows.)
+alter table public.app_users add column if not exists user_id uuid;
+create unique index if not exists app_users_user_id_key on public.app_users (user_id) where user_id is not null;
+
 alter table public.app_users enable row level security;
 -- No policy and no grant on app_users on purpose: that is deny-all. Only my_role() (security definer) reads it.
 revoke all on public.app_users from public, anon, authenticated;
 
+-- Who is signed in, found by user id in Supabase's own user list (never from the token's email claim).
+-- The person counts only if their app_users row is pinned to that same id (user_id), the email matches,
+-- and the account is usable: confirmed email, not deleted, not banned, not anonymous, not SSO.
+-- A row with no user_id grants nothing. Anyone else, and no token, gives null. (Migration 09.)
 create or replace function public.my_role()
 returns text language sql stable security definer set search_path = public as $$
-  select role from public.app_users
-  where email = lower(auth.jwt() ->> 'email')
+  select a.role
+  from auth.users u
+  join public.app_users a on a.user_id = u.id and a.email = lower(u.email)
+  where u.id = auth.uid()
+    and u.email_confirmed_at is not null
+    and u.deleted_at is null
+    and (u.banned_until is null or u.banned_until <= now())
+    and coalesce(u.is_anonymous, false) = false
+    and coalesce(u.is_sso_user, false) = false
 $$;
 revoke execute on function public.my_role() from public, anon;
 grant  execute on function public.my_role() to authenticated;
@@ -948,9 +965,31 @@ revoke execute on function public.get_editor_schedule(date, date) from public, a
 grant  execute on function public.get_editor_schedule(date, date) to authenticated;
 
 -- ---------------------------------------------------------------
+-- No "maintain" right (PostgreSQL 17 and later) on any table of ours for the public key or signed-in users.
+-- Guarded by version so this file still runs on older PostgreSQL. (Migration 09.)
+-- ---------------------------------------------------------------
+do $maintain$
+declare
+  t text;
+begin
+  if current_setting('server_version_num')::int >= 170000 then
+    foreach t in array array['settings', 'breaks', 'swaps', 'swap_details', 'share_links', 'app_users',
+                             'kids', 'homes', 'places', 'teams', 'events', 'event_comments', 'contacts', 'event_log']
+    loop
+      if to_regclass('public.' || t) is not null then
+        execute format('revoke maintain on public.%I from public, anon, authenticated', t);
+      end if;
+    end loop;
+  end if;
+end
+$maintain$;
+
+-- ---------------------------------------------------------------
 -- Only when rebuilding a brand-new project (not needed for the live one):
---   insert into public.app_users (email, role) values ('<admin email, lowercase>', 'admin');
+--   (create the admin account in Supabase Authentication first, with its email confirmed, then:)
+--   insert into public.app_users (email, role, user_id)
+--     select lower(email), 'admin', id from auth.users where lower(email) = '<admin email, lowercase>';
 --   insert into public.settings (anchor, track_from) values ('<a Friday that starts one of Heather''s weeks>', '<date to count totals from>');
 --   then make the family link from the admin page.
--- The other parent's sign-in is added the same way with role 'parent', after the account exists in Supabase Authentication.
+-- The other parent's sign-in is added the same way with role 'parent' (see supabase/migrations/RUN-09.md), after the account exists in Supabase Authentication.
 -- ---------------------------------------------------------------
