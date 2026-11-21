@@ -2,7 +2,7 @@
    Reads the schedule only through get_editor_schedule(). It never reads the custody tables (settings, breaks, swaps,
    swap_details, app_users): a parent's sign-in cannot, and this page does not try. The one exception is share_links,
    read only when the signed-in role is admin, to put the family link in a text to Angie.
-   Reads contacts directly (the payload leaves them out). Writes events, event_comments, teams, places, kids and contacts.
+   Reads contacts directly (the payload leaves them out). Writes events, event_comments, teams, places, kids and contacts. Paste, calendar file and photo helper reading lives in import.js; the review screen and saving are here.
    The database stamps who and when, writes the change log and enforces every limit; this page never sends those fields. */
 (() => {
   "use strict";
@@ -30,7 +30,7 @@
   let tT;
   const toast = m => { const el = $("toast"); el.textContent = m; el.hidden = false; clearTimeout(tT); tT = setTimeout(() => { el.hidden = true; }, 3600); };
   const views = ["vLoading", "vSetup", "vSignin", "vNotAdmin", "vApp"];
-  const show = id => { views.forEach(v => { $(v).hidden = v !== id; }); $("topBtns").hidden = id !== "vApp"; };
+  const show = id => { views.forEach(v => { $(v).hidden = v !== id; }); $("topBtns").hidden = id !== "vApp"; if (id !== "vApp") closeReview(); };
   const one = s => String(s == null ? "" : s).replace(/[\u0000-\u001F\u007F-\u009F\u2028\u2029]+/g, " ").replace(/\s+/g, " ").trim();   // one-line fields
   const multi = s => String(s == null ? "" : s).replace(/\r\n?/g, "\n").replace(/[\u0000-\u0008\u000B-\u001F\u007F]/g, "").trim();         // notes
   const intIn = id => { const v = $(id).value.trim(); if (v === "") return null; const n = Number(v); return Number.isInteger(n) ? n : NaN; };
@@ -581,6 +581,237 @@
     if (A().event.has(m[1])) openEv(m[1]); else toast("That activity isn't on the tracker anymore.");
   }
 
+  // ---------- Getting activities in: paste a list, calendar file, photo helper. All end at one review screen ----------
+  // The reading is done by import.js (no page code, no database). This part draws the review screen and saves what is approved.
+  // Pasted text and file text are only ever put on the page through esc() or textContent, and never run as code.
+  const IMP = window.KTImport;
+  let imp = null;   // the import being reviewed: { src, srcText, rows, notes, all, open, uids }
+  const impCtx = () => ({ today: T0, kids: A().kids, places: A().places });
+  const impLookups = () => ({ teams: A().team, kids: A().kids, places: A().place });
+  const existingList = () => A().events.map(e => ({ id: e.id, day: e.day, start: e.start, end: e.end, kid_ids: e.kid_ids, title: e.title, kind: e.kind, team_id: e.team_id,
+    place_id: e.place_id, place_text: e.place_text, status: e.status, source_uid: (imp && imp.uids.get(e.id)) || null, label: acts.label(e) }));
+  const noKids = () => { if (A().kids.some(k => k.active)) return false; toast("Add a kid first, in the Kids section."); return true; };
+  const plural = (n, a, b) => `${n} ${n === 1 ? a : b}`;
+
+  function openPaste() {
+    if (noKids()) return;
+    $("pasteBox").value = ""; $("pasteMsg").textContent = ""; $("pasteScrim").hidden = false; $("pasteBox").focus();
+  }
+  function readPaste() {
+    const r = IMP.parseList($("pasteBox").value, impCtx());
+    if (r.error) { $("pasteMsg").textContent = r.error; return; }
+    if (r.tooMany) { $("pasteMsg").textContent = `That is ${r.total} rows. Paste up to ${IMP.MAX_ROWS} at a time.`; return; }
+    if (!r.items.length) { $("pasteMsg").textContent = "I couldn't find a date or a time in that. Each row needs at least a date."; return; }
+    const notes = [];
+    if (r.ignored) notes.push(`${plural(r.ignored, "line had", "lines had")} no date or time, so I left ${r.ignored === 1 ? "it" : "them"} out.`);
+    $("pasteScrim").hidden = true;
+    startReview(r.items, "paste", "the list you pasted", notes, new Map());
+  }
+  async function readFile(file) {
+    if (!file) return;
+    if (file.size > IMP.MAX_BYTES) { toast("That file is bigger than 1 MB. Export a shorter date range and try again."); return; }
+    const text = await new Promise(res => { const fr = new FileReader(); fr.onload = () => res(String(fr.result || "")); fr.onerror = () => res(null); fr.readAsText(file); });
+    if (text == null) { toast("Couldn't read that file."); return; }
+    const r = IMP.parseIcs(text, impCtx());
+    if (r.error) { toast(r.error); return; }
+    if (r.tooMany) { toast(`That file has more than ${IMP.MAX_ROWS} activities, or goes back a long way. Export a shorter date range and try again.`); return; }
+    const notes = [];
+    if (r.skippedPast) notes.push(`${plural(r.skippedPast, "event had", "events had")} already ended, so I left ${r.skippedPast === 1 ? "it" : "them"} out.`);
+    if (r.skippedUnreadable) notes.push(`${plural(r.skippedUnreadable, "repeating event repeats", "repeating events repeat")} in a way I can't read and had already started, so I left ${r.skippedUnreadable === 1 ? "it" : "them"} out.`);
+    if (r.converted) notes.push("Times in the file were changed to this device's time zone.");
+    // Calendar ids already stored, so an event that moved is updated instead of added twice. A failed read just means matching by kid, date and name.
+    const uids = new Map();
+    try { const { data, error } = await sb.from("events").select("id, source_uid").not("source_uid", "is", null); if (!error && Array.isArray(data)) data.forEach(x => uids.set(x.id, String(x.source_uid))); } catch (e) { /* match without ids */ }
+    if (!r.items.length) { toast("Nothing in that file is coming up." + (notes.length ? " " + notes[0] : "")); return; }
+    startReview(r.items, "file", "the calendar file " + one(file.name).slice(0, 60), notes, uids);
+  }
+
+  function startReview(rows, src, srcText, notes, uids) {
+    const active = A().kids.filter(k => k.active);
+    imp = { src, srcText, rows, notes, uids, open: new Set(), all: { kids: active.length === 1 ? [active[0].id] : [], team: "", place_id: "", place: "", newName: "" } };
+    const ks = active.length === 1 ? active[0].id : "";
+    $("rvKid").innerHTML = `<option value="">Not set</option>${active.map(k => `<option value="${esc(k.id)}">${esc(k.name)}</option>`).join("")}${active.length > 1 ? `<option value="both">Both kids</option>` : ""}`;
+    $("rvKid").value = ks;
+    $("rvTeam").innerHTML = `<option value="">No team</option>${A().teams.filter(t => t.active).sort((a, b) => a.name.localeCompare(b.name)).map(t => `<option value="${esc(t.id)}">${esc(t.name)}</option>`).join("")}`;
+    $("rvPlace").innerHTML = `<option value="">No place</option>${A().places.slice().sort((a, b) => a.name.localeCompare(b.name)).map(p => `<option value="${esc(p.id)}">${esc(p.name)}</option>`).join("")}<option value="__new">+ New place by name</option>`;
+    $("rvNewRow").hidden = true; $("rvNewName").value = "";
+    $("rvList").innerHTML = rows.map((r, i) => `<li data-r="${i}"></li>`).join("");
+    $("vReview").hidden = false; document.body.style.overflow = "hidden"; $("vReview").scrollTop = 0;
+    refreshAll(true);
+    $("rvCancelTop").focus();
+  }
+  function closeReview() { imp = null; $("vReview").hidden = true; document.body.style.overflow = ""; }
+
+  function dateLabel(r) {
+    if (!r.day) return "No date";
+    const n = toNum(r.day), y = fmt(n, { year: "numeric" }) !== fmt(T0, { year: "numeric" });
+    return fmt(n, { weekday: "short", month: "short", day: "numeric", ...(y ? { year: "numeric" } : {}) });
+  }
+  function rowLabel(r) { const e = r.eff; return acts.label({ team_id: e.team_id, title: e.title, kind: e.kind }); }
+  // For a row that changes an activity already on the tracker: which one, in plain words.
+  function targetLine(r) {
+    const x = r.target && (r.status === "moved" || r.status === "cancel") ? existingList().find(v => v.id === r.target) : null; if (!x) return "";
+    const names = acts.kidsOf(x.kid_ids).map(k => k.name).join(" and ");
+    return `${r.status === "cancel" ? "Cancels" : "Changes"} this one: ${[x.label, names, fmt(toNum(x.day), { weekday: "short", month: "short", day: "numeric" }) + (x.start != null ? " " + K.timeSpan(x.start, x.end) : "")].filter(Boolean).join(", ")}`;
+  }
+  function rowMain(r, i) {
+    const e = r.eff, ks = acts.kidsOf(e.kids).map(acts.kchip).join(""), pl = e.place_id && A().place.get(e.place_id);
+    const where = pl ? pl.name : e.place_text ? e.place_text : e.new_place ? "New place: " + e.new_place : "";
+    const chips = (r.status === "dup" ? `<span class="chip plain">Already on the tracker</span>` : "") + r.changes.map(c => `<span class="chip plain">${esc(c)}</span>`).join("");
+    const flags = r.flags.map(f => `<span class="flag${f.soft ? " soft" : ""}">${esc(f.t)}</span>`).join("") + e.problems.map(p => `<span class="flag prob">${esc(p)}</span>`).join("");
+    const tl = targetLine(r);
+    const split = r.canSplit ? `<p><button type="button" class="link-btn rv-split" data-asnew="${i}">Not a move? Add it as its own activity</button></p>`
+      : r.asNew ? `<p><button type="button" class="link-btn rv-split" data-asnew="${i}">Adding as its own activity. Undo</button></p>` : "";
+    return `<p class="when num"><strong>${esc(dateLabel(r))}</strong> ${r.start != null ? esc(K.timeSpan(r.start, r.end)) : "No time"}</p>
+      <p class="sub2">${ks}${esc(rowLabel(r))}${where ? ", " + esc(where) : ""}</p>${chips || flags ? `<p>${chips}${flags}</p>` : ""}${tl ? `<p class="sub2 rv-target">${esc(tl)}</p>` : ""}${split}`;
+  }
+  function editHtml(r, i) {
+    const e = r.eff, active = A().kids.filter(k => k.active), two = active.length === 2;
+    const both = two && e.kids.length === 2 && active.every(k => e.kids.includes(k.id));
+    const kids = A().kids.filter(k => k.active || e.kids.includes(k.id)).map(k => `<button type="button" class="kid c-${esc(k.color)}" data-rk="${esc(k.id)}" aria-pressed="${!both && e.kids.includes(k.id)}">${esc(k.name)}</button>`).join("")
+      + (two ? `<button type="button" data-rk="both" aria-pressed="${both}">Both</button>` : "");
+    const teams = `<option value="__all"${r.team === undefined ? " selected" : ""}>Same as the setting above</option><option value=""${r.team === "" ? " selected" : ""}>No team</option>${A().teams.filter(t => t.active || t.id === r.team).map(t => `<option value="${esc(t.id)}"${r.team === t.id ? " selected" : ""}>${esc(t.name)}</option>`).join("")}`;
+    const places = `<option value="__all"${!r.place_id && !r.place_text ? " selected" : ""}>Same as the setting above</option>${r.place_text ? `<option value="__text" selected>${esc(r.place_text)} (typed in)</option>` : ""}${A().places.slice().sort((a, b) => a.name.localeCompare(b.name)).map(p => `<option value="${esc(p.id)}"${r.place_id === p.id ? " selected" : ""}>${esc(p.name)}</option>`).join("")}`;
+    const kinds = Object.entries(K.KINDS).map(([k, l]) => `<option value="${k}"${r.kind === k ? " selected" : ""}>${esc(l)}</option>`).join("");
+    return `<div class="rv-ed">
+      <label>What<input type="text" data-f="what" maxlength="120" value="${esc(r.what)}" autocomplete="off"></label>
+      <label>Kind<select data-f="kind">${kinds}</select></label>
+      <label>Date<input type="date" data-f="day" min="2000-01-01" max="2100-12-31" value="${esc(r.day || "")}"></label>
+      <div class="two"><label>Starts<input type="time" data-f="start" value="${r.start != null ? K.hhmm(r.start) : ""}"></label><label>Ends<input type="time" data-f="end" value="${r.end != null ? K.hhmm(r.end) : ""}"></label></div>
+      <div class="field"><span class="flabel">Who it's for</span><div class="pick fit">${kids}</div></div>
+      <label>Team<select data-f="team">${teams}</select></label>
+      <label>Place<select data-f="place">${places}</select></label>
+    </div>`;
+  }
+  function renderRow(i) {
+    const li = $("rvList").children[i], r = imp.rows[i]; if (!li) return;
+    li.hidden = r.status === "gone";
+    li.className = "rv" + (r.status === "dup" ? " dup" : "");
+    const open = imp.open.has(i);
+    li.innerHTML = `<label class="rv-ck"><input type="checkbox" data-ck="${i}"${r.checked ? " checked" : ""} aria-label="Add ${esc(rowLabel(r))}, ${esc(dateLabel(r))}"></label>
+      <div class="rv-main">${rowMain(r, i)}</div><button type="button" class="link-btn" data-edit="${i}" aria-expanded="${open}">${open ? "Done" : "Edit"}</button>${open ? editHtml(r, i) : ""}`;
+  }
+  // Redraws the summary and every row's text. The open editors are left alone so typing keeps its place.
+  function refreshAll(full) {
+    if (!imp) return;
+    IMP.classify(imp.rows, existingList(), imp.all, impLookups(), T0);
+    $("rvHead").textContent = IMP.headline(imp.rows);
+    $("rvSub").textContent = IMP.summary(imp.rows, imp.srcText);
+    const gone = imp.rows.filter(r => r.status === "gone").length;
+    $("rvNotes").innerHTML = imp.notes.concat(gone ? [`${plural(gone, "canceled event wasn't", "canceled events weren't")} on the tracker, so I left ${gone === 1 ? "it" : "them"} out.`] : []).map(t => `<p>${esc(t)}</p>`).join("");
+    imp.rows.forEach((r, i) => {
+      const li = $("rvList").children[i];
+      if (full || !imp.open.has(i)) renderRow(i);
+      else { li.hidden = r.status === "gone"; li.className = "rv" + (r.status === "dup" ? " dup" : ""); li.querySelector(".rv-main").innerHTML = rowMain(r, i); li.querySelector("[data-ck]").checked = r.checked; }
+    });
+    const n = imp.rows.filter(r => r.checked && r.status !== "gone").length;
+    $("rvAdd").textContent = n ? `Add ${n} to the tracker` : "Nothing selected"; $("rvAdd").disabled = !n;
+  }
+  function reviewField(el) {
+    const li = el.closest("[data-r]"), i = Number(li.dataset.r), r = imp.rows[i], v = el.value, f = el.dataset.f;
+    const drop = g => { r.flags = r.flags.filter(x => x.f !== g); };
+    if (f === "what") { r.what = one(v).slice(0, 120); if (!r.kindSet) r.kind = IMP.kindOf(r.what); }
+    else if (f === "kind") { r.kind = v; r.kindSet = true; }
+    else if (f === "day") { r.day = isDate(v) && v >= "2000-01-01" && v <= "2100-12-31" ? v : null; drop("date"); }
+    else if (f === "start") { r.start = K.mins(v); drop("time"); }
+    else if (f === "end") { r.end = K.mins(v); drop("time"); }
+    else if (f === "team") r.team = v === "__all" ? undefined : v;
+    else if (f === "place") {
+      if (v === "__all") { r.place_id = null; r.place_text = null; }
+      else if (v !== "__text") { r.place_id = v; r.place_text = null; }
+      drop("place");
+    }
+    refreshAll(false);
+  }
+  async function applyImport() {
+    if (!imp) return;
+    refreshAll(false);
+    const picked = imp.rows.map((r, i) => ({ r, i })).filter(x => x.r.checked && x.r.status !== "gone");
+    if (!picked.length) return;
+    const bad = picked.filter(x => x.r.eff.problems.length);
+    if (bad.length) {
+      bad.forEach(x => imp.open.add(x.i)); bad.forEach(x => renderRow(x.i));
+      $("rvList").children[bad[0].i].scrollIntoView({ block: "center" });
+      toast(`Fix ${plural(bad.length, "row", "rows")} marked in red first, or untick ${bad.length === 1 ? "it" : "them"}.`); return;
+    }
+    $("rvAdd").disabled = true;
+    const adds = picked.filter(x => x.r.status === "new"), ups = picked.filter(x => x.r.status === "moved" || x.r.status === "cancel"), me = acts.who(st.me);
+    let step = "add them";
+    try {
+      const np = picked.find(x => x.r.eff.new_place && x.r.status === "new");
+      let newPlace = np && imp.madePlace && imp.madePlace.asked === np.r.eff.new_place ? imp.madePlace.row : null;
+      if (newPlace && !A().place.get(newPlace.id)) { A().places.push(newPlace); A().place.set(newPlace.id, newPlace); }
+      if (np && !newPlace) {
+        step = "add the place";
+        const { data, error } = await sb.from("places").insert({ name: np.r.eff.new_place }).select().single(); if (error) throw error;
+        newPlace = { ...data, name: String(data.name || np.r.eff.new_place) }; A().places.push(newPlace); A().place.set(newPlace.id, newPlace);
+        imp.madePlace = { asked: np.r.eff.new_place, row: newPlace };
+        step = "add them";
+      }
+      if (adds.length) {
+        // Every new row in one request, so they share one line in the change log (same fields as adding by hand).
+        const rows = adds.map(({ r }) => { const e = r.eff; return { team_id: e.team_id, kid_ids: e.kids.slice(), kind: e.kind, title: e.title, day: r.day, start_time: K.hhmm(r.start),
+          end_time: r.end == null ? null : K.hhmm(r.end), place_id: e.place_id || (e.new_place && newPlace ? newPlace.id : null), place_text: e.place_text, arrive_by: null, gear: null, note: null,
+          source: imp.src, source_uid: r.uid || null }; });
+        const { error } = await sb.from("events").insert(rows); if (error) throw error;
+      }
+      step = "update the ones that changed";
+      for (const x of ups) { const { error } = await sb.from("events").update(x.r.patch).eq("id", x.r.target); if (error) throw error; }
+    } catch (e) {
+      fail(step, e);
+      await refresh(); if (imp) refreshAll(false);   // what did save now shows as "Already on the tracker", so a retry is safe
+      return;
+    }
+    const body = IMP.textLine({ me, adds: adds.map(({ r }) => ({ n: toNum(r.day), kind: r.eff.kind, kidNames: acts.kidsOf(r.eff.kids).map(k => k.name) })),
+      moved: ups.filter(x => x.r.status === "moved").length, canceled: ups.filter(x => x.r.status === "cancel").length, dayText });
+    closeReview();
+    await refresh();
+    const said = []; if (adds.length) said.push(`${plural(adds.length, "activity", "activities")} added`); if (ups.length) said.push(`${ups.length} updated`);
+    toast(said.join(", ") + ".");
+    E.openText({ body, me: st.me, checked: null, people: E.recipients(st.contacts, CFG, { me: S().myName, co: S().coName }),
+      link: whos => { const tok = famToken(); return tok && whos.includes("grandma") ? new URL("./", location.href).href + "#k=" + tok : new URL("activities.html", location.href).href; } });
+  }
+  function reviewAll(el) {
+    if (el.id === "rvKid") imp.all.kids = el.value === "both" ? A().kids.filter(k => k.active).map(k => k.id) : el.value ? [el.value] : [];
+    else if (el.id === "rvTeam") imp.all.team = el.value;
+    else if (el.id === "rvPlace") { imp.all.place = el.value === "__new" ? "__new" : ""; imp.all.place_id = el.value === "__new" ? "" : el.value; $("rvNewRow").hidden = el.value !== "__new"; if (el.value === "__new") $("rvNewName").focus(); }
+    else if (el.id === "rvNewName") imp.all.newName = el.value;
+    refreshAll(false);
+  }
+  async function copyHelp() {
+    const text = IMP.helperRequest({ todayText: toStr(T0), kids: A().kids.filter(k => k.active).map(k => one(k.name)), places: A().places.map(p => one(p.name)), teams: A().teams.filter(t => t.active).map(t => one(t.name)) });
+    $("helpBox").value = text;
+    try { await navigator.clipboard.writeText(text); $("helpFallback").hidden = true; toast("Copied. Open your AI chat and paste it."); }
+    catch (e) { $("helpFallback").hidden = false; $("helpBox").focus(); $("helpBox").select(); toast("Couldn't copy by itself. Copy the text shown instead."); }
+  }
+  function wireImport() {
+    $("optPaste").onclick = openPaste; $("pasteGo").onclick = readPaste;
+    $("optFile").onclick = () => { if (noKids()) return; $("icsFile").value = ""; $("icsFile").click(); };
+    $("icsFile").onchange = () => readFile($("icsFile").files[0]);
+    $("optHelp").onclick = () => { $("helpFallback").hidden = true; $("helpScrim").hidden = false; };
+    $("helpCopy").onclick = copyHelp;
+    $("rvCancel").onclick = $("rvCancelTop").onclick = closeReview; $("rvAdd").onclick = applyImport;
+    const rv = $("vReview");
+    ["input", "change"].forEach(t => rv.addEventListener(t, e => {
+      if (!imp) return; const el = e.target;
+      if (el.dataset && el.dataset.ck !== undefined) { imp.rows[Number(el.dataset.ck)].checked = el.checked; refreshAll(false); }
+      else if (el.dataset && el.dataset.f) reviewField(el);
+      else if (el.id && /^rv(Kid|Team|Place|NewName)$/.test(el.id)) reviewAll(el);
+    }));
+    rv.addEventListener("click", e => {
+      if (!imp) return;
+      const sp = e.target.closest("[data-asnew]");
+      if (sp) { const r = imp.rows[Number(sp.dataset.asnew)]; r.asNew = !r.asNew; refreshAll(false); return; }
+      const ed = e.target.closest("[data-edit]");
+      if (ed) { const i = Number(ed.dataset.edit); if (imp.open.has(i)) imp.open.delete(i); else imp.open.add(i); renderRow(i); return; }
+      const rk = e.target.closest("[data-rk]");
+      if (rk) {
+        const i = Number(rk.closest("[data-r]").dataset.r), r = imp.rows[i];
+        r.kids = kidClick(r.eff.kids, rk.dataset.rk); r.flags = r.flags.filter(x => x.f !== "kid"); refreshAll(false); renderRow(i);
+      }
+    });
+  }
+
   // ---------- Events ----------
   document.addEventListener("click", e => {
     const t = e.target;
@@ -607,6 +838,7 @@
 
   function wire() {
     $("addHand").onclick = () => openEv(null);
+    wireImport();
     $("upMore").onclick = () => { st.upMax += 40; renderUp(); };
     $("logMore").onclick = () => { st.logMax += 30; renderLog(); };
     $("evSave").onclick = saveEv; $("evCancel").onclick = setStatus;

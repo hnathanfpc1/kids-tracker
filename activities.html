@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=Figtree:wght@400;500;600;700&display=swap">
-<link rel="stylesheet" href="style.css?v=12">
+<link rel="stylesheet" href="style.css?v=13">
 </head>
 <body data-page="activities">
 <div class="page acts-page">
@@ -53,8 +53,23 @@
   <div id="vApp" hidden class="stack">
     <section class="panel" aria-labelledby="addT">
       <div class="panel-head" style="margin-bottom:4px"><h2 id="addT">Add activities</h2></div>
-      <p class="lead">Add a practice, game or lesson. If it happens every week, set "Repeat weekly until" and they all go in at once.</p>
-      <div class="opts"><button class="opt wide" type="button" id="addHand">+ Add one by hand</button></div>
+      <p class="lead">Paste it or load a file. You check everything before it saves. Or add one by hand: if it happens every week, set "Repeat weekly until" and they all go in at once.</p>
+      <div class="opts">
+        <button class="opt" type="button" id="optPaste">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="4" width="14" height="17" rx="2"/><path d="M9 4h6v3H9zM9 12h6M9 16h4"/></svg>
+          Paste a list<small>Rows from Excel or a typed list</small>
+        </button>
+        <button class="opt" type="button" id="optFile">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="5" width="16" height="16" rx="2"/><path d="M4 10h16M9 3v4M15 3v4"/></svg>
+          Calendar file<small>An .ics file downloaded from the app. It never leaves this device</small>
+        </button>
+        <button class="opt full" type="button" id="optHelp">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="6" width="18" height="14" rx="2"/><circle cx="12" cy="13" r="3.5"/><path d="M8 6l1.5-2h5L16 6"/></svg>
+          Photo or PDF helper<small>Copies a request for your AI chat. Paste its answer into Paste a list</small>
+        </button>
+        <button class="opt wide" type="button" id="addHand">+ Add one by hand</button>
+      </div>
+      <input type="file" id="icsFile" accept=".ics,text/calendar" hidden aria-label="Choose a calendar file">
     </section>
 
     <section class="panel" aria-labelledby="upT">
@@ -198,13 +213,62 @@
   </div>
 </div>
 
+<!-- Review: every way in ends here. Nothing is saved until Add is tapped. -->
+<div class="review-layer" id="vReview" hidden role="dialog" aria-modal="true" aria-labelledby="rvT">
+  <div class="wrap">
+    <header class="top">
+      <div><h1 id="rvT">Review</h1><p>Nothing is saved until you tap Add.</p></div>
+      <div class="btn-row"><button class="btn" type="button" id="rvCancelTop">Cancel</button></div>
+    </header>
+    <section class="panel">
+      <div class="rv-sum"><strong id="rvHead"></strong><span id="rvSub"></span></div>
+      <div class="rv-all">
+        <label>Who it's for<select id="rvKid" aria-label="Apply who it's for to every row"></select></label>
+        <label>Team<select id="rvTeam" aria-label="Apply a team to every row"></select></label>
+        <label>Place<select id="rvPlace" aria-label="Apply a place to every row"></select></label>
+      </div>
+      <div class="quick" id="rvNewRow" hidden><input type="text" id="rvNewName" maxlength="120" placeholder="New place name" aria-label="New place name" autocomplete="off"></div>
+      <p class="hint" style="margin:6px 0 8px">These fill in what a row doesn't already have. Tap Edit on a row to change just that one.</p>
+      <ul class="rv-list" id="rvList"></ul>
+      <div class="rv-notes hint" id="rvNotes"></div>
+      <div class="rv-bar"><button class="btn" type="button" id="rvCancel">Cancel</button><button class="btn primary" type="button" id="rvAdd">Add to the tracker</button></div>
+    </section>
+  </div>
+</div>
+
+<!-- Paste a list -->
+<div class="scrim" id="pasteScrim" hidden>
+  <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="pasteTitle">
+    <div><h2 id="pasteTitle">Paste a list</h2><p class="sub">One activity per row: date, time, what, kid, place. Rows copied from Excel work, so does a typed list. A header row is optional.</p></div>
+    <div class="field"><label for="pasteBox">Your list</label><textarea id="pasteBox" class="big" spellcheck="false" autocapitalize="off" placeholder="Date, Time, What, Kid, Place&#10;Tue Dec 1, 5:30-6:30 pm, Practice, Ava, Eastside Gym&#10;Sat Dec 5, 10am, Game, Both"></textarea></div>
+    <p class="hint" id="pasteMsg" role="status"></p>
+    <div class="btn-row" style="justify-content:flex-end"><button type="button" class="btn" data-close>Cancel</button><button type="button" class="btn primary" id="pasteGo">Read the list</button></div>
+  </div>
+</div>
+
+<!-- Photo or PDF helper -->
+<div class="scrim" id="helpScrim" hidden>
+  <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="helpTitle">
+    <div><h2 id="helpTitle">Photo or PDF helper</h2><p class="sub">The tracker can't read a picture by itself. Your AI chat can, and this gets it to answer in the right shape.</p></div>
+    <ol class="steps">
+      <li>Tap Copy the request.</li>
+      <li>Open Claude (or any AI chat), paste the request and attach the photo, screenshot or PDF.</li>
+      <li>Copy the rows it answers with.</li>
+      <li>Come back here, tap Paste a list and paste. You review everything before it saves.</li>
+    </ol>
+    <div class="field" id="helpFallback" hidden><label for="helpBox">Your browser blocked copying. Select this text and copy it</label><textarea id="helpBox" class="big" readonly></textarea></div>
+    <div class="btn-row" style="justify-content:flex-end"><button type="button" class="btn" data-close>Close</button><button type="button" class="btn primary" id="helpCopy">Copy the request</button></div>
+  </div>
+</div>
+
 <div class="toast" id="toast" role="status" hidden></div>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.117.3/dist/umd/supabase.js" integrity="sha384-BWcjm9OdFth9TbhCxZPdm+gAOUMAzQy9nmTs12ioXdCcbVnJaPMn+fMUoQCLt60R" crossorigin="anonymous"></script>
-<script src="config.js?v=12"></script>
-<script src="core.js?v=12"></script>
-<script src="acts.js?v=12"></script>
-<script src="editor.js?v=12"></script>
-<script src="activities.js?v=12"></script>
+<script src="config.js?v=13"></script>
+<script src="core.js?v=13"></script>
+<script src="acts.js?v=13"></script>
+<script src="editor.js?v=13"></script>
+<script src="import.js?v=13"></script>
+<script src="activities.js?v=13"></script>
 </body>
 </html>
