@@ -114,7 +114,7 @@ export function actsStaticChecks({ check, eq, P, sql, base }) {
 // Fixtures
 // ---------------------------------------------------------------------------
 const cl = x => JSON.parse(JSON.stringify(x));
-function dbActs(base) {
+export function dbActs(base) {
   const d = cl(base);
   d.settings[0].changed_at = FX.changed_at;
   ["kids", "homes", "places", "teams", "events", "event_comments", "contacts", "event_log"].forEach(t => { d[t] = cl(FX[t]); });

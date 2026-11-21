@@ -56,11 +56,14 @@ import vm from "node:vm";
 import { chromium } from "playwright-core";
 import { ACTS_LIB, actsStaticChecks, activityChecks } from "./acts.mjs";
 import { importUnitChecks, importPageChecks } from "./import.mjs";
+import { parentChecks } from "./parent.mjs";
 
 // ---------------------------------------------------------------------------
 // Known bugs. Each one has a check below that is expected to fail until the bug is fixed.
 // ---------------------------------------------------------------------------
 const KNOWN_BUGS = {
+  // Found by QA in the slice 1C parent audit and fixed on 2026-11-21, so their checks are now enforced: admin.html as a parent offered only Sign out
+  //   (now points to Activities), and the emailed sign-in link lost a #e=<id> deep link (the page now remembers the activity for an hour).
   // Found by QA in activities slice 1B and fixed on 2026-11-20, so their checks are now enforced: an unknown time zone shifting the time (import.js),
   //   the "nothing is coming up" message being replaced, a new place made twice after a failed save (activities.js), buttons under 40px on the import views
   //   and the orange kid name contrast in light mode (style.css). Two findings were decided as intended and their checks rewritten: a no-year date from the
@@ -1292,6 +1295,9 @@ async function main() {
     // ---- Activities slice 1B: paste and import. In tests/import.mjs ----
     importUnitChecks({ check, expectAll, ROOT });
     await importPageChecks(H);
+
+    // ---- Activities slice 1C: the parent (Brett) sign-in audit. In tests/parent.mjs ----
+    await parentChecks(H);
 
     // ---- Console errors and stray network requests, across every page opened above ----
     for (const kind of ["family", "admin", "activities"]) {
