@@ -129,12 +129,16 @@
   Query.prototype.delete = function () { this.op = "delete"; return this; };
   Query.prototype.eq = function (col, val) { this.filters.push({ kind: "eq", col: col, val: val }); return this; };
   Query.prototype.in = function (col, vals) { this.filters.push({ kind: "in", col: col, val: clone(vals) }); return this; };
+  Query.prototype.not = function (col, op, val) { this.filters.push({ kind: "not", col: col, op: op, val: val }); return this; };
   Query.prototype.order = function (col, opts) { this.sort = { col: col, asc: !(opts && opts.ascending === false) }; return this; };
   Query.prototype.limit = function (n) { this.max = n; return this; };
   Query.prototype.single = function () { this.one = "single"; return this; };
   Query.prototype.maybeSingle = function () { this.one = "maybe"; return this; };
   Query.prototype._match = function (row) {
-    return this.filters.every(function (f) { return f.kind === "eq" ? row[f.col] === f.val : f.val.indexOf(row[f.col]) !== -1; });
+    return this.filters.every(function (f) {
+      if (f.kind === "eq") return row[f.col] === f.val;
+      if (f.kind === "not") { if (f.op !== "is") throw new Error("fake supabase: .not() only supports 'is'"); return !(f.val === null ? row[f.col] == null : row[f.col] === f.val); }
+      return f.val.indexOf(row[f.col]) !== -1; });
   };
   Query.prototype._run = function () {
     var self = this, t = this.table, pk = PK[t], touched = [], batch = this.op === "select" ? null : newId("b");   // one batch per write request
@@ -158,6 +162,7 @@
       (Array.isArray(this.payload) ? this.payload : [this.payload]).forEach(function (p) {
         var row = clone(p);
         checkRow(t, row);
+        if (t === "events" && row.source_uid != null && rows.some(function (r) { return r.source_uid === row.source_uid; })) throw err("23505", 'duplicate key value violates unique constraint "events_source_uid_key"');
         var i = row[pk] == null ? -1 : rows.findIndex(function (r) { return r[pk] === row[pk]; });
         if (i === -1) { stampInsert(t, row, batch); rows.push(row); touched.push(row); }
         else if (self.op === "upsert") { rows[i] = Object.assign({}, rows[i], row); touched.push(rows[i]); }

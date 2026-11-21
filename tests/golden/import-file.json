@@ -1,0 +1,358 @@
+{
+ "reads": [
+  {
+   "what": "events.select",
+   "columns": "id, source_uid",
+   "filters": [
+    {
+     "kind": "not",
+     "col": "source_uid",
+     "op": "is",
+     "val": null
+    }
+   ]
+  }
+ ],
+ "rv1": {
+  "shown": true,
+  "head": "I found 4 practices and 1 game",
+  "sub": "From the calendar file Team.ics. 5 need a quick look.",
+  "notes": [
+   "1 event had already ended, so I left it out.",
+   "Times in the file were changed to this device's time zone.",
+   "1 canceled event wasn't on the tracker, so I left it out."
+  ],
+  "all": {
+   "kid": "Not set",
+   "team": "No team",
+   "place": "No place",
+   "newRow": false
+  },
+  "rows": [
+   {
+    "checked": true,
+    "dup": false,
+    "text": "Tue, Dec 1 6:00 to 7:00 p.m. Soccer practice Time moved 5:30 p.m. to 6:00 p.m. Changes this one: Soccer practice, Ava, Tue, Dec 1 5:30 to 6:30 p.m.",
+    "flags": [],
+    "editing": false
+   },
+   {
+    "checked": true,
+    "dup": false,
+    "text": "Wed, Jan 20, 2027 5:30 to 6:30 p.m. Soccer practice Pick who it's for.",
+    "flags": [
+     "[red] Pick who it's for."
+    ],
+    "editing": false
+   },
+   {
+    "checked": true,
+    "dup": false,
+    "text": "Sat, Jan 23, 2027 10:00 to 11:00 a.m. Game vs Eagles Pick who it's for.",
+    "flags": [
+     "[red] Pick who it's for."
+    ],
+    "editing": false
+   },
+   {
+    "checked": true,
+    "dup": false,
+    "text": "Wed, Jan 27, 2027 5:30 to 6:30 p.m. Soccer practice Pick who it's for.",
+    "flags": [
+     "[red] Pick who it's for."
+    ],
+    "editing": false
+   },
+   {
+    "checked": true,
+    "dup": false,
+    "text": "Wed, Feb 3, 2027 5:30 to 6:30 p.m. Soccer practice Pick who it's for.",
+    "flags": [
+     "[red] Pick who it's for."
+    ],
+    "editing": false
+   }
+  ],
+  "add": "Add 5 to the tracker",
+  "addDisabled": false,
+  "bodyScroll": "hidden"
+ },
+ "rv2": {
+  "shown": true,
+  "head": "I found 4 practices and 1 game",
+  "sub": "From the calendar file Team.ics. 1 needs a quick look.",
+  "notes": [
+   "1 event had already ended, so I left it out.",
+   "Times in the file were changed to this device's time zone.",
+   "1 canceled event wasn't on the tracker, so I left it out."
+  ],
+  "all": {
+   "kid": "Ava",
+   "team": "Soccer",
+   "place": "No place",
+   "newRow": false
+  },
+  "rows": [
+   {
+    "checked": true,
+    "dup": false,
+    "text": "Tue, Dec 1 6:00 to 7:00 p.m. Ava Soccer practice Time moved 5:30 p.m. to 6:00 p.m. Changes this one: Soccer practice, Ava, Tue, Dec 1 5:30 to 6:30 p.m.",
+    "flags": [],
+    "editing": false
+   },
+   {
+    "checked": true,
+    "dup": false,
+    "text": "Wed, Jan 20, 2027 5:30 to 6:30 p.m. Ava Soccer practice",
+    "flags": [],
+    "editing": false
+   },
+   {
+    "checked": true,
+    "dup": false,
+    "text": "Sat, Jan 23, 2027 10:00 to 11:00 a.m. Ava Soccer: Game vs Eagles",
+    "flags": [],
+    "editing": false
+   },
+   {
+    "checked": true,
+    "dup": false,
+    "text": "Wed, Jan 27, 2027 5:30 to 6:30 p.m. Ava Soccer practice",
+    "flags": [],
+    "editing": false
+   },
+   {
+    "checked": true,
+    "dup": false,
+    "text": "Wed, Feb 3, 2027 5:30 to 6:30 p.m. Ava Soccer practice",
+    "flags": [],
+    "editing": false
+   }
+  ],
+  "add": "Add 5 to the tracker",
+  "addDisabled": false,
+  "bodyScroll": "hidden"
+ },
+ "save": [
+  [
+   "events",
+   "insert",
+   [
+    {
+     "team_id": "c0000000-0000-4000-8000-000000000001",
+     "kid_ids": [
+      "a0000000-0000-4000-8000-000000000001"
+     ],
+     "kind": "practice",
+     "title": null,
+     "day": "2027-01-20",
+     "start_time": "17:30",
+     "end_time": "18:30",
+     "place_id": null,
+     "place_text": null,
+     "arrive_by": null,
+     "gear": null,
+     "note": null,
+     "source": "file",
+     "source_uid": "uid-new-2@example.test#2027-01-20"
+    },
+    {
+     "team_id": "c0000000-0000-4000-8000-000000000001",
+     "kid_ids": [
+      "a0000000-0000-4000-8000-000000000001"
+     ],
+     "kind": "game",
+     "title": "Game vs Eagles",
+     "day": "2027-01-23",
+     "start_time": "10:00",
+     "end_time": "11:00",
+     "place_id": null,
+     "place_text": null,
+     "arrive_by": null,
+     "gear": null,
+     "note": null,
+     "source": "file",
+     "source_uid": "uid-new-3@example.test"
+    },
+    {
+     "team_id": "c0000000-0000-4000-8000-000000000001",
+     "kid_ids": [
+      "a0000000-0000-4000-8000-000000000001"
+     ],
+     "kind": "practice",
+     "title": null,
+     "day": "2027-01-27",
+     "start_time": "17:30",
+     "end_time": "18:30",
+     "place_id": null,
+     "place_text": null,
+     "arrive_by": null,
+     "gear": null,
+     "note": null,
+     "source": "file",
+     "source_uid": "uid-new-2@example.test#2027-01-27"
+    },
+    {
+     "team_id": "c0000000-0000-4000-8000-000000000001",
+     "kid_ids": [
+      "a0000000-0000-4000-8000-000000000001"
+     ],
+     "kind": "practice",
+     "title": null,
+     "day": "2027-02-03",
+     "start_time": "17:30",
+     "end_time": "18:30",
+     "place_id": null,
+     "place_text": null,
+     "arrive_by": null,
+     "gear": null,
+     "note": null,
+     "source": "file",
+     "source_uid": "uid-new-2@example.test#2027-02-03"
+    }
+   ],
+   null
+  ],
+  [
+   "events",
+   "update",
+   {
+    "start_time": "18:00",
+    "end_time": "19:00"
+   },
+   [
+    {
+     "kind": "eq",
+     "col": "id",
+     "val": "e0000000-0000-4000-8000-000000000002"
+    }
+   ]
+  ]
+ ],
+ "txt": {
+  "shown": true,
+  "body": "Kids Tracker: Heather added 4 activities (3 practices and 1 game) for Ava, Wed, Jan 20 to Wed, Feb 3. Also updated 1 activity that moved.\nhttp://TEST-ORIGIN/#k=TESTTOKEN",
+  "href": "sms://open?addresses=+15555550102,5555550101&body=Kids%20Tracker%3A%20Heather%20added%204%20activities%20(3%20practices%20and%201%20game)%20for%20Ava%2C%20Wed%2C%20Jan%2020%20to%20Wed%2C%20Feb%203.%20Also%20updated%201%20activity%20that%20moved.%0Ahttp%3A%2F%2FTEST-ORIGIN%2F%23k%3DTESTTOKEN",
+  "note": null,
+  "to": [
+   "Brett [checked]",
+   "Heather (you) [disabled]",
+   "Angie (Grandma) [checked]"
+  ]
+ },
+ "again": {
+  "shown": true,
+  "head": "I found 4 practices and 1 game",
+  "sub": "From the calendar file Team.ics. 5 are already on the tracker.",
+  "notes": [
+   "1 event had already ended, so I left it out.",
+   "Times in the file were changed to this device's time zone.",
+   "1 canceled event wasn't on the tracker, so I left it out."
+  ],
+  "all": {
+   "kid": "Not set",
+   "team": "No team",
+   "place": "No place",
+   "newRow": false
+  },
+  "rows": [
+   {
+    "checked": false,
+    "dup": true,
+    "text": "Tue, Dec 1 6:00 to 7:00 p.m. Soccer practice Already on the tracker",
+    "flags": [],
+    "editing": false
+   },
+   {
+    "checked": false,
+    "dup": true,
+    "text": "Wed, Jan 20, 2027 5:30 to 6:30 p.m. Soccer practice Already on the tracker",
+    "flags": [],
+    "editing": false
+   },
+   {
+    "checked": false,
+    "dup": true,
+    "text": "Sat, Jan 23, 2027 10:00 to 11:00 a.m. Game vs Eagles Already on the tracker",
+    "flags": [],
+    "editing": false
+   },
+   {
+    "checked": false,
+    "dup": true,
+    "text": "Wed, Jan 27, 2027 5:30 to 6:30 p.m. Soccer practice Already on the tracker",
+    "flags": [],
+    "editing": false
+   },
+   {
+    "checked": false,
+    "dup": true,
+    "text": "Wed, Feb 3, 2027 5:30 to 6:30 p.m. Soccer practice Already on the tracker",
+    "flags": [],
+    "editing": false
+   }
+  ],
+  "add": "Nothing selected",
+  "addDisabled": true,
+  "bodyScroll": "hidden"
+ },
+ "mv": {
+  "shown": true,
+  "head": "I found 1 game",
+  "sub": "From the calendar file Team2.ics. 1 needs a quick look.",
+  "notes": [
+   "Times in the file were changed to this device's time zone."
+  ],
+  "all": {
+   "kid": "Ava",
+   "team": "Soccer",
+   "place": "No place",
+   "newRow": false
+  },
+  "rows": [
+   {
+    "checked": true,
+    "dup": false,
+    "text": "Sat, Jan 23, 2027 11:00 a.m. to 12:00 p.m. Ava Soccer: Game vs Eagles, Studio B Time moved 10:00 a.m. to 11:00 a.m. Place changed to Studio B Changes this one: Soccer: Game vs Eagles, Ava, Sat, Jan 23 10:00 to 11:00 a.m.",
+    "flags": [],
+    "editing": false
+   }
+  ],
+  "add": "Add 1 to the tracker",
+  "addDisabled": false,
+  "bodyScroll": "hidden"
+ },
+ "cx": {
+  "shown": true,
+  "head": "I found 1 game",
+  "sub": "From the calendar file Team3.ics. 1 needs a quick look.",
+  "notes": [
+   "Times in the file were changed to this device's time zone."
+  ],
+  "all": {
+   "kid": "Ava",
+   "team": "Soccer",
+   "place": "No place",
+   "newRow": false
+  },
+  "rows": [
+   {
+    "checked": true,
+    "dup": false,
+    "text": "Sat, Jan 23, 2027 10:00 a.m. Ava Soccer: Game vs Eagles Canceled in the file No end time. Cancels this one: Soccer: Game vs Eagles, Ava, Sat, Jan 23 11:00 a.m. to 12:00 p.m.",
+    "flags": [
+     "[soft] No end time."
+    ],
+    "editing": false
+   }
+  ],
+  "add": "Add 1 to the tracker",
+  "addDisabled": false,
+  "bodyScroll": "hidden"
+ },
+ "messages": {
+  "big": "That file is bigger than 1 MB. Export a shorter date range and try again.",
+  "notCal": "That doesn't look like a calendar file.",
+  "many": "That file has more than 300 activities, or goes back a long way. Export a shorter date range and try again."
+ }
+}

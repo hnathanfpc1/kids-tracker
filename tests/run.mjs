@@ -55,11 +55,16 @@ import { spawnSync } from "node:child_process";
 import vm from "node:vm";
 import { chromium } from "playwright-core";
 import { ACTS_LIB, actsStaticChecks, activityChecks } from "./acts.mjs";
+import { importUnitChecks, importPageChecks } from "./import.mjs";
 
 // ---------------------------------------------------------------------------
 // Known bugs. Each one has a check below that is expected to fail until the bug is fixed.
 // ---------------------------------------------------------------------------
 const KNOWN_BUGS = {
+  // Found by QA in activities slice 1B and fixed on 2026-11-20, so their checks are now enforced: an unknown time zone shifting the time (import.js),
+  //   the "nothing is coming up" message being replaced, a new place made twice after a failed save (activities.js), buttons under 40px on the import views
+  //   and the orange kid name contrast in light mode (style.css). Two findings were decided as intended and their checks rewritten: a no-year date from the
+  //   last 60 days stays in this year, and a same-day row at another time shows as a move that can be split off.
   // Fixed in Phase 0 and removed from this list on 2026-11-19, so their checks are now enforced:
   //   spring break start read "at 6 p.m." in Heather's years (handoffTime, now in core.js), and a stray block in style.css dropped the base .wrap rule.
   // Fixed on 2026-11-20 after the slice 1A QA run and removed from this list, so their checks are now enforced:
@@ -94,14 +99,14 @@ const SHEET_DAYS = ["2026-10-13", "2026-10-16", "2026-10-20", "2026-10-21", "202
 const SB_PINNED = "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.117.3/dist/umd/supabase.js";
 const SB_SHA384 = "sha384-BWcjm9OdFth9TbhCxZPdm+gAOUMAzQy9nmTs12ioXdCcbVnJaPMn+fMUoQCLt60R";
 // The files that make up the site. Each page loads the shared ones with the same ?v= number.
-const SITE_FILES = ["index.html", "admin.html", "activities.html", "app.js", "core.js", "acts.js", "editor.js", "activities.js", "style.css", "config.js"];
+const SITE_FILES = ["index.html", "admin.html", "activities.html", "app.js", "core.js", "acts.js", "editor.js", "import.js", "activities.js", "style.css", "config.js"];
 // What each page loads with a ?v= number, in this order for the scripts (style.css is the stylesheet).
 const PAGE_FILES = {
   "index.html": ["style.css", "config.js", "core.js", "acts.js", "app.js"],
   "admin.html": ["style.css", "config.js", "core.js", "acts.js", "editor.js", "app.js"],
-  "activities.html": ["style.css", "config.js", "core.js", "acts.js", "editor.js", "activities.js"],
+  "activities.html": ["style.css", "config.js", "core.js", "acts.js", "editor.js", "import.js", "activities.js"],
 };
-const SHARED_RE = "style\\.css|config\\.js|app\\.js|core\\.js|acts\\.js|editor\\.js|activities\\.js";
+const SHARED_RE = "style\\.css|config\\.js|app\\.js|core\\.js|acts\\.js|editor\\.js|import\\.js|activities\\.js";
 // The cache-bust number main served before this slice. Any shared file changed since then needs a higher one.
 const MAIN_V = 10;
 const UA_MAC = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36";
@@ -601,7 +606,7 @@ function staticChecks() {
   const perPage = pages.flatMap(f => {
     const txt = htmlFiles.includes(f) ? read(f) : "";
     const count = n => [...txt.matchAll(new RegExp(`(?:href|src)="${n.replace(".", "\\.")}\\?v=\\w+"`, "g"))].length;
-    const all = ["style.css", "config.js", "core.js", "acts.js", "editor.js", "app.js", "activities.js"];
+    const all = ["style.css", "config.js", "core.js", "acts.js", "editor.js", "import.js", "app.js", "activities.js"];
     return [...PAGE_FILES[f].map(n => (count(n) === 1 ? null : `${f}: ${n} is loaded ${count(n)} time(s) with a ?v= number, expected exactly 1`)),
       ...all.filter(n => !PAGE_FILES[f].includes(n) && new RegExp(`(?:href|src)="${n.replace(".", "\\.")}`).test(txt)).map(n => `${f}: loads ${n}, which belongs to another page`)];
   }).filter(Boolean);
@@ -1280,8 +1285,13 @@ async function main() {
     }
 
     // ---- Activities (slice 1A): family, admin and the Activities page. In tests/acts.mjs ----
-    await activityChecks({ open, close, q, check, expectAll, setGolden, settle, takeCalls, ready, captureMonth, clickDay, gotoMonth, byDate, holderOf, makeOracle,
-      familyResponse, P, BASE_DB, clone, origin: () => ORIGIN, toNum, toStr, wd, fmtUTC, span, SHOT_DIR, PNOTE_MARK, TEST_CONFIG, UA_MAC, UA_IPHONE, T19, sessions });
+    const H = { open, close, q, check, expectAll, setGolden, settle, takeCalls, ready, captureMonth, clickDay, gotoMonth, byDate, holderOf, makeOracle,
+      familyResponse, P, BASE_DB, clone, origin: () => ORIGIN, toNum, toStr, wd, fmtUTC, span, SHOT_DIR, PNOTE_MARK, TEST_CONFIG, UA_MAC, UA_IPHONE, T19, sessions, ROOT };
+    await activityChecks(H);
+
+    // ---- Activities slice 1B: paste and import. In tests/import.mjs ----
+    importUnitChecks({ check, expectAll, ROOT });
+    await importPageChecks(H);
 
     // ---- Console errors and stray network requests, across every page opened above ----
     for (const kind of ["family", "admin", "activities"]) {

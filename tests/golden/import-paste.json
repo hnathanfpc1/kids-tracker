@@ -1,0 +1,244 @@
+{
+ "rv1": {
+  "shown": true,
+  "head": "I found 2 practices and 1 game",
+  "sub": "From the list you pasted. 3 need a quick look.",
+  "notes": [],
+  "all": {
+   "kid": "Not set",
+   "team": "No team",
+   "place": "No place",
+   "newRow": false
+  },
+  "rows": [
+   {
+    "checked": true,
+    "dup": false,
+    "text": "Tue, Jan 19, 2027 5:30 to 6:30 p.m. Practice Pick who it's for.",
+    "flags": [
+     "[red] Pick who it's for."
+    ],
+    "editing": false
+   },
+   {
+    "checked": true,
+    "dup": false,
+    "text": "Tue, Jan 26, 2027 5:30 to 6:30 p.m. Practice Pick who it's for.",
+    "flags": [
+     "[red] Pick who it's for."
+    ],
+    "editing": false
+   },
+   {
+    "checked": true,
+    "dup": false,
+    "text": "Sat, Jan 23, 2027 10:00 to 11:00 a.m. Game vs Eagles Pick who it's for.",
+    "flags": [
+     "[red] Pick who it's for."
+    ],
+    "editing": false
+   }
+  ],
+  "add": "Add 3 to the tracker",
+  "addDisabled": false,
+  "bodyScroll": "hidden"
+ },
+ "rv2": {
+  "shown": true,
+  "head": "I found 2 practices and 1 game",
+  "sub": "From the list you pasted. Everything looks clear.",
+  "notes": [],
+  "all": {
+   "kid": "Ava",
+   "team": "Soccer",
+   "place": "+ New place by name",
+   "newRow": true
+  },
+  "rows": [
+   {
+    "checked": true,
+    "dup": false,
+    "text": "Tue, Jan 19, 2027 5:30 to 6:30 p.m. Ava Soccer practice, New place: North Court",
+    "flags": [],
+    "editing": true
+   },
+   {
+    "checked": true,
+    "dup": false,
+    "text": "Tue, Jan 26, 2027 5:30 to 6:30 p.m. Ava Soccer practice, New place: North Court",
+    "flags": [],
+    "editing": true
+   },
+   {
+    "checked": true,
+    "dup": false,
+    "text": "Sat, Jan 23, 2027 10:00 to 11:00 a.m. Ava Soccer: Game vs Eagles, New place: North Court",
+    "flags": [],
+    "editing": true
+   }
+  ],
+  "add": "Add 3 to the tracker",
+  "addDisabled": false,
+  "bodyScroll": "hidden"
+ },
+ "edited": {
+  "shown": true,
+  "head": "I found 2 practices and 1 game",
+  "sub": "From the list you pasted. Everything looks clear.",
+  "notes": [],
+  "all": {
+   "kid": "Ava",
+   "team": "Soccer",
+   "place": "+ New place by name",
+   "newRow": true
+  },
+  "rows": [
+   {
+    "checked": true,
+    "dup": false,
+    "text": "Tue, Jan 19, 2027 6:15 to 7:15 p.m. Ava Soccer practice, New place: North Court",
+    "flags": [],
+    "editing": true
+   },
+   {
+    "checked": true,
+    "dup": false,
+    "text": "Tue, Jan 26, 2027 5:30 to 6:30 p.m. Ava Soccer practice, New place: North Court",
+    "flags": [],
+    "editing": true
+   },
+   {
+    "checked": true,
+    "dup": false,
+    "text": "Sat, Jan 23, 2027 10:00 to 11:00 a.m. Ava Soccer: Game vs Hawks, New place: North Court",
+    "flags": [],
+    "editing": true
+   }
+  ],
+  "add": "Add 3 to the tracker",
+  "addDisabled": false,
+  "bodyScroll": "hidden"
+ },
+ "save": {
+  "calls": [
+   [
+    "places.insert",
+    true,
+    "single"
+   ],
+   [
+    "events.insert",
+    false,
+    null
+   ]
+  ],
+  "place": {
+   "name": "North Court"
+  },
+  "events": [
+   {
+    "team_id": "c0000000-0000-4000-8000-000000000001",
+    "kid_ids": [
+     "a0000000-0000-4000-8000-000000000001"
+    ],
+    "kind": "practice",
+    "title": null,
+    "day": "2027-01-19",
+    "start_time": "18:15",
+    "end_time": "19:15",
+    "place_id": "p1111111-1111-4111-9111-000000000002",
+    "place_text": null,
+    "arrive_by": null,
+    "gear": null,
+    "note": null,
+    "source": "paste",
+    "source_uid": null
+   },
+   {
+    "team_id": "c0000000-0000-4000-8000-000000000001",
+    "kid_ids": [
+     "a0000000-0000-4000-8000-000000000001"
+    ],
+    "kind": "practice",
+    "title": null,
+    "day": "2027-01-26",
+    "start_time": "17:30",
+    "end_time": "18:30",
+    "place_id": "p1111111-1111-4111-9111-000000000002",
+    "place_text": null,
+    "arrive_by": null,
+    "gear": null,
+    "note": null,
+    "source": "paste",
+    "source_uid": null
+   },
+   {
+    "team_id": "c0000000-0000-4000-8000-000000000001",
+    "kid_ids": [
+     "a0000000-0000-4000-8000-000000000001"
+    ],
+    "kind": "game",
+    "title": "Game vs Hawks",
+    "day": "2027-01-23",
+    "start_time": "10:00",
+    "end_time": "11:00",
+    "place_id": "p1111111-1111-4111-9111-000000000002",
+    "place_text": null,
+    "arrive_by": null,
+    "gear": null,
+    "note": null,
+    "source": "paste",
+    "source_uid": null
+   }
+  ]
+ },
+ "txt": {
+  "shown": true,
+  "body": "Kids Tracker: Heather added 3 activities (2 practices and 1 game) for Ava, Tue, Jan 19 to Tue, Jan 26.\nhttp://TEST-ORIGIN/#k=TESTTOKEN",
+  "href": "sms://open?addresses=+15555550102,5555550101&body=Kids%20Tracker%3A%20Heather%20added%203%20activities%20(2%20practices%20and%201%20game)%20for%20Ava%2C%20Tue%2C%20Jan%2019%20to%20Tue%2C%20Jan%2026.%0Ahttp%3A%2F%2FTEST-ORIGIN%2F%23k%3DTESTTOKEN",
+  "note": null,
+  "to": [
+   "Brett [checked]",
+   "Heather (you) [disabled]",
+   "Angie (Grandma) [checked]"
+  ]
+ },
+ "again": {
+  "shown": true,
+  "head": "I found 2 practices and 1 game",
+  "sub": "From the list you pasted. 3 are already on the tracker.",
+  "notes": [],
+  "all": {
+   "kid": "Not set",
+   "team": "No team",
+   "place": "No place",
+   "newRow": false
+  },
+  "rows": [
+   {
+    "checked": false,
+    "dup": true,
+    "text": "Tue, Jan 19, 2027 6:15 to 7:15 p.m. Ava Soccer practice Already on the tracker",
+    "flags": [],
+    "editing": false
+   },
+   {
+    "checked": false,
+    "dup": true,
+    "text": "Tue, Jan 26, 2027 5:30 to 6:30 p.m. Ava Soccer practice Already on the tracker",
+    "flags": [],
+    "editing": false
+   },
+   {
+    "checked": false,
+    "dup": true,
+    "text": "Sat, Jan 23, 2027 10:00 to 11:00 a.m. Ava Game vs Hawks Already on the tracker",
+    "flags": [],
+    "editing": false
+   }
+  ],
+  "add": "Nothing selected",
+  "addDisabled": true,
+  "bodyScroll": "hidden"
+ }
+}
