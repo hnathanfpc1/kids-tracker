@@ -70,7 +70,7 @@ export async function homeChecks(h) {
     const vis = el => !!el && !el.hidden && el.getClientRects().length > 0, $ = id => document.getElementById(id), norm = t => (t || "").replace(/\s+/g, " ").trim();
     return { signin: vis($("vSignin")), content: vis($("famContent")), msgShown: vis($("famMsg")), msg: vis($("famMsg")) ? norm($("famMsgText").textContent) : "",
       msgBtns: vis($("famMsg")) ? [...$("famMsgBtns").querySelectorAll("button")].filter(vis).map(b => norm(b.textContent)) : [],
-      homeBtns: vis($("homeBtns")) ? [...$("homeBtns").children].filter(vis).map(b => `${norm(b.textContent)}${b.getAttribute("href") ? " -> " + b.getAttribute("href") : ""}`) : [],
+      homeBtns: vis($("homeBtns")) ? [...$("homeBtns").children].filter(vis).flatMap(b => b.tagName === "NAV" ? [...b.children].map(a => `${norm(a.textContent)}${a.getAttribute("aria-current") === "page" ? " (current)" : " -> " + a.getAttribute("href")}`) : [`${norm(b.textContent)}${b.getAttribute("href") ? " -> " + b.getAttribute("href") : ""}`]) : [],
       gridCells: $("fGrid") ? $("fGrid").querySelectorAll(".day").length : 0, headClass: $("famHead").className, url: location.pathname + location.hash };
   });
   const pwIn = async (s, pw = "correct-test-password") => { await s.page.locator("#email").fill("brett@example.test"); await s.page.locator("#password").fill(pw); await s.page.locator("#pwSignIn").click(); };
@@ -124,8 +124,8 @@ export async function homeChecks(h) {
   {
     const s = await open("home", "home: parent signed in", baseOpts()), p = s.page;
     const st = await state(s);
-    expectAll(G, "parent signed in: lands on the family view with the Activities link (activities.html) and Sign out in the header, no sign-in card, no message", [
-      ["content", st.content, true], ["signin", st.signin, false], ["msg", st.msgShown, false], ["buttons", st.homeBtns, ["Activities -> activities.html", "Sign out"]], ["head class", st.headClass, "fam-head home"], ["errors", errs(s), []]]);
+    expectAll(G, "parent signed in: lands on the family view with the Schedule | Activities switch (Schedule current, Activities -> activities.html) and Sign out in the header, no sign-in card, no message", [
+      ["content", st.content, true], ["signin", st.signin, false], ["msg", st.msgShown, false], ["buttons", st.homeBtns, ["Schedule (current)", "Activities -> activities.html", "Sign out"]], ["head class", st.headClass, "fam-head home"], ["errors", errs(s), []]]);
     // Month by month and every holiday day sheet, same capture as the family link
     const cap = await captureFamily(s, { privacyMarks: [PNOTE_MARK, ...BASE_DB.share_links.map(l => l.token), "#k=", "k=TESTTOKEN"] });
     r.homeBase = cap.out;
@@ -262,7 +262,7 @@ export async function homeChecks(h) {
     await takeCalls(s); await p.locator("#famRetry").click(); await waitContent(s); await settle(s);
     const st2 = await state(s), c = rail(await takeCalls(s));
     expectAll(G, "Try again works when the next call succeeds: schedule and header buttons show, retry message gone, calls are my_role then get_editor_schedule only", [
-      ["content", st2.content, true], ["msg", st2.msgShown, false], ["buttons", st2.homeBtns, ["Activities -> activities.html", "Sign out"]], ["calls", c, ["rpc:get_editor_schedule", "rpc:my_role"]], ["errors", errs(s), []]]);
+      ["content", st2.content, true], ["msg", st2.msgShown, false], ["buttons", st2.homeBtns, ["Schedule (current)", "Activities -> activities.html", "Sign out"]], ["calls", c, ["rpc:get_editor_schedule", "rpc:my_role"]], ["errors", errs(s), []]]);
     await close(s);
   }
   {
@@ -400,10 +400,12 @@ export async function homeChecks(h) {
   }
 
   // ---- 8. activities.html Back button ----
-  for (const [role, want] of [["parent", "./"], ["admin", "admin.html"]]) {
+  for (const [role, want] of [["parent", "switch"], ["admin", "admin.html"]]) {
     const s = await open("activities", `home: activities back as ${role}`, { at: T_ACT, fake: { db: clone(DBA), role } });
-    const b = await s.page.evaluate(() => { const e = document.getElementById("backBtn"); return { shown: !e.hidden && e.getClientRects().length > 0, href: e.getAttribute("href"), text: e.textContent.trim() }; });
-    expectAll(G, `activities.html as ${role}: the back link is shown and goes to ${want}`, [["shown", b.shown, true], ["href", b.href, want]]);
+    const b = await s.page.evaluate(() => { const e = document.getElementById("backBtn"), n = document.getElementById("pageSwitch"), vis = x => !x.hidden && x.getClientRects().length > 0;
+      return { shown: vis(e), href: e.getAttribute("href"), sw: vis(n) ? [...n.children].map(a => `${a.textContent.trim()} ${a.getAttribute("aria-current") === "page" ? "(current)" : "-> " + a.getAttribute("href")}`) : null, signOutQuiet: document.getElementById("signOut").classList.contains("quiet") }; });
+    if (role === "parent") expectAll(G, "activities.html as parent: Back to schedule is hidden; the Schedule | Activities switch shows Activities current and Schedule linking to ./; Sign out is quiet", [["back shown", b.shown, false], ["switch", b.sw, ["Schedule -> ./", "Activities (current)"]], ["sign out quiet", b.signOutQuiet, true]]);
+    else expectAll(G, "activities.html as admin (unchanged): Back to schedule is shown and goes to admin.html, no page switch, Sign out not quiet", [["shown", b.shown, true], ["href", b.href, want], ["switch", b.sw, null], ["sign out quiet", b.signOutQuiet, false]]);
     await close(s);
   }
 

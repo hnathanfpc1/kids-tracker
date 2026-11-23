@@ -46,7 +46,7 @@ function actsLib() {
       pack: [...h.querySelectorAll(".pack li")].map(li => ({ text: sp(li), dots: [...li.querySelectorAll(".kdot")].map(kc) })) } : null,
     none: sp(el.querySelector(".none")), events: [...el.querySelectorAll(".ev")].map(ev) }; };
   window.__kta = {
-    order: () => [...$("famContent").children].filter(e => e.tagName === "SECTION" && shown(e)).map(e => e.id || e.getAttribute("aria-labelledby") || e.className),
+    order: () => [...$("famContent").querySelectorAll("section")].filter(e => shown(e)).map(e => [e.getBoundingClientRect().top, e.id || e.getAttribute("aria-labelledby") || e.className]).sort((x, y) => x[0] - y[0]).map(x => x[1]),
     panel(p) { const box = $(p + "Acts"); return { shown: shown(box), pressed: [...box.querySelectorAll("[data-act]")].filter(b => b.getAttribute("aria-pressed") === "true").map(b => b.dataset.act),
       offShown: shown($(p + "ActOff")), filters: sp(box.querySelector(".filters")), days: [...box.querySelectorAll(".aday")].map(day), editButtons: box.querySelectorAll("button:not([data-act]), input, textarea, select").length }; },
     marks: grid => [...$(grid).querySelectorAll(".day")].map(d => ({ aria: d.getAttribute("aria-label"), out: d.classList.contains("out"), dots: d.querySelector(".dots") ? [...d.querySelectorAll(".dots .kbdg")].map(b => `${norm(b.textContent)} ${kc(b)}`) : null })),
@@ -175,7 +175,6 @@ const PACKS = {
   "2026-12-11": { head: "⇄ Handoff to Heather after school", title: "Pack for Heather's week", pack: [["Ava: cleats, shin guards, game uniform, piano book, water bottle", ["c-orange"]], ["Both: basketball shoes, jersey, water bottle", ["c-orange", "c-berry"]]] },
   "2026-12-18": { head: "⇄ Handoff to Brett after school", title: "Pack for Brett's 4 nights", pack: [["Ava: cleats, shin guards, water bottle", ["c-orange"]], ["Both: basketball shoes, jerseys, water bottle", ["c-orange", "c-berry"]]] },
   "2026-12-22": { head: "⇄ Handoff to Grandma", title: "Pack for Grandma's 2 nights", pack: [["Ava: cleats, shin guards, water bottle", ["c-orange"]], ["Both: basketball shoes, jersey, water bottle", ["c-orange", "c-berry"]]] },
-  "2026-12-24": { head: "⇄ Handoff to Brett", title: null, pack: [] },
   "2026-12-26": { head: "⇄ Handoff to Heather at 2 p.m.", title: "Pack for Heather's week", pack: [["Max: skates, helmet", ["c-berry"]]] },
 };
 const NAME = { me: "Heather", co: "Brett", grandma: "Grandma" };
@@ -236,7 +235,7 @@ export async function activityChecks(h) {
     await close(s);
 
     // Order of the page.
-    expectAll("acts family", "family page order: Updated box (hidden today), Right now, Activities, Month, Coming up, Recent changes", [["sections shown, top to bottom", g.order, ["famNow", "fActs", "fMonth", "upT", "fRecent"]]]);
+    expectAll("acts family", "family page visual order on a phone: Updated box (hidden today), Right now, Activities, Month, Coming up, Recent changes", [["sections shown, top to bottom", g.order, ["famNow", "fActs", "fMonth", "upT", "fRecent"]]]);
     // The a1d0fca crash: a kid, an activity and a handoff in range, and a switch updated in the last 30 days, must render without a console error.
     check("acts family", "with a kid, activities, handoffs in range and switches changed in the last 30 days, the family page renders the Activities panel and Recent changes with no console error",
       g.panelWeek.shown && g.panelWeek.days.length === 6 && g.panelWeek.days.some(d => d.handoff) && g.recentAll.shown && g.recentAll.rows.length > 0 && !g.errors.length,
@@ -276,12 +275,12 @@ export async function activityChecks(h) {
       return JSON.stringify(got) === JSON.stringify(want) ? [] : [`${iso}: expected ${JSON.stringify(want)}`, `   page shows ${JSON.stringify(got)}`];
     });
     const extraHandoffs = [...days.entries()].filter(([iso, d]) => d.handoff && !PACKS[iso]).map(([iso]) => `${iso} has a handoff box the rules do not expect`);
-    check("acts family", "handoff days are flagged and pack lists match the hand count: grouped per kid then Both, canceled activities left out, gear overrides used, jersey and jerseys counted once, one line per kid",
+    check("acts family", "handoff days are flagged and pack lists match the hand count: grouped per kid then Both, a handoff day with nothing to pack (Dec 24) is not listed, canceled activities left out, gear overrides used, jersey and jerseys counted once, one line per kid",
       !packBad.length && !extraHandoffs.length, [...packBad, ...extraHandoffs].length ? [...packBad, ...extraHandoffs] : Object.entries(PACKS).map(([iso, w]) => `${iso}: ${w.title || "(no gear)"}: ${w.pack.map(p => p[0]).join(" | ")}`));
     // Next 30 days: today, every day with an activity and every handoff, through Dec 31 (today + 30). Not Jan 1.
-    expectAll("acts family", "Next 30 days from Tue Dec 1 runs through Thu Dec 31 (today plus 30) and lists only today, days with activities and handoff days", [
+    expectAll("acts family", "Next 30 days from Tue Dec 1 runs through Thu Dec 31 (today plus 30) and lists only days with activities and handoff days that have a pack list (not today when empty, not the Dec 24 handoff with nothing to pack)", [
       ["days", g.panelMonth.days.map(d => d.date.replace(/ (Today|Handoff day)/g, "")), ["Tue, Dec 1", "Wed, Dec 2", "Thu, Dec 3", "Fri, Dec 4", "Sat, Dec 5", "Sun, Dec 6", "Mon, Dec 7", "Wed, Dec 9", "Fri, Dec 11", "Sat, Dec 12", "Mon, Dec 14",
-        "Wed, Dec 16", "Thu, Dec 17", "Fri, Dec 18", "Sat, Dec 19", "Sun, Dec 20", "Tue, Dec 22", "Wed, Dec 23", "Thu, Dec 24", "Sat, Dec 26", "Thu, Dec 31"]]]);
+        "Wed, Dec 16", "Thu, Dec 17", "Fri, Dec 18", "Sat, Dec 19", "Sun, Dec 20", "Tue, Dec 22", "Wed, Dec 23", "Sat, Dec 26", "Thu, Dec 31"]]]);
     // Calendar markers.
     const dec = g.marksDec.filter(c => !c.out), nov = g.marksNov.filter(c => !c.out);
     const mBad = [...dec.map((c, i) => [toStr(toNum("2026-12-01") + i), c]), ...nov.map((c, i) => [toStr(toNum("2026-11-01") + i), c])]
@@ -311,17 +310,17 @@ export async function activityChecks(h) {
     const b = golden.bounds = {};
     // Rule in acts.js rangeFor: "This week" is today through the coming Sunday; on a Saturday or a Sunday it runs through the Sunday after.
     // "Next 30 days" is today through today + 30.
-    for (const [label, iso, want] of [["Tuesday", "2026-12-01", ["2026-12-01", "2026-12-06"]], ["Saturday", "2026-12-05", ["2026-12-05", "2026-12-13"]], ["Sunday", "2026-12-06", ["2026-12-06", "2026-12-13"]]]) {
+    for (const [label, iso, want] of [["Tuesday", "2026-12-01", ["2026-12-01", "2026-12-06", ["Tue, Dec 1", "Wed, Dec 2", "Thu, Dec 3", "Fri, Dec 4", "Sat, Dec 5", "Sun, Dec 6"]]], ["Saturday", "2026-12-05", ["2026-12-05", "2026-12-13", ["Sat, Dec 5", "Sun, Dec 6", "Mon, Dec 7", "Wed, Dec 9", "Fri, Dec 11", "Sat, Dec 12"]]], ["Sunday", "2026-12-06", ["2026-12-06", "2026-12-13", ["Sun, Dec 6", "Mon, Dec 7", "Wed, Dec 9", "Fri, Dec 11", "Sat, Dec 12"]]]]) {
       const s = await open("family", `family acts week ${label}`, { at: AT(iso), respond: fam(DB, AT(iso)) });
       const p = await a(s, "panel", "f");
       await s.page.locator('[data-act="month"]').click();
       const m = await a(s, "panel", "f");
       await close(s);
       const dates = p.days.map(d => d.date.replace(/ (Today|Handoff day)/g, ""));
-      const wantDays = span(want[0], want[1]).map(d => fmtUTC(toNum(d), { weekday: "short", month: "short", day: "numeric" }));
+      const wantDays = want[2];
       const mLast = m.days[m.days.length - 1].date.replace(/ (Today|Handoff day)/g, "");
       b[label] = { week: dates, monthFirst: m.days[0].date, monthLast: mLast };
-      expectAll("acts boundaries", `This week on a ${label} (${iso}) runs ${want[0]} to ${want[1]}, every day listed; Next 30 days starts today`, [["This week", dates, wantDays], ["Next 30 days starts", m.days[0].date.startsWith(wantDays[0]), true]]);
+      expectAll("acts boundaries", `This week on a ${label} (${iso}) runs ${want[0]} to ${want[1]}, only days with activities or a pack list are listed; Next 30 days starts today`, [["This week", dates, wantDays], ["Next 30 days starts", m.days[0].date.startsWith(wantDays[0]), true]]);
     }
     // Off: no panel body, no markers, no Today line, no kids in the legend. Remembered across a reload. Day sheet still lists activities.
     const s = await open("family", "family acts off", { at: T_ACT, respond: fam(DB, T_ACT.instant) });
@@ -345,16 +344,16 @@ export async function activityChecks(h) {
     await t.page.locator('[data-act="off"]').click(); const st2 = await a(t, "panel", "f");
     const terr = t.errors.slice(); await close(t);
     expectAll("acts boundaries", "when browser storage throws, the page still loads with This week, the switch still works for the visit, and there are no console errors", [
-      ["default", [st0.shown, st0.pressed, st0.days.length], [true, ["week"], 6]], ["Next 30 days", [st1.pressed, st1.days.length], [["month"], 21]], ["Off", [st2.pressed, st2.days.length], [["off"], 0]], ["console errors", terr, []]]);
+      ["default", [st0.shown, st0.pressed, st0.days.length], [true, ["week"], 6]], ["Next 30 days", [st1.pressed, st1.days.length], [["month"], 20]], ["Off", [st2.pressed, st2.days.length], [["off"], 0]], ["console errors", terr, []]]);
     // Someone else on Fri Jan 15 and the This week panel on Wed Jan 13: Jan 15 is a handoff day and has no leave-by.
     const j = await open("family", "family acts Jan 13", { at: AT("2027-01-13"), respond: fam(DB, AT("2027-01-13")) });
     const jp = await a(j, "panel", "f"); await close(j);
     const j15 = jp.days.find(d => d.date.startsWith("Fri, Jan 15"));
     b.jan13 = jp;
     expectAll("acts boundaries", "Wed Jan 13: This week runs to Sun Jan 17; Fri Jan 15 is Someone else's handoff day (gold, class other) and the practice shows arrive by only", [
-      ["days", jp.days.map(d => d.date.replace(/ (Today|Handoff day)/g, "")), ["Wed, Jan 13", "Thu, Jan 14", "Fri, Jan 15", "Sat, Jan 16", "Sun, Jan 17"]],
+      ["days (only Jan 15 has anything on it; Jan 13 and 14 are empty, today included)", jp.days.map(d => d.date.replace(/ (Today|Handoff day)/g, "")), ["Fri, Jan 15"]],
       ["Jan 15 chip", j15.chip, "chip other | Someone else"], ["Jan 15 handoff", j15.handoff && j15.handoff.head, "⇄ Handoff to Someone else"], ["Jan 15 practice", j15.events.map(e => e.go), ["Arrive 5:45."]],
-      ["Jan 16 back to Brett", jp.days[3].chip, "chip co | Brett"]]);
+      ["Jan 16 has nothing on it, so it is not listed", jp.days.some(d => d.date.startsWith("Sat, Jan 16")), false]]);
     // A canceled activity today: struck through in the Today line.
     const c = await open("family", "family acts Dec 7", { at: AT("2026-12-07"), respond: fam(DB, AT("2026-12-07")) });
     b.dec7today = await a(c, "today"); await close(c);
@@ -737,7 +736,7 @@ export async function activityChecks(h) {
     await close(s);
     const body = "Kids Tracker: Brett commented on Ava and Max's Basketball game on Sat, Dec 5 at 10:00 a.m.:\n\"Angie, tip-off moved to 10:15.\"";
     expectAll("activities page", "as parent (Brett): reads only my_role, get_editor_schedule and contacts; contacts are read only; Delete only on his own comments; tag choices are Heather and Angie", [
-      ["load", r.loadCalls, ["my_role", "get_editor_schedule", "contacts.select"]], ["Back to schedule shown (points to the schedule home)", r.lists.back, true],
+      ["load", r.loadCalls, ["my_role", "get_editor_schedule", "contacts.select"]], ["Back to schedule is hidden for a parent (the page switch replaces it)", r.lists.back, false],
       ["contacts read only", [r.lists.contactInputs, r.lists.contactSave, r.lists.contactRows], [[], false, ["Brett +15555550102", "Heather +15555550103", "Angie (Grandma) 5555550101"]]],
       ["Delete on Brett's own comment only", r.e10, ["Delete", null]], ["tags", r.tags, ["Heather", "Angie"]]]);
     expectAll("activities page", "parent tags Angie: Angie checked, Brett (signed in) shown but off, and the link is activities.html#e= (a parent never has the family link)", [

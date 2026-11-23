@@ -16,12 +16,9 @@
    "Sat, Dec 5",
    "Sun, Dec 6",
    "Mon, Dec 7",
-   "Tue, Dec 8",
    "Wed, Dec 9",
-   "Thu, Dec 10",
    "Fri, Dec 11",
-   "Sat, Dec 12",
-   "Sun, Dec 13"
+   "Sat, Dec 12"
   ],
   "monthFirst": "Sat, Dec 5 Today Handoff day",
   "monthLast": "Fri, Jan 1"
@@ -30,15 +27,12 @@
   "week": [
    "Sun, Dec 6",
    "Mon, Dec 7",
-   "Tue, Dec 8",
    "Wed, Dec 9",
-   "Thu, Dec 10",
    "Fri, Dec 11",
-   "Sat, Dec 12",
-   "Sun, Dec 13"
+   "Sat, Dec 12"
   ],
   "monthFirst": "Sun, Dec 6 Today Handoff day",
-  "monthLast": "Tue, Jan 5"
+  "monthLast": "Fri, Jan 1"
  },
  "off": {
   "panel": {
@@ -52,7 +46,7 @@
    "editButtons": 0
   },
   "today": null,
-  "legend": "Heather Brett Grandma Someone else ⇄ Switched ★ Holiday schedule No school ½ Half day",
+  "legend": "Heather Brett Grandma Someone else ⇄ Switched ★ Holiday schedule No school (NS) ½ Half day",
   "marks": 0
  },
  "offAfterReload": {
@@ -81,20 +75,6 @@
   "offShown": false,
   "filters": "Showing Ava Max",
   "days": [
-   {
-    "date": "Wed, Jan 13 Today",
-    "chip": "chip me | Heather",
-    "handoff": null,
-    "none": "No activities.",
-    "events": []
-   },
-   {
-    "date": "Thu, Jan 14",
-    "chip": "chip me | Heather",
-    "handoff": null,
-    "none": "No activities.",
-    "events": []
-   },
    {
     "date": "Fri, Jan 15 Handoff day",
     "chip": "chip other | Someone else",
@@ -138,26 +118,6 @@
       "crossedOut": false
      }
     ]
-   },
-   {
-    "date": "Sat, Jan 16 Handoff day",
-    "chip": "chip co | Brett",
-    "handoff": {
-     "cls": "co handoff",
-     "head": "⇄ Handoff to Brett",
-     "chip": "chip co | Brett",
-     "packTitle": null,
-     "pack": []
-    },
-    "none": "No activities.",
-    "events": []
-   },
-   {
-    "date": "Sun, Jan 17",
-    "chip": "chip co | Brett",
-    "handoff": null,
-    "none": "No activities.",
-    "events": []
    }
   ],
   "editButtons": 0

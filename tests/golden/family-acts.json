@@ -258,7 +258,7 @@
   ],
   "editButtons": 0
  },
- "legend": "Heather Brett Grandma Someone else A Ava M Max ⇄ Switched ★ Holiday schedule No school ½ Half day",
+ "legend": "Heather Brett Grandma Someone else A Ava M Max ⇄ Switched ★ Holiday schedule No school (NS) ½ Half day",
  "marksDec": [
   {
    "aria": "Sunday, November 29, Heather, Thanksgiving",
@@ -1665,19 +1665,6 @@
       "crossedOut": false
      }
     ]
-   },
-   {
-    "date": "Thu, Dec 24 Handoff day",
-    "chip": "chip co | Brett",
-    "handoff": {
-     "cls": "co handoff",
-     "head": "⇄ Handoff to Brett",
-     "chip": "chip co | Brett",
-     "packTitle": null,
-     "pack": []
-    },
-    "none": "No activities.",
-    "events": []
    },
    {
     "date": "Sat, Dec 26 Handoff day",

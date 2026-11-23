@@ -1263,19 +1263,6 @@
     ]
    },
    {
-    "date": "Thu, Dec 24 Handoff day",
-    "chip": "chip co | Brett",
-    "handoff": {
-     "cls": "co handoff",
-     "head": "⇄ Handoff to Brett",
-     "chip": "chip co | Brett",
-     "packTitle": null,
-     "pack": []
-    },
-    "none": "No activities.",
-    "events": []
-   },
-   {
     "date": "Sat, Dec 26 Handoff day",
     "chip": "chip me | Heather",
     "handoff": {

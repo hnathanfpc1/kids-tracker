@@ -58,6 +58,7 @@ import { ACTS_LIB, actsStaticChecks, activityChecks } from "./acts.mjs";
 import { importUnitChecks, importPageChecks } from "./import.mjs";
 import { parentChecks } from "./parent.mjs";
 import { homeChecks } from "./home.mjs";
+import { layoutChecks } from "./layout.mjs";
 
 // ---------------------------------------------------------------------------
 // Known bugs. Each one has a check below that is expected to fail until the bug is fixed.
@@ -1228,7 +1229,7 @@ async function main() {
       ph.admin = { november: await captureMonth(s, "2026-11") };
       await close(s);
       const c = byDate({ "2026-11": ph.family.november });
-      expectAll("layout", "at 375px the calendar shows initials and \"Off\" instead of full names and \"No school\"", [["Mon Nov 23", c.get("2026-11-23").text, "23 ★ H OFF"], ["Wed Nov 25", c.get("2026-11-25").text, "25 ★ ⇄ B OFF"], ["Mon Nov 9", c.get("2026-11-09").text, "9 B"]]);
+      expectAll("layout", "at 375px the calendar shows initials and \"NS\" instead of full names and \"No school\"", [["Mon Nov 23", c.get("2026-11-23").text, "23 ★ H NS"], ["Wed Nov 25", c.get("2026-11-25").text, "25 ★ ⇄ B NS"], ["Mon Nov 9", c.get("2026-11-09").text, "9 B"]]);
       setGolden("phone-375", ph);
     }
 
@@ -1280,7 +1281,7 @@ async function main() {
         ["left and right margins match", w.marginLeft, w.marginRight], ["display", w.display, "flex"], ["direction", w.flexDirection, "column"], ["row gap", w.rowGap, "18px"]];
       for (const mode of ["light", "dark"]) {
         expectAll("layout", `admin page at 1280px (${mode}): .wrap is 1040px wide, centered, a flex column with an 18px row gap`, wrapPairs(info[`admin-1280-${mode}`].wrap, 1040, 1280));
-        expectAll("layout", `family page at 1280px (${mode}): .wrap is 560px wide, centered, a flex column with an 18px row gap`, wrapPairs(info[`family-1280-${mode}`].wrap, 560, 1280));
+        expectAll("layout", `family page at 1280px (${mode}): .wrap is 1200px wide (two columns from 900px), centered, a flex column with an 18px row gap`, wrapPairs(info[`family-1280-${mode}`].wrap, 1200, 1280));
       }
       expectAll("layout", "at 375px .wrap fills the screen with 16px each side on both pages (343px wide), same flex column and gap", [...wrapPairs(info["admin-375-light"].wrap, 1040, 375).map(([l, a, e]) => ["admin " + l, a, e]), ...wrapPairs(info["family-375-light"].wrap, 560, 375).map(([l, a, e]) => ["family " + l, a, e])]);
 
@@ -1336,6 +1337,9 @@ async function main() {
 
     // ---- One address for Brett: the signed-in home on index.html with no k=. In tests/home.mjs ----
     await homeChecks({ ...H, captureFamily, SB_PINNED, SB_SHA384, T30 });
+
+    // ---- Layout and navigation slice (switch, two columns, NS, empty days). In tests/layout.mjs ----
+    await layoutChecks(H);
 
     // ---- Console errors and stray network requests, across every page opened above ----
     for (const kind of ["family", "home", "admin", "activities"]) {

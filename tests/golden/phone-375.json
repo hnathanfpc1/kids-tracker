@@ -70,7 +70,7 @@
     {
      "cls": "co day",
      "aria": "Tuesday, November 10, Brett, No school: Parent conferences",
-     "text": "10 B OFF",
+     "text": "10 B NS",
      "date": "2026-11-10"
     },
     {
@@ -148,31 +148,31 @@
     {
      "cls": "day me",
      "aria": "Monday, November 23, Heather, Thanksgiving, No school: Thanksgiving break",
-     "text": "23 ★ H OFF",
+     "text": "23 ★ H NS",
      "date": "2026-11-23"
     },
     {
      "cls": "day me",
      "aria": "Tuesday, November 24, Heather, Thanksgiving, No school: Thanksgiving break",
-     "text": "24 ★ H OFF",
+     "text": "24 ★ H NS",
      "date": "2026-11-24"
     },
     {
      "cls": "co day swap",
      "aria": "Wednesday, November 25, Brett, switched, Thanksgiving, No school: Thanksgiving break",
-     "text": "25 ★ ⇄ B OFF",
+     "text": "25 ★ ⇄ B NS",
      "date": "2026-11-25"
     },
     {
      "cls": "day me",
      "aria": "Thursday, November 26, Heather, Thanksgiving, No school: Thanksgiving break",
-     "text": "26 ★ H OFF",
+     "text": "26 ★ H NS",
      "date": "2026-11-26"
     },
     {
      "cls": "day me",
      "aria": "Friday, November 27, Heather, Thanksgiving, No school: Thanksgiving break",
-     "text": "27 ★ H OFF",
+     "text": "27 ★ H NS",
      "date": "2026-11-27"
     },
     {
@@ -364,31 +364,31 @@
     {
      "cls": "co day",
      "aria": "Monday, December 21, Brett, Christmas, first part, No school: Winter break",
-     "text": "21 ★ B OFF",
+     "text": "21 ★ B NS",
      "date": "2026-12-21"
     },
     {
      "cls": "day grandma swap",
      "aria": "Tuesday, December 22, Grandma, switched, Christmas, first part, No school: Winter break",
-     "text": "22 ★ ⇄ G OFF",
+     "text": "22 ★ ⇄ G NS",
      "date": "2026-12-22"
     },
     {
      "cls": "day grandma swap",
      "aria": "Wednesday, December 23, Grandma, switched, Christmas, first part, No school: Winter break",
-     "text": "23 ★ ⇄ G OFF",
+     "text": "23 ★ ⇄ G NS",
      "date": "2026-12-23"
     },
     {
      "cls": "co day",
      "aria": "Thursday, December 24, Brett, Christmas, first part, No school: Winter break",
-     "text": "24 ★ B OFF",
+     "text": "24 ★ B NS",
      "date": "2026-12-24"
     },
     {
      "cls": "co day",
      "aria": "Friday, December 25, Brett, Christmas, first part, No school: Winter break",
-     "text": "25 ★ B OFF",
+     "text": "25 ★ B NS",
      "date": "2026-12-25"
     },
     {
@@ -406,31 +406,31 @@
     {
      "cls": "day me",
      "aria": "Monday, December 28, Heather, Christmas, second part, No school: Winter break",
-     "text": "28 ★ H OFF",
+     "text": "28 ★ H NS",
      "date": "2026-12-28"
     },
     {
      "cls": "day me",
      "aria": "Tuesday, December 29, Heather, Christmas, second part, No school: Winter break",
-     "text": "29 ★ H OFF",
+     "text": "29 ★ H NS",
      "date": "2026-12-29"
     },
     {
      "cls": "day me",
      "aria": "Wednesday, December 30, Heather, Christmas, second part, No school: Winter break",
-     "text": "30 ★ H OFF",
+     "text": "30 ★ H NS",
      "date": "2026-12-30"
     },
     {
      "cls": "day me",
      "aria": "Thursday, December 31, Heather, Christmas, second part, No school: Winter break",
-     "text": "31 ★ H OFF",
+     "text": "31 ★ H NS",
      "date": "2026-12-31"
     },
     {
      "cls": "day me out",
      "aria": "Friday, January 1, Heather, Christmas, second part, No school: Winter break",
-     "text": "1 ★ H OFF",
+     "text": "1 ★ H NS",
      "date": "2027-01-01"
     },
     {
@@ -504,7 +504,7 @@
     {
      "cls": "co day",
      "aria": "Tuesday, November 10, Brett, No school: Parent conferences",
-     "text": "10 B OFF",
+     "text": "10 B NS",
      "date": "2026-11-10"
     },
     {
@@ -582,31 +582,31 @@
     {
      "cls": "day me",
      "aria": "Monday, November 23, Heather, Thanksgiving, No school: Thanksgiving break",
-     "text": "23 ★ H OFF",
+     "text": "23 ★ H NS",
      "date": "2026-11-23"
     },
     {
      "cls": "day me",
      "aria": "Tuesday, November 24, Heather, Thanksgiving, No school: Thanksgiving break",
-     "text": "24 ★ H OFF",
+     "text": "24 ★ H NS",
      "date": "2026-11-24"
     },
     {
      "cls": "co day swap",
      "aria": "Wednesday, November 25, Brett, switched, Thanksgiving, No school: Thanksgiving break",
-     "text": "25 ★ ⇄ B OFF",
+     "text": "25 ★ ⇄ B NS",
      "date": "2026-11-25"
     },
     {
      "cls": "day me",
      "aria": "Thursday, November 26, Heather, Thanksgiving, No school: Thanksgiving break",
-     "text": "26 ★ H OFF",
+     "text": "26 ★ H NS",
      "date": "2026-11-26"
     },
     {
      "cls": "day me",
      "aria": "Friday, November 27, Heather, Thanksgiving, No school: Thanksgiving break",
-     "text": "27 ★ H OFF",
+     "text": "27 ★ H NS",
      "date": "2026-11-27"
     },
     {

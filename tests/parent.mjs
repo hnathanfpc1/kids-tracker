@@ -80,8 +80,8 @@ export async function parentChecks(h) {
     await close(s);
   }
   const noKFamily = t => !/#k=/.test(t || "");
-  expectAll("parent audit", "activities.html as parent: loads on the app view with no console error, shows upcoming activities, Back to schedule shown, Sign out shown", [
-    ["views", r.load.views, ["vApp"]], ["errors", r.load.errors, []], ["upcoming > 0", r.load.up > 0, true], ["back", r.load.back, true], ["signOut", r.load.signOut, true]]);
+  expectAll("parent audit", "activities.html as parent: loads on the app view with no console error, shows upcoming activities, Back to schedule hidden (page switch instead), Sign out shown", [
+    ["views", r.load.views, ["vApp"]], ["errors", r.load.errors, []], ["upcoming > 0", r.load.up > 0, true], ["back", r.load.back, false], ["signOut", r.load.signOut, true]]);
   expectAll("parent audit", "parent add by hand, edit, cancel, remove and comment each work: add = 1 events insert, edit = 1 events update, cancel = 1 events update, comment = 1 event_comments insert, remove = 1 events delete", [
     ["add", r.add.w, ["events.insert"]], ["edit", r.edit.w, ["events.update"]], ["cancel", r.cancel.w, ["events.update"]], ["comment", r.comment.w, ["event_comments.insert"]], ["remove", r.remove.w, ["events.delete"]]]);
   check("parent audit", "every parent text sheet (add, edit, cancel, remove) carries activities.html#e=<id> or the page address and never a #k= family link",
