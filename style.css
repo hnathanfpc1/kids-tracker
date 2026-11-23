@@ -168,7 +168,7 @@ header.top p { margin: 4px 0 0; color: var(--muted); }
 .sheet .sub { color: var(--muted); margin: 2px 0 0; font-size: 0.9rem; }
 .field { display: flex; flex-direction: column; gap: 6px; }
 .field > label, .field > .flabel { font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); font-weight: 600; }
-.field input[type=text], .field input[type=date], .field textarea, .row-in input, .row-in select {
+.field input[type=text], .field input[type=password], .field input[type=date], .field textarea, .row-in input, .row-in select {
   border: 1px solid var(--line); background: var(--bg); border-radius: 8px; padding: 8px 10px; width: 100%; min-width: 0; }
 .field textarea { min-height: 60px; resize: vertical; }
 .pick { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; }
@@ -350,3 +350,6 @@ a.btn.primary { color: var(--bg); }
 #vReview .btn, #pasteScrim .btn, #helpScrim .btn { min-height: 40px; }
 .rv-target { margin-top: 4px; }
 .rv-split { text-align: left; }
+
+/* Signed-in home (index.html with no family link): title, then Activities and Sign out on their own row */
+.fam-head.home { display: flex; flex-direction: column; align-items: flex-start; gap: 10px; }

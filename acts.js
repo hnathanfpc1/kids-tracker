@@ -6,7 +6,7 @@
    Every value from the database goes through esc() before it goes into HTML. */
 window.KTActs = (() => {
   "use strict";
-  const { DAY, toNum, fmt, isDate, wd, SD, GRANDMA, famWhy, range } = window.KTCore;
+  const { DAY, toNum, toStr, fmt, isDate, wd, SD, GRANDMA, famWhy, range } = window.KTCore;
   const esc = s => String(s == null ? "" : s).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
 
   // Kid colors. The database stores the key; the color values are tokens in style.css (.c-orange and so on).
@@ -71,6 +71,28 @@ window.KTActs = (() => {
     events.forEach(e => { if (!A.byDay.has(e.n)) A.byDay.set(e.n, []); A.byDay.get(e.n).push(e); });
     comments.forEach(c => { if (!A.cmts.has(c.event_id)) A.cmts.set(c.event_id, []); A.cmts.get(c.event_id).push(c); });
     return A;
+  }
+
+  // ---------- The family link's reach, for the signed-in home ----------
+  // get_schedule() cuts activities to 7 days back and 60 ahead and the change log to 30 days. get_editor_schedule() returns everything,
+  // so the home cuts its copy here to show the same (Heather's decision, 2026-11-22). Display only: that reader can open the Activities page.
+  // Returns a new payload; `all` on it holds every activity id that was read, so a deep link can tell "later than this page shows" from "gone".
+  function familyCut(data, today) {
+    const d = data || {}, arr = k => (Array.isArray(d[k]) ? d[k] : []);
+    const from = today - 7, to = today + 60;
+    const every = new Set(arr("events").filter(e => e && e.id).map(e => e.id));
+    const events = arr("events").filter(e => e && e.id && isDate(e.day) && toNum(e.day) >= from && toNum(e.day) <= to), ids = new Set(events.map(e => e.id));
+    const teamIds = new Set(events.map(e => e.team_id).filter(Boolean));
+    const teams = arr("teams").filter(t => t && teamIds.has(t.id));
+    const placeIds = new Set([...events, ...teams].map(x => x.place_id).filter(Boolean));
+    const kidIds = new Set(events.flatMap(e => (Array.isArray(e.kid_ids) ? e.kid_ids : [])));
+    const cut = Date.now() - 30 * DAY;
+    return { ...d, window: { from: toStr(from), to: toStr(to) }, all: every, events, teams,
+      places: arr("places").filter(p => p && placeIds.has(p.id)),
+      kids: arr("kids").filter(k => k && (k.active !== false || kidIds.has(k.id))),
+      comments: arr("comments").filter(c => c && ids.has(c.event_id)),
+      // A line stays when its team still has something in these dates, or its activity is in them. A removed activity has no day left to check, so its line stays.
+      log: arr("log").filter(x => x && Date.parse(x.at) >= cut && (teamIds.has(x.team_id) || (!!x.event_id && (ids.has(x.event_id) || !every.has(x.event_id))))) };
   }
 
   // ---------- Everything that needs the schedule ----------
@@ -259,5 +281,5 @@ window.KTActs = (() => {
     };
   }
 
-  return { create, parse, esc, COLORS, colorKey, holderClass, KINDS, ANGIE, mins, clock, half, timeText, timeSpan, hhmm, stampDay, stampTime, dayText, initial, pref, setPref, rangeFor };
+  return { create, parse, familyCut, esc, COLORS, colorKey, holderClass, KINDS, ANGIE, mins, clock, half, timeText, timeSpan, hhmm, stampDay, stampTime, dayText, initial, pref, setPref, rangeFor };
 })();

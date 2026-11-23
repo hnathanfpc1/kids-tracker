@@ -90,7 +90,7 @@
           st.famTok = /^[A-Za-z0-9]+$/.test(t || "") ? t : null;
         } catch (e) { st.famTok = null; }
       }
-      show("vApp"); $("backBtn").hidden = role !== "admin";
+      show("vApp"); $("backBtn").setAttribute("href", role === "admin" ? "admin.html" : "./"); $("backBtn").hidden = false;
       render(); openFromHash();
     } catch (e) { fail("load activities", e); show("vSignin"); }
     finally { entering = false; }

@@ -9,14 +9,32 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=Figtree:wght@400;500;600;700&display=swap">
-<link rel="stylesheet" href="style.css?v=15">
+<link rel="stylesheet" href="style.css?v=16">
 </head>
 <body data-page="family">
 <div class="page fam">
 <div class="wrap">
-  <header class="fam-head"><h1>Kids Tracker</h1></header>
+  <header class="fam-head" id="famHead"><h1>Kids Tracker</h1>
+    <div class="btn-row" id="homeBtns" hidden><a class="btn primary" href="activities.html">Activities</a><button class="btn" id="signOut" type="button">Sign out</button></div>
+  </header>
 
-  <section class="panel" id="famMsg"><p class="msg" id="famMsgText">Loading the schedule&hellip;</p></section>
+  <section class="panel" id="famMsg"><p class="msg" id="famMsgText">Loading the schedule&hellip;</p>
+    <div class="btn-row" id="famMsgBtns" hidden><button class="btn primary" id="famRetry" type="button" hidden>Try again</button><button class="btn" id="signOut2" type="button">Sign out</button></div>
+  </section>
+
+  <section class="panel narrow" id="vSignin" hidden>
+    <h2>Sign in</h2>
+    <p class="msg">You'll stay signed in on this device.</p>
+    <div class="field"><label for="email">Email</label><input type="text" inputmode="email" id="email" autocomplete="username"></div>
+    <div class="field"><label for="password">Password</label><input type="password" id="password" autocomplete="current-password"></div>
+    <div class="btn-row">
+      <button class="btn primary" id="pwSignIn" type="button">Sign in</button>
+      <button class="btn" id="sendCode" type="button">Email me a link instead</button>
+    </div>
+    <p class="hint" id="signinMsg"></p>
+    <p class="hint">Have a family link? Open that link instead. It needs no sign-in.</p>
+  </section>
+  <div id="vApp" hidden></div>
 
   <div id="famContent" hidden style="display:flex;flex-direction:column;gap:18px">
     <section class="panel newbox" id="newBox" hidden aria-labelledby="newT">
@@ -82,9 +100,10 @@
 </div>
 <div class="toast" id="toast" role="status" hidden></div>
 
-<script src="config.js?v=15"></script>
-<script src="core.js?v=15"></script>
-<script src="acts.js?v=15"></script>
-<script src="app.js?v=15"></script>
+<script type="text/plain" id="sbSrc" data-src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.117.3/dist/umd/supabase.js" data-integrity="sha384-BWcjm9OdFth9TbhCxZPdm+gAOUMAzQy9nmTs12ioXdCcbVnJaPMn+fMUoQCLt60R" data-crossorigin="anonymous"></script>
+<script src="config.js?v=16"></script>
+<script src="core.js?v=16"></script>
+<script src="acts.js?v=16"></script>
+<script src="app.js?v=16"></script>
 </body>
 </html>

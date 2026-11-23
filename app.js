@@ -4,6 +4,7 @@
   "use strict";
   const PAGE = document.body.dataset.page;          // "family" or "admin"
   const CFG = window.KT_CONFIG || {};
+  const HOME = PAGE === "family" && !/k=[A-Za-z0-9]+/.test(location.hash);   // family page with no link token: the signed-in home
   const CONFIGURED = /^https:\/\//.test(CFG.url || "") && CFG.key && !/PASTE_/.test(CFG.key);
 
   // ---------- Shared schedule logic (core.js) ----------
@@ -204,16 +205,46 @@
   let deepDone = "";
   function openDeepLink() {
     const m = location.hash.match(/[#&]e=([0-9A-Za-z-]{8,64})/);
-    if (!m || deepDone === location.hash) return;
-    deepDone = location.hash;
-    const ev = acts.data.event.get(m[1]);
-    if (!ev) { toast("That activity isn't on the schedule anymore."); return; }
+    let id = m && m[1];
+    if (HOME) {   // back from an emailed sign-in link: editor.js remembered the activity before the email went out (good for an hour)
+      let kept = null;
+      try { kept = localStorage.getItem("kt-open"); if (kept) localStorage.removeItem("kt-open"); } catch (e) {}
+      const v = kept ? kept.split("|") : [];
+      if (!id && /^[0-9A-Za-z-]{8,64}$/.test(v[0] || "") && Date.now() - Number(v[1]) < 3600000) id = v[0];
+    }
+    if (!id || deepDone === id) return;
+    deepDone = id;
+    const ev = acts.data.event.get(id);
+    if (!ev) { toast(HOME && homeAll.has(id) ? "That activity is outside the dates shown here. Open Activities to see it." : "That activity isn't on the schedule anymore."); return; }
     const x = new Date(ev.n * DAY); st.view.family = { y: x.getUTCFullYear(), m: x.getUTCMonth() };
     renderCal("family"); renderNotes();
     openFamDay(ev.n, ev.id);
   }
   let lastLoad = 0;
-  function famMessage(text) { $("famMsgText").textContent = text; $("famMsg").hidden = false; $("famContent").hidden = true; }
+  const LOADING = "Loading the schedule\u2026";
+  function famMessage(text, retry) {
+    $("famMsgText").textContent = text; $("famMsg").hidden = false; $("famContent").hidden = true;
+    $("famMsgBtns").hidden = !HOME || text === LOADING; $("famRetry").hidden = !retry;
+    $("homeBtns").hidden = true;
+  }
+  // Fills the page from a family-safe payload (get_schedule on the family link, get_editor_schedule on the home). Returns false when a message was shown instead.
+  function applyFamily(data) {
+    const s = data.settings || {};
+    if (!isDate(s.anchor)) { famMessage("The schedule isn't set up yet."); return false; }
+    st.settings = { myName: s.my_name || "Heather", coName: s.co_name || "Brett", anchor: s.anchor, trackFrom: s.anchor };
+    st.breaks = {}; (data.breaks || []).forEach(b => { st.breaks[b.year] = b.data || {}; });
+    st.swaps = new Map();
+    (data.swaps || []).forEach(w => { if (isDate(w.day)) st.swaps.set(w.day, { date: w.day, had: holderOf(w.had), with: w.caregiver || "", reason: w.reason || "", note: w.note || "", pnote: "", updatedAt: w.updated_at || null }); });
+    st.changedAt = data.changed_at || null;
+    // The family page only shows shared comments. Drop anything else, the same way pnote is blanked above.
+    acts.load({ ...data, comments: (Array.isArray(data.comments) ? data.comments : []).filter(c => c && c.share_family === true) });
+    lastLoad = Date.now();
+    renderFamily();
+    $("updated").textContent = "Updated " + new Date().toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit" });
+    $("famMsg").hidden = true; $("famContent").hidden = false; $("homeBtns").hidden = !HOME;
+    openDeepLink();
+    return true;
+  }
   async function loadFamily() {
     if (!CONFIGURED) return famMessage("This page isn't set up yet.");
     const m = location.hash.match(/k=([A-Za-z0-9]+)/);
@@ -225,31 +256,67 @@
       if (!r.ok) throw new Error("HTTP " + r.status);
       const data = await r.json();
       if (!data) return famMessage("This link isn't active anymore. Ask Heather for the new one.");
-      const s = data.settings || {};
-      if (!isDate(s.anchor)) return famMessage("The schedule isn't set up yet.");
-      st.settings = { myName: s.my_name || "Heather", coName: s.co_name || "Brett", anchor: s.anchor, trackFrom: s.anchor };
-      st.breaks = {}; (data.breaks || []).forEach(b => { st.breaks[b.year] = b.data || {}; });
-      st.swaps = new Map();
-      (data.swaps || []).forEach(w => { if (isDate(w.day)) st.swaps.set(w.day, { date: w.day, had: holderOf(w.had), with: w.caregiver || "", reason: w.reason || "", note: w.note || "", pnote: "", updatedAt: w.updated_at || null }); });
-      st.changedAt = data.changed_at || null;
-      // The family link only ever gets shared comments. Drop anything else, the same way pnote is blanked above.
-      acts.load({ ...data, comments: (Array.isArray(data.comments) ? data.comments : []).filter(c => c && c.share_family === true) });
-      lastLoad = Date.now();
-      renderFamily();
-      $("updated").textContent = "Updated " + new Date().toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit" });
-      $("famMsg").hidden = true; $("famContent").hidden = false;
-      openDeepLink();
+      applyFamily(data);
     } catch (e) {
       if (!lastLoad) famMessage("Couldn't load the schedule. Check your connection and refresh the page.");
     }
   }
 
+  // ---------- Signed-in home (no k= in the link): Brett's one address ----------
+  // Same view as the family link, read only through get_editor_schedule(). supabase-js and editor.js load only here, never on the family link.
+  const homeShow = id => {
+    $("vSignin").hidden = id !== "vSignin"; $("vApp").hidden = id === "vSignin";
+    if (id === "vSignin") { $("famMsg").hidden = true; $("famContent").hidden = true; $("homeBtns").hidden = true; }
+  };
+  const addScript = (src, attrs) => new Promise((ok, no) => {
+    const el = document.createElement("script"); Object.assign(el, attrs || {}); el.src = src;   // integrity and crossOrigin first, then the address
+    el.onload = ok; el.onerror = () => no(new Error("script")); document.head.appendChild(el);
+  });
+  let entering = false, homeAll = new Set();   // homeAll: every activity id the home read, before the cut to the family link's dates
+  async function homeEnter() {
+    if (entering) return; entering = true;
+    try {
+      homeShow("vApp"); famMessage(LOADING);
+      const { data: role, error } = await sb.rpc("my_role");
+      if (error) throw error;
+      if (role === "admin") { location.replace("admin.html"); return; }
+      if (role !== "parent") { famMessage("This account can't make changes. You're signed in, but this email isn't set up to edit the tracker."); return; }
+      await loadHome(true);
+    } catch (e) { console.error(e); famMessage("Couldn't load the schedule. Check your connection and try again.", true); }
+    finally { entering = false; }
+  }
+  async function loadHome(first) {
+    if ($("vApp").hidden) return;
+    let r; try { r = await sb.rpc("get_editor_schedule"); } catch (e) { r = { error: e }; }
+    if (r.error || !r.data) {
+      if (first || !lastLoad) famMessage("Couldn't load the schedule. Check your connection and try again.", true);
+      // A later refresh failed: keep what is on screen, and say it is not fresh.
+      else $("updated").textContent = "Couldn't refresh. Last updated " + new Date(lastLoad).toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit" });
+      return;
+    }
+    const cut = window.KTActs.familyCut(r.data, todayNum());   // same reach as the family link: 7 days back, 60 ahead, 30 days of changes
+    homeAll = cut.all;
+    applyFamily(cut);
+  }
+  async function bootHome() {
+    $("famHead").classList.add("home"); famMessage(LOADING);
+    if (!CONFIGURED) return famMessage("This page isn't set up yet.");
+    try {
+      const sbTag = $("sbSrc"), v = (document.querySelector('script[src^="app.js"]').getAttribute("src").match(/\?v=\w+/) || [""])[0];
+      await addScript(sbTag.dataset.src, { integrity: sbTag.dataset.integrity, crossOrigin: sbTag.dataset.crossorigin });
+      await addScript("editor.js" + v);
+    } catch (e) { return famMessage("Couldn't load the sign-in. Check your connection and refresh the page."); }
+    sb = window.KTEditor.client(CFG);
+    $("famRetry").onclick = () => { if (!$("vApp").hidden) homeEnter(); };
+    await window.KTEditor.signin(sb, { show: homeShow, enter: homeEnter });
+  }
+
   // ======================================================================
   // ADMIN PAGE
   // ======================================================================
-  let sb = null, entering = false;
+  let sb = null;
   const views = ["vLoading", "vSetup", "vSignin", "vNotAdmin", "vApp"];
-  const show = id => { views.forEach(v => { $(v).hidden = v !== id; }); $("topBtns").hidden = id !== "vApp"; };
+  const show = id => { views.forEach(v => { $(v).hidden = v !== id; }); $("topBtns").hidden = id !== "vApp"; $("topSub").hidden = id === "vNotAdmin"; };
   const famUrl = tok => new URL("./", location.href).href + "#k=" + tok;
   const fail = (what, e) => { console.error(e); toast(`Couldn't ${what}: ${(e && e.message) || "check your connection"}.`); };
 
@@ -365,8 +432,8 @@
       if (role !== "admin") {   // a parent sign-in is fine, it just belongs on the Activities page
         const par = role === "parent";
         $("naT").textContent = par ? "This page is for the tracker's owner" : "This account can't make changes";
-        $("naMsg").textContent = par ? "You're signed in. Activities is your page: that is where you add and change things." : "You're signed in, but this email isn't set up to edit the tracker.";
-        $("naActs").hidden = !par;
+        $("naMsg").textContent = par ? "You're signed in. Your page is the schedule: that is where you see the calendar and open Activities." : "You're signed in, but this email isn't set up to edit the tracker.";
+        $("naHome").hidden = !par;
         show("vNotAdmin"); return;
       }
       const hasSettings = await loadAdmin();
@@ -582,10 +649,14 @@
 
   if (PAGE === "family") {
     $("gotIt").onclick = markSeen;
-    loadFamily();
-    window.addEventListener("hashchange", loadFamily);
-    document.addEventListener("visibilitychange", () => { if (document.visibilityState === "visible" && Date.now() - lastLoad > 120000) loadFamily(); });
-    setInterval(() => { if (document.visibilityState === "visible") loadFamily(); }, 600000);
+    const reload = () => HOME ? loadHome(false).catch(() => {}) : loadFamily();
+    if (HOME) bootHome(); else loadFamily();
+    window.addEventListener("hashchange", () => {
+      if (!/k=[A-Za-z0-9]+/.test(location.hash) !== HOME) location.reload();   // a link token appeared or went away: start over in the right mode
+      else if (HOME) { if (lastLoad && !$("famContent").hidden) openDeepLink(); } else loadFamily();
+    });
+    document.addEventListener("visibilitychange", () => { if (document.visibilityState === "visible" && Date.now() - lastLoad > 120000) reload(); });
+    setInterval(() => { if (document.visibilityState === "visible" && (!HOME || lastLoad)) reload(); }, 600000);
   } else {
     bootAdmin();
   }

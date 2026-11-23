@@ -105,6 +105,7 @@ window.KTCore = (() => {
     }
     // When a handoff into day n happens. Regular Friday switch: after school, or 5 p.m. with no school.
     function handoffTime(n) {
+      if (holderKey(n) === holderKey(n - 1)) return "";   // the kids stay where they are (a holiday can start or end inside the same parent's week): no handoff, so no time
       if (recOf(n) || recOf(n - 1)) return "";
       const hol = holMap.get(n), prev = holMap.get(n - 1), sc = schoolOn(n);
       const school = sc.t === "school" || sc.t === "half";
