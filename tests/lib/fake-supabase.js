@@ -33,7 +33,7 @@
   var PK = { settings: "id", breaks: "year", swaps: "day", swap_details: "day", share_links: "token", app_users: "email",
     kids: "id", homes: "who", places: "id", teams: "id", events: "id", event_comments: "id", contacts: "who", event_log: "id" };
   var CUSTODY = ["settings", "breaks", "swaps", "swap_details", "share_links", "app_users"];
-  var state = { calls: [], pending: 0, db: db, tokenSeq: 0, idSeq: 0, failNext: [] };
+  var state = { calls: [], pending: 0, db: db, tokenSeq: 0, idSeq: 0, failNext: (cfg.failNext || []).slice() };
   var clone = function (x) { return x === undefined ? undefined : JSON.parse(JSON.stringify(x)); };
   var FAIL = { message: "mock failure" };
   var role = function () { return cfg.role === undefined ? "admin" : cfg.role; };
@@ -253,6 +253,8 @@
             if (!session || !isEditor()) return { data: null, error: null };
             var P = window.KTTestPayload, full = P.editor(db, Date.now());
             if (cfg.editor === "old") return { data: P.core(db), error: null };
+            // cfg.leaky: a payload that wrongly carries fields the real function never sends, to prove the page would not show them.
+            if (cfg.leaky) { (full.swaps || []).forEach(function (r) { r.pnote = "PRIVATE-LEAK for " + r.day; }); full.settings.track_from = "2026-10-07"; full.totals = { me: 96, co: 74, pct: "54.9%" }; }
             return { data: full, error: null };
           }
           if (name === "get_editor_schedule") return { data: null, error: { code: "PGRST202", message: "Could not find the function public.get_editor_schedule without parameters in the schema cache" } };

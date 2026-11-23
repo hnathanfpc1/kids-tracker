@@ -737,7 +737,7 @@ export async function activityChecks(h) {
     await close(s);
     const body = "Kids Tracker: Brett commented on Ava and Max's Basketball game on Sat, Dec 5 at 10:00 a.m.:\n\"Angie, tip-off moved to 10:15.\"";
     expectAll("activities page", "as parent (Brett): reads only my_role, get_editor_schedule and contacts; contacts are read only; Delete only on his own comments; tag choices are Heather and Angie", [
-      ["load", r.loadCalls, ["my_role", "get_editor_schedule", "contacts.select"]], ["no Back to schedule", r.lists.back, false],
+      ["load", r.loadCalls, ["my_role", "get_editor_schedule", "contacts.select"]], ["Back to schedule shown (points to the schedule home)", r.lists.back, true],
       ["contacts read only", [r.lists.contactInputs, r.lists.contactSave, r.lists.contactRows], [[], false, ["Brett +15555550102", "Heather +15555550103", "Angie (Grandma) 5555550101"]]],
       ["Delete on Brett's own comment only", r.e10, ["Delete", null]], ["tags", r.tags, ["Heather", "Angie"]]]);
     expectAll("activities page", "parent tags Angie: Angie checked, Brett (signed in) shown but off, and the link is activities.html#e= (a parent never has the family link)", [

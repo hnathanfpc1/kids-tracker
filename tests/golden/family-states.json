@@ -1,9 +1,4 @@
 {
- "noToken": {
-  "msgShown": true,
-  "msg": "Open this page from the link Heather sent you.",
-  "contentShown": false
- },
  "inactiveLink": {
   "msgShown": true,
   "msg": "This link isn't active anymore. Ask Heather for the new one.",

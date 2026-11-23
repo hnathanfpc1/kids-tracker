@@ -57,11 +57,14 @@ import { chromium } from "playwright-core";
 import { ACTS_LIB, actsStaticChecks, activityChecks } from "./acts.mjs";
 import { importUnitChecks, importPageChecks } from "./import.mjs";
 import { parentChecks } from "./parent.mjs";
+import { homeChecks } from "./home.mjs";
 
 // ---------------------------------------------------------------------------
 // Known bugs. Each one has a check below that is expected to fail until the bug is fixed.
 // ---------------------------------------------------------------------------
 const KNOWN_BUGS = {
+  // Found by QA on the "one address for Brett" slice and fixed on 2026-11-22, so its check is now enforced: the Password box on every sign-in card
+  //   had no style rule (style.css listed text, date, time, number and tel only) and sat about 28px tall next to a 40px Email box.
   // Found by QA in the slice 1C parent audit and fixed on 2026-11-21, so their checks are now enforced: admin.html as a parent offered only Sign out
   //   (now points to Activities), and the emailed sign-in link lost a #e=<id> deep link (the page now remembers the activity for an hour).
   // Found by QA in activities slice 1B and fixed on 2026-11-20, so their checks are now enforced: an unknown time zone shifting the time (import.js),
@@ -375,6 +378,10 @@ const q = (page, fn, ...args) => page.evaluate(([f, a]) => window.__ktq[f](...a)
 let browser, ORIGIN;
 const sessions = [];
 const SRI = Object.fromEntries(["admin", "activities"].map(k => [k, /<script[^>]+supabase[^>]+integrity=/i.test(fs.readFileSync(path.join(ROOT, k + ".html"), "utf8"))]));
+SRI.home = false;   // the home sets the integrity attribute from a script, and the harness strips it there (see STRIP_SRI), so Chrome never refuses the stand-in
+// Home only: the lazy-loaded tag sets el.integrity from JavaScript. The harness records what the page set and does not apply it, so the stand-in file can run.
+const STRIP_SRI = `(function(){var d=Object.getOwnPropertyDescriptor(HTMLScriptElement.prototype,"integrity");window.__ktSri=[];
+  Object.defineProperty(HTMLScriptElement.prototype,"integrity",{configurable:true,get:function(){return d.get.call(this)},set:function(v){window.__ktSri.push({src:this.src,integrity:v,el:this});}});})();`;
 // The one console error an admin page load is allowed: Chrome refusing the stand-in file because it does not match the integrity hash.
 const sriRefusal = e => e.includes(`Failed to find a valid digest in the 'integrity' attribute for resource '${SB_PINNED}'`);
 const CORS = { "access-control-allow-origin": "*", "access-control-allow-headers": "*", "access-control-allow-methods": "POST, OPTIONS" };
@@ -384,7 +391,7 @@ const CORS = { "access-control-allow-origin": "*", "access-control-allow-headers
    config (text served as config.js instead of the test config), wait (admin only: the id of the card to wait for
    when the page is meant to stay on it, for example "vLoading"),
    expectErrors (console errors are expected in this scenario, for example a failed request). */
-const PAGE_OF = { family: "index.html", admin: "admin.html", activities: "activities.html" };
+const PAGE_OF = { family: "index.html", home: "index.html", admin: "admin.html", activities: "activities.html" };   // "home" is index.html with no k= (the signed-in home), on the fake
 async function open(kind, label, o = {}) {
   const instant = (o.at && o.at.instant) || o.at || T19.instant;
   const ctx = await browser.newContext({
@@ -394,7 +401,7 @@ async function open(kind, label, o = {}) {
     userAgent: o.ua || (o.mobile ? UA_IPHONE : UA_MAC), serviceWorkers: "block",
   });
   await ctx.clock.setFixedTime(new Date(instant));
-  const s = { kind, label, ctx, errors: [], unexpected: [], cdn: [], famCalls: [], allCalls: [], expectErrors: !!o.expectErrors,
+  const s = { kind, label, ctx, errors: [], unexpected: [], cdn: [], reqs: [], famCalls: [], allCalls: [], expectErrors: !!o.expectErrors,
     respond: o.respond || (body => ({ json: body && body.p_token === "TESTTOKEN" ? familyResponse(BASE_DB, { at: instant }) : null })) };
   await ctx.addInitScript({ content: PAGE_LIB + ACTS_LIB });
   // Extra setup that runs before the page scripts on the FIRST load only (a later reload keeps what the page saved).
@@ -404,7 +411,7 @@ async function open(kind, label, o = {}) {
     const cfg = { db: BASE_DB, signedIn: true, role: "admin", failAll: false, ...(o.fake || {}) };
     // With an integrity attribute on the script tag the browser would refuse the stand-in file,
     // so in that case the fake is also installed before the page scripts run.
-    await ctx.addInitScript({ content: `window.__KT_FAKE_CFG__ = ${JSON.stringify(cfg)};${PAYLOAD_JS}${SRI[kind] ? FAKE_SB : ""}` });
+    await ctx.addInitScript({ content: `window.__KT_FAKE_CFG__ = ${JSON.stringify(cfg)};${PAYLOAD_JS}${kind === "home" ? STRIP_SRI : ""}${SRI[kind] || kind === "home" ? FAKE_SB : ""}` });
   }
   await ctx.route("**/*", async route => {
     const req = route.request(), url = new URL(req.url());
@@ -433,20 +440,26 @@ async function open(kind, label, o = {}) {
   });
   const page = await ctx.newPage();
   s.page = page; s.loads = 0;
+  page.on("request", r => { try { const u = new URL(r.url()); if (u.origin === ORIGIN) s.reqs.push(u.pathname + u.search); } catch (e) {} });
   page.on("load", () => { s.loads++; });   // reloads are counted: each load asks for supabase-js once
   page.on("console", m => { if (m.type() === "error") s.errors.push(`${m.text()} (${m.location().url || "no url"})`); });
   page.on("pageerror", e => s.errors.push(`Uncaught: ${e.message}`));
   sessions.push(s);
   await page.goto(`${ORIGIN}/${PAGE_OF[kind]}${o.hash === undefined ? (kind === "family" ? "#k=TESTTOKEN" : "") : o.hash}`);
-  if (o.wait) await page.waitForFunction(id => window.__KT_FAKE__ && !document.getElementById(id).hidden && window.__KT_FAKE__.calls.length > 0, o.wait, { timeout: 10000 });
+  if (o.noReady) { /* the test waits for itself, for example while a page redirects */ }
+  else if (o.wait) await page.waitForFunction(id => window.__KT_FAKE__ && !document.getElementById(id).hidden && window.__KT_FAKE__.calls.length > 0, o.wait, { timeout: 10000 });
   else await ready(s);
   // Proof that an admin page is running on the test fake: not the real library, and not a blocked library either.
-  if (kind !== "family") s.fake = await page.evaluate(() => ({ isFake: !!(window.supabase && window.supabase.__ktFake), hasState: !!window.__KT_FAKE__, client: (window.__KT_FAKE__ && window.__KT_FAKE__.created) || null }));
+  if (kind !== "family" && !o.noReady) s.fake = await page.evaluate(() => ({ isFake: !!(window.supabase && window.supabase.__ktFake), hasState: !!window.__KT_FAKE__, client: (window.__KT_FAKE__ && window.__KT_FAKE__.created) || null }));
   return s;
 }
 async function ready(s) {
   const page = s.page;
-  if (s.kind === "family") {
+  if (s.kind === "home") {
+    await page.waitForFunction(() => window.__KT_FAKE__ && window.__KT_FAKE__.pending === 0 && (!document.getElementById("vSignin").hidden || !document.getElementById("famContent").hidden
+      || (!document.getElementById("famMsg").hidden && !/^Loading/.test(document.getElementById("famMsgText").textContent))), null, { timeout: 10000 });
+    await page.waitForTimeout(60);
+  } else if (s.kind === "family") {
     await page.waitForFunction(() => !document.getElementById("famContent").hidden || !/^Loading/.test(document.getElementById("famMsgText").textContent), null, { timeout: 10000 });
   } else {
     const settled = () => page.waitForFunction(() => window.__KT_FAKE__ && window.__KT_FAKE__.pending === 0 && ["vSetup", "vSignin", "vNotAdmin", "vApp"].some(id => !document.getElementById(id).hidden), null, { timeout: 10000 });
@@ -459,7 +472,7 @@ const takeCalls = async s => { const c = await s.page.evaluate(() => { const c =
 const close = async s => { await s.ctx.close(); };
 
 async function gotoMonth(s, ym) {
-  const mode = s.kind, [y, m] = ym.split("-").map(Number);
+  const mode = s.kind === "admin" ? "admin" : "family", [y, m] = ym.split("-").map(Number);
   const head = await s.page.locator(mode === "admin" ? "#aMonth" : "#fMonth").textContent();
   const [mn, yy] = head.trim().split(" "), diff = (y - Number(yy)) * 12 + (m - 1 - MONTH_NAMES.indexOf(mn));
   const btn = s.page.locator(`[data-nav="${mode}:${diff < 0 ? -1 : 1}"]`);
@@ -470,7 +483,7 @@ async function gotoMonth(s, ym) {
 const gridStart = ym => { const first = toNum(ym + "-01"); return first - wd(first); };
 async function captureMonth(s, ym) {
   await gotoMonth(s, ym);
-  const c = await q(s.page, "cal", s.kind), g0 = gridStart(ym);
+  const c = await q(s.page, "cal", s.kind === "admin" ? "admin" : "family"), g0 = gridStart(ym);
   c.cells.forEach((cell, i) => { cell.date = toStr(g0 + i); });
   return c;
 }
@@ -616,7 +629,7 @@ function staticChecks() {
   const v = [...nums][0];
   check("static", `cache-bust number is the same on every shared file in all three HTML files, and higher than main's v=${MAIN_V}`, !perPage.length && nums.size === 1 && Number(v) > MAIN_V, [`value(s): ${[...nums].join(", ")}`, ...perPage, ...vs]);
   // Script order matters: each script reads what the ones before it set (KT_CONFIG, KTCore, KTActs, KTEditor).
-  const scripts = pages.map(f => { const tags = [...read(f).matchAll(/<script\b[^>]*>/g)].map(m => m[0]); return { f, tags, local: tags.map(t => (t.match(/\ssrc="([^"]+)"/) || [])[1] || "(inline)").filter(x => !/^https?:/.test(x)).map(x => x.replace(/\?.*$/, "")) }; });
+  const scripts = pages.map(f => { const tags = [...read(f).matchAll(/<script\b[^>]*>/g)].map(m => m[0]).filter(t => !/type="text\/plain"/.test(t)); return { f, tags, local: tags.map(t => (t.match(/\ssrc="([^"]+)"/) || [])[1] || "(inline)").filter(x => !/^https?:/.test(x)).map(x => x.replace(/\?.*$/, "")) }; });
   const late = scripts.flatMap(x => x.tags.filter(t => /\s(async|defer)\b|type="module"/.test(t)).map(t => `${x.f}: ${t} would not run in page order`));
   check("static", "script order on every page: config.js, core.js, acts.js, then editor.js on the two signed-in pages, then the page script (app.js or activities.js), as plain scripts that run in order",
     scripts.every(x => eq(x.local, PAGE_FILES[x.f].filter(n => n.endsWith(".js")))) && !late.length, [...scripts.map(x => `${x.f}: ${x.local.join(", then ")}`), ...late]);
@@ -649,8 +662,16 @@ function staticChecks() {
   });
   const others = outside.filter(x => !/supabase/i.test(x.t) || x.f === "index.html");
   if (others.length) tagProblems.push(`other outside scripts: ${others.map(x => `${x.f}: ${x.t}`).join(" ")}`);
-  if (/supabase/i.test(read("index.html"))) tagProblems.push("index.html mentions supabase: the family page must not load supabase-js");
-  check("static", "admin.html and activities.html each load supabase-js once from the exact pinned 2.117.3 address with its integrity hash and crossorigin=\"anonymous\"; the family page does not load it", !tagProblems.length, tagProblems.length ? tagProblems : "both tags match");
+  // index.html never loads supabase-js up front (the family link must not). It holds the address in an inert text/plain tag that app.js reads on the signed-in home.
+  const idx = read("index.html"), inert = [...idx.matchAll(/<script\b[^>]*type="text\/plain"[^>]*>/g)].map(m => m[0]).filter(t => /supabase/i.test(t)), t1 = inert[0] || "";
+  const adm = outside.find(x => x.f === "admin.html" && /supabase/i.test(x.t)), act = outside.find(x => x.f === "activities.html" && /supabase/i.test(x.t));
+  const idxRest = idx.replace(/<script\b[^>]*type="text\/plain"[^>]*>/g, "");
+  if (/supabase/i.test(idxRest)) tagProblems.push("index.html mentions supabase outside the inert sbSrc tag: the family link must not load supabase-js");
+  if (inert.length !== 1 || attr(t1, "id") !== "sbSrc") tagProblems.push(`index.html has ${inert.length} inert supabase tag(s) (id ${attr(t1, "id")}), expected exactly one with id="sbSrc"`);
+  const same = [["data-src", "src"], ["data-integrity", "integrity"], ["data-crossorigin", "crossorigin"]].map(([d, n]) => [n, attr(t1, d), adm && attr(adm.t, n), act && attr(act.t, n)]);
+  same.forEach(([n, h, ad, ac]) => { if (!(h && h === ad && h === ac)) tagProblems.push(`${n} differs: index.html sbSrc "${h}", admin.html "${ad}", activities.html "${ac}"`); });
+  if (attr(t1, "data-src") !== SB_PINNED || attr(t1, "data-integrity") !== SB_SHA384 || attr(t1, "data-crossorigin") !== "anonymous") tagProblems.push("index.html sbSrc does not carry the pinned address, the QA-computed hash and crossorigin anonymous");
+  check("static", "admin.html and activities.html each load supabase-js once from the exact pinned 2.117.3 address with its integrity hash and crossorigin=\"anonymous\"; index.html only holds the same three values in an inert text/plain tag (no executable supabase script, no drift)", !tagProblems.length, tagProblems.length ? tagProblems : "all three agree");
   configYmlChecks(read);
   const missing = htmlFiles.flatMap(f => [...read(f).matchAll(new RegExp(`(?:href|src)="((?:${SHARED_RE})[^"]*)"`, "g"))].filter(m => !/\?v=\w+/.test(m[1])).map(m => `${f}: ${m[1]}`));
   check("static", "every shared CSS and JS file is loaded with a ?v= number", !missing.length, missing);
@@ -892,6 +913,22 @@ async function main() {
       await close(s);
     }
 
+    {
+      // handoffTime(n) straight from core.js (no page): a holiday that starts or ends inside the same parent's week is not a handoff, so no time.
+      const win = {}; vm.runInNewContext(fs.readFileSync(path.join(ROOT, "core.js"), "utf8"), { window: win });
+      const dbN = dbScheduleOnly(), st = { settings: { myName: "Heather", coName: "Brett", anchor: dbN.settings[0].anchor, trackFrom: dbN.settings[0].anchor }, swaps: new Map(), breaks: {} };
+      dbN.breaks.forEach(b => { st.breaks[b.year] = b.data; });
+      const sc = win.KTCore.schedule(st); sc.rebuild(); const ht = iso => sc.handoffTime(toNum(iso)), who = iso => sc.actual(toNum(iso));
+      expectAll("truths handoff", "handoffTime in core.js: a holiday edge inside the same parent's week has no handoff and no time (Thanksgiving 2026 starts Nov 20 and ends Nov 29, Heather both sides of both edges, Nov 30 is Heather's rotation week)", [
+        ["Nov 19 and Nov 20 are both Heather's", [who("2026-11-19"), who("2026-11-20"), who("2026-11-30")], ["me", "me", "me"]],
+        ["Nov 20 (holiday starts, same holder)", ht("2026-11-20"), ""], ["Nov 30 (holiday ends, same holder)", ht("2026-11-30"), ""]]);
+      expectAll("truths handoff", "handoffTime in core.js still gives the real handoff times: Friday after school, Friday with no school at 5 p.m., Dec 26 at 2 p.m., Christmas start after school, spring break end at 6 p.m., spring break start after school", [
+        ["Fri 2026-11-06 school day", ht("2026-11-06"), "after school"], ["Fri 2026-10-16 teacher workday", ht("2026-10-16"), "at 5 p.m."], ["Sat 2026-12-26", ht("2026-12-26"), "at 2 p.m."],
+        ["Fri 2026-12-18", ht("2026-12-18"), "after school"], ["Sun 2027-04-11", ht("2027-04-11"), "at 6 p.m."], ["Fri 2027-04-02", ht("2027-04-02"), "after school"],
+        ["Fri 2026-12-04 (Brett)", [who("2026-12-04"), ht("2026-12-04")], ["co", "after school"]],
+        ["a day with no change of holder, Wed 2026-11-04", ht("2026-11-04"), ""]]);
+    }
+
     // ---- Family page: time zone edges ----
     for (const [label, instant, want] of [["11:30 p.m. Eastern on Nov 19", "2026-11-19T23:30:00-05:00", "Thursday, November 19"], ["12:30 a.m. Eastern on Nov 20", "2026-11-20T00:30:00-05:00", "Friday, November 20"]]) {
       const s = await open("family", `family ${label}`, { at: instant });
@@ -956,13 +993,11 @@ async function main() {
     {
       const st = {};
       const msg = async (label, o) => { const s = await open("family", `family state: ${label}`, o); const m = await q(s.page, "famMsg"); await close(s); return m; };
-      st.noToken = await msg("no token", { hash: "" });
       st.inactiveLink = await msg("inactive link", { hash: "#k=OLDTOKEN" });
       st.serverError = await msg("server error", { respond: () => ({ status: 500, json: { message: "mock failure" } }), expectErrors: true });
       st.networkDown = await msg("network down", { respond: () => "abort", expectErrors: true });
       st.scheduleNotSetUp = await msg("no settings row", { respond: () => ({ json: { settings: null, changed_at: null, breaks: [], swaps: [] } }) });
-      expectAll("states", "family page messages: no token, inactive link, failed request, schedule not set up", [
-        ["no token", st.noToken, { msgShown: true, msg: "Open this page from the link Heather sent you.", contentShown: false }],
+      expectAll("states", "family page messages (link given): inactive link, failed request, schedule not set up", [
         ["inactive link", st.inactiveLink, { msgShown: true, msg: "This link isn't active anymore. Ask Heather for the new one.", contentShown: false }],
         ["server error", st.serverError, { msgShown: true, msg: "Couldn't load the schedule. Check your connection and refresh the page.", contentShown: false }],
         ["network down", st.networkDown, { msgShown: true, msg: "Couldn't load the schedule. Check your connection and refresh the page.", contentShown: false }],
@@ -1289,7 +1324,7 @@ async function main() {
 
     // ---- Activities (slice 1A): family, admin and the Activities page. In tests/acts.mjs ----
     const H = { open, close, q, check, expectAll, setGolden, settle, takeCalls, ready, captureMonth, clickDay, gotoMonth, byDate, holderOf, makeOracle,
-      familyResponse, P, BASE_DB, clone, origin: () => ORIGIN, toNum, toStr, wd, fmtUTC, span, SHOT_DIR, PNOTE_MARK, TEST_CONFIG, UA_MAC, UA_IPHONE, T19, sessions, ROOT };
+      truthChecks, dbScheduleOnly, familyResponse, P, BASE_DB, clone, origin: () => ORIGIN, toNum, toStr, wd, fmtUTC, span, SHOT_DIR, PNOTE_MARK, TEST_CONFIG, UA_MAC, UA_IPHONE, T19, sessions, ROOT };
     await activityChecks(H);
 
     // ---- Activities slice 1B: paste and import. In tests/import.mjs ----
@@ -1299,13 +1334,16 @@ async function main() {
     // ---- Activities slice 1C: the parent (Brett) sign-in audit. In tests/parent.mjs ----
     await parentChecks(H);
 
+    // ---- One address for Brett: the signed-in home on index.html with no k=. In tests/home.mjs ----
+    await homeChecks({ ...H, captureFamily, SB_PINNED, SB_SHA384, T30 });
+
     // ---- Console errors and stray network requests, across every page opened above ----
-    for (const kind of ["family", "admin", "activities"]) {
+    for (const kind of ["family", "home", "admin", "activities"]) {
       const mine = sessions.filter(s => s.kind === kind);
       const fontNoise = e => /fonts\.(googleapis|gstatic)\.com/.test(e);
       // Only the one expected refusal of the stand-in file is set aside, and only on the admin page. It is counted in its own check below.
-      const sriNoise = e => SRI[kind] && sriRefusal(e);
-      const errs = mine.filter(s => !s.expectErrors).flatMap(s => s.errors.filter(e => !fontNoise(e) && !sriNoise(e)).map(e => `${s.label}: ${e}`));
+      const sriNoise = (s, e) => (SRI[kind] || s.sriWant) && sriRefusal(e);
+      const errs = mine.filter(s => !s.expectErrors).flatMap(s => s.errors.filter(e => !fontNoise(e) && !sriNoise(s, e)).map(e => `${s.label}: ${e}`));
       check("console", `${kind} page: no console errors (${mine.filter(s => !s.expectErrors).length} page loads)`, !errs.length, errs);
       const expected = mine.filter(s => s.expectErrors).map(s => `${s.label}: ${s.errors.length} error(s)`);
       if (expected.length) console.log(`         (failed-request scenarios log errors on purpose: ${expected.join("; ")})`);
@@ -1319,8 +1357,8 @@ async function main() {
       const bad = admins.flatMap(s => { const refusals = s.errors.filter(sriRefusal).length, out = [];
         if (!s.fake || !s.fake.isFake || !s.fake.hasState) out.push("window.supabase was not the test fake");
         if (s.fake && s.label.indexOf("card setup") === -1 && (!s.fake.client || s.fake.client.url !== "https://kt-mock.invalid" || !s.fake.client.hasKey)) out.push(`the page did not create its client on the fake with the test address (${JSON.stringify(s.fake.client)})`);
-        if (s.cdn.length !== (s.loads || 1) || s.cdn.some(u => u !== SB_PINNED)) out.push(`asked jsDelivr for: ${s.cdn.join(", ") || "nothing"} (${s.loads || 1} page load(s))`);
-        const want = (SRI[s.kind] ? 1 : 0) * (s.loads || 1);   // one refusal per page load (sign out reloads the page)
+        if (s.cdn.length !== (s.cdnWant !== undefined ? s.cdnWant : (s.loads || 1)) || s.cdn.some(u => u !== SB_PINNED)) out.push(`asked jsDelivr for: ${s.cdn.join(", ") || "nothing"} (${s.loads || 1} page load(s))`);
+        const want = s.sriWant !== undefined ? s.sriWant : (SRI[s.kind] ? 1 : 0) * (s.loads || 1);   // one refusal per page load (sign out reloads the page)
         if (refusals !== want) out.push(`Chrome refused the stand-in file ${refusals} time(s), expected ${want}`);
         return out.map(x => `${s.label}: ${x}`); });
       check("harness", `all ${admins.length} admin and Activities page sessions ran on the test fake (never the real library, never a blocked one), each load asked for the pinned file once, and Chrome refused the stand-in once per load because of the integrity hash`, admins.length >= 25 && !bad.length, bad);

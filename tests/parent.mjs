@@ -6,6 +6,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { dbActs } from "./acts.mjs";
+import { dbCut, CUT_E } from "./home.mjs";
 
 const KID = { ava: "a0000000-0000-4000-8000-000000000001", max: "a0000000-0000-4000-8000-000000000002" };
 const TEAM = { soccer: "c0000000-0000-4000-8000-000000000001" };
@@ -29,6 +30,7 @@ export async function parentChecks(h) {
   const scrollW = s => s.page.evaluate(() => ({ doc: document.documentElement.scrollWidth, win: window.innerWidth }));
   const shot = (s, name, clip) => s.page.screenshot({ path: path.join(SHOTS, name), clip });
   const errs = s => s.errors.filter(e => !/integrity/.test(e));
+  const eq2 = (x, y) => JSON.stringify(x) === JSON.stringify(y);
   const parentOpts = (o = {}) => ({ at: T_ACT, fake: { db: JSON.parse(JSON.stringify(DB)), role: "parent", ...(o.fake || {}) }, ...o, });
   const r = {};
 
@@ -78,8 +80,8 @@ export async function parentChecks(h) {
     await close(s);
   }
   const noKFamily = t => !/#k=/.test(t || "");
-  expectAll("parent audit", "activities.html as parent: loads on the app view with no console error, shows upcoming activities, no Back to admin button, Sign out shown", [
-    ["views", r.load.views, ["vApp"]], ["errors", r.load.errors, []], ["upcoming > 0", r.load.up > 0, true], ["back", r.load.back, false], ["signOut", r.load.signOut, true]]);
+  expectAll("parent audit", "activities.html as parent: loads on the app view with no console error, shows upcoming activities, Back to schedule shown, Sign out shown", [
+    ["views", r.load.views, ["vApp"]], ["errors", r.load.errors, []], ["upcoming > 0", r.load.up > 0, true], ["back", r.load.back, true], ["signOut", r.load.signOut, true]]);
   expectAll("parent audit", "parent add by hand, edit, cancel, remove and comment each work: add = 1 events insert, edit = 1 events update, cancel = 1 events update, comment = 1 event_comments insert, remove = 1 events delete", [
     ["add", r.add.w, ["events.insert"]], ["edit", r.edit.w, ["events.update"]], ["cancel", r.cancel.w, ["events.update"]], ["comment", r.comment.w, ["event_comments.insert"]], ["remove", r.remove.w, ["events.delete"]]]);
   check("parent audit", "every parent text sheet (add, edit, cancel, remove) carries activities.html#e=<id> or the page address and never a #k= family link",
@@ -110,12 +112,30 @@ export async function parentChecks(h) {
     await shot(s, "admin-as-parent-375.png", { x: 0, y: 0, width: 375, height: 440 }); none.adminParent375 = await scrollW(s); await close(s); }
   for (const k of Object.keys(none)) if (none[k].calls) console.log(`INFO   ${k}: views ${JSON.stringify(none[k].views)}; "${none[k].heading}" / "${none[k].msg}"; buttons ${JSON.stringify(none[k].buttons)}; links ${JSON.stringify(none[k].links)}; header links ${JSON.stringify(none[k].headerLinks)}; calls ${none[k].calls.join(",")}`);
   expectAll("parent audit", "admin.html as parent and both pages with no role: only my_role is asked (no custody data, no schedule, no contacts) before the role check, nothing from the custody tables, no console error", ["admin-parent", "activities-norole", "admin-norole"].map(k => [k, { calls: none[k].calls, forbidden: none[k].forbidden, errors: none[k].errors }, { calls: ["rpc:my_role"], forbidden: [], errors: [] }]));
-  check("parent audit", "admin.html as parent: the message is kind and clear and offers a way to the Activities page (a link to activities.html) as well as Sign out",
-    none["admin-parent"].links.includes("activities.html") && !/isn't set up to edit the tracker/.test(none["admin-parent"].msg),
+  check("parent audit", "admin.html as parent: the message is kind and clear, says the schedule is the parent's page, and offers \"Open the schedule\" (a link to ./) as well as Sign out",
+    eq2(none["admin-parent"].links, ["./"]) && eq2(none["admin-parent"].buttons, ["Sign out"]) && /Your page is the schedule/.test(none["admin-parent"].msg) && !/isn't set up to edit the tracker/.test(none["admin-parent"].msg),
     [`heading: ${none["admin-parent"].heading}`, `message: ${none["admin-parent"].msg}`, `links: ${JSON.stringify(none["admin-parent"].links)}`, `buttons: ${JSON.stringify(none["admin-parent"].buttons)}`]);
   expectAll("parent audit", "no-role account on both pages: heading says it can't make changes, a Sign out button is the only way on", [
     ["admin", [none["admin-norole"].heading, none["admin-norole"].buttons], ["This account can't make changes", ["Sign out"]]],
     ["activities", [none["activities-norole"].heading, none["activities-norole"].buttons], ["This account can't make changes", ["Sign out"]]]]);
+
+  // ---- 7b. Admin page subtitle (#topSub): hidden on the not-the-owner message, shown for the owner and on the sign-in card ----
+  {
+    const sub = async (label, fake) => { const s = await open("admin", "topSub " + label, { at: T_ACT, fake: { db: JSON.parse(JSON.stringify(DB)), ...fake } });
+      const d = await s.page.evaluate(() => { const e = document.getElementById("topSub"); return { text: e.textContent.trim(), hidden: e.hidden, shown: e.getClientRects().length > 0 }; }); await close(s); return d; };
+    const par = await sub("parent", { role: "parent" }), nor = await sub("no role", { role: null }), adm = await sub("admin", { role: "admin" }), out = await sub("signed out", { role: "admin", signedIn: false });
+    const line = "Your private page. Anything you change here shows on the family link right away.";
+    expectAll("parent audit", "admin.html subtitle: hidden for a parent and for an account with no role, still shown (with its words) for the admin and on the signed-out sign-in card", [
+      ["parent", par.shown, false], ["no role", nor.shown, false], ["admin", [adm.shown, adm.text], [true, line]], ["signed out", [out.shown, out.text], [true, line]]]);
+  }
+  // ---- 7c. The Activities page is not cut: a parent still sees an activity beyond 60 days and one before today-7 stays out of Upcoming only because it is past ----
+  {
+    const s = await open("activities", "parent sees far activities", { at: T_ACT, fake: { db: dbCut(BASE_DB), role: "parent" } });
+    const up = await a(s, "up"), ids = up.rows.map(r => r.id);
+    expectAll("parent audit", "Activities page as a parent with the cut fixture: the upcoming list still has the activities 61 days ahead (Jan 31) and far out (Jun 15), as well as the one inside the dates; the family-link cut is not applied here", [
+      ["upcoming has Jan 30, Jan 31 and Jun 15", [CUT_E.ahead60, CUT_E.ahead61, CUT_E.far].map(id => ids.includes(id)), [true, true, true]], ["errors", errs(s), []]]);
+    await close(s);
+  }
 
   // ---- 8. Sign-in card ----
   {
