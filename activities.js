@@ -90,7 +90,11 @@
           st.famTok = /^[A-Za-z0-9]+$/.test(t || "") ? t : null;
         } catch (e) { st.famTok = null; }
       }
-      show("vApp"); $("backBtn").setAttribute("href", role === "admin" ? "admin.html" : "./"); $("backBtn").hidden = false;
+      show("vApp"); $("backBtn").setAttribute("href", "admin.html");
+      // A parent gets the Schedule | Activities switch; an admin keeps "Back to schedule" to the admin page.
+      const parent = role !== "admin";
+      $("backBtn").hidden = parent; $("pageSwitch").hidden = !parent;
+      $("topBtns").classList.toggle("pagenav", parent); $("signOut").classList.toggle("quiet", parent);
       render(); openFromHash();
     } catch (e) { fail("load activities", e); show("vSignin"); }
     finally { entering = false; }

@@ -63,13 +63,13 @@
           <span class="badges">${sc.t === "half" ? `<span class="half" aria-hidden="true">&frac12;</span>` : ""}${rec ? `<span class="sw" aria-hidden="true">&#8644;</span>` : ""}${isFresh(rec) ? `<span class="nw" title="New"></span>` : ""}</span></span>
         ${hol ? `<span class="hol">${esc(HOL[hol.key].s)}</span>` : ""}${marks ? `<span class="dots">${acts.markers(n)}</span>` : ""}
         <span class="who"><span class="wl">${esc(nm)}</span><span class="ws" aria-hidden="true">${esc(nm.charAt(0))}</span></span>
-        ${sc.t === "off" ? `<span class="nos" aria-hidden="true"><span class="wl">No school</span><span class="ws">Off</span></span>` : ""}</button>`);
+        ${sc.t === "off" ? `<span class="nos" aria-hidden="true"><span class="wl">No school</span><span class="ws">NS</span></span>` : ""}</button>`);
     }
     $(mode === "admin" ? "aGrid" : "fGrid").innerHTML = h.join("");
     $(mode === "admin" ? "aLegend" : "fLegend").innerHTML = [
       `<span><i class="k-me"></i>${esc(S().myName)}</span>`, `<span><i class="k-co"></i>${esc(S().coName)}</span>`, `<span><i class="k-gm"></i>${GRANDMA}</span>`, `<span><i class="k-ot"></i>Someone else</span>`,
       marks ? acts.legend() : "",
-      `<span><span class="sw-k">&#8644;</span>Switched</span>`, `<span><b>&#9733;</b> Holiday schedule</span>`, `<span><i class="k-nos"></i>No school</span>`, `<span><b>&frac12;</b> Half day</span>`,
+      `<span><span class="sw-k">&#8644;</span>Switched</span>`, `<span><b>&#9733;</b> Holiday schedule</span>`, `<span><i class="k-nos"></i>No school<span class="k-short">&nbsp;(NS)</span></span>`, `<span><b>&frac12;</b> Half day</span>`,
     ].join("");
   }
   function navMonth(mode, step) {

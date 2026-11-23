@@ -9,13 +9,13 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=Figtree:wght@400;500;600;700&display=swap">
-<link rel="stylesheet" href="style.css?v=16">
+<link rel="stylesheet" href="style.css?v=17">
 </head>
 <body data-page="family">
 <div class="page fam">
 <div class="wrap">
   <header class="fam-head" id="famHead"><h1>Kids Tracker</h1>
-    <div class="btn-row" id="homeBtns" hidden><a class="btn primary" href="activities.html">Activities</a><button class="btn" id="signOut" type="button">Sign out</button></div>
+    <div class="btn-row pagenav" id="homeBtns" hidden><nav class="pageswitch" aria-label="Pages"><a href="./" aria-current="page">Schedule</a><a href="activities.html">Activities</a></nav><button class="btn quiet" id="signOut" type="button">Sign out</button></div>
   </header>
 
   <section class="panel" id="famMsg"><p class="msg" id="famMsgText">Loading the schedule&hellip;</p>
@@ -42,20 +42,9 @@
       <ul class="month-notes" id="newList"></ul>
       <div><button class="btn primary" id="gotIt" type="button">Got it</button></div>
     </section>
+    <div class="col-l">
     <section class="now" id="famNow" aria-live="polite"></section>
-    <section class="panel" id="fActs" hidden aria-labelledby="fActT">
-      <div class="panel-head">
-        <h2 id="fActT">Activities</h2>
-        <div class="seg" role="group" aria-label="Show activities">
-          <button type="button" data-act="off">Off</button>
-          <button type="button" data-act="week">This week</button>
-          <button type="button" data-act="month">Next 30 days</button>
-        </div>
-      </div>
-      <p class="none" id="fActOff" hidden>Activities are hidden. Everything else on this page stays the same.</p>
-      <div id="fActBody"></div>
-    </section>
-    <section class="panel" aria-labelledby="fMonth">
+    <section class="panel sec-month" aria-labelledby="fMonth">
       <div class="panel-head">
         <h2 id="fMonth">Month</h2>
         <div class="cal-nav">
@@ -68,9 +57,23 @@
       <div class="legend" id="fLegend"></div>
       <ul class="month-notes" id="fNotes"></ul>
     </section>
-    <section class="panel" aria-labelledby="upT">
+    <section class="panel sec-up" aria-labelledby="upT">
       <div class="panel-head"><h2 id="upT">Coming up</h2><span style="color:var(--muted);font-size:.86rem">Next 6 weeks</span></div>
       <ul class="upcoming" id="fUp"></ul>
+    </section>
+    </div>
+    <div class="col-r">
+    <section class="panel" id="fActs" hidden aria-labelledby="fActT">
+      <div class="panel-head">
+        <h2 id="fActT">Activities</h2>
+        <div class="seg" role="group" aria-label="Show activities">
+          <button type="button" data-act="off">Off</button>
+          <button type="button" data-act="week">This week</button>
+          <button type="button" data-act="month">Next 30 days</button>
+        </div>
+      </div>
+      <p class="none" id="fActOff" hidden>Activities are hidden. Everything else on this page stays the same.</p>
+      <div id="fActBody"></div>
     </section>
     <section class="panel" id="fRecent" hidden aria-labelledby="fRecT">
       <div class="panel-head">
@@ -84,6 +87,7 @@
       <ul class="log" id="fLog"></ul>
       <div><button type="button" class="link-btn" id="fLogMore" hidden>Show more</button></div>
     </section>
+    </div>
     <p class="updated" id="updated"></p>
     <p class="foot">Something look off? Text Heather.</p>
   </div>
@@ -101,9 +105,9 @@
 <div class="toast" id="toast" role="status" hidden></div>
 
 <script type="text/plain" id="sbSrc" data-src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.117.3/dist/umd/supabase.js" data-integrity="sha384-BWcjm9OdFth9TbhCxZPdm+gAOUMAzQy9nmTs12ioXdCcbVnJaPMn+fMUoQCLt60R" data-crossorigin="anonymous"></script>
-<script src="config.js?v=16"></script>
-<script src="core.js?v=16"></script>
-<script src="acts.js?v=16"></script>
-<script src="app.js?v=16"></script>
+<script src="config.js?v=17"></script>
+<script src="core.js?v=17"></script>
+<script src="acts.js?v=17"></script>
+<script src="app.js?v=17"></script>
 </body>
 </html>

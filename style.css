@@ -352,4 +352,33 @@ a.btn.primary { color: var(--bg); }
 .rv-split { text-align: left; }
 
 /* Signed-in home (index.html with no family link): title, then Activities and Sign out on their own row */
-.fam-head.home { display: flex; flex-direction: column; align-items: flex-start; gap: 10px; }
+.fam-head.home { display: flex; flex-direction: row; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px; }
+.fam-head.home h1 { flex: 1 0 100%; }
+
+/* Page switch: "Schedule | Activities" with the current page dark, Sign out quiet and set apart */
+.pagenav { display: flex; align-items: center; justify-content: space-between; gap: 12px; width: 100%; flex-wrap: nowrap; }
+.pageswitch { display: inline-flex; border: 1px solid var(--line); border-radius: 999px; padding: 2px; background: var(--bg); }
+.pageswitch a { display: inline-flex; align-items: center; min-height: 36px; padding: 0 16px; border-radius: 999px; font-size: 0.92rem; font-weight: 600; color: var(--muted); text-decoration: none; white-space: nowrap; }
+.pageswitch a[aria-current="page"] { background: var(--ink); color: var(--bg); }
+.pagenav .btn.quiet { border-color: transparent; background: transparent; color: var(--muted); font-weight: 500; padding: 7px 8px; white-space: nowrap; }
+.pagenav .btn.quiet:hover { color: var(--ink); text-decoration: underline; }
+@media (min-width: 900px) {
+  .fam-head.home h1 { flex: 0 1 auto; }
+  .pagenav { width: auto; justify-content: flex-end; gap: 22px; }
+}
+
+/* NS on phones, full words on wide screens */
+.k-short { display: none; }
+@media (max-width: 560px) { .k-short { display: inline; } }
+
+/* Family page: two columns from 900px. Below 900px the wrappers vanish and each block keeps its one-column order. */
+@media (max-width: 899px) {
+  .col-l, .col-r { display: contents; }
+  #newBox { order: 0; } #famNow { order: 1; } #fActs { order: 2; } .sec-month { order: 3; } .sec-up { order: 4; } #fRecent { order: 5; } #updated { order: 6; } .fam .foot { order: 7; }
+}
+@media (min-width: 900px) {
+  .fam .wrap { max-width: 1200px; }
+  #famContent:not([hidden]) { display: grid !important; grid-template-columns: minmax(0, 58fr) minmax(0, 42fr); column-gap: 18px; row-gap: 18px; align-items: start; }
+  #newBox, #updated, .fam .foot { grid-column: 1 / -1; }
+  .col-l, .col-r { display: flex; flex-direction: column; gap: 18px; min-width: 0; }
+}

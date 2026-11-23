@@ -178,27 +178,31 @@ window.KTActs = (() => {
       return [...groups.values()].sort((x, y) => x.kids.length - y.kids.length || order(x.kids[0]) - order(y.kids[0]));
     }
     const isHandoff = n => holderKey(n - 1) !== holderKey(n);
+    function packOf(n) {
+      let end = n; while (end < n + 60 && holderKey(end + 1) === holderKey(n)) end++;
+      return { len: end - n + 1, groups: pack(n, end) };
+    }
     function handoffBox(n) {
       const a = actual(n), nm = nameOf(a, recOf(n)), ht = handoffTime(n);
-      let end = n; while (end < n + 60 && holderKey(end + 1) === holderKey(n)) end++;
-      const len = end - n + 1, groups = pack(n, end);
+      const { len, groups } = packOf(n);
       return `<div class="handoff ${holderClass(a)}"><p><strong>&#8644; Handoff to</strong> <span class="chip ${holderClass(a)}">${esc(nm)}</span>${ht ? esc(ht) : ""}</p>${groups.length
         ? `<p class="pack-title">Pack for ${esc(nm)}'s ${len >= 7 ? "week" : len === 1 ? "night" : len + " nights"}</p><ul class="pack">${groups.map(g => `<li>${g.kids.map(kdot).join("")}<strong>${esc(g.name)}:</strong> ${esc(g.items.join(", "))}</li>`).join("")}</ul>` : ""}</div>`;
     }
     function dayBlock(n, today, o) {
       const a = actual(n), evs = on(n), ho = isHandoff(n);
       return `<div class="aday"><div class="aday-head"><span class="dt">${dayText(n)}${n === today ? "<small>Today</small>" : ""}${ho ? "<small>Handoff day</small>" : ""}</span><span class="chip ${holderClass(a)}">${esc(nameOf(a, recOf(n)))}</span></div>
-        ${ho ? handoffBox(n) : ""}${evs.length ? evs.map(e => evHtml(e, o)).join("") : `<p class="none">No activities.</p>`}</div>`;
+        ${ho ? handoffBox(n) : ""}${evs.map(e => evHtml(e, o)).join("")}</div>`;
     }
-    // The Activities panel body for "week" or "month". Next 30 days skips days with nothing on them.
+    // The Activities panel body for "week" or "month". Days with nothing on them are skipped in both.
     function panel(today, v, o = {}) {
       const [a, b] = rangeFor(today, v), out = [];
       for (let n = a; n <= b; n++) {
-        if (v === "month" && n !== today && !on(n).length && !isHandoff(n)) continue;
+        // A day with no activity is not listed. A handoff day stays only if its pack list has something in it.
+        if (!on(n).length && !(isHandoff(n) && packOf(n).groups.length)) continue;
         out.push(dayBlock(n, today, o));
       }
       const ks = A.kids.filter(k => k.active);
-      return `${ks.length ? `<div class="filters"><span>Showing</span>${ks.map(kchip).join("")}</div>` : ""}<div class="agenda">${out.join("")}</div>`;
+      return `${ks.length ? `<div class="filters"><span>Showing</span>${ks.map(kchip).join("")}</div>` : ""}<div class="agenda">${out.join("") || `<p class="none">${v === "month" ? "No activities in the next 30 days." : "No activities this week."}</p>`}</div>`;
     }
     // One line for the "Right now" card.
     function todayLine(n) {
